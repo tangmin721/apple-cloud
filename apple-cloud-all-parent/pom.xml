@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- ==================================================================== -->
+    <!-- 所有子包的父类，定义cloud的版本 和其他版本包 -->
+    <!-- ==================================================================== -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cachexic</groupId>
+    <artifactId>apple-cloud-all-parent</artifactId>
+    <version>0.1.0</version>
+    <packaging>pom</packaging>
+    <name>${project.artifactId}</name>
+
+    <!-- Spring cloud 依赖的spring boot 版本 -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.6.RELEASE</version>
+    </parent>
+
+    <!--maven私有库-->
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://10.16.80.32:10080/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://10.16.80.32:10080/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+
+        <!--mybatis-spring-boot-starter1.3.0 包含了mybatis3.4.4和mybatis-spring1.3.1-->
+        <mybatis-spring-boot-starter.version>1.3.0</mybatis-spring-boot-starter.version>
+
+        <druid.version>1.0.31</druid.version>
+        <mysql-connector-java.version>5.1.43</mysql-connector-java.version>
+        <sharding-jdbc.version>1.5.2</sharding-jdbc.version>
+
+        <guava.version>23.0</guava.version>
+        <commons-lang3.version>3.6</commons-lang3.version>
+        <jackson.version>2.8.3</jackson.version>
+
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Cloud版本-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Dalston.SR3</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--ORM-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <!--sjdbc分库分表-->
+            <dependency>
+                <groupId>com.dangdang</groupId>
+                <artifactId>sharding-jdbc-core</artifactId>
+                <version>${sharding-jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dangdang</groupId>
+                <artifactId>sharding-jdbc-transaction</artifactId>
+                <version>${sharding-jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dangdang</groupId>
+                <artifactId>sharding-jdbc-config-yaml</artifactId>
+                <version>${sharding-jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.dangdang</groupId>
+                <artifactId>sharding-jdbc-config-spring</artifactId>
+                <version>${sharding-jdbc.version}</version>
+            </dependency>
+
+            <!--工具类-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <!-- jackson start -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-annotations</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <!-- jackson end -->
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- developer -->
+    <developers>
+        <developer>
+            <name>tangmin</name>
+            <id>tangmin</id>
+            <email>191102902@qq.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+</project>
