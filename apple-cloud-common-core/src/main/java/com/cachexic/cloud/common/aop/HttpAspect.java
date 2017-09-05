@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 @Component
 public class HttpAspect {
 
-    private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
+    private final static Logger log = LoggerFactory.getLogger(HttpAspect.class);
 
     /**
      * 定义一个切面
@@ -40,7 +40,7 @@ public class HttpAspect {
      */
     @Before("log()")
     public void doBefore(JoinPoint joinpoint) {
-        logger.info("====> before controller ....");
+        log.info("====> before controller ....");
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
@@ -50,7 +50,7 @@ public class HttpAspect {
         //设置参数，以便在异常处理的时候日志里打印
         request.setAttribute(SystemConst.REQUEST_ARGS, JsonUtil.toJson(joinpoint.getArgs()));
 
-        logger.info("====> url=[{}],method={},ip={},class_method={},requestId={},requestArgs={}",
+        log.info("====> url=[{}],method={},ip={},class_method={},requestId={},requestArgs={}",
                 request.getRequestURL(),
                 request.getMethod(),
                 IpAddressUtil.getRealIp(request),
@@ -62,7 +62,7 @@ public class HttpAspect {
 
     @After("log()")
     public void doAfter() {
-        logger.info("====> do after controller...");
+        log.info("====> do after controller...");
     }
 
     /**
@@ -72,6 +72,6 @@ public class HttpAspect {
      */
     @AfterReturning(returning = "object", pointcut = "log()")
     public void returning(Object object) {
-        logger.info("====> response={}", JsonUtil.toJson(object));
+        log.info("====> response={}", JsonUtil.toJson(object));
     }
 }
