@@ -1,0 +1,57 @@
+eureka:
+  instance:
+    lease-expiration-duration-in-seconds: 9
+    lease-renewal-interval-in-seconds: 3
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123456@localhost:8761/eureka/
+    registry-fetch-interval-seconds: 3
+    instance-info-replication-interval-seconds: 3
+    initial-instance-info-replication-interval-seconds: 4
+
+sharding:
+  jdbc:
+    datasource:
+      ds_0:
+        name: master
+        filters: config
+        url: jdbc:mysql://localhost:3306/prod_ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        username: root
+        password: hg4uZEbdFWp7NIfeJfIAjyEFvcaJ5wmT+/GC/921N0yTOfSwrMMeG6Rs7XOsjrdhR2rOBzEkdB0RNU5oagu/5A==
+        publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMZQbZXVGlg+cTJvBphpyxqiNznKh2pXlsULm+v6fEmrKCMNhPIThFbP30+bpfx3Rh0BHpc/gxvyPlSTb3Jmb40CAwEAAQ==
+      ds_1:
+        name: master
+        filters: config
+        url: jdbc:mysql://localhost:3306/prod_ds_1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        username: root
+        password: hGhoQPejnh60yzyXnK5dCXoCxIm2FhEbXe+0erhDog/KViP9rCoQ7MAigkI49zbDB1OjBmEEcG1Z1FldH2RyWQ==
+        publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIsclNlhr7IjHhInfg5V4Iw2J0JX9OANrzGND3C5lfp0kyjaJcu9oq7QRq4zX5ONRM64xL7HWNyh9AUaxRslr5MCAwEAAQ==
+
+
+spring:
+  redis:
+    host: apple01
+    port: 6379
+    #cluster: 集群版
+      #nodes: 10.16.70.230:8000,10.16.70.231:8000,10.16.70.232:8000,10.16.70.230:9000,10.16.70.231:9000,10.16.70.232:9000
+  #zipkin:
+    #base-url: http://localhost:9411
+  #sleuth:
+    #sampler:
+      #percentage: 1.0
+
+ribbon:
+  ConnectTimeout: 6000 #连接超时时间
+  ReadTimeout: 6000 #读取超时
+  OkToRetryOnAllOperations: true #对所有操作请求都进行重试
+  MaxAutoRetries: 0  # 先尝试访问首选实例一次，失败后才更换实例访问
+  MaxAutoRetriesNextServer: 0  # 会尝试更换4次实例进行重试。
+  NFLoadBalancerPingClassName: com.netflix.loadbalancer.PingUrl
+#hystrix超时配置
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 10000  #10秒

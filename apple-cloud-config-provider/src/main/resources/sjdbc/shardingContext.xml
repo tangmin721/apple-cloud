@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:rdb="http://www.dangdang.com/schema/ddframe/rdb"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd 
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.dangdang.com/schema/ddframe/rdb 
+                        http://www.dangdang.com/schema/ddframe/rdb/rdb.xsd">
+    <context:component-scan base-package="com.cachexic.cloud" />
+    <context:property-placeholder ignore-unresolvable="true"/>
+
+
+    <!--基于类的方式-->
+   <!-- <rdb:strategy id="databaseShardingStrategy" sharding-columns="user_id" algorithm-class="com.cachexic.sjdbc.common.config.sjdbc.algorithm.SingleKeyModuloDatabaseShardingAlgorithm"/>
+    <rdb:strategy id="orderTableSS" sharding-columns="order_id" algorithm-class="com.cachexic.sjdbc.common.config.sjdbc.algorithm.SingleKeyModuloTableShardingAlgorithm"/>-->
+
+    <!--基于表达式的方式-->
+    <!--分库算法-->
+    <rdb:strategy id="defaultDsSS" sharding-columns="id" algorithm-expression="ds_${Math.floorMod(id.toString().hashCode(),2L)}"/>
+    <rdb:strategy id="orderItemDsSS" sharding-columns="order_id" algorithm-expression="ds_${Math.floorMod(order_id.toString().hashCode(),2L)}"/>
+    
+    <!--分表算法-->
+    <rdb:strategy id="productTaleSS" sharding-columns="id" algorithm-expression="t_product_${Math.floorMod(Math.floorDiv(id.toString().hashCode(),2L),2L)}"/>
+
+    <rdb:strategy id="orderTableSS" sharding-columns="id" algorithm-expression="t_order_${Math.floorMod(Math.floorDiv(id.toString().hashCode(),2L),2L)}"/>
+    <rdb:strategy id="orderItemTableSS" sharding-columns="order_id" algorithm-expression="t_order_item_${Math.floorMod(Math.floorDiv(order_id.toString().hashCode(),2L),2L)}"/>
+
+    <rdb:strategy id="testUuidEntityTableSS" sharding-columns="id" algorithm-expression="test_uuid_entity_${Math.floorMod(Math.floorDiv(id.toString().hashCode(),2L),2L)}"/>
+
+
+    <!-- 定义读写分离数据源, 读写分离数据源实现了DataSource接口, 可直接当做数据源处理 ，多个从用逗号隔开（如果从数据库连接不上，不知道为什么会报错）
+    <rdb:master-slave-data-source id="other_ds_0" master-data-source-ref="other_ds_0_master" slave-data-sources-ref="other_ds_0_slave_0,other_ds_0_slave_1" />-->
+    <!--<rdb:master-slave-data-source id="other_ds_0" master-data-source-ref="other_ds_0_master" slave-data-sources-ref="other_ds_0_slave_0" />-->
+
+    <rdb:data-source id="shardingDataSource">
+        <!-- default-data-source默认数据源名称，未配置分片规则的表将通过默认数据源定位 -->
+        <!-- key-generator-class配置全局生成器 -->
+        <rdb:sharding-rule data-sources="ds_0, ds_1" default-data-source="ds_0" key-generator-class="com.cachexic.sjdbc.common.config.sjdbc.keygen.IPKeyGenerator">
+            <!--<rdb:sharding-rule data-sources="ds_0, ds_1,other_ds_0" default-data-source="ds_0" key-generator-class="com.cachexic.sjdbc.common.config.sjdbc.keygen.IPKeyGenerator">-->
+                <rdb:table-rules>
+                    <!--简单分库分表-->
+                <rdb:table-rule logic-table="t_product" actual-tables="t_product_${0..1}" database-strategy="defaultDsSS" table-strategy="productTaleSS">
+                    <!--自动生成分布式主键-->
+                    <rdb:generate-key-column column-name="id"/>
+                </rdb:table-rule>
+
+                <!--ER关系表(配置点1)-->
+                <rdb:table-rule logic-table="t_order" actual-tables="t_order_${0..1}" database-strategy="defaultDsSS" table-strategy="orderTableSS">
+                    <rdb:generate-key-column column-name="id"/>
+                </rdb:table-rule>
+                <rdb:table-rule logic-table="t_order_item" actual-tables="t_order_item_${0..1}" database-strategy="orderItemDsSS" table-strategy="orderItemTableSS">
+                    <rdb:generate-key-column column-name="id"/>
+                </rdb:table-rule>
+
+                <!--根据uuid分库分表,通过直接设置id值-->
+                <rdb:table-rule logic-table="test_uuid_entity" actual-tables="test_uuid_entity_${0..1}" database-strategy="defaultDsSS" table-strategy="testUuidEntityTableSS"/>
+
+                <!--假设第三方数据源，指定数据源-->
+                <rdb:table-rule logic-table="test_other_ds" data-source-names="ds_1">
+                    <rdb:generate-key-column column-name="id"/>
+                </rdb:table-rule>
+
+                <!--读写分离的数据源，不设置<rdb:generate-key-column column-name="id"/>则表示自增
+                <rdb:table-rule logic-table="sys_menu" data-source-names="other_ds_0">
+                </rdb:table-rule>-->
+            </rdb:table-rules>
+
+            <!--配置ER关系(配置点2)-->
+            <rdb:binding-table-rules>
+                <rdb:binding-table-rule logic-tables="t_order, t_order_item"/>
+            </rdb:binding-table-rules>
+
+            <!-- 配置不需要分库分表的策略 -->
+            <rdb:default-database-strategy sharding-columns="none" algorithm-class="com.dangdang.ddframe.rdb.sharding.api.strategy.database.NoneDatabaseShardingAlgorithm"/>
+            <rdb:default-table-strategy sharding-columns="none" algorithm-class="com.dangdang.ddframe.rdb.sharding.api.strategy.table.NoneTableShardingAlgorithm"/>
+        </rdb:sharding-rule>
+
+        <rdb:props>
+            <prop key="metrics.enable">true</prop>
+            <prop key="sql.show">true</prop>
+        </rdb:props>
+    </rdb:data-source>
+
+
+</beans>

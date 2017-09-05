@@ -16,6 +16,7 @@
         <module>apple-cloud-common-core</module>
         <module>apple-cloud-all-parent</module>
         <module>apple-cloud-code-generator</module>
+        <module>apple-cloud-config-provider</module>
     </modules>
 
 
