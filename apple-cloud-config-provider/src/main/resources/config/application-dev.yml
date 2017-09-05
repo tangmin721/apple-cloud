@@ -25,26 +25,6 @@ sharding:
         username: root
         password: root1234
 
-      #测试读写分离，跨机器事务
-      other_ds_0_master:
-        name: other_ds_0
-        filters: stat
-        url: jdbc:mysql://10.16.70.159:3306/other_ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: other_ds_0
-        password: root1234
-      other_ds_0_slave_0: #从库0
-        name: other_ds_0
-        filters: stat
-        url: jdbc:mysql://10.16.70.160:3306/other_ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: other_ds_0
-        password: root1234
-      other_ds_0_slave_1: #从库1
-        name: other_ds_0
-        filters: stat
-        url: jdbc:mysql://10.16.70.160:3306/other_ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: other_ds_0
-        password: root1234
-
 spring:
   redis:
     host: apple01

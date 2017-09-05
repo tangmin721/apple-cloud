@@ -28,7 +28,7 @@ import java.io.IOException;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(value = "com.cachexic.sjdbc", annotationClass = MybatisDao.class)
+@MapperScan(value = "com.cachexic.cloud", annotationClass = MybatisDao.class)
 @Order(3)
 public class MybatisConfig implements TransactionManagementConfigurer {
     /**

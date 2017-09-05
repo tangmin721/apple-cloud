@@ -1,6 +1,6 @@
-package com.cachexic.cloud.common.test.example;
+package com.cachexic.cloud.common.junit.example;
 
-import com.cachexic.cloud.common.test.TestParent;
+import com.cachexic.cloud.common.junit.TestParent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;

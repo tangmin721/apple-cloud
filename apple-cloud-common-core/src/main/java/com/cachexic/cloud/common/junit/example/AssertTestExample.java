@@ -1,8 +1,8 @@
-package com.cachexic.cloud.common.test.example;
+package com.cachexic.cloud.common.junit.example;
 
 import com.cachexic.cloud.common.exceptions.BizException;
 import com.cachexic.cloud.common.exceptions.BizPreconditions;
-import com.cachexic.cloud.common.test.TestParent;
+import com.cachexic.cloud.common.junit.TestParent;
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;

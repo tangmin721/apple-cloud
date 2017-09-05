@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.cachexic</groupId>
     <artifactId>apple-cloud</artifactId>
-    <version>1.0.1</version>
+    <version>0.1.0</version>
     <packaging>pom</packaging>
     <name>${project.artifactId}</name>
 
@@ -17,6 +17,8 @@
         <module>apple-cloud-all-parent</module>
         <module>apple-cloud-code-generator</module>
         <module>apple-cloud-config-provider</module>
+        <module>apple-cloud-common-config</module>
+        <module>apple-cloud-provider-order</module>
     </modules>
 
 

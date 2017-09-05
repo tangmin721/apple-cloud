@@ -2,48 +2,44 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>apple-cloud-all-parent</artifactId>
         <groupId>com.cachexic</groupId>
         <version>0.1.0</version>
-        <relativePath>../apple-cloud-all-parent</relativePath>
+        <relativePath>../apple-cloud-all-parent/pom.xml</relativePath>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>apple-cloud-common-core</artifactId>
-    <name>${project.artifactId}</name>
+    <artifactId>apple-cloud-provider-order</artifactId>
 
     <dependencies>
 
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.cachexic</groupId>
+            <artifactId>apple-cloud-common-core</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <groupId>com.cachexic</groupId>
+            <artifactId>apple-cloud-common-config</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.cachexic</groupId>
+            <artifactId>apple-cloud-config-provider</artifactId>
+            <version>${project.parent.version}</version>
         </dependency>
 
-        <!--工具类-->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-        <!-- jackson start -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-        </dependency>
-        <!-- jackson end -->
 
         <!-- test start 包含了junit4  org.mockito  Hamcrest -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <!-- test end -->
     </dependencies>

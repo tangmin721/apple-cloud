@@ -1,4 +1,4 @@
-package com.cachexic.cloud.common.test;
+package com.cachexic.cloud.common.junit;
 
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
