@@ -12,11 +12,4 @@
 
     <artifactId>apple-cloud-common-config</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.cachexic</groupId>
-            <artifactId>apple-cloud-common-core</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-    </dependencies>
 </project>
