@@ -19,6 +19,7 @@ Apple-cloud is base on Spring cloud, use current advanced technology to resolve 
     - [x] Spring cloud Sleuth:Spring cloud应用的分布式跟踪实现，可以完美整合Zipkin 
 - [x] Redis
 - [x] Sharding JDBC
+- [ ] Shiro
 - [x] Elasticsearch
 - [x] Apache RocketMQ
 - [x] Canal

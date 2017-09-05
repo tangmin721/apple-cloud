@@ -19,6 +19,7 @@ Apple-cloud基于Spring cloud,利用当前流行的技术构建高可用、高�
     - [x] Spring cloud Sleuth:Spring cloud应用的分布式跟踪实现，可以完美整合Zipkin 
 - [x] Redis
 - [x] Sharding JDBC
+- [ ] Shiro
 - [x] Elasticsearch
 - [x] Apache RocketMQ
 - [x] Canal
@@ -26,5 +27,4 @@ Apple-cloud基于Spring cloud,利用当前流行的技术构建高可用、高�
 - [x] Storm
 - [ ] HDFS
 - [ ] SparkSql
-- [ ] Shiro
 - [ ] vue vuex vuerouter
