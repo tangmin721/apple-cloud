@@ -10,15 +10,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>apple-cloud-provider-order</artifactId>
+    <artifactId>apple-cloud-web-backstage</artifactId>
 
     <dependencies>
-
-        <dependency>
-            <groupId>com.cachexic</groupId>
-            <artifactId>apple-cloud-common-core</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.cachexic</groupId>
             <artifactId>apple-cloud-common-config</artifactId>
@@ -26,24 +20,10 @@
         </dependency>
         <dependency>
             <groupId>com.cachexic</groupId>
-            <artifactId>apple-cloud-config-provider</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cachexic</groupId>
             <artifactId>apple-cloud-feign-order</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-
-        <!-- test start 包含了junit4  org.mockito  Hamcrest -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- test end -->
     </dependencies>
-
 
     <build>
         <finalName>${project.name}</finalName>
@@ -65,7 +45,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.cachexic.cloud.OrderProviderApplication</mainClass>
+                    <mainClass>com.cachexic.cloud.WebBackstageApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -95,5 +75,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

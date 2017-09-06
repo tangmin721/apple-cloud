@@ -5,13 +5,19 @@ import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.order.entity.Order;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 /**
  * Created by tangm on 2017/9/6.
  */
+@ActiveProfiles("prod")
 public class OrderDaoTest extends TestParent {
+
+    @Value("${eureka.instance.client.serviceUrl.defaultZone}")
+    private String defaultZone;
 
     @Autowired
     private OrderDao orderDao;
@@ -20,6 +26,11 @@ public class OrderDaoTest extends TestParent {
     public void selectList() throws Exception {
         List<Order> orders = orderDao.selectList();
         System.out.println(JsonUtil.toJson(orders));
+    }
+
+    @Test
+    public void defaultZone() throws Exception {
+        System.out.println(defaultZone);
     }
 
 }

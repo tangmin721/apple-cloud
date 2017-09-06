@@ -9,17 +9,17 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 /**
  * @author tangmin
  * @version V1.0
- * @Title: OrderProviderApplication.java
+ * @Title: WebBackstageApplication.java
  * @Package com.cachexic.cloud
- * @Description:
- * @date 2017-09-06 22:20:18
+ * @Description: 
+ * @date 2017-09-06 22:29:56
  */
 @SpringBootApplication
 @EnableFeignClients
 @EnableEurekaClient
 @EnableCircuitBreaker
-public class OrderProviderApplication {
+public class WebBackstageApplication {
     public static void main(String[] args) {
-        SpringApplication.run(OrderProviderApplication.class, args);
+        SpringApplication.run(WebBackstageApplication.class, args);
     }
 }

@@ -21,6 +21,8 @@
         <module>apple-cloud-provider-order</module>
         <module>apple-cloud-center-eureka</module>
         <module>apple-cloud-feign-order</module>
+        <module>apple-cloud-web-backstage</module>
+        <module>apple-cloud-web-app</module>
     </modules>
 
 
