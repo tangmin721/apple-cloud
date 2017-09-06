@@ -1,0 +1,37 @@
+security:
+  user:
+    name: user
+    password: yatDgeodwXiFYGdxpcLUkuZr4z0AhnRQVB
+---
+server:
+  port: 8761
+spring:
+  profiles: peer1
+eureka:
+  instance:
+    hostname: cloud1
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123456@cloud2:8761/eureka
+---
+server:
+  port: 8761
+spring:
+  profiles: peer2
+eureka:
+  instance:
+    hostname: cloud2
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123456@cloud1:8761/eureka
+---
+server:
+  port: 8761
+spring:
+  profiles: peer3
+eureka:
+  instance:
+    hostname: cloud3
+  client:
+    serviceUrl:
+      defaultZone: http://user:password123456@cloud3:8761/eureka
