@@ -24,6 +24,7 @@ public enum BizExceptionEnum {
     PARAMETER_ERROR(-1, "参数错误"),
     STATE_ERROR(-1, "预设条件不成立"),
     NULL_ERROR(-1, "空指针异常"),
+    FEIGN_FALLBACK(-1, "服务调用异常"),
 
     DATA_QUERY_ERROR(-1, "查询数据失败"),
     DATA_UPDATED_ERROR(-1, "更新数据失败"),

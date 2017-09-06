@@ -25,12 +25,6 @@ public class SystemConst {
     public final static int SYS_EX_CODE = -1;
     public final static String SYS_EX_MSG = "系统异常";
 
-    /**
-     * feign_fallback消息
-     */
-    public final static int FEIGN_FALLBACK_CODE = -1;
-
-    public static final String FEIGN_FALLBACK_MSG = "feign回调失败:";
 
     private SystemConst() {
         throw new IllegalAccessError("Utility class");
