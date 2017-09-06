@@ -2,6 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- ==================================================================== -->
+    <!-- 所有配置的顶级配置，主要定义一些公共的属性，比如eureka，ribbon配置，hystrix配置 -->
+    <!-- 属性优先级yml>properties -->
+    <!-- ==================================================================== -->
     <parent>
         <artifactId>apple-cloud-all-parent</artifactId>
         <groupId>com.cachexic</groupId>

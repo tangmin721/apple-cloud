@@ -1,3 +1,6 @@
+server:
+  port: 9001
+
 sharding:
   jdbc:
     datasource:
@@ -23,9 +26,3 @@ spring:
     port: 6379
     #cluster: 集群版
       #nodes: 10.16.70.230:8000,10.16.70.231:8000,10.16.70.232:8000,10.16.70.230:9000,10.16.70.231:9000,10.16.70.232:9000
-  #zipkin:
-    #base-url: http://localhost:9411
-  #sleuth:
-    #sampler:
-      #percentage: 1.0
-

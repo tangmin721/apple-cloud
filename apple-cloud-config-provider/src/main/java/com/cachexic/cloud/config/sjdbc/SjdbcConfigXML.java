@@ -9,6 +9,6 @@ import org.springframework.core.annotation.Order;
  */
 @Configuration
 @ImportResource(locations={"classpath:sjdbc/shardingContext.xml"})
-@Order(2)
+@Order(3)
 public class SjdbcConfigXML {
 }

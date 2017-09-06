@@ -29,7 +29,7 @@ import java.io.IOException;
 @Configuration
 @EnableTransactionManagement
 @MapperScan(value = "com.cachexic.cloud", annotationClass = MybatisDao.class)
-@Order(3)
+@Order(4)
 public class MybatisConfig implements TransactionManagementConfigurer {
     /**
      * 注入shardingDataSource
