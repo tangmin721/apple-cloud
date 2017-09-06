@@ -5,8 +5,8 @@ import com.cachexic.cloud.feign.order.entity.Order;
 import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 import com.cachexic.cloud.feign.order.feign.fallback.OrderFeignFallback;
 import org.springframework.cloud.netflix.feign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
@@ -21,6 +21,6 @@ import java.util.List;
 @FeignClient(name = "s2f-cloud-provider-order", path = "/order", fallbackFactory = OrderFeignFallback.class)
 public interface OrderFeign {
 
-    @GetMapping(value = "selectList")
+    @RequestMapping(value = "selectList")
     Result<List<Order>> selectList(@RequestBody OrderQuery orderQuery);
 }
