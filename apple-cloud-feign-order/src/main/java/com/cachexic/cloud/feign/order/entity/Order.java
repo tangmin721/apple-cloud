@@ -1,10 +1,10 @@
-package com.cachexic.cloud.order.entity;
+package com.cachexic.cloud.feign.order.entity;
 
 
 import com.cachexic.cloud.common.base.annotations.Entity;
 import com.cachexic.cloud.common.base.annotations.Field;
+import com.cachexic.cloud.common.base.annotations.Transient;
 import com.cachexic.cloud.common.base.entity.BaseEntity;
-import com.cachexic.cloud.config.mybatis.annotation.Transient;
 
 import java.math.BigDecimal;
 

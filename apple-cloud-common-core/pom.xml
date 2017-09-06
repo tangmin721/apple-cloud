@@ -7,7 +7,7 @@
         <artifactId>apple-cloud-all-parent</artifactId>
         <groupId>com.cachexic</groupId>
         <version>0.1.0</version>
-        <relativePath>../apple-cloud-all-parent</relativePath>
+        <relativePath>../apple-cloud-all-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>apple-cloud-common-core</artifactId>

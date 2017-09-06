@@ -1,4 +1,4 @@
-package com.cachexic.cloud.order.entity.query;
+package com.cachexic.cloud.feign.order.entity.query;
 
 
 import com.cachexic.cloud.common.base.entity.query.BaseQuery;

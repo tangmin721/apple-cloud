@@ -1,8 +1,8 @@
-package com.cachexic.cloud.order.dao;
+package com.cachexic.cloud.provider.order.dao;
 
 
 import com.cachexic.cloud.config.mybatis.annotation.MybatisDao;
-import com.cachexic.cloud.order.entity.Order;
+import com.cachexic.cloud.feign.order.entity.Order;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

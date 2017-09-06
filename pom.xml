@@ -20,6 +20,7 @@
         <module>apple-cloud-common-config</module>
         <module>apple-cloud-provider-order</module>
         <module>apple-cloud-center-eureka</module>
+        <module>apple-cloud-feign-order</module>
     </modules>
 
 

@@ -29,6 +29,11 @@
             <artifactId>apple-cloud-config-provider</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.cachexic</groupId>
+            <artifactId>apple-cloud-feign-order</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>

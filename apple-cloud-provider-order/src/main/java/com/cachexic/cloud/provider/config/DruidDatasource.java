@@ -1,4 +1,4 @@
-package com.cachexic.cloud.config;
+package com.cachexic.cloud.provider.config;
 
 import com.cachexic.cloud.config.sjdbc.DruidDatasourceBase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,12 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 
 /**
- * 每个工程配置自己的数据源
+ * @author tangmin
+ * @version V1.0
+ * @Title: DruidDatasource.java
+ * @Package com.cachexic.cloud.provider.config
+ * @Description: 每个工程配置自己的数据源
+ * @date 2017-09-06 16:08:07
  */
 @Component
 @Configuration
@@ -41,6 +46,5 @@ public class DruidDatasource {
             @Value("${sharding.jdbc.datasource.ds_1.filters}") String filters) {
         return druidDatasourceBase.getDruidDataSource(url, username, password, publickey, filters);
     }
-
 
 }

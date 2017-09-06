@@ -1,8 +1,8 @@
-package com.cachexic.cloud.order.dao;
+package com.cachexic.cloud.provider.order.dao;
 
 import com.cachexic.cloud.common.junit.TestParent;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
-import com.cachexic.cloud.order.entity.Order;
+import com.cachexic.cloud.feign.order.entity.Order;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
