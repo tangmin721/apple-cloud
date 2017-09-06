@@ -59,8 +59,8 @@ public class ExceptionHandle {
             log.warn(logStr, e.getClass().getName(), ex.getCode(), e.getMessage());
             return Result.FAIL(ex.getCode(), ex.getMessage());
         } else {
-            log.error(logStr, e.getClass().getName(), SystemConst.SYS_EX_CODE, e);//长异常信息 e
-            return Result.FAIL(SystemConst.SYS_EX_CODE, SystemConst.SYS_EX_MSG + ":" + e.getMessage());
+            log.error(logStr, e.getClass().getName(), BizExceptionEnum.SYS_EXCEPTION.getCode(), e);//长异常信息 e
+            return Result.FAIL(BizExceptionEnum.SYS_EXCEPTION.getCode(), BizExceptionEnum.SYS_EXCEPTION.getMsg() + ":" + e.getMessage());
         }
     }
 }

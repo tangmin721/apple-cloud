@@ -17,6 +17,7 @@ public enum BizExceptionEnum {
     INVALID_TOKEN(2, "身份校验失效，请重新登录"),
     APP_FORCE_UPDATE(3, "有最新版本需要您更新"),
 
+    SYS_EXCEPTION(-1, "系统异常"),
     UNKOWN(-1, "未知异常"),
     TIMEOUT(-1, "请求响应超时"),
     REQUEST_EXP(-1, "请求已过期"),
@@ -25,6 +26,7 @@ public enum BizExceptionEnum {
     STATE_ERROR(-1, "预设条件不成立"),
     NULL_ERROR(-1, "空指针异常"),
     FEIGN_FALLBACK(-1, "服务调用异常"),
+
 
     DATA_QUERY_ERROR(-1, "查询数据失败"),
     DATA_UPDATED_ERROR(-1, "更新数据失败"),

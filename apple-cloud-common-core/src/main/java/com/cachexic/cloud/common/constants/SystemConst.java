@@ -19,13 +19,6 @@ public class SystemConst {
     public final static String REQUEST_ID = "requestId";
     public final static String REQUEST_ARGS = "requestArgs";
 
-    /**
-     * 统一异常处理，异常定义
-     */
-    public final static int SYS_EX_CODE = -1;
-    public final static String SYS_EX_MSG = "系统异常";
-
-
     private SystemConst() {
         throw new IllegalAccessError("Utility class");
     }
