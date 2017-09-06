@@ -19,10 +19,7 @@ sharding:
         password: hGhoQPejnh60yzyXnK5dCXoCxIm2FhEbXe+0erhDog/KViP9rCoQ7MAigkI49zbDB1OjBmEEcG1Z1FldH2RyWQ==
         publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIsclNlhr7IjHhInfg5V4Iw2J0JX9OANrzGND3C5lfp0kyjaJcu9oq7QRq4zX5ONRM64xL7HWNyh9AUaxRslr5MCAwEAAQ==
 
-
 spring:
   redis:
     host: apple01
     port: 6379
-    #cluster: 集群版
-      #nodes: 10.16.70.230:8000,10.16.70.231:8000,10.16.70.232:8000,10.16.70.230:9000,10.16.70.231:9000,10.16.70.232:9000
