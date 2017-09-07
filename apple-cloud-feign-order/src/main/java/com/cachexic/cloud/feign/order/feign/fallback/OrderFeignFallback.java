@@ -1,7 +1,6 @@
 package com.cachexic.cloud.feign.order.feign.fallback;
 
 import com.cachexic.cloud.common.base.Result;
-import com.cachexic.cloud.common.exceptions.BizExceptionEnum;
 import com.cachexic.cloud.feign.order.entity.Order;
 import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 import com.cachexic.cloud.feign.order.feign.OrderFeign;
@@ -27,19 +26,15 @@ public class OrderFeignFallback implements FallbackFactory<OrderFeign>{
 
     @Override
     public OrderFeign create(Throwable cause) {
-        log.warn("====> Feign Fallback Exception class:{},errorCode:{},message:{}", cause.getClass().getName(), BizExceptionEnum.FEIGN_FALLBACK.getCode(),cause);
-
-        Result fail = Result.FAIL(BizExceptionEnum.FEIGN_FALLBACK.getCode(), BizExceptionEnum.FEIGN_FALLBACK.getMsg() + ":" + cause.getMessage());
-
         return new OrderFeign() {
             @Override
             public Result<List<Order>> selectList(OrderQuery orderQuery) {
-                return fail;
+                return Result.FALLBACK(cause);
             }
 
             @Override
             public Result<Order> getById(Long id) {
-                return fail;
+                return Result.FALLBACK(cause);
             }
         };
 

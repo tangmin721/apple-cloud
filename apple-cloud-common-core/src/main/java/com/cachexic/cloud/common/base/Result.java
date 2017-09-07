@@ -6,6 +6,9 @@ import com.cachexic.cloud.common.base.entity.query.Pagination;
 import com.cachexic.cloud.common.exceptions.BizExceptionEnum;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -22,6 +25,8 @@ import java.util.Map;
  */
 public class Result<T> implements Serializable {
     private static final long serialVersionUID = 7812106698117922413L;
+
+    private final static Logger log = LoggerFactory.getLogger(Result.class);
 
     public final static int OK_CODE = 0;
     public final static int EMPTY_CODE = 1;
@@ -82,6 +87,16 @@ public class Result<T> implements Serializable {
         success.setStatus(code);
         success.setMessage(errorMsg);
         return success;
+    }
+
+    public static Result FALLBACK(Throwable cause) {
+        String message = cause.getMessage();
+        if(StringUtils.isBlank(message)){
+            message = cause.getClass().getName();
+        }
+        log.warn("====> Feign Fallback Exception class:{},errorCode:{},message:{}", cause.getClass().getName(), BizExceptionEnum.FEIGN_FALLBACK.getCode(), message);
+
+        return Result.FAIL(BizExceptionEnum.FEIGN_FALLBACK.getCode(), BizExceptionEnum.FEIGN_FALLBACK.getMsg() + ":" + message);
     }
 
     public int getStatus() {
