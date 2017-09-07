@@ -18,7 +18,7 @@ import java.util.List;
  * @Description: feign client
  * @date 2017-09-06 18:13:02
  */
-@FeignClient(name = "apple-cloud-provider-order", path = "/order", fallbackFactory = OrderFeignFallbackImpl.class)
+@FeignClient(name = "provider-order", path = "/order", fallbackFactory = OrderFeignFallbackImpl.class)
 public interface OrderFeign {
 
     @RequestMapping(value = "selectList")

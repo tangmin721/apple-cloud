@@ -8,4 +8,4 @@ security:
 eureka:
   server:
     enable-self-preservation: false
-    eviction-interval-timer-in-ms: 5000 #驱逐下线的服务，间隔,5秒
+    eviction-interval-timer-in-ms: 10000 #驱逐下线的服务，间隔,10秒

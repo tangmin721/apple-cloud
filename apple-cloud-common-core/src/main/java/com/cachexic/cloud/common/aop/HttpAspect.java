@@ -31,7 +31,7 @@ public class HttpAspect {
     /**
      * 定义一个切面
      */
-    @Pointcut("execution(public * com.cachexic.cloud.*.controller.*.*(..))")
+    @Pointcut("execution(public * com.cachexic.cloud..*.controller..*.*(..))")
     public void log() {
     }
 
@@ -40,7 +40,8 @@ public class HttpAspect {
      */
     @Before("log()")
     public void doBefore(JoinPoint joinpoint) {
-        log.info("====> before controller ....");
+        log.info("****************************************[ request start ]****************************************");
+        log.info("====> before controller...");
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
@@ -73,5 +74,6 @@ public class HttpAspect {
     @AfterReturning(returning = "object", pointcut = "log()")
     public void returning(Object object) {
         log.info("====> response={}", JsonUtil.toJson(object));
+        log.info("****************************************[ request  end  ]****************************************");
     }
 }
