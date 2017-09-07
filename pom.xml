@@ -23,6 +23,7 @@
         <module>apple-cloud-feign-order</module>
         <module>apple-cloud-web-backstage</module>
         <module>apple-cloud-web-app</module>
+        <module>apple-cloud-center-dashboard</module>
     </modules>
 
 

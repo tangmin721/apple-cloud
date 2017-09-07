@@ -9,6 +9,7 @@ import com.cachexic.cloud.provider.order.dao.OrderDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +34,14 @@ public class OrderController implements OrderFeign{
 
     @Override
     public Result<List<Order>> selectList(@RequestBody OrderQuery orderQuery) {
-        log.debug(JsonUtil.toJson(orderQuery));
+        log.debug("selectList:",JsonUtil.toJson(orderQuery));
         List<Order> orders = orderDao.selectList();
         return Result.OK().setData(orders);
+    }
+
+    @Override
+    public Result<Order> getById(@PathVariable Long id) {
+        log.debug("getById:{}",id);
+        return Result.OK().setData(orderDao.selectById(id));
     }
 }

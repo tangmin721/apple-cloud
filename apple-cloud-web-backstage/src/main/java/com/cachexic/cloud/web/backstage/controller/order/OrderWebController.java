@@ -6,9 +6,7 @@ import com.cachexic.cloud.feign.order.entity.Order;
 import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 import com.cachexic.cloud.feign.order.feign.OrderFeign;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class OrderWebController {
     @Autowired
     private OrderFeign orderFeign;
 
-    @RequestMapping("selectList")
+    @PostMapping("selectList")
     public Result<List<Order>> selectList(@RequestBody OrderQuery orderQuery){
         Result<List<Order>> listResult = orderFeign.selectList(orderQuery);
         if(listResult.getStatus()==0){
@@ -35,6 +33,11 @@ public class OrderWebController {
             }
         }
         return listResult;
+    }
+
+    @GetMapping("getById/{id}")
+    public Result<Order> getById(@PathVariable Long id){
+        return orderFeign.getById(id);
     }
 
 }

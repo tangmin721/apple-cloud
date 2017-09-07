@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: center-dashboard
+
+server:
+  port: 8989
+
+# http://localhost:8989/hystrix
