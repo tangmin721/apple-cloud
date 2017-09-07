@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: center-zipken
+
+server:
+  port: 9411

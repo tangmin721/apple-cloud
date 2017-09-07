@@ -24,6 +24,8 @@
         <module>apple-cloud-web-backstage</module>
         <module>apple-cloud-web-app</module>
         <module>apple-cloud-center-dashboard</module>
+        <module>apple-cloud-center-zipkin</module>
+        <module>apple-cloud-common-jars</module>
     </modules>
 
 
