@@ -35,13 +35,6 @@
             <version>${project.parent.version}</version>
         </dependency>
 
-        <!-- test start 包含了junit4  org.mockito  Hamcrest -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <!-- test end -->
     </dependencies>
 
 
