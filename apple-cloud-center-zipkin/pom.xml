@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.cachexic</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>apple-cloud-common-config</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
@@ -44,11 +44,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.jooq</groupId>
-            <artifactId>jooq</artifactId>
-            <version>3.8.0</version>
-        </dependency>
+
         <!--mysql方式存储end-->
     </dependencies>
 

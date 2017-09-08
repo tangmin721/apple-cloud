@@ -22,7 +22,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.cachexic</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>apple-cloud-common-config</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
