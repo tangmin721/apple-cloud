@@ -1,5 +1,5 @@
 -- create database zipkin--
-DROP DATABASE IF EXISTS zipkin;
+-- DROP DATABASE IF EXISTS zipkin;
 
 CREATE DATABASE zipkin DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
