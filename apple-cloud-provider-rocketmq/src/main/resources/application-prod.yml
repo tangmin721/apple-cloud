@@ -12,6 +12,9 @@ sharding:
         password: hg4uZEbdFWp7NIfeJfIAjyEFvcaJ5wmT+/GC/921N0yTOfSwrMMeG6Rs7XOsjrdhR2rOBzEkdB0RNU5oagu/5A==
         publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMZQbZXVGlg+cTJvBphpyxqiNznKh2pXlsULm+v6fEmrKCMNhPIThFbP30+bpfx3Rh0BHpc/gxvyPlSTb3Jmb40CAwEAAQ==
 
+rocketmq:
+  namesrv: apple01:9876 # name-server1-ip:9876;name-server2-ip:9876 注意是分号分割
+
 spring:
   redis:
     host: apple01
