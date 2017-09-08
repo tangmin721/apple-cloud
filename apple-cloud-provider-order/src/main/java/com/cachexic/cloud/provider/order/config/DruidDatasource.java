@@ -1,4 +1,4 @@
-package com.cachexic.cloud.provider.config;
+package com.cachexic.cloud.provider.order.config;
 
 import com.cachexic.cloud.config.sjdbc.DruidDatasourceBase;
 import org.springframework.beans.factory.annotation.Autowired;
