@@ -13,22 +13,6 @@
     <artifactId>apple-cloud-provider-order</artifactId>
 
     <dependencies>
-
-        <dependency>
-            <groupId>com.cachexic</groupId>
-            <artifactId>apple-cloud-common-core</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cachexic</groupId>
-            <artifactId>apple-cloud-common-config</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.cachexic</groupId>
-            <artifactId>apple-cloud-common-jars</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.cachexic</groupId>
             <artifactId>apple-cloud-config-provider</artifactId>

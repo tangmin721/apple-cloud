@@ -13,19 +13,37 @@
     <name>${project.artifactId}</name>
 
     <modules>
-        <module>apple-cloud-common-core</module>
         <module>apple-cloud-all-parent</module>
-        <module>apple-cloud-code-generator</module>
-        <module>apple-cloud-config-provider</module>
+
+        <!--所有工程的公共配置,包括管注册中心、服务跟踪等辅助工程-->
         <module>apple-cloud-common-config</module>
-        <module>apple-cloud-provider-order</module>
+
+        <!--注册中心、监控、服务跟踪等基础工程-->
         <module>apple-cloud-center-eureka</module>
-        <module>apple-cloud-feign-order</module>
-        <module>apple-cloud-web-backstage</module>
-        <module>apple-cloud-web-app</module>
         <module>apple-cloud-center-dashboard</module>
         <module>apple-cloud-center-zipkin</module>
-        <module>apple-cloud-common-jars</module>
+
+        <!--所有微服务依赖的核心工具类-->
+        <module>apple-cloud-common-core</module>
+
+        <!--服务提供方对外暴露的接口层-->
+        <module>apple-cloud-feign-order</module>
+
+        <!--所有微服务依赖的配置，包括服务端和消费端-->
+        <module>apple-cloud-config-micro</module>
+        <!--所有服务端需要依赖底层数据库资源的配置文件，主要指服务提供方-->
+        <module>apple-cloud-config-provider</module>
+
+
+        <!--服务提供方-->
+        <module>apple-cloud-provider-order</module>
+
+        <!--服务消费方-->
+        <module>apple-cloud-web-backstage</module>
+        <module>apple-cloud-web-app</module>
+
+        <!--代码生成器-->
+        <module>apple-cloud-code-generator</module>
     </modules>
 
 

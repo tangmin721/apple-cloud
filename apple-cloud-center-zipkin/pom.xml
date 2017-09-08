@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>apple-cloud-center-zipken</artifactId>
+    <artifactId>apple-cloud-center-zipkin</artifactId>
 
     <dependencies>
         <dependency>
@@ -26,5 +26,29 @@
             <groupId>io.zipkin.java</groupId>
             <artifactId>zipkin-server</artifactId>
         </dependency>
+
+        <!--mysql方式存储start-->
+        <dependency>
+            <groupId>io.zipkin.java</groupId>
+            <artifactId>zipkin-autoconfigure-storage-mysql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>3.8.0</version>
+        </dependency>
+        <!--mysql方式存储end-->
     </dependencies>
 </project>

@@ -4,3 +4,8 @@ spring:
 
 server:
   port: 9411
+
+
+zipkin:
+  storage:
+   type: mysql
