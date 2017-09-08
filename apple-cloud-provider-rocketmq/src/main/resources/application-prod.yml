@@ -1,0 +1,18 @@
+server:
+  port: 9002
+
+sharding:
+  jdbc:
+    datasource:
+      ds_0:
+        name: master
+        filters: config
+        url: jdbc:mysql://localhost:3306/prod_ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        username: root
+        password: hg4uZEbdFWp7NIfeJfIAjyEFvcaJ5wmT+/GC/921N0yTOfSwrMMeG6Rs7XOsjrdhR2rOBzEkdB0RNU5oagu/5A==
+        publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMZQbZXVGlg+cTJvBphpyxqiNznKh2pXlsULm+v6fEmrKCMNhPIThFbP30+bpfx3Rh0BHpc/gxvyPlSTb3Jmb40CAwEAAQ==
+
+spring:
+  redis:
+    host: apple01
+    port: 6379

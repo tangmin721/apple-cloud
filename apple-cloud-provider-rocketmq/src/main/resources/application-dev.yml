@@ -1,0 +1,19 @@
+server:
+  port: 8002
+
+sharding:
+  jdbc:
+    datasource:
+      ds_rocketmq:
+        name: master
+        filters: stat
+        url: jdbc:mysql://localhost:3306/ds_rocketmq?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        username: root
+        password: root1234
+
+spring:
+  redis:
+    cluster:
+      nodes: 10.16.70.230:8000,10.16.70.231:8000,10.16.70.232:8000,10.16.70.230:9000,10.16.70.231:9000,10.16.70.232:9000
+
+

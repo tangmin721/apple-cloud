@@ -37,6 +37,7 @@
 
         <!--服务提供方-->
         <module>apple-cloud-provider-order</module>
+        <module>apple-cloud-provider-rocketmq</module>
 
         <!--服务消费方-->
         <module>apple-cloud-web-backstage</module>

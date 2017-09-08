@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:rdb="http://www.dangdang.com/schema/ddframe/rdb"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd 
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.dangdang.com/schema/ddframe/rdb 
+                        http://www.dangdang.com/schema/ddframe/rdb/rdb.xsd">
+    <context:component-scan base-package="com.cachexic.cloud"/>
+    <context:property-placeholder ignore-unresolvable="true"/>
+
+    <rdb:data-source id="shardingDataSource">
+        <rdb:sharding-rule data-sources="ds_rocketmq" default-data-source="ds_rocketmq">
+            <rdb:table-rules>
+                <rdb:table-rule logic-table="t_rocketmq_msg" actual-tables="t_rocketmq_msg">
+                </rdb:table-rule>
+            </rdb:table-rules>
+
+            <!-- 配置不需要分库分表的策略 -->
+            <rdb:default-database-strategy sharding-columns="none" algorithm-class="com.dangdang.ddframe.rdb.sharding.api.strategy.database.NoneDatabaseShardingAlgorithm"/>
+            <rdb:default-table-strategy sharding-columns="none" algorithm-class="com.dangdang.ddframe.rdb.sharding.api.strategy.table.NoneTableShardingAlgorithm"/>
+        </rdb:sharding-rule>
+
+        <rdb:props>
+            <prop key="sql.show">true</prop>
+        </rdb:props>
+    </rdb:data-source>
+
+</beans>
