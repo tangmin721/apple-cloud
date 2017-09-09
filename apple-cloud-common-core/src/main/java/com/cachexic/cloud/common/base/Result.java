@@ -121,6 +121,7 @@ public class Result<T> implements Serializable {
         return data;
     }
 
+    /** 设置data时，判断是非返回结果是空对象 或 空集合，如果需要自定义message提示，需要在setData后再setMessage */
     public Result setData(T data) {
         this.data = data;
 
@@ -149,6 +150,20 @@ public class Result<T> implements Serializable {
         return this;
     }
 
+    /**
+     * 判断返回结果是非是成功(如果是empty，说明也没有获取到你想要的数据)
+     * @return
+     */
+    public static boolean isSuccess(Result result){
+        if(result == null){
+            return false;
+        }
+        if (result.getStatus()!=0){
+            return false;
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         //BaseEntity order = new BaseEntity();
         BaseEntity order = null;
@@ -163,5 +178,7 @@ public class Result<T> implements Serializable {
         Pagination<BaseEntity> pagination = new Pagination<>(1L, 10L, 0L);
         Result<Pagination<BaseEntity>> result3 = Result.OK().setData(pagination);
         System.out.println(JsonUtil.toJson(result3));
+
+        System.out.println(Result.isSuccess(result3));
     }
 }

@@ -33,7 +33,7 @@ public class OrderDaoTest extends TestParent {
         for(long i=1;i<11;i++){
             Order order = new Order();
             order.setUserId(i);
-            order.setOrderSn(UUIDUtil.getUUID());
+            order.setOrderSn(UUIDUtil.get32UUID());
             order.setCreateUserId(i);
             orderDao.insert(order);
         }

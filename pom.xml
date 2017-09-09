@@ -28,6 +28,7 @@
 
         <!--服务提供方对外暴露的接口层-->
         <module>apple-cloud-feign-order</module>
+        <module>apple-cloud-feign-msg</module>
 
         <!--所有微服务依赖的配置，包括服务端和消费端-->
         <module>apple-cloud-config-micro</module>
@@ -45,6 +46,7 @@
 
         <!--代码生成器-->
         <module>apple-cloud-code-generator</module>
+
     </modules>
 
 
