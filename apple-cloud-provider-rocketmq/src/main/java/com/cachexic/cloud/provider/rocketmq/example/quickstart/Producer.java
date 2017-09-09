@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.cachexic.cloud.provider.rocketmq.producer;
+package com.cachexic.cloud.provider.rocketmq.example.quickstart;
 
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
@@ -28,44 +28,19 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 public class Producer {
     public static void main(String[] args) throws MQClientException, InterruptedException {
 
-        /*
-         * Instantiate with a producer group name.
-         */
-        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
-        producer.setNamesrvAddr("cloud1:9876");
-        /*
-         * Specify name server addresses.
-         * <p/>
-         *
-         * Alternatively, you may specify name server addresses via exporting environmental variable: NAMESRV_ADDR
-         * <pre>
-         * {@code
-         * producer.setNamesrvAddr("name-server1-ip:9876;name-server2-ip:9876");
-         * }
-         * </pre>
-         */
+        DefaultMQProducer producer = new DefaultMQProducer("order_group");
+        producer.setNamesrvAddr("apple01:9876");
 
-        /*
-         * Launch the instance.
-         */
         producer.start();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             try {
-
-                /*
-                 * Create a message instance, specifying topic, tag and message body.
-                 */
-                Message msg = new Message("TopicTest" /* Topic */,
-                    "TagA" /* Tag */,
-                    ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
+                Message msg = new Message("orderTopic" /* Topic */,
+                    "orderCreateTag" /* Tag */,
+                    ("订单[" + i +"]创建成功").getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
                 );
 
-                /*
-                 * Call send message to deliver message to one of brokers.
-                 */
                 SendResult sendResult = producer.send(msg);
-
                 System.out.printf("%s%n", sendResult);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -73,9 +48,6 @@ public class Producer {
             }
         }
 
-        /*
-         * Shut down once the producer instance is not longer in use.
-         */
         producer.shutdown();
     }
 }

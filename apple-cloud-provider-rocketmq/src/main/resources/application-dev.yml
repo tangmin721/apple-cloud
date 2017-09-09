@@ -12,7 +12,8 @@ sharding:
         password: root1234
 
 rocketmq:
-  namesrv: apple01:9876 # name-server1-ip:9876;name-server2-ip:9876 注意是分号分割
+  namesrv:
+    addr: apple01:9876 # name-server1-ip:9876;name-server2-ip:9876 注意是分号分割
 
 spring:
   redis:

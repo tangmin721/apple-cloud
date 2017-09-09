@@ -1,4 +1,4 @@
-package com.cachexic.cloud.feign.order.enums;
+package com.cachexic.cloud.provider.rocketmq.enums;
 
 import com.cachexic.cloud.common.base.vo.ValueDescVo;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
@@ -9,20 +9,20 @@ import java.util.List;
 /**
  * @author tangmin
  * @version V1.0
- * @Title: PaywayEnum.java
- * @Package com.cachexic.cloud.feign.order.enums
- * @Description: 
- * @date 2017-09-06 16:20:20
+ * @Title: MsgStatusEnum.java
+ * @Package com.cachexic.cloud.provider.rocketmq.enums
+ * @Description: 消息状态
+ * @date 2017-09-09 16:11:03
  */
-public enum PaywayEnum {
+public enum MsgStatusEnum {
 
-    onLinePay("在线支付"),
-    offLinePay("货到付款");
+    waiting_confirm("待确认"),
+    sending("发送中");
 
     /** 备注信息 */
     private final String desc;
 
-    PaywayEnum(String desc) {
+    MsgStatusEnum(String desc) {
         this.desc = desc;
     }
 
@@ -34,10 +34,10 @@ public enum PaywayEnum {
      * 根据值获取枚举
      * @return
      */
-    public static PaywayEnum getEnum(String name) {
+    public static MsgStatusEnum getEnum(String name) {
         if (null == name)
             return null;
-        for (PaywayEnum _enum : PaywayEnum.values()) {
+        for (MsgStatusEnum _enum : MsgStatusEnum.values()) {
             if (name.equals(_enum.name()))
                 return _enum;
         }
@@ -50,7 +50,7 @@ public enum PaywayEnum {
      */
     public static List toList() {
         List list = new ArrayList();
-        for (PaywayEnum _enum : PaywayEnum.values()) {
+        for (MsgStatusEnum _enum : MsgStatusEnum.values()) {
             ValueDescVo valueDescVo = new ValueDescVo();
             valueDescVo.setValue(_enum.name());
             valueDescVo.setDesc(_enum.getDesc());
@@ -60,7 +60,7 @@ public enum PaywayEnum {
     }
 
     public static void main(String[] args) {
-        System.out.println(JsonUtil.toJson(PaywayEnum.toList()));
+        System.out.println(JsonUtil.toJson(MsgStatusEnum.toList()));
     }
 
 }
