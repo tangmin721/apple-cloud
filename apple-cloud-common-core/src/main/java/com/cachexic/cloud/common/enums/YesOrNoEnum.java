@@ -1,7 +1,6 @@
-package com.cachexic.cloud.provider.rocketmq.enums;
+package com.cachexic.cloud.common.enums;
 
 import com.cachexic.cloud.common.base.vo.ValueDescVo;
-import com.cachexic.cloud.common.utils.json.JsonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,20 +8,20 @@ import java.util.List;
 /**
  * @author tangmin
  * @version V1.0
- * @Title: MsgStatusEnum.java
- * @Package com.cachexic.cloud.provider.rocketmq.enums
- * @Description: 消息状态
- * @date 2017-09-09 16:11:03
+ * @Title: YesOrNoEnum.java
+ * @Package com.cachexic.cloud.common.enums
+ * @Description: ye or no
+ * @date 2017-09-09 21:06:17
  */
-public enum MsgStatusEnum {
+public enum YesOrNoEnum {
 
-    waiting_confirm("待确认"),
-    sending("发送中");
+    yes("是"),
+    no("否");
 
     /** 备注信息 */
     private final String desc;
 
-    MsgStatusEnum(String desc) {
+    YesOrNoEnum(String desc) {
         this.desc = desc;
     }
 
@@ -34,10 +33,10 @@ public enum MsgStatusEnum {
      * 根据值获取枚举
      * @return
      */
-    public static MsgStatusEnum getEnum(String name) {
+    public static YesOrNoEnum getEnum(String name) {
         if (null == name)
             return null;
-        for (MsgStatusEnum _enum : MsgStatusEnum.values()) {
+        for (YesOrNoEnum _enum : YesOrNoEnum.values()) {
             if (name.equals(_enum.name()))
                 return _enum;
         }
@@ -50,14 +49,10 @@ public enum MsgStatusEnum {
      */
     public static List toList() {
         List list = new ArrayList();
-        for (MsgStatusEnum _enum : MsgStatusEnum.values()) {
+        for (YesOrNoEnum _enum : YesOrNoEnum.values()) {
             list.add(new ValueDescVo(_enum.name(),_enum.getDesc()));
         }
         return list;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(JsonUtil.toJson(MsgStatusEnum.toList()));
     }
 
 }

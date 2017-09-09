@@ -4,6 +4,7 @@ import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.feign.msg.entity.MsgPersistent;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -18,15 +19,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface MsgFeign {
 
     /** 预存储消息 */
+    @PostMapping("saveMsgWaitingConfirm")
     Result saveMsgWaitingConfirm(@RequestBody MsgPersistent msgPersistent);
 
     /** 确认并发送消息 */
+    @PostMapping("confirmAndSendMsg/{msgId}")
     Result confirmAndSendMsg(@PathVariable("msgId") String msgId);
 
     /** 存储并发送消息 */
+    @PostMapping("saveAndSendMsg")
     Result saveAndSendMsg(@RequestBody MsgPersistent msgPersistent);
 
     /** 直接发送消息 */
+    @PostMapping("directSendMsg")
     Result directSendMsg(@RequestBody MsgPersistent msgPersistent);
 
     /** 重发消息 */

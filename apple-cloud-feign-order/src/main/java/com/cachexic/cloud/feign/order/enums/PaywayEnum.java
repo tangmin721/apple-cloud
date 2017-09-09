@@ -51,10 +51,7 @@ public enum PaywayEnum {
     public static List toList() {
         List list = new ArrayList();
         for (PaywayEnum _enum : PaywayEnum.values()) {
-            ValueDescVo valueDescVo = new ValueDescVo();
-            valueDescVo.setValue(_enum.name());
-            valueDescVo.setDesc(_enum.getDesc());
-            list.add(valueDescVo);
+            list.add(new ValueDescVo(_enum.name(),_enum.getDesc()));
         }
         return list;
     }

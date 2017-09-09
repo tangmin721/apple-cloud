@@ -26,7 +26,9 @@ public class RocketmqClientFactoryBean implements FactoryBean<DefaultMQProducer>
 
     private DefaultMQProducer producer;
 
-    @Value("${rocketmq.namesrv.addr}")
+    @Value("${rocketmq.group}")
+    private String group;
+    @Value("${rocketmq.namesrv}")
     private String namesrvAddr;
 
     @Override
@@ -54,12 +56,14 @@ public class RocketmqClientFactoryBean implements FactoryBean<DefaultMQProducer>
 
     @Override
     public boolean isSingleton() {
-        return false;
+        return true;
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
         producer = new DefaultMQProducer();
+        producer.setProducerGroup(group);
         producer.setNamesrvAddr(namesrvAddr);
+        producer.start();
     }
 }

@@ -15,6 +15,14 @@ public class ValueDescVo implements Serializable{
     private String value;
     private String desc;
 
+    public ValueDescVo() {
+    }
+
+    public ValueDescVo(String value, String desc) {
+        this.value = value;
+        this.desc = desc;
+    }
+
     public String getValue() {
         return value;
     }

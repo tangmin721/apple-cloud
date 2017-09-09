@@ -9,6 +9,7 @@ package com.cachexic.cloud.feign.msg.exceptions;
  * @date 2017-05-26 14:23:15
  */
 public enum MsgBizExceptionEnum {
+    MQ_CLIENT_EXCEPTION(-1,"消息中间件连接异常"),
     SAVA_MESSAGE_IS_NULL(-1,"保存的消息为空"),
     MESSAGE_CONSUMER_QUEUE_IS_NULL(-1,"消息的消费队列为空");
 

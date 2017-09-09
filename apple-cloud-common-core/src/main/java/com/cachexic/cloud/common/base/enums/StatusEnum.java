@@ -1,7 +1,6 @@
 package com.cachexic.cloud.common.base.enums;
 
 import com.cachexic.cloud.common.base.vo.ValueDescVo;
-import com.cachexic.cloud.common.utils.json.JsonUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,16 +52,9 @@ public enum StatusEnum {
     public static List toList() {
         List list = new ArrayList();
         for (StatusEnum _enum : StatusEnum.values()) {
-            ValueDescVo valueDescVo = new ValueDescVo();
-            valueDescVo.setValue(_enum.name());
-            valueDescVo.setDesc(_enum.getDesc());
-            list.add(valueDescVo);
+            list.add(new ValueDescVo(_enum.name(),_enum.getDesc()));
         }
         return list;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(JsonUtil.toJson(StatusEnum.toList()));
     }
 
 }
