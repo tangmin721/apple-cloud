@@ -7,6 +7,8 @@ import feign.hystrix.FallbackFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author tangmin
@@ -26,6 +28,51 @@ public class MsgFeignFallback implements FallbackFactory<MsgFeign> {
         return new MsgFeign() {
             @Override
             public Result saveMsgWaitingConfirm(MsgPersistent msgPersistent) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result confirmAndSendMsg(@PathVariable("msgId") String msgId) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result saveAndSendMsg(@RequestBody MsgPersistent msgPersistent) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result directSendMsg(@RequestBody MsgPersistent msgPersistent) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result reSendMsg(@RequestBody MsgPersistent msgPersistent) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result reSendMsgByMsgId(String msgId) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result setMsgToDead(String msgId) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result<MsgPersistent> getMsgByMsgId(String msgId) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result deleteMsgByMsgId(String msgId) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result reSendAllDeadMsgByTopic() {
                 return Result.FALLBACK(cause);
             }
         };
