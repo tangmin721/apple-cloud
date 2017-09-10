@@ -13,8 +13,6 @@ import com.cachexic.cloud.common.base.entity.BaseEntity;
 public class MsgPersistent extends BaseEntity{
     private static final long serialVersionUID = -5497996812028362407L;
 
-    private String group;
-
     private String topic;
 
     private String tags;
@@ -27,14 +25,6 @@ public class MsgPersistent extends BaseEntity{
 
     /** 消息发送次数 */
     private Integer msgSendTimes;
-
-    public String getGroup() {
-        return group;
-    }
-
-    public void setGroup(String group) {
-        this.group = group;
-    }
 
     public String getTopic() {
         return topic;

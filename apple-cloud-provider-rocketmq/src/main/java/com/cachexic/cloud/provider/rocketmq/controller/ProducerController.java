@@ -40,7 +40,6 @@ public class ProducerController implements MsgFeign {
     @Override
     public Result directSendMsg(@RequestBody MsgPersistent msgPersistent) {
         BizPreconditions.checkArgument(msgPersistent != null,"requestBody不能为空");
-        BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getGroup()),"group不能为空");
         BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTopic()),"topic不能为空");
         BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTags()),"tags不能为空");
         BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getMsgBody()),"msgBody不能为空");
