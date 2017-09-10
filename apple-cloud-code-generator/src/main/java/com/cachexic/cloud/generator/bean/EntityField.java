@@ -13,24 +13,26 @@ public class EntityField {
     /**
      * entity字段
      */
-    String fieldName;
+    private String fieldName;
 
     /**
      * 数据库字段
      */
-    String columnName;
+    private String columnName;
 
     /**
      * 首字母大写，用于模板的get  SET方法
      *
      * @return
      */
-    String supFiledName;
+    private String supFiledName;
 
     /**
-     * 用于判断class java.util.Date
+     * 用于判断class java.util.Date double
      */
-    String fieldTypeClassName;
+    private String fieldTypeClassName;
+
+    private String mysqlFieldStr;
 
     public String getFieldName() {
         return fieldName;
@@ -63,6 +65,14 @@ public class EntityField {
 
     public void setFieldTypeClassName(String fieldTypeClassName) {
         this.fieldTypeClassName = fieldTypeClassName;
+    }
+
+    public String getMysqlFieldStr() {
+        return mysqlFieldStr;
+    }
+
+    public void setMysqlFieldStr(String mysqlFieldStr) {
+        this.mysqlFieldStr = mysqlFieldStr;
     }
 
     @Override

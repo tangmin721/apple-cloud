@@ -1,15 +1,27 @@
 package com.cachexic.cloud.generator.code;
 
-
+import com.cachexic.cloud.common.base.annotations.Entity;
+import com.cachexic.cloud.common.exceptions.BizException;
+import com.cachexic.cloud.common.exceptions.BizExceptionEnum;
 import com.cachexic.cloud.generator.bean.EntityInfo;
 import com.cachexic.cloud.generator.bean.GenConfig;
-import com.cachexic.cloud.generator.tmplate.*;
-
+import com.cachexic.cloud.generator.bean.IdTypeEnum;
+import com.cachexic.cloud.generator.tmplate.ConsumerControllerGenerator;
+import com.cachexic.cloud.generator.tmplate.ControllerGenerator;
+import com.cachexic.cloud.generator.tmplate.DaoGenerator;
+import com.cachexic.cloud.generator.tmplate.FeignClientFallbackFactoryGenerator;
+import com.cachexic.cloud.generator.tmplate.FeignClientGenerator;
+import com.cachexic.cloud.generator.tmplate.FeignClientWithFallBackFactoryGenerator;
+import com.cachexic.cloud.generator.tmplate.MybatisXmlGenerator;
+import com.cachexic.cloud.generator.tmplate.MybatisXmlJoinGenerator;
+import com.cachexic.cloud.generator.tmplate.MysqlDDLGenerator;
+import com.cachexic.cloud.generator.tmplate.QueryGenerator;
+import com.cachexic.cloud.generator.tmplate.ServiceGenerator;
+import com.cachexic.cloud.generator.tmplate.ServiceImplGenerator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author tangmin
@@ -21,37 +33,25 @@ import java.util.List;
  */
 public class CodeGenerator {
 
-    List<Class<?>> clazzList = new ArrayList<Class<?>>();
+    /** 需要生成的类 */
+    private Class<?> clazz;
 
-    /**
-     * 是否继承BaseEntity
-     */
+    /** 是否继承BaseEntity */
     private String extendBaseEntity;
 
-    /**
-     * 主键类型
-     */
-    private int idType;
+    /** 主键类型 */
+    private int idType = IdTypeEnum.AUTO_INCR.getCode();
 
-    /**
-     * 微服务名称
-     */
+    /** 微服务名称 */
     private String serverName;
 
-    /**
-     * 实体对应的表名
-     */
+    /** 实体对应的表名 */
     private String tableName;
 
-
-    /**
-     * requestMapping路径
-     */
+    /** requestMapping路径 */
     private String requestMapPath;
 
-    /**
-     * 模块名
-     */
+    /** 模块名 */
     private String modelName;
 
     public String getExtendBaseEntity() {
@@ -103,9 +103,16 @@ public class CodeGenerator {
         this.idType = idType;
     }
 
-    public CodeGenerator addClass(Class<?> clazz) {
-        this.clazzList.add(clazz);
-        return this;
+    public Class<?> getClazz() {
+        return clazz;
+    }
+
+    public void setClazz(Class<?> clazz) {
+        this.clazz = clazz;
+        if(clazz.getAnnotation(Entity.class)==null || StringUtils.isBlank(clazz.getAnnotation(Entity.class).value())){
+            throw new BizException(BizExceptionEnum.SYS_EXCEPTION.getCode(),"@Entity(\"t_table_name\") is must not null");
+        }
+        this.tableName = (clazz.getAnnotation(Entity.class).value());
     }
 
     public void writeFile(File dir, String fileName, String content)
@@ -136,9 +143,11 @@ public class CodeGenerator {
             dir.mkdirs();
         }
         GenConfig genConfig = new GenConfig();
+
+
         //加载配置
         genConfig.setServerName(serverName);
-        genConfig.setTableName(tableName);
+        //genConfig.setTableName(tableName);
         genConfig.setRequestMapPath(requestMapPath);
         genConfig.setModelName(modelName);
         genConfig.setIdType(idType);
@@ -157,34 +166,33 @@ public class CodeGenerator {
         FeignClientWithFallBackFactoryGenerator withFallbackFactory = new FeignClientWithFallBackFactoryGenerator();
         FeignClientFallbackFactoryGenerator fallbackFactory = new FeignClientFallbackFactoryGenerator();
         FeignClientGenerator feignClien = new FeignClientGenerator();
-        for (Class<?> clazz : this.clazzList) {
-            EntityInfo entity = new EntityInfo(clazz, tableName);
-            writeFile(dir, tableName + ".sql",
-                    mysql.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "Query.java",
-                    query.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "Dao.xml",
-                    xmlGenerator.generateCode(entity, genConfig));
-            writeFile(dir, "JOIN_" + entity.getClassName() + "Dao.xml",
-                    xmlJoinGenerator.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "Dao.java",
-                    dao.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "Service.java",
-                    service.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "ServiceImpl.java",
-                    serviceImpl.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "Controller.java",
-                    controller.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "ConsumerController.java",
-                    consumerController.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "FeignClientWithFallbackFactory.java",
-                    withFallbackFactory.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "FeignClientFallbackFactory.java",
-                    fallbackFactory.generateCode(entity, genConfig));
-            writeFile(dir, entity.getClassName() + "FeignClient.java",
-                    feignClien.generateCode(entity, genConfig));
 
-        }
+        EntityInfo entity = new EntityInfo(clazz, tableName);
+        writeFile(dir, tableName + ".sql",
+                mysql.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "Query.java",
+                query.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "Dao.xml",
+                xmlGenerator.generateCode(entity, genConfig));
+        writeFile(dir, "JOIN_" + entity.getClassName() + "Dao.xml",
+                xmlJoinGenerator.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "Dao.java",
+                dao.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "Service.java",
+                service.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "ServiceImpl.java",
+                serviceImpl.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "Controller.java",
+                controller.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "ConsumerController.java",
+                consumerController.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "FeignClientWithFallbackFactory.java",
+                withFallbackFactory.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "FeignClientFallbackFactory.java",
+                fallbackFactory.generateCode(entity, genConfig));
+        writeFile(dir, entity.getClassName() + "FeignClient.java",
+                feignClien.generateCode(entity, genConfig));
+
         Runtime.getRuntime().exec("cmd /c start " + path);
     }
 

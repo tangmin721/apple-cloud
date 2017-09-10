@@ -2,7 +2,6 @@ package com.cachexic.cloud.feign.order.entity;
 
 
 import com.cachexic.cloud.common.base.annotations.Entity;
-import com.cachexic.cloud.common.base.annotations.Field;
 import com.cachexic.cloud.common.base.annotations.Transient;
 import com.cachexic.cloud.common.base.entity.BaseEntity;
 
@@ -14,17 +13,14 @@ import java.math.BigDecimal;
 @Entity("t_order")
 public class Order extends BaseEntity {
 
-    @Field("用户id")
     private Long userId;
     @Transient
     private String userName;
 
     private String orderSn;
 
-    @Field(value = "用户id",notNull = false,length = 200)
     private String memo;
 
-    @Field(value = "实付总金额")
     private BigDecimal totalActualPrice;
 
     public Long getUserId() {

@@ -4,15 +4,15 @@
 */
 
 CREATE TABLE `${entity.tableName}` (
-<#if CONFIG.idType==0>  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID',</#if>
-<#if CONFIG.idType==1>  `id` char(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '主键',</#if>
+  `id` bigint AUTO_INCREMENT PRIMARY KEY,
 <#list entity.myfieldList as e>  `${e.columnName}` varchar(32) COLLATE utf8mb4_unicode_ci COMMENT '@TODO注释',
   </#list>
-  <#if CONFIG.extendBaseEntity=="true">`create_user_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '创建人ID',
-  `create_time` datetime DEFAULT NULL COMMENT '记录创建时间',
-  `update_user_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人ID',
-  `update_time` datetime DEFAULT NULL COMMENT '记录更新时间',
-  `status` enum('yes','no') COLLATE utf8mb4_unicode_ci DEFAULT 'no' COMMENT '删除状态',
-  `enable` enum('yes','no') COLLATE utf8mb4_unicode_ci DEFAULT 'yes' COMMENT '有效状态',</#if>
-  PRIMARY KEY (`id`)
+  <#if CONFIG.extendBaseEntity=="true">`version` int DEFAULT 0 COMMENT '乐观锁版本号',
+  `create_time` datetime COMMENT '记录创建时间',
+  `create_user_id` bigint COMMENT '创建人ID',
+  `create_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '创建人name',
+  `update_time` datetime COMMENT '记录更新时间',
+  `update_user_id` bigint COMMENT '更新人ID',
+  `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人name',
+  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'</#if>
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='${CONFIG.modelName}';
