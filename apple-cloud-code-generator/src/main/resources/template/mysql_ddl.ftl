@@ -4,8 +4,8 @@
 */
 
 CREATE TABLE `${entity.tableName}` (
-  `id` bigint AUTO_INCREMENT PRIMARY KEY,
-<#list entity.myfieldList as e>  `${e.columnName}` varchar(32) COLLATE utf8mb4_unicode_ci COMMENT '@TODO注释',
+  `id` bigint AUTO_INCREMENT,
+<#list entity.myfieldListNotTransient as e>  ${e.mysqlFieldStr},
   </#list>
   <#if CONFIG.extendBaseEntity=="true">`version` int DEFAULT 0 COMMENT '乐观锁版本号',
   `create_time` datetime COMMENT '记录创建时间',
@@ -14,5 +14,6 @@ CREATE TABLE `${entity.tableName}` (
   `update_time` datetime COMMENT '记录更新时间',
   `update_user_id` bigint COMMENT '更新人ID',
   `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人name',
-  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'</#if>
+  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态',</#if>
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='${CONFIG.modelName}';

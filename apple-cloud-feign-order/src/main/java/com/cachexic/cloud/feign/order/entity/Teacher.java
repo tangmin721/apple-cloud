@@ -39,9 +39,13 @@ public class Teacher extends BaseEntity{
     @Past(message="出生日期只能为过去的时间",groups={Insert.class,Update.class})
     private Date birthday;
 
+    private Date birthdayTime;
+
     @NotNull
     private Long ageLong1;
     private Long ageLong2=2L;
+
+    private int num;
 
     @NotNull
     private Integer age =1;
@@ -57,7 +61,7 @@ public class Teacher extends BaseEntity{
     private BigDecimal account;
 
     /** 是否是特级教师 */
-    private Boolean isSupper = false;
+    private Boolean isSupper = true;
 
     public String getName() {
         return name;

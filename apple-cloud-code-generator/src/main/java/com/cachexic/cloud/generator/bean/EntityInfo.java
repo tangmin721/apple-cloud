@@ -1,6 +1,5 @@
 package com.cachexic.cloud.generator.bean;
 
-import com.cachexic.cloud.common.base.annotations.Entity;
 import com.cachexic.cloud.common.base.annotations.Transient;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.order.entity.Teacher;
@@ -105,10 +104,7 @@ public class EntityInfo {
         //父类的字段
         fieldList.addAll(Arrays.asList(clazz.getSuperclass().getDeclaredFields()));
         for (Field field : fieldList) {
-            EntityField eField = new EntityField();
-            eField.setFieldTypeClassName(field.getGenericType().toString());
-            eField.setFieldName(field.getName());
-            eField.setColumnName(AppStringUtils.camelToUnderline(field.getName()));//驼峰转下划线
+            EntityField eField = changeFieldToEntityField(field, o);
             if (field.getName() != "serialVersionUID") {
                 this.allfieldList.add(eField);
                 if (field.getName() != "id") {
@@ -119,17 +115,7 @@ public class EntityInfo {
 
         //本类的字段
         for (Field field : clazz.getDeclaredFields()) {
-            EntityField eField = new EntityField();
-            eField.setFieldName(field.getName());
-            eField.setFieldTypeClassName(field.getGenericType().toString());
-            eField.setColumnName(AppStringUtils.camelToUnderline(field.getName()));//驼峰转下划线
-
-            NotNull annotation = field.getAnnotation(NotNull.class);
-            Class<?> type = field.getType();
-            if (type.isAssignableFrom(String.class)) {//字符串
-
-            }
-
+            EntityField eField = changeFieldToEntityField(field, o);
             if (field.getName() != "serialVersionUID") {
                 if (field.isAnnotationPresent(Transient.class)) {
                     this.allfieldList.add(eField);
@@ -141,17 +127,15 @@ public class EntityInfo {
                     this.myfieldList.add(eField);
                     this.allfieldNoIdList.add(eField);
                 }
-
             }
         }
 
     }
 
     public static void main(String[] args) {
-        EntityInfo entityInfo = new EntityInfo(EntityField.class, "test_table");
-        System.out.println(entityInfo);
-        System.out.println(Teacher.class.isAnnotationPresent(Entity.class));
-
+//        EntityInfo entityInfo = new EntityInfo(EntityField.class, "test_table");
+//        System.out.println(entityInfo);
+//        System.out.println(Teacher.class.isAnnotationPresent(Entity.class));
 
         Teacher teacher = new Teacher();
 
@@ -159,102 +143,120 @@ public class EntityInfo {
 
         for (Field field : Teacher.class.getDeclaredFields()) {
 
-            //默认值
-            Object defalutValue = getFieldValue(teacher, field.getName());
-
-            EntityField entityField = new EntityField();
-            entityField.setFieldName(field.getName());
-            entityField.setFieldTypeClassName(field.getGenericType().toString());
-            entityField.setColumnName(AppStringUtils.camelToUnderline(field.getName()));//驼峰转下划线
-
-            StringBuilder mysqlStament = new StringBuilder(field.getName())
-                .append(" ");
-            if (field.getType().isAssignableFrom(String.class)) {//字符串
-                int length = 255;//默认长度
-                mysqlStament.append("varchar(");
-
-                if (field.isAnnotationPresent(Size.class)) {
-                    length = field.getAnnotation(Size.class).max();
-                } else if (field.isAnnotationPresent(Length.class)) {
-                    length = field.getAnnotation(Length.class).max();
-                }
-                if (length == 2147483647) {
-                    length = 255;
-                }
-                mysqlStament.append(length + ")").append(" COLLATE utf8mb4_unicode_ci ");
-
-                if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
-                    mysqlStament.append("NOT NULL ");
-                }
-                mysqlStament.append("DEFAULT '" + defalutValue + "' ");
-            } else if (field.getType().isAssignableFrom(Long.class)) {
-                mysqlStament.append("bigint").append(" ");
-                if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
-                    mysqlStament.append("NOT NULL ");
-                }
-                if (defalutValue != null) {
-                    mysqlStament.append("DEFAULT '" + defalutValue + "'");
-                }
-            } else if (field.getType().isAssignableFrom(Integer.class)) {
-                mysqlStament.append("int").append(" ");
-                if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
-                    mysqlStament.append("NOT NULL ");
-                }
-                if (defalutValue != null) {
-                    mysqlStament.append("DEFAULT '" + defalutValue + "'");
-                }
-            } else if (field.getType().isAssignableFrom(BigDecimal.class)) {
-                mysqlStament.append("decimal(20,2) NOT NULL DEFAULT '0.00'").append(" ");
-            } else if (field.getType().isAssignableFrom(Date.class)) {
-                String datatype = "datetime";
-                if (field.isAnnotationPresent(DateTimeFormat.class)) {
-                    if ("yyyy-MM-dd".equals(field.getAnnotation(DateTimeFormat.class).pattern())) {
-                        datatype = "date";
-                    }
-                } else if (field.isAnnotationPresent(JsonFormat.class)) {
-                    if ("yyyy-MM-dd".equals(field.getAnnotation(JsonFormat.class).pattern())) {
-                        datatype = "date";
-                    }
-                }
-                mysqlStament.append(datatype).append(" ");
-                if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
-                    mysqlStament.append("NOT NULL ");
-                }
-            } else if (field.getType().isEnum()) {
-                mysqlStament.append("enum(");
-                Class<Enum> enumClass = (Class<Enum>) field.getType();
-                Enum[] constants = enumClass.getEnumConstants();
-                String tmp = "";
-                for (Enum constant : constants) {
-                    tmp = tmp + "'" + constant.name() + "',";
-                }
-                tmp.substring(0, tmp.length() - 2);
-                mysqlStament.append(tmp);
-                mysqlStament.append(") ");
-                if (defalutValue != null) {
-                    mysqlStament.append("DEFAULT '" + defalutValue + "'");
-                }
-                //     `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'
-
-            }
-            mysqlStament.append(" COMMENT '").append(field.getName()).append("描述'");
-
-            StringBuffer builder = new StringBuffer();
-            builder.append("fieldName:" + field.getName());
-            builder.append("defalutValue:" + defalutValue);
-            builder.append(",Transient:" + field.isAnnotationPresent(Transient.class));
-            builder.append(",enum:" + field.getType().isEnum());
-            if (field.isAnnotationPresent(Size.class)) {
-                builder.append(",max:" + field.getAnnotation(Size.class).max());
-            } else if (field.isAnnotationPresent(Length.class)) {
-                builder.append(",max:" + field.getAnnotation(Length.class).max());
-            }
-
-            System.out.println(builder.toString());
-            entityField.setMysqlFieldStr(mysqlStament.toString());
+            EntityField entityField = changeFieldToEntityField(field, teacher);
             entityFields.add(entityField);
         }
         System.out.println(JsonUtil.toJson(entityFields));
+    }
+
+    private static EntityField changeFieldToEntityField(Field field, Object object) {
+        Object defalutValue = getFieldValue(object, field.getName());
+
+        EntityField entityField = new EntityField();
+        entityField.setFieldName(field.getName());
+        entityField.setFieldTypeClassName(field.getGenericType().toString());
+        entityField.setColumnName(AppStringUtils.camelToUnderline(field.getName()));//驼峰转下划线
+
+        StringBuilder mysqlStament = new StringBuilder("`"+field.getName()+"`")
+            .append(" ");
+        if (field.getType().isAssignableFrom(String.class)) {//字符串
+            int length = 255;//默认长度
+            mysqlStament.append("varchar(");
+
+            if (field.isAnnotationPresent(Size.class)) {
+                length = field.getAnnotation(Size.class).max();
+            } else if (field.isAnnotationPresent(Length.class)) {
+                length = field.getAnnotation(Length.class).max();
+            }
+            if (length == 2147483647) {
+                length = 255;
+            }
+            mysqlStament.append(length + ")").append(" COLLATE utf8mb4_unicode_ci ");
+
+            if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
+                mysqlStament.append("NOT NULL ");
+            }
+            mysqlStament.append("DEFAULT '" + defalutValue + "' ");
+        } else if (field.getType().isAssignableFrom(Long.class) || field.getType().getSimpleName().equals("long")) {
+            mysqlStament.append("bigint").append(" ");
+            if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
+                mysqlStament.append("NOT NULL ");
+            }
+            if (defalutValue != null) {
+                mysqlStament.append("DEFAULT '" + defalutValue + "'");
+            }
+        } else if (field.getType().isAssignableFrom(Integer.class) || field.getType().getSimpleName().equals("int")) {
+            mysqlStament.append("int").append(" ");
+            if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
+                mysqlStament.append("NOT NULL ");
+            }
+            if (defalutValue != null) {
+                mysqlStament.append("DEFAULT '" + defalutValue + "'");
+            }
+        } else if (field.getType().isAssignableFrom(BigDecimal.class)) {
+            mysqlStament.append("decimal(20,2) NOT NULL DEFAULT '0.00'").append(" ");
+        } else if (field.getType().isAssignableFrom(Date.class)) {
+            String datatype = "datetime";
+            if (field.isAnnotationPresent(DateTimeFormat.class)) {
+                if ("yyyy-MM-dd".equals(field.getAnnotation(DateTimeFormat.class).pattern())) {
+                    datatype = "date";
+                }
+            } else if (field.isAnnotationPresent(JsonFormat.class)) {
+                if ("yyyy-MM-dd".equals(field.getAnnotation(JsonFormat.class).pattern())) {
+                    datatype = "date";
+                }
+            }
+            mysqlStament.append(datatype);
+            if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
+                mysqlStament.append(" NOT NULL");
+            }
+        } else if (field.getType().isEnum()) {
+            mysqlStament.append("enum(");
+            Class<Enum> enumClass = (Class<Enum>) field.getType();
+            Enum[] constants = enumClass.getEnumConstants();
+            String tmp = "";
+            for (Enum constant : constants) {
+                tmp = tmp + "'" + constant.name() + "',";
+            }
+            tmp = tmp.substring(0, tmp.length() - 1);
+            mysqlStament.append(tmp);
+            mysqlStament.append(") ");
+            if (defalutValue != null) {
+                mysqlStament.append("DEFAULT '" + defalutValue + "'");
+            }
+            //     `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'
+
+        }else if(field.getType().isAssignableFrom(Boolean.class) || field.getType().getSimpleName().equals("boolean")){
+            mysqlStament.append("bit(1)").append(" ");
+            if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
+                mysqlStament.append("NOT NULL ");
+            }
+            if (defalutValue != null) {
+                if((Boolean) defalutValue){
+                    mysqlStament.append("DEFAULT b'1'");
+                }else {
+                    mysqlStament.append("DEFAULT b'0'");
+                }
+            }
+        }
+        mysqlStament.append(" COMMENT '").append(field.getName()).append("描述'");
+
+        StringBuffer builder = new StringBuffer();
+        builder.append("fieldName:" + field.getName());
+        builder.append(",defalutValue:" + defalutValue);
+        builder.append(",Transient:" + field.isAnnotationPresent(Transient.class));
+        builder.append(",enum:" + field.getType().isEnum());
+        builder.append(",simpleName:" + field.getType().getSimpleName());
+
+        if (field.isAnnotationPresent(Size.class)) {
+            builder.append(",max:" + field.getAnnotation(Size.class).max());
+        } else if (field.isAnnotationPresent(Length.class)) {
+            builder.append(",max:" + field.getAnnotation(Length.class).max());
+        }
+
+        System.out.println(builder.toString());
+        entityField.setMysqlFieldStr(mysqlStament.toString());
+        return entityField;
     }
 
     public String getVarName() {
