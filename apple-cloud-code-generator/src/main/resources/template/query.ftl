@@ -3,10 +3,10 @@ package com.gasq.cloud.feign.${CONFIG.serverName}.entity;
 import com.gasq.cloud.common.core.entity.<#if CONFIG.extendBaseEntity=="false">Pojo</#if>BaseQuery;
 
 /**
-* ${CONFIG.modelName}管理
-* @author tangmin
-* @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
-*/
+ * ${CONFIG.modelName}管理
+ * @author tangmin
+ * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
+ */
 public class ${entity.className}Query extends <#if CONFIG.extendBaseEntity=="false">Pojo</#if>BaseQuery{
     private static final long serialVersionUID = 1L;
 

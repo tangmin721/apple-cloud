@@ -11,10 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
-* ${CONFIG.modelName}管理  Feign利用fallbackFactory属性，处理fallback异常
-* @author tangmin
-* @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
-*/
+ * ${CONFIG.modelName}管理  Feign利用fallbackFactory属性，处理fallback异常
+ * @author tangmin
+ * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
+ */
 @Component
 public class ${entity.className}FeignClientFallbackFactory implements FallbackFactory<${entity.className}FeignClient> {
 

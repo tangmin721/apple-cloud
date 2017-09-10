@@ -11,17 +11,17 @@ import ${entity.fullClassName}Query;
  */
 public interface ${entity.className}Service extends BaseService<${entity.className}, ${entity.className}Query, <#if CONFIG.idType==0>Long</#if><#if CONFIG.idType==1>String</#if>>{
 
-	/**
-	 * 校验是否存在
-	 * @param
-	 * @return
-	 */
-	Boolean checkNameExit(${entity.className} entity);
+    /**
+     * 校验是否存在
+     * @param
+     * @return
+     */
+    Boolean checkNameExit(${entity.className} entity);
 
-	/**
-	 * 保存或添加
-	 * @return
-	 */
-	String saveOrUpdate(${entity.className} entity);
+    /**
+     * 保存或添加
+     * @return
+     */
+    String saveOrUpdate(${entity.className} entity);
 
 }
