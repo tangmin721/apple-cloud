@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * 教师管理  feign hystrix快速返回实现
  * @author tangmin
- * @date 2017-09-11 17:54:34
+ * @date 2017-09-12 00:15:00
  */
 @Component
 public class TeacherFeignFallback implements FallbackFactory<TeacherFeign> {
@@ -27,7 +27,7 @@ public class TeacherFeignFallback implements FallbackFactory<TeacherFeign> {
             }
 
             @Override
-            public Result<Pagination<List<Teacher>>> pagination(TeacherQuery query) {
+            public Result<Pagination<Teacher>> pagination(TeacherQuery query) {
                 return Result.FALLBACK(cause);
             }
 

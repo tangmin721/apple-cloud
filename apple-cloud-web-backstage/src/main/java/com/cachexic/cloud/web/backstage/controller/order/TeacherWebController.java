@@ -11,15 +11,16 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * 教师管理
+ * 教师管理  /order
  * @author tangmin
- * @date 2017-09-11 18:18:11
+ * @date 2017-09-12 00:15:00
  */
 @RestController
 @RequestMapping("/teacher")
@@ -42,16 +43,15 @@ public class TeacherWebController{
      * @param query
      */
     @PostMapping("pagination")
-    public Result<Pagination<List<Teacher>>> pagination(@RequestBody TeacherQuery query){
+    public Result<Pagination<Teacher>> pagination(@RequestBody TeacherQuery query){
         return teacherFeign.pagination(query);
     }
 
     /**
      * 根据主键查询
      * @param id
-     * @return Result data:Teacher
      */
-    @PostMapping("getById/{id}")
+    @GetMapping("getById/{id}")
     public Result<Teacher> getById(@PathVariable Long id){
         return teacherFeign.getById(id);
     }
@@ -78,7 +78,7 @@ public class TeacherWebController{
      * 修改方法
      * @param entity
      */
-    @PostMapping
+    @PutMapping
     public Result update(@RequestBody Teacher entity){
         return teacherFeign.update(entity);
     }
@@ -95,7 +95,6 @@ public class TeacherWebController{
     /**
      * 根据ids删除，id逗号隔开
      * @param ids
-     * @return Result data: String
      */
     @DeleteMapping("{ids}")
     public Result deleteByIds(@PathVariable("ids") String ids){

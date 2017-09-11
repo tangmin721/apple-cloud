@@ -14,7 +14,7 @@ public class JsonUtil {
 
     /*** 将对象序列化为JSON文本 */
     public static <T> String toJson(Object object) {
-        return JsonMapper.nonNullMapper().toJson(object);
+        return JsonMapper.nonEmptyMapper().toJson(object);
     }
 
     /***
@@ -25,7 +25,7 @@ public class JsonUtil {
      * @return
      */
     public static <T> T toEntity(String json, Class<T> beanClass) {
-        return JsonMapper.nonNullMapper().fromJson(json,beanClass);
+        return JsonMapper.nonEmptyMapper().fromJson(json,beanClass);
     }
 
     /***
@@ -36,7 +36,7 @@ public class JsonUtil {
      * @return
      */
     public static <T> T toEntity(Object object, Class<T> beanClass) {
-        return JsonMapper.nonNullMapper().fromJson(toJson(object),beanClass);
+        return JsonMapper.nonEmptyMapper().fromJson(toJson(object),beanClass);
     }
 
     /***
@@ -46,7 +46,7 @@ public class JsonUtil {
      * @return
      */
     public static <T> List<T> toList(String jsonString, Class<T> objectClass){
-        return JsonMapper.nonNullMapper().fromJsonToList(jsonString,objectClass);
+        return JsonMapper.nonEmptyMapper().fromJsonToList(jsonString,objectClass);
     }
 
     /***

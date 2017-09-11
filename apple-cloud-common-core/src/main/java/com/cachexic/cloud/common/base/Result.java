@@ -144,6 +144,7 @@ public class Result<T> implements Serializable {
                 if (((Pagination) data).getTotal().longValue() == 0) {
                     this.status = EMPTY_CODE;
                     this.message = EMPTY_MSG;
+                    this.data = null;
                 }
             }
         }

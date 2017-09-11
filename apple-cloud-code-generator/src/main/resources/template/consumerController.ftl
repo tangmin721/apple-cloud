@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 
 /**
- * ${CONFIG.modelName}管理
+ * ${CONFIG.modelName}管理  /${CONFIG.serverName}
  * @author tangmin
  * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
  */
 @RestController
-@RequestMapping("/${CONFIG.serverName}/${CONFIG.requestMapPath}")
+@RequestMapping("/${CONFIG.requestMapPath}")
 public class ${entity.className}WebController{
 
     @Autowired
@@ -38,7 +38,7 @@ public class ${entity.className}WebController{
      * @param query
      */
     @PostMapping("pagination")
-    public Result<Pagination<List<${entity.className}>>> pagination(@RequestBody ${entity.className}Query query){
+    public Result<Pagination<${entity.className}>> pagination(@RequestBody ${entity.className}Query query){
         return ${entity.firstLowName}Feign.pagination(query);
     }
 

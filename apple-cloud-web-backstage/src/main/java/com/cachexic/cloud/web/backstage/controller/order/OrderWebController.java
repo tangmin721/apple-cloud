@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 订单管理
  * @author tangmin
- * @date 2017-09-11 22:31:40
+ * @date 2017-09-11 23:45:19
  */
 @RestController
-@RequestMapping("/order/order")
+@RequestMapping("/order")
 public class OrderWebController{
 
     @Autowired
@@ -43,7 +43,7 @@ public class OrderWebController{
      * @param query
      */
     @PostMapping("pagination")
-    public Result<Pagination<List<Order>>> pagination(@RequestBody OrderQuery query){
+    public Result<Pagination<Order>> pagination(@RequestBody OrderQuery query){
         return orderFeign.pagination(query);
     }
 

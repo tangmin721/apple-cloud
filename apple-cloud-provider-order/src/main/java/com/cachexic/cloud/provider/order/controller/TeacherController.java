@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 教师管理
  * @author tangmin
- * @date 2017-09-11 18:11:48
+ * @date 2017-09-12 00:15:00
  */
 @RestController
 @RequestMapping("/teacher")
@@ -40,7 +40,7 @@ public class TeacherController implements TeacherFeign {
      * @param query
      */
     @Override
-    public Result<Pagination<List<Teacher>>> pagination(@RequestBody TeacherQuery query){
+    public Result<Pagination<Teacher>> pagination(@RequestBody TeacherQuery query){
         return Result.OK().setData(teacherService.selectListPagination(query));
     }
 

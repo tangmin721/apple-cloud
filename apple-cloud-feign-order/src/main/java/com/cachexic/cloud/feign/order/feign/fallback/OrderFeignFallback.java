@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 /**
  * 订单管理  feign hystrix快速返回实现
  * @author tangmin
- * @date 2017-09-11 22:31:40
+ * @date 2017-09-11 23:45:19
  */
 @Component
 public class OrderFeignFallback implements FallbackFactory<OrderFeign> {
@@ -27,7 +27,7 @@ public class OrderFeignFallback implements FallbackFactory<OrderFeign> {
             }
 
             @Override
-            public Result<Pagination<List<Order>>> pagination(OrderQuery query) {
+            public Result<Pagination<Order>> pagination(OrderQuery query) {
                 return Result.FALLBACK(cause);
             }
 

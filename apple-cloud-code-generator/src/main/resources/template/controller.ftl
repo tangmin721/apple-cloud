@@ -40,7 +40,7 @@ public class ${entity.className}Controller implements ${entity.className}Feign{
      * @param query
      */
     @Override
-    public Result<Pagination<List<${entity.className}>>> pagination(@RequestBody ${entity.className}Query query){
+    public Result<Pagination<${entity.className}>> pagination(@RequestBody ${entity.className}Query query){
         return Result.OK().setData(${entity.firstLowName}Service.selectListPagination(query));
     }
 

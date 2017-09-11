@@ -7,7 +7,7 @@ import com.cachexic.cloud.feign.order.entity.query.TeacherQuery;
 /**
  * 教师管理
  * @author tangmin
- * @date 2017-09-11 17:41:20
+ * @date 2017-09-12 00:15:00
  */
 public interface TeacherService extends BaseService<Teacher, TeacherQuery>{
 

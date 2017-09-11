@@ -27,7 +27,7 @@ public interface ${entity.className}Feign{
      * @param query
      */
     @PostMapping("pagination")
-    Result<Pagination<List<${entity.className}>>> pagination(@RequestBody ${entity.className}Query query);
+    Result<Pagination<${entity.className}>> pagination(@RequestBody ${entity.className}Query query);
 
     /**
      * 根据主键查询

@@ -36,17 +36,21 @@ DROP TABLE
 IF EXISTS `ds_0`.`t_order_0`;
 
 CREATE TABLE `ds_0`.`t_order_0` (
-  `id` bigint PRIMARY KEY,
-  `user_id` bigint NOT NULL COMMENT '下单用户ID',
-  `order_sn` char(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '订单编号',
-  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '实付价格',
+  `id` bigint AUTO_INCREMENT,
+  `user_id` bigint  COMMENT 'userId描述',
+  `order_sn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'orderSn描述',
+  `memo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'memo描述',
+  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00'  COMMENT 'totalActualPrice描述',
   `version` int DEFAULT 0 COMMENT '乐观锁版本号',
   `create_time` datetime COMMENT '记录创建时间',
   `create_user_id` bigint COMMENT '创建人ID',
+  `create_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '创建人name',
   `update_time` datetime COMMENT '记录更新时间',
   `update_user_id` bigint COMMENT '更新人ID',
-  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'
-) ENGINE = INNODB DEFAULT charSET = utf8mb4;
+  `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人name',
+  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='订单';
 
 
 
@@ -437,33 +441,41 @@ DROP TABLE
 IF EXISTS `prod_ds_0`.`t_order_0`;
 
 CREATE TABLE `prod_ds_0`.`t_order_0` (
-  `id` bigint PRIMARY KEY,
-  `user_id` bigint NOT NULL COMMENT '下单用户ID',
-  `order_sn` char(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '订单编号',
-  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '实付价格',
+  `id` bigint AUTO_INCREMENT,
+  `user_id` bigint  COMMENT 'userId描述',
+  `order_sn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'orderSn描述',
+  `memo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'memo描述',
+  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00'  COMMENT 'totalActualPrice描述',
   `version` int DEFAULT 0 COMMENT '乐观锁版本号',
   `create_time` datetime COMMENT '记录创建时间',
   `create_user_id` bigint COMMENT '创建人ID',
+  `create_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '创建人name',
   `update_time` datetime COMMENT '记录更新时间',
   `update_user_id` bigint COMMENT '更新人ID',
-  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'
-) ENGINE = INNODB DEFAULT charSET = utf8mb4;
+  `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人name',
+  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='订单';
 
 DROP TABLE
 IF EXISTS `prod_ds_0`.`t_order_1`;
 
 CREATE TABLE `prod_ds_0`.`t_order_1` (
-  `id` bigint PRIMARY KEY,
-  `user_id` bigint NOT NULL COMMENT '下单用户ID',
-  `order_sn` char(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '订单编号',
-  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '实付价格',
+  `id` bigint AUTO_INCREMENT,
+  `user_id` bigint  COMMENT 'userId描述',
+  `order_sn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'orderSn描述',
+  `memo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'memo描述',
+  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00'  COMMENT 'totalActualPrice描述',
   `version` int DEFAULT 0 COMMENT '乐观锁版本号',
   `create_time` datetime COMMENT '记录创建时间',
   `create_user_id` bigint COMMENT '创建人ID',
+  `create_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '创建人name',
   `update_time` datetime COMMENT '记录更新时间',
   `update_user_id` bigint COMMENT '更新人ID',
-  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'
-) ENGINE = INNODB DEFAULT charSET = utf8mb4;
+  `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人name',
+  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='订单';
 
 DROP TABLE
 IF EXISTS `prod_ds_0`.`t_order_item_0`;
@@ -622,17 +634,21 @@ DROP TABLE
 IF EXISTS `prod_ds_1`.`t_order_0`;
 
 CREATE TABLE `prod_ds_1`.`t_order_0` (
-  `id` bigint PRIMARY KEY,
-  `user_id` bigint NOT NULL COMMENT '下单用户ID',
-  `order_sn` char(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '订单编号',
-  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '实付价格',
+  `id` bigint AUTO_INCREMENT,
+  `user_id` bigint  COMMENT 'userId描述',
+  `order_sn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'orderSn描述',
+  `memo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'memo描述',
+  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00'  COMMENT 'totalActualPrice描述',
   `version` int DEFAULT 0 COMMENT '乐观锁版本号',
   `create_time` datetime COMMENT '记录创建时间',
   `create_user_id` bigint COMMENT '创建人ID',
+  `create_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '创建人name',
   `update_time` datetime COMMENT '记录更新时间',
   `update_user_id` bigint COMMENT '更新人ID',
-  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'
-) ENGINE = INNODB DEFAULT charSET = utf8mb4;
+  `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人name',
+  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='订单';
 
 DROP TABLE
 IF EXISTS `prod_ds_1`.`t_order_item_0`;
@@ -657,17 +673,21 @@ DROP TABLE
 IF EXISTS `prod_ds_1`.`t_order_1`;
 
 CREATE TABLE `prod_ds_1`.`t_order_1` (
-  `id` bigint PRIMARY KEY,
-  `user_id` bigint NOT NULL COMMENT '下单用户ID',
-  `order_sn` char(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '订单编号',
-  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '实付价格',
+  `id` bigint AUTO_INCREMENT,
+  `user_id` bigint  COMMENT 'userId描述',
+  `order_sn` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'orderSn描述',
+  `memo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT ''  COMMENT 'memo描述',
+  `total_actual_price` decimal(20,2) NOT NULL DEFAULT '0.00'  COMMENT 'totalActualPrice描述',
   `version` int DEFAULT 0 COMMENT '乐观锁版本号',
   `create_time` datetime COMMENT '记录创建时间',
   `create_user_id` bigint COMMENT '创建人ID',
+  `create_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '创建人name',
   `update_time` datetime COMMENT '记录更新时间',
   `update_user_id` bigint COMMENT '更新人ID',
-  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'
-) ENGINE = INNODB DEFAULT charSET = utf8mb4;
+  `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人name',
+  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='订单';
 
 DROP TABLE
 IF EXISTS `prod_ds_1`.`t_order_item_1`;

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * 教师管理
  * @author tangmin
- * @date 2017-09-11 17:54:34
+ * @date 2017-09-12 00:15:00
  */
 @FeignClient(name = "provider-order", path = "/teacher", fallbackFactory = TeacherFeignFallback.class)
 public interface TeacherFeign{
@@ -34,7 +34,7 @@ public interface TeacherFeign{
      * @param query
      */
     @PostMapping("pagination")
-    Result<Pagination<List<Teacher>>> pagination(@RequestBody TeacherQuery query);
+    Result<Pagination<Teacher>> pagination(@RequestBody TeacherQuery query);
 
     /**
      * 根据主键查询

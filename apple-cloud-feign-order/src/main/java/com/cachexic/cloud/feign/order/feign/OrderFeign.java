@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * 订单管理
  * @author tangmin
- * @date 2017-09-11 22:31:40
+ * @date 2017-09-11 23:45:19
  */
 @FeignClient(name = "provider-order", path = "/order", fallbackFactory = OrderFeignFallback.class)
 public interface OrderFeign{
@@ -34,7 +34,7 @@ public interface OrderFeign{
      * @param query
      */
     @PostMapping("pagination")
-    Result<Pagination<List<Order>>> pagination(@RequestBody OrderQuery query);
+    Result<Pagination<Order>> pagination(@RequestBody OrderQuery query);
 
     /**
      * 根据主键查询

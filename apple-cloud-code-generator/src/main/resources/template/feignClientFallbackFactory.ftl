@@ -29,7 +29,7 @@ public class ${entity.className}FeignFallback implements FallbackFactory<${entit
             }
 
             @Override
-            public Result<Pagination<List<${entity.className}>>> pagination(${entity.className}Query query) {
+            public Result<Pagination<${entity.className}>> pagination(${entity.className}Query query) {
                 return Result.FALLBACK(cause);
             }
 

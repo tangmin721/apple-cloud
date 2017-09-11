@@ -7,9 +7,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 订单管理
+ * 教师管理
  * @author tangmin
- * @date 2017-09-11 22:28:05
+ * @date 2017-09-12 00:15:00
  */
 public class TeacherQuery extends BaseQuery{
     private static final long serialVersionUID = 1L;

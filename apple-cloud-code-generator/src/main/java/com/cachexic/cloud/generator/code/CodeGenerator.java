@@ -113,6 +113,7 @@ public class CodeGenerator {
             throw new BizException(BizExceptionEnum.SYS_EXCEPTION.getCode(),"@Entity(\"t_table_name\") is must not null");
         }
         this.tableName = (clazz.getAnnotation(Entity.class).value());
+        this.requestMapPath = (StringUtils.uncapitalize(clazz.getSimpleName()));
     }
 
     public void writeFile(File dir, String fileName, String content)
