@@ -1,4 +1,4 @@
-package com.cachexic.cloud.common.validator.annotations;
+package com.cachexic.cloud.common.base.validator.annotations;
 
 /**
  * @author tangmin

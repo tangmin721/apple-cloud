@@ -35,13 +35,13 @@ public class OrderController implements OrderFeign{
     @Override
     public Result<List<Order>> selectList(@RequestBody OrderQuery orderQuery) {
         log.debug("selectList:",JsonUtil.toJson(orderQuery));
-        List<Order> orders = orderDao.selectList();
+        List<Order> orders = orderDao.selectList(orderQuery);
         return Result.OK().setData(orders);
     }
 
     @Override
     public Result<Order> getById(@PathVariable Long id) {
         log.debug("getById:{}",id);
-        return Result.OK().setData(orderDao.selectById(id));
+        return Result.OK().setData(orderDao.selectById(id,null));
     }
 }

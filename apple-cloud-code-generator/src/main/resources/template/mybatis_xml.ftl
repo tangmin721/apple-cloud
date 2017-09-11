@@ -51,9 +51,9 @@
         <set>
         <#if CONFIG.extendBaseEntity=="true">
             version = ${r"#{"}${"version"}${r"}"}+1,
-            <if test="status != null and status !=''">status = ${r"#{"}${"status"}${r"}"},</if>
+            <if test="status != null">status = ${r"#{"}${"status"}${r"}"},</if>
             update_time = now(),
-            <if test="updateUserId != null and updateUserId !=''">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
+            <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
             <if test="updateUserName != null and updateUserName !=''">update_user_id = ${r"#{"}${"updateUserName"}${r"}"},</if>
         </#if>
 <#list entity.myfieldListNotTransient as e>            <if test="${e.fieldName} != null <#if e.fieldTypeClassName=="class java.lang.String">and ${e.fieldName} !=''</#if>">${e.columnName} = ${r"#{"}${e.fieldName}${r"}"}<#if e_has_next>,</#if></if>
@@ -69,7 +69,7 @@
         update <include refid="table" />
         <set>
             version = ${r"#{"}${"version"}${r"}"}+1,status='deleted',update_time = now(),
-            <if test="updateUserId != null and updateUserId !=''">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
+            <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
             <if test="updateUserName != null and updateUserName !=''">update_user_id = ${r"#{"}${"updateUserName"}${r"}"},</if>
         </set>
         <where>
@@ -82,7 +82,7 @@
         update <include refid="table" />
         <set>
             version = ${r"#{"}${"version"}${r"}"}+1,status='deleted',update_time = now(),
-            <if test="updateUserId != null and updateUserId !=''">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
+            <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
             <if test="updateUserName != null and updateUserName !=''">update_user_id = ${r"#{"}${"updateUserName"}${r"}"},</if>
         </set>
         <where>
@@ -115,7 +115,7 @@
     <!--片段list条件判断 注意:如果用 like查询，建议去掉前面的'%'，不然索引无效-->
     <sql id="selectorWhere">
         <where><#if CONFIG.extendBaseEntity=="true">
-            <if test="status != null and status !=''"> and status=${r"#{"}${"status"}${r"}"} </if>
+            <if test="status != null"> and status=${r"#{"}${"status"}${r"}"} </if>
             <if test="startCreateTime != null"> and create_time <![CDATA[   >=  ]]>${r"#{"}${"startCreateTime"}${r"}"} </if>
             <if test="endCreateTime != null"> and  create_time <![CDATA[   <  ]]> ${r"#{"}${"endCreateTime"}${r"}"} </if>
             <if test="startUpdateTime != null"> and update_time <![CDATA[   >=  ]]>${r"#{"}${"startUpdateTime"}${r"}"} </if>

@@ -2,10 +2,9 @@ package com.cachexic.cloud.provider.order.dao;
 
 import com.cachexic.cloud.common.junit.TestParent;
 import com.cachexic.cloud.common.utils.id.UUIDUtil;
-import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.config.redis.RedisService;
 import com.cachexic.cloud.feign.order.entity.Order;
-import java.util.List;
+import com.cachexic.cloud.provider.order.service.OrderService;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -26,6 +25,9 @@ public class OrderDaoTest extends TestParent {
 
     @Autowired
     private OrderDao orderDao;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private RedisService redisService;
@@ -51,11 +53,6 @@ public class OrderDaoTest extends TestParent {
         }
     }
 
-    @Test
-    public void selectList() throws Exception {
-        List<Order> orders = orderDao.selectList();
-        System.out.println(JsonUtil.toJson(orders));
-    }
 
     @Test
     public void defaultZone() throws Exception {
@@ -64,7 +61,8 @@ public class OrderDaoTest extends TestParent {
 
     @Test
     public void redisService() throws Exception {
-        System.out.println(redisService.keys("*"));
+        //System.out.println(redisService.keys("*"));
+        orderService.testRedis();
     }
 
 }

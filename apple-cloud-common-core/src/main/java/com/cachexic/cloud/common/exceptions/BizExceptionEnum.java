@@ -28,6 +28,9 @@ public enum BizExceptionEnum {
     FEIGN_FALLBACK(-1, "服务调用异常"),
 
 
+    VALID_INSERT_ERROR(-1, "新增校验失败"),
+    VALID_UPDATE_ERROR(-1, "更新校验失败"),
+
     DATA_QUERY_ERROR(-1, "查询数据失败"),
     DATA_UPDATED_ERROR(-1, "更新数据失败"),
     DATA_DELETED_ERROR(-1, "删除数据失败"),

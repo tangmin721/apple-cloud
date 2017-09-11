@@ -5,11 +5,8 @@ import com.cachexic.cloud.feign.order.entity.Order;
 import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 import com.cachexic.cloud.feign.order.feign.OrderFeign;
 import feign.hystrix.FallbackFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
@@ -21,8 +18,6 @@ import java.util.List;
  */
 @Component
 public class OrderFeignFallback implements FallbackFactory<OrderFeign>{
-
-    private static final Logger log = LoggerFactory.getLogger(OrderFeignFallback.class);
 
     @Override
     public OrderFeign create(Throwable cause) {

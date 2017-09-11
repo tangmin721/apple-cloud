@@ -186,8 +186,8 @@ public class CodeGenerator {
                 controller.generateCode(entity, genConfig));
         writeFile(dir, entity.getClassName() + "ConsumerController.java",
                 consumerController.generateCode(entity, genConfig));
-        writeFile(dir, entity.getClassName() + "FeignClientWithFallbackFactory.java",
-                withFallbackFactory.generateCode(entity, genConfig));
+//        writeFile(dir, entity.getClassName() + "FeignClientWithFallbackFactory.java",
+//                withFallbackFactory.generateCode(entity, genConfig));
         writeFile(dir, entity.getClassName() + "FeignClientFallbackFactory.java",
                 fallbackFactory.generateCode(entity, genConfig));
         writeFile(dir, entity.getClassName() + "FeignClient.java",
