@@ -1,6 +1,6 @@
 package com.cachexic.cloud.generator;
 
-import com.cachexic.cloud.feign.order.entity.Teacher;
+import com.cachexic.cloud.feign.order.entity.Order;
 import com.cachexic.cloud.generator.code.CodeGenerator;
 
 /**
@@ -18,7 +18,7 @@ public class CodeCreateGeneratorMain {
     public static void main(String[] args) throws Exception {
         CodeGenerator codeGen = new CodeGenerator();
         //1、配置需要生成的类
-        codeGen.setClazz(Teacher.class);
+        codeGen.setClazz(Order.class);
         //2、是否继承BaseEntity （如果是继承BaseEntity设置"true"，如果是继承：PojoBaseEntity，则设置为"false"）
         codeGen.setExtendBaseEntity("true");
         //3、配置微服务名称(对应的是微服务模块：order,msg)

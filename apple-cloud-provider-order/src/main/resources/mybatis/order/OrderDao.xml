@@ -138,10 +138,7 @@
             <if test="endUpdateTime != null"> and  update_time <![CDATA[   <  ]]> #{endUpdateTime} </if>
             <if test="createUserId != null">and createUserId=#{createUserId} </if>
             <if test="updateUserId != null">and updateUserId=#{updateUserId} </if>
-            <if test="userId != null ">
-                <if test="userIdLike == false"> and user_id=#{userId}</if>
-                <if test="userIdLike == true"> and user_id like  CONCAT('%',#{userId},'%')</if>
-            </if>
+            <if test="userId != null "> and user_id=#{userId}</if>
             <if test="orderSn != null and orderSn !=''">
                 <if test="orderSnLike == false"> and order_sn=#{orderSn}</if>
                 <if test="orderSnLike == true"> and order_sn like  CONCAT('%',#{orderSn},'%')</if>
@@ -150,10 +147,7 @@
                 <if test="memoLike == false"> and memo=#{memo}</if>
                 <if test="memoLike == true"> and memo like  CONCAT('%',#{memo},'%')</if>
             </if>
-            <if test="totalActualPrice != null ">
-                <if test="totalActualPriceLike == false"> and total_actual_price=#{totalActualPrice}</if>
-                <if test="totalActualPriceLike == true"> and total_actual_price like  CONCAT('%',#{totalActualPrice},'%')</if>
-            </if>
+            <if test="totalActualPrice != null "> and total_actual_price=#{totalActualPrice}</if>
             <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
             <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
             -->

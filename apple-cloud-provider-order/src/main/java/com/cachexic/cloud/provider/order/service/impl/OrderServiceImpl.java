@@ -7,11 +7,11 @@ import com.cachexic.cloud.provider.order.service.OrderService;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by tangm on 2017/9/11.
+ * 订单管理
+ * @author tangmin
+ * @date 2017-09-11 22:31:40
  */
 @Service
-public class OrderServiceImpl extends BaseServiceImpl<Order,OrderQuery> implements OrderService{
-
-
+public class OrderServiceImpl extends BaseServiceImpl<Order, OrderQuery> implements OrderService{
 
 }

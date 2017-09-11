@@ -4,6 +4,7 @@ import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.common.base.entity.query.Pagination;
 import com.cachexic.cloud.common.utils.id.IdsUtil;
 import com.cachexic.cloud.feign.order.entity.Teacher;
+import com.cachexic.cloud.feign.order.entity.query.TeacherQuery;
 import com.cachexic.cloud.feign.order.feign.TeacherFeign;
 import com.cachexic.cloud.provider.order.service.TeacherService;
 import java.util.List;

@@ -9,17 +9,14 @@ import java.util.Date;
 /**
  * 订单管理
  * @author tangmin
- * @date 2017-09-11 22:22:08
+ * @date 2017-09-11 22:28:05
  */
 public class TeacherQuery extends BaseQuery{
     private static final long serialVersionUID = 1L;
 
-
-    
     private String name;
     private Boolean nameLike = false;
 
-    
     private String idCard;
     private Boolean idCardLike = false;
 
@@ -29,25 +26,18 @@ public class TeacherQuery extends BaseQuery{
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date birthdayTime;
 
-    
     private Long score;
 
-    
     private long book;
 
-    
     private int num;
 
-    
     private Integer age;
 
-    
     private YesOrNoEnum classMater;
 
-    
     private BigDecimal account;
 
-    
     private Boolean supper;
 
     public String getName() {
@@ -93,7 +83,7 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-        public Date getBirthdayTime() {
+    public Date getBirthdayTime() {
         return birthdayTime;
     }
 
@@ -102,7 +92,7 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-        public Long getScore() {
+    public Long getScore() {
         return score;
     }
 
@@ -111,7 +101,7 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-        public long getBook() {
+    public long getBook() {
         return book;
     }
 
@@ -120,7 +110,7 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-        public int getNum() {
+    public int getNum() {
         return num;
     }
 
@@ -129,7 +119,7 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-        public Integer getAge() {
+    public Integer getAge() {
         return age;
     }
 
@@ -138,7 +128,7 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-        public YesOrNoEnum getClassMater() {
+    public YesOrNoEnum getClassMater() {
         return classMater;
     }
 
@@ -147,7 +137,7 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-        public BigDecimal getAccount() {
+    public BigDecimal getAccount() {
         return account;
     }
 
@@ -156,7 +146,7 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-        public Boolean getSupper() {
+    public Boolean getSupper() {
         return supper;
     }
 
@@ -165,5 +155,5 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-    
+
 }

@@ -1,6 +1,7 @@
 package com.cachexic.cloud.feign.order.feign.fallback;
 
 import com.cachexic.cloud.common.base.Result;
+import com.cachexic.cloud.common.base.entity.query.Pagination;
 import com.cachexic.cloud.feign.order.entity.Order;
 import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 import com.cachexic.cloud.feign.order.feign.OrderFeign;
@@ -9,21 +10,24 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 /**
+ * 订单管理  feign hystrix快速返回实现
  * @author tangmin
- * @version V1.0
- * @Title: OrderFeignFallbackImpl.java
- * @Package com.cachexic.cloud.feign.order.feign.fallback.impl
- * @Description: feign hystrix快速返回实现
- * @date 2017-09-06 16:25:50
+ * @date 2017-09-11 22:31:40
  */
 @Component
-public class OrderFeignFallback implements FallbackFactory<OrderFeign>{
+public class OrderFeignFallback implements FallbackFactory<OrderFeign> {
 
     @Override
     public OrderFeign create(Throwable cause) {
         return new OrderFeign() {
+
             @Override
-            public Result<List<Order>> selectList(OrderQuery orderQuery) {
+            public Result<List<Order>> list(OrderQuery query) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result<Pagination<List<Order>>> pagination(OrderQuery query) {
                 return Result.FALLBACK(cause);
             }
 
@@ -31,7 +35,31 @@ public class OrderFeignFallback implements FallbackFactory<OrderFeign>{
             public Result<Order> getById(Long id) {
                 return Result.FALLBACK(cause);
             }
-        };
 
+            @Override
+            public Result<List<Order>> getByIds(String ids) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result save(Order entity) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result update(Order entity) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result deleteById(Long id) {
+                return Result.FALLBACK(cause);
+            }
+
+            @Override
+            public Result deleteByIds(String ids) {
+                return Result.FALLBACK(cause);
+            }
+        };
     }
 }

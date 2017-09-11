@@ -5,10 +5,10 @@ import com.cachexic.cloud.feign.order.entity.Order;
 import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 
 /**
+ * 订单管理
  * @author tangmin
- * @Description:
- * @date 2017-09-11 14:12:44
+ * @date 2017-09-11 22:31:40
  */
-public interface OrderService extends BaseService<Order,OrderQuery> {
-    //void testRedis();
+public interface OrderService extends BaseService<Order, OrderQuery>{
+
 }

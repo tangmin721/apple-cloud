@@ -104,7 +104,7 @@
             <if test="supper != null ">supper = #{supper}</if>
         </set>
         <where>
-            id = #{id}
+            id = #{id} and version = #{version}
         </where>
     </update>
 
@@ -174,42 +174,15 @@
                 <if test="idCardLike == false"> and id_card=#{idCard}</if>
                 <if test="idCardLike == true"> and id_card like  CONCAT('%',#{idCard},'%')</if>
             </if>
-            <if test="birthday != null ">
-                <if test="birthdayLike == false"> and birthday=#{birthday}</if>
-                <if test="birthdayLike == true"> and birthday like  CONCAT('%',#{birthday},'%')</if>
-            </if>
-            <if test="birthdayTime != null ">
-                <if test="birthdayTimeLike == false"> and birthday_time=#{birthdayTime}</if>
-                <if test="birthdayTimeLike == true"> and birthday_time like  CONCAT('%',#{birthdayTime},'%')</if>
-            </if>
-            <if test="score != null ">
-                <if test="scoreLike == false"> and score=#{score}</if>
-                <if test="scoreLike == true"> and score like  CONCAT('%',#{score},'%')</if>
-            </if>
-            <if test="book != null ">
-                <if test="bookLike == false"> and book=#{book}</if>
-                <if test="bookLike == true"> and book like  CONCAT('%',#{book},'%')</if>
-            </if>
-            <if test="num != null ">
-                <if test="numLike == false"> and num=#{num}</if>
-                <if test="numLike == true"> and num like  CONCAT('%',#{num},'%')</if>
-            </if>
-            <if test="age != null ">
-                <if test="ageLike == false"> and age=#{age}</if>
-                <if test="ageLike == true"> and age like  CONCAT('%',#{age},'%')</if>
-            </if>
-            <if test="classMater != null ">
-                <if test="classMaterLike == false"> and class_mater=#{classMater}</if>
-                <if test="classMaterLike == true"> and class_mater like  CONCAT('%',#{classMater},'%')</if>
-            </if>
-            <if test="account != null ">
-                <if test="accountLike == false"> and account=#{account}</if>
-                <if test="accountLike == true"> and account like  CONCAT('%',#{account},'%')</if>
-            </if>
-            <if test="supper != null ">
-                <if test="supperLike == false"> and supper=#{supper}</if>
-                <if test="supperLike == true"> and supper like  CONCAT('%',#{supper},'%')</if>
-            </if>
+            <if test="birthday != null "> and birthday=#{birthday}</if>
+            <if test="birthdayTime != null "> and birthday_time=#{birthdayTime}</if>
+            <if test="score != null "> and score=#{score}</if>
+            <if test="book != null "> and book=#{book}</if>
+            <if test="num != null "> and num=#{num}</if>
+            <if test="age != null "> and age=#{age}</if>
+            <if test="classMater != null "> and class_mater=#{classMater}</if>
+            <if test="account != null "> and account=#{account}</if>
+            <if test="supper != null "> and supper=#{supper}</if>
             <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
             <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
             -->
