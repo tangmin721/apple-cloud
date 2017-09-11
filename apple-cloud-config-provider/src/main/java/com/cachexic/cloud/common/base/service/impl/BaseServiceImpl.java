@@ -17,6 +17,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author tangmin
@@ -34,6 +35,7 @@ public abstract class BaseServiceImpl<T extends PojoBaseEntity, Q extends PojoBa
     @Autowired
     protected BaseDao<T, Q> dao;
 
+    @Transactional
     public Long insert(T entity) {
         if (entity == null) {
             throw new RuntimeException("insert entity:T is null");

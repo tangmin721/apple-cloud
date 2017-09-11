@@ -2,7 +2,9 @@ package com.cachexic.cloud.provider.order.service;
 
 import com.cachexic.cloud.common.junit.TestParent;
 import com.cachexic.cloud.common.utils.date.DateUtil;
+import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.order.entity.Teacher;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,6 +25,21 @@ public class TeacherServiceTest extends TestParent {
         teacher.setScore(100L);
         Long insert = teacherService.insert(teacher);
         System.out.println("id:"+insert);
+        Assert.assertTrue(insert.longValue()>0);
+    }
+
+    @Test
+    public void update(){
+        Teacher teacher = new Teacher();
+        teacher.setId(1L);
+        teacher.setBirthday(DateUtil.parseDate("2017-01-23"));
+        teacher.setScore(103L);
+        teacherService.update(teacher);
+    }
+
+    @Test
+    public void select(){
+        System.out.println("id:"+ JsonUtil.toJson(teacherService.selectById(1L)));
     }
 
 }
