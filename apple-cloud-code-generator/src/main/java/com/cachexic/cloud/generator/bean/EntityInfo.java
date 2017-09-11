@@ -168,7 +168,7 @@ public class EntityInfo {
         entityField.setFieldTypeClassName(field.getGenericType().toString());
         entityField.setColumnName(AppStringUtils.camelToUnderline(field.getName()));//驼峰转下划线
 
-        StringBuilder mysqlStament = new StringBuilder("`"+field.getName()+"`")
+        StringBuilder mysqlStament = new StringBuilder("`"+entityField.getColumnName()+"`")
             .append(" ");
         if (field.getType().isAssignableFrom(String.class)) {//字符串
             int length = 255;//默认长度
@@ -187,7 +187,12 @@ public class EntityInfo {
             if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
                 mysqlStament.append("NOT NULL ");
             }
-            mysqlStament.append("DEFAULT '" + defalutValue + "' ");
+            if(defalutValue==null){
+                mysqlStament.append("DEFAULT '' ");
+            }else {
+                mysqlStament.append("DEFAULT '" + defalutValue + "' ");
+            }
+
         } else if (field.getType().isAssignableFrom(Long.class) || field.getType().getSimpleName().equals("long")) {
             mysqlStament.append("bigint").append(" ");
             if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
@@ -252,7 +257,7 @@ public class EntityInfo {
         }
         mysqlStament.append(" COMMENT '").append(field.getName()).append("描述'");
 
-        StringBuffer builder = new StringBuffer();
+       /* StringBuffer builder = new StringBuffer();
         builder.append("fieldName:" + field.getName());
         builder.append(",defalutValue:" + defalutValue);
         builder.append(",Transient:" + field.isAnnotationPresent(Transient.class));
@@ -265,7 +270,7 @@ public class EntityInfo {
             builder.append(",max:" + field.getAnnotation(Length.class).max());
         }
 
-        System.out.println(builder.toString());
+        System.out.println(builder.toString());*/
         entityField.setMysqlFieldStr(mysqlStament.toString());
         return entityField;
     }

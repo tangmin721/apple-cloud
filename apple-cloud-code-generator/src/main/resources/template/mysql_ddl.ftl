@@ -1,7 +1,6 @@
-/*
-注意：为了不侵入实体类的代码，本ddl语句仅供创建字段，
-为了数据库最多性能，请建表后调整各字段的：类型，长度，注释 等，需要加索引的列也加上
-*/
+-- 注意：请建表后调整各字段的：注释 等，需要加索引的列也加上
+
+DROP TABLE IF EXISTS `${entity.tableName}`;
 
 CREATE TABLE `${entity.tableName}` (
   `id` bigint AUTO_INCREMENT,
