@@ -184,13 +184,13 @@ public class CodeGenerator {
                 serviceImpl.generateCode(entity, genConfig));
         writeFile(dir, entity.getClassName() + "Controller.java",
                 controller.generateCode(entity, genConfig));
-        writeFile(dir, entity.getClassName() + "ConsumerController.java",
+        writeFile(dir, entity.getClassName() + "WebController.java",
                 consumerController.generateCode(entity, genConfig));
 //        writeFile(dir, entity.getClassName() + "FeignClientWithFallbackFactory.java",
 //                withFallbackFactory.generateCode(entity, genConfig));
-        writeFile(dir, entity.getClassName() + "FeignClientFallbackFactory.java",
+        writeFile(dir, entity.getClassName() + "FeignFallback.java",
                 fallbackFactory.generateCode(entity, genConfig));
-        writeFile(dir, entity.getClassName() + "FeignClient.java",
+        writeFile(dir, entity.getClassName() + "Feign.java",
                 feignClien.generateCode(entity, genConfig));
 
         Runtime.getRuntime().exec("cmd /c start " + path);

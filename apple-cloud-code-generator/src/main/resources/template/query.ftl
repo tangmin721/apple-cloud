@@ -1,6 +1,6 @@
-package com.gasq.cloud.feign.${CONFIG.serverName}.entity;
+package com.cachexic.cloud.feign.${CONFIG.serverName}.entity;
 
-import com.gasq.cloud.common.core.entity.<#if CONFIG.extendBaseEntity=="false">Pojo</#if>BaseQuery;
+import com.cachexic.cloud.common.core.entity.<#if CONFIG.extendBaseEntity=="false">Pojo</#if>BaseQuery;
 
 /**
  * ${CONFIG.modelName}管理
@@ -15,7 +15,7 @@ public class ${entity.className}Query extends <#if CONFIG.extendBaseEntity=="fal
     private Boolean ${e.fieldName}Like = false;
     </#list>
 
-    <#list entity.myfieldList as e>
+    <#list entity.myfieldListNotTransient as e>
     public String get${e.supFiledName}() {
         return ${e.fieldName};
     }

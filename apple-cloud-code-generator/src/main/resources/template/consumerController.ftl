@@ -4,7 +4,7 @@ import com.gasq.cloud.common.result.Result;
 import com.gasq.cloud.common.utils.json.JsonUtils;
 import ${entity.fullClassName};
 import ${entity.fullClassName}Query;
-import com.gasq.cloud.feign.${CONFIG.serverName}.feign.${entity.className}FeignClient;
+import com.gasq.cloud.feign.${CONFIG.serverName}.feign.${entity.className}Feign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,31 +18,27 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/${CONFIG.requestMapPath}")
-public class ${entity.className}ConsumerController{
-
-    private final static Logger log = LoggerFactory.getLogger(${entity.className}ConsumerController.class);
+public class ${entity.className}WebController{
 
     @Autowired
-    private ${entity.className}FeignClient ${entity.firstLowName}FeignClient;
+    private ${entity.className}Feign ${entity.firstLowName}Feign;
 
     /**
      * 分页查询
      * @param query
-     * @return Result data：List<${entity.className}>
      */
-    @PostMapping("listPage")
-    public Result listPage(@RequestBody ${entity.className}Query query){
-        return ${entity.firstLowName}FeignClient.listPage(query);
+    @PostMapping("list")
+    public Result<List<${entity.className}>> list(@RequestBody ${entity.className}Query query){
+        return ${entity.firstLowName}Feign.list(query);
     }
 
     /**
      * 分页查询
      * @param query
-     * @return Result data：Pagination
      */
-    @PostMapping("listPagination")
-    public Result listPagination(@RequestBody ${entity.className}Query query){
-        return ${entity.firstLowName}FeignClient.listPagination(query);
+    @PostMapping("pagination")
+    public Result<Pagination<List<${entity.className}>>> pagination(@RequestBody ${entity.className}Query query){
+        return ${entity.firstLowName}Feign.pagination(query);
     }
 
     /**
@@ -51,39 +47,44 @@ public class ${entity.className}ConsumerController{
      * @return Result data:${entity.className}
      */
     @PostMapping("getById/{id}")
-    public Result getById(@PathVariable <#if CONFIG.idType==0>Long</#if><#if CONFIG.idType==1>String</#if> id){
-        return ${entity.firstLowName}FeignClient.getById(id);
+    public Result<${entity.className}> getById(@PathVariable <#if CONFIG.idType==0>Long</#if><#if CONFIG.idType==1>String</#if> id){
+        return ${entity.firstLowName}Feign.getById(id);
     }
 
     /**
      * 根据主键ids查询
      * @param ids
-     * @return Result data: List<${entity.className}>
      */
-    @PostMapping("getByIds/{ids}")
-    public Result getByIds(@PathVariable String ids){
-        return ${entity.firstLowName}FeignClient.getByIds(ids);
+    @GetMapping("{ids}")
+    public Result<List<${entity.className}>> getByIds(@PathVariable("ids") String ids){
+        return ${entity.firstLowName}Feign.getByIds(ids);
     }
 
     /**
-     * 保存方法，合并了新增修改。
+     * 新增方法
      * @param entity
-     * @return Result data: String
      */
-    @PostMapping("save")
+    @PostMapping
     public Result save(@RequestBody ${entity.className} entity){
-        log.info("save ${entity.className}{} -->", JsonUtils.toJson(entity));
-        return ${entity.firstLowName}FeignClient.save(entity);
+        return ${entity.firstLowName}Feign.save(entity);
+    }
+
+    /**
+     * 修改方法
+     * @param entity
+     */
+    @PostMapping
+    public Result update(@RequestBody ${entity.className} entity){
+        return ${entity.firstLowName}Feign.update(entity);
     }
 
     /**
      * 根据Id删除
      * @param id
-     * @return Result data: String
      */
-    @DeleteMapping("deleteById/{id}")
-    public Result deleteById(@PathVariable <#if CONFIG.idType==0>Long</#if><#if CONFIG.idType==1>String</#if> id){
-        return ${entity.firstLowName}FeignClient.deleteById(id);
+    @DeleteMapping("{id}")
+    public Result deleteById(@PathVariable("id") Long id){
+        return ${entity.firstLowName}Feign.deleteById(id);
     }
 
     /**
@@ -91,8 +92,8 @@ public class ${entity.className}ConsumerController{
      * @param ids
      * @return Result data: String
      */
-    @DeleteMapping("deleteByIds/{ids}")
-    public Result deleteByIds(@PathVariable String ids){
-        return ${entity.firstLowName}FeignClient.deleteByIds(ids);
+    @DeleteMapping("{ids}")
+    public Result deleteByIds(@PathVariable("ids") String ids){
+        return ${entity.firstLowName}Feign.deleteByIds(ids);
     }
 }
