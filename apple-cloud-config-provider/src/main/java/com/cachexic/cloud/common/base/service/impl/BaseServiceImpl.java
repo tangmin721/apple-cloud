@@ -94,7 +94,7 @@ public abstract class BaseServiceImpl<T extends PojoBaseEntity, Q extends PojoBa
     }
 
     public int update(T entity) {
-        if (entity == null) {
+        if (entity == null || entity.getId() == null) {
             throw new RuntimeException("update entity:"+entity.getClass().getName()+" is null");
         }
 

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 教师管理  /order
  * @author tangmin
- * @date 2017-09-12 00:15:00
+ * @date 2017-09-12 00:38:43
  */
 @RestController
 @RequestMapping("/teacher")
@@ -51,7 +51,7 @@ public class TeacherWebController{
      * 根据主键查询
      * @param id
      */
-    @GetMapping("getById/{id}")
+    @GetMapping("{id}")
     public Result<Teacher> getById(@PathVariable Long id){
         return teacherFeign.getById(id);
     }
@@ -60,7 +60,7 @@ public class TeacherWebController{
      * 根据主键ids查询
      * @param ids
      */
-    @GetMapping("{ids}")
+    @GetMapping("ids/{ids}")
     public Result<List<Teacher>> getByIds(@PathVariable("ids") String ids){
         return teacherFeign.getByIds(ids);
     }
@@ -96,7 +96,7 @@ public class TeacherWebController{
      * 根据ids删除，id逗号隔开
      * @param ids
      */
-    @DeleteMapping("{ids}")
+    @DeleteMapping("ids/{ids}")
     public Result deleteByIds(@PathVariable("ids") String ids){
         return teacherFeign.deleteByIds(ids);
     }

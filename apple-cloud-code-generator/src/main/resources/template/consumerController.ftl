@@ -46,7 +46,7 @@ public class ${entity.className}WebController{
      * 根据主键查询
      * @param id
      */
-    @GetMapping("getById/{id}")
+    @GetMapping("{id}")
     public Result<${entity.className}> getById(@PathVariable Long id){
         return ${entity.firstLowName}Feign.getById(id);
     }
@@ -55,7 +55,7 @@ public class ${entity.className}WebController{
      * 根据主键ids查询
      * @param ids
      */
-    @GetMapping("{ids}")
+    @GetMapping("ids/{ids}")
     public Result<List<${entity.className}>> getByIds(@PathVariable("ids") String ids){
         return ${entity.firstLowName}Feign.getByIds(ids);
     }
@@ -91,7 +91,7 @@ public class ${entity.className}WebController{
      * 根据ids删除，id逗号隔开
      * @param ids
      */
-    @DeleteMapping("{ids}")
+    @DeleteMapping("ids/{ids}")
     public Result deleteByIds(@PathVariable("ids") String ids){
         return ${entity.firstLowName}Feign.deleteByIds(ids);
     }

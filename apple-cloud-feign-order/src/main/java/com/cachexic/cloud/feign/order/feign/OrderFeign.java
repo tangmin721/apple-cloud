@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * 订单管理
  * @author tangmin
- * @date 2017-09-11 23:45:19
+ * @date 2017-09-12 00:40:09
  */
 @FeignClient(name = "provider-order", path = "/order", fallbackFactory = OrderFeignFallback.class)
 public interface OrderFeign{
@@ -47,7 +47,7 @@ public interface OrderFeign{
      * 根据主键ids查询
      * @param ids
      */
-    @GetMapping("{ids}")
+    @GetMapping("ids/{ids}")
     Result<List<Order>> getByIds(@PathVariable("ids") String ids);
 
     /**
@@ -75,6 +75,6 @@ public interface OrderFeign{
      * 根据ids删除，id逗号隔开
      * @param ids
      */
-    @DeleteMapping("{ids}")
+    @DeleteMapping("ids/{ids}")
     Result deleteByIds(@PathVariable("ids") String ids);
 }

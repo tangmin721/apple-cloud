@@ -40,7 +40,7 @@ public interface ${entity.className}Feign{
      * 根据主键ids查询
      * @param ids
      */
-    @GetMapping("{ids}")
+    @GetMapping("ids/{ids}")
     Result<List<${entity.className}>> getByIds(@PathVariable("ids") String ids);
 
     /**
@@ -68,6 +68,6 @@ public interface ${entity.className}Feign{
      * 根据ids删除，id逗号隔开
      * @param ids
      */
-    @DeleteMapping("{ids}")
+    @DeleteMapping("ids/{ids}")
     Result deleteByIds(@PathVariable("ids") String ids);
 }
