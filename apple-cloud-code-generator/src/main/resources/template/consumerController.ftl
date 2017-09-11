@@ -1,7 +1,7 @@
 package com.gasq.cloud.consumer.${CONFIG.serverName}.controller;
 
 import com.cachexic.cloud.common.base.Result;
-import com.cachexic.cloud.common.utils.id.IdsUtils;
+import com.cachexic.cloud.common.utils.id.IdsUtil;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import ${entity.fullClassName};
 import ${entity.fullQueryClassName};
@@ -47,7 +47,7 @@ public class ${entity.className}WebController{
      * @param id
      */
     @GetMapping("getById/{id}")
-    public Result<${entity.className}> getById(@PathVariable <#if CONFIG.idType==0>Long</#if><#if CONFIG.idType==1>String</#if> id){
+    public Result<${entity.className}> getById(@PathVariable Long id){
         return ${entity.firstLowName}Feign.getById(id);
     }
 

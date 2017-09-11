@@ -36,21 +36,21 @@
         <include refid="table" />
         <trim prefix="(" suffix=")" suffixOverrides=",">
             create_time,create_user_id,create_user_name,status,
-            <if test="name != null" and name !=''>name,</if>
-            <if test="idCard != null" and idCard !=''>id_card,</if>
-            <if test="birthday != null" >birthday,</if>
-            <if test="birthdayTime != null" >birthday_time,</if>
-            <if test="score != null" >score,</if>
-            <if test="book != null" >book,</if>
-            <if test="num != null" >num,</if>
-            <if test="age != null" >age,</if>
-            <if test="classMater != null" >class_mater,</if>
-            <if test="account != null" >account,</if>
-            <if test="supper != null" >supper</if>
+            <if test="name != null and name !=''">name,</if>
+            <if test="idCard != null and idCard !=''">id_card,</if>
+            <if test="birthday != null ">birthday,</if>
+            <if test="birthdayTime != null ">birthday_time,</if>
+            <if test="score != null ">score,</if>
+            <if test="book != null ">book,</if>
+            <if test="num != null ">num,</if>
+            <if test="age != null ">age,</if>
+            <if test="classMater != null ">class_mater,</if>
+            <if test="account != null ">account,</if>
+            <if test="supper != null ">supper</if>
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            now(),#{createUserId},#{createUserName},
+            now(),#{createUserId},#{createUserName},'normal',
             <if test="name != null and name !=''">#{name},</if>
             <if test="idCard != null and idCard !=''">#{idCard},</if>
             <if test="birthday != null ">#{birthday},</if>

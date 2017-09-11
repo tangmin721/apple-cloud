@@ -26,7 +26,7 @@ public enum BizExceptionEnum {
     STATE_ERROR(-1, "预设条件不成立"),
     NULL_ERROR(-1, "空指针异常"),
     FEIGN_FALLBACK(-1, "服务调用异常"),
-
+    PARSE_DATE_ERROR(-1, "日期解析失败"),
 
     VALID_INSERT_ERROR(-1, "新增校验失败"),
     VALID_UPDATE_ERROR(-1, "更新校验失败"),

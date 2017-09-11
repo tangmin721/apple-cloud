@@ -1,7 +1,7 @@
 package com.gasq.cloud.provider.${CONFIG.serverName}.controller;
 
 import com.cachexic.cloud.common.base.Result;
-import com.cachexic.cloud.common.utils.id.IdsUtils;
+import com.cachexic.cloud.common.utils.id.IdsUtil;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import ${entity.fullClassName};
 import ${entity.fullQueryClassName};
@@ -59,7 +59,7 @@ public class ${entity.className}Controller implements ${entity.className}Feign{
      */
     @Override
     public Result<List<${entity.className}>> getByIds(@PathVariable String ids){
-        return Result.OK().setData(${entity.firstLowName}Service.selectByIds(IdsUtils.listLong(ids)));
+        return Result.OK().setData(${entity.firstLowName}Service.selectByIds(IdsUtil.listLong(ids)));
     }
 
     /**
@@ -98,7 +98,7 @@ public class ${entity.className}Controller implements ${entity.className}Feign{
      */
     @Override
     public Result deleteByIds(@PathVariable("ids") String ids){
-        ${entity.firstLowName}Service.<#if CONFIG.extendBaseEntity=="true">deleteByIds</#if><#if CONFIG.extendBaseEntity=="false">removeByIds</#if>(IdsUtils.listLong(ids));
+        ${entity.firstLowName}Service.<#if CONFIG.extendBaseEntity=="true">deleteByIds</#if><#if CONFIG.extendBaseEntity=="false">removeByIds</#if>(IdsUtil.listLong(ids));
         return Result.OK("删除成功");
     }
 

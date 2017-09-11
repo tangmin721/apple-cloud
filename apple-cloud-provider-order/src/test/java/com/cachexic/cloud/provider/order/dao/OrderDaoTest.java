@@ -62,7 +62,7 @@ public class OrderDaoTest extends TestParent {
     @Test
     public void redisService() throws Exception {
         //System.out.println(redisService.keys("*"));
-        orderService.testRedis();
+        //orderService.testRedis();
     }
 
 }

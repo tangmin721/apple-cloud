@@ -2,7 +2,7 @@ package com.cachexic.cloud.provider.order.controller;
 
 import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.common.base.entity.query.Pagination;
-import com.cachexic.cloud.common.utils.id.IdsUtils;
+import com.cachexic.cloud.common.utils.id.IdsUtil;
 import com.cachexic.cloud.feign.order.entity.Teacher;
 import com.cachexic.cloud.feign.order.entity.query.TeacherQuery;
 import com.cachexic.cloud.feign.order.feign.TeacherFeign;
@@ -59,7 +59,7 @@ public class TeacherController implements TeacherFeign {
      */
     @Override
     public Result<List<Teacher>> getByIds(@PathVariable String ids){
-        return Result.OK().setData(teacherService.selectByIds(IdsUtils.listLong(ids)));
+        return Result.OK().setData(teacherService.selectByIds(IdsUtil.listLong(ids)));
     }
 
     /**
@@ -98,7 +98,7 @@ public class TeacherController implements TeacherFeign {
      */
     @Override
     public Result deleteByIds(@PathVariable("ids") String ids){
-        teacherService.deleteByIds(IdsUtils.listLong(ids));
+        teacherService.deleteByIds(IdsUtil.listLong(ids));
         return Result.OK("删除成功");
     }
 

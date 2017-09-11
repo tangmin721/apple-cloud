@@ -17,12 +17,12 @@
         <include refid="table" />
         <trim prefix="(" suffix=")" suffixOverrides=","><#if CONFIG.idType==1>id,</#if>
             <#if CONFIG.extendBaseEntity=="true">create_time,create_user_id,create_user_name,status,</#if>
-<#list entity.myfieldListNotTransient as e>            <if test="${e.fieldName} != null" <#if e.fieldTypeClassName=="class java.lang.String">and ${e.fieldName} !=''</#if>>${e.columnName}<#if e_has_next>,</#if></if>
+<#list entity.myfieldListNotTransient as e>            <if test="${e.fieldName} != null <#if e.fieldTypeClassName=="class java.lang.String">and ${e.fieldName} !=''</#if>">${e.columnName}<#if e_has_next>,</#if></if>
             </#list>
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <#if CONFIG.extendBaseEntity=="true">now(),${r"#{"}${"createUserId"}${r"}"},${r"#{"}${"createUserName"}${r"}"},</#if>
+            <#if CONFIG.extendBaseEntity=="true">now(),${r"#{"}${"createUserId"}${r"}"},${r"#{"}${"createUserName"}${r"}"},'normal',</#if>
 <#list entity.myfieldListNotTransient as e>            <if test="${e.fieldName} != null <#if e.fieldTypeClassName=="class java.lang.String">and ${e.fieldName} !=''</#if>">${r"#{"}${e.fieldName}${r"}"}<#if e_has_next>,</#if></if>
             </#list>
         </trim>

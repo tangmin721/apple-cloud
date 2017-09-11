@@ -8,7 +8,7 @@ import java.util.List;
  * @Description: 逗号分隔ids
  * @date 2017-09-11 18:00:01
  */
-public class IdsUtils {
+public class IdsUtil {
 
     public static List<String> listString(String ids) {
         List<String> idList = Lists.newArrayList();
