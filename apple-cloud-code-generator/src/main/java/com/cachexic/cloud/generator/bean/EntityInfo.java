@@ -240,8 +240,6 @@ public class EntityInfo {
             if (defalutValue != null) {
                 mysqlStament.append("DEFAULT '" + defalutValue + "'");
             }
-            //     `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态'
-
         }else if(field.getType().isAssignableFrom(Boolean.class) || field.getType().getSimpleName().equals("boolean")){
             mysqlStament.append("bit(1)").append(" ");
             if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
