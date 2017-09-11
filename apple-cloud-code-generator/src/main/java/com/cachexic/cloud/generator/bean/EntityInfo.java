@@ -167,6 +167,7 @@ public class EntityInfo {
         entityField.setFieldName(field.getName());
         entityField.setFieldTypeClassName(field.getGenericType().toString());
         entityField.setColumnName(AppStringUtils.camelToUnderline(field.getName()));//驼峰转下划线
+        entityField.setSimpleTypeName(field.getType().getSimpleName());
 
         StringBuilder mysqlStament = new StringBuilder("`"+entityField.getColumnName()+"`")
             .append(" ");

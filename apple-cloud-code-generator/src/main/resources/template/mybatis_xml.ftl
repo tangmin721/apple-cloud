@@ -122,10 +122,10 @@
             <if test="endUpdateTime != null"> and  update_time <![CDATA[   <  ]]> ${r"#{"}${"endUpdateTime"}${r"}"} </if>
             <if test="createUserId != null">and createUserId=${r"#{"}${"createUserId"}${r"}"} </if>
             <if test="updateUserId != null">and updateUserId=${r"#{"}${"updateUserId"}${r"}"} </if></#if>
-<#list entity.myfieldListNotTransient as e>            <if test="${e.fieldName} != null <#if e.fieldTypeClassName=="class java.lang.String">and ${e.fieldName} !=''</#if>">
+<#list entity.myfieldListNotTransient as e>            <#if e.fieldTypeClassName=="class java.lang.String"><if test="${e.fieldName} != null and ${e.fieldName} !=''">
                 <if test="${e.fieldName}Like == false"> and ${e.columnName}=${r"#{"}${e.fieldName}${r"}"}</if>
                 <if test="${e.fieldName}Like == true"> and ${e.columnName} like  CONCAT('%',${r"#{"}${e.fieldName}${r"}"},'%')</if>
-            </if>
+            </if></#if><#if e.fieldTypeClassName!="class java.lang.String"><if test="${e.fieldName} != null "> and ${e.columnName}=${r"#{"}${e.fieldName}${r"}"}</if></#if>
             </#list>
             <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>${r"#{"}${"startTime"}${r"}"} </if>
             <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> ${r"#{"}${"endTime"}${r"}"}</if>

@@ -1,69 +1,202 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.cachexic.cloud.provider.order.dao.OrderDao">
+
     <sql id="table"> t_order </sql>
-    <sql id="columns"> id,user_id,order_sn,total_actual_price,version,create_time,create_user_id,update_time,update_user_id,status </sql>
+    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,user_id,user_name,order_sn,memo,total_actual_price </sql>
 
     <resultMap id="order" type="com.cachexic.cloud.feign.order.entity.Order">
-        <result property="id" column="id" javaType="Long"/>
-        <result property="userId" column="user_id" />
-        <result property="orderSn" column="order_sn" />
-        <result property="totalActualPrice" column="total_actual_price" />
-
+        <result property="id" column="id" />
         <result property="version" column="version" />
         <result property="createTime" column="create_time" />
         <result property="createUserId" column="create_user_id" />
+        <result property="createUserName" column="create_user_name" />
         <result property="updateTime" column="update_time" />
         <result property="updateUserId" column="update_user_id" />
+        <result property="updateUserName" column="update_user_name" />
         <result property="status" column="status" />
+        <result property="userId" column="user_id" />
+        <result property="userName" column="user_name" />
+        <result property="orderSn" column="order_sn" />
+        <result property="memo" column="memo" />
+        <result property="totalActualPrice" column="total_actual_price" />
     </resultMap>
 
     <!--单条插入-->
-    <!--<insert id="insert" parameterType="com.cachexic.sjdbc.order.entity.Order" useGeneratedKeys="true" keyProperty="id">-->
-    <insert id="insert" parameterType="com.cachexic.cloud.feign.order.entity.Order" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" parameterType="com.cachexic.cloud.feign.order.entity.Order" keyProperty="id" useGeneratedKeys="true">
         insert into
         <include refid="table" />
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            version,status,create_time,create_user_id,
-            <if test="userId != null">user_id,</if>
-            <if test="orderSn != null">order_sn,</if>
-            <if test="totalActualPrice != null">total_actual_price</if>
+            create_time,create_user_id,create_user_name,status,
+            <if test="userId != null ">user_id,</if>
+            <if test="orderSn != null and orderSn !=''">order_sn,</if>
+            <if test="memo != null and memo !=''">memo,</if>
+            <if test="totalActualPrice != null ">total_actual_price</if>
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            #{version},#{status},now(),#{createUserId},
-            <if test="userId != null">#{userId},</if>
-            <if test="orderSn != null">#{orderSn},</if>
-            <if test="totalActualPrice != null">#{totalActualPrice}</if>
+            now(),#{createUserId},#{createUserName},'normal',
+            <if test="userId != null ">#{userId},</if>
+            <if test="orderSn != null and orderSn !=''">#{orderSn},</if>
+            <if test="memo != null and memo !=''">#{memo},</if>
+            <if test="totalActualPrice != null ">#{totalActualPrice}</if>
         </trim>
     </insert>
 
+    <!-- 根据主键查询 -->
     <select id="selectById" resultMap="order">
-        select * from <include refid="table"/> where id=#{id}
+        <include refid="selectorFields" />
+        where
+        id=#{id}
     </select>
 
-    <select id="selectList" parameterType="com.cachexic.cloud.feign.order.entity.query.OrderQuery" resultMap="order">
-        select * from <include refid="table"/> order by id desc
+    <!-- 根据主键批量查询 -->
+    <select id="selectByIds" resultMap="order" >
+        <include refid="selectorFields" />
+        where id in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
     </select>
 
-    <select id="selectListPage" parameterType="com.cachexic.cloud.feign.order.entity.query.OrderQuery" resultMap="order">
-        select * from <include refid="table"/> order by id desc
+    <!-- 单条更新 -->
+    <update id="update" parameterType="com.cachexic.cloud.feign.order.entity.Order">
+        update
+        <include refid="table" />
+        <set>
+            version = #{version}+1,
+            <if test="status != null">status = #{status},</if>
+            update_time = now(),
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_id = #{updateUserName},</if>
+            <if test="userId != null ">user_id = #{userId},</if>
+            <if test="orderSn != null and orderSn !=''">order_sn = #{orderSn},</if>
+            <if test="memo != null and memo !=''">memo = #{memo},</if>
+            <if test="totalActualPrice != null ">total_actual_price = #{totalActualPrice}</if>
+        </set>
+        <where>
+            id = #{id} and version = #{version}
+        </where>
+    </update>
+
+    <!-- 根据id假删除 -->
+    <update id="deleteById">
+        update <include refid="table" />
+        <set>
+            version = #{version}+1,status='deleted',update_time = now(),
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_id = #{updateUserName},</if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <!-- 根据主键批量假删除 -->
+    <update id="deleteByIds">
+        update <include refid="table" />
+        <set>
+            version = #{version}+1,status='deleted',update_time = now(),
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_id = #{updateUserName},</if>
+        </set>
+        <where>
+            in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
+        </where>
+    </update>
+
+    <!-- 根据id彻底删除 -->
+    <delete id="removeById" parameterType="long">
+        delete from <include refid="table" /> where id=#{id}
+    </delete>
+
+    <!-- 根据主键批量彻底删除 -->
+    <delete id="removeByIds" parameterType="java.util.List">
+        delete from <include refid="table" /> where id in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
+    </delete>
+
+    <!--片段list字段查询器-->
+    <sql id="selectorFields">
+        select
+        <if test="fields != null and fields !=''">
+            ${fields}
+        </if>
+        <if test="fields == null or fields == ''">
+            *
+        </if>
+        from  <include refid="table" />
+    </sql>
+
+    <!--片段list条件判断 注意:如果用 like查询，建议去掉前面的'%'，不然索引无效-->
+    <sql id="selectorWhere">
+        <where>
+            <if test="status != null"> and status=#{status} </if>
+            <if test="startCreateTime != null"> and create_time <![CDATA[   >=  ]]>#{startCreateTime} </if>
+            <if test="endCreateTime != null"> and  create_time <![CDATA[   <  ]]> #{endCreateTime} </if>
+            <if test="startUpdateTime != null"> and update_time <![CDATA[   >=  ]]>#{startUpdateTime} </if>
+            <if test="endUpdateTime != null"> and  update_time <![CDATA[   <  ]]> #{endUpdateTime} </if>
+            <if test="createUserId != null">and createUserId=#{createUserId} </if>
+            <if test="updateUserId != null">and updateUserId=#{updateUserId} </if>
+            <if test="userId != null ">
+                <if test="userIdLike == false"> and user_id=#{userId}</if>
+                <if test="userIdLike == true"> and user_id like  CONCAT('%',#{userId},'%')</if>
+            </if>
+            <if test="orderSn != null and orderSn !=''">
+                <if test="orderSnLike == false"> and order_sn=#{orderSn}</if>
+                <if test="orderSnLike == true"> and order_sn like  CONCAT('%',#{orderSn},'%')</if>
+            </if>
+            <if test="memo != null and memo !=''">
+                <if test="memoLike == false"> and memo=#{memo}</if>
+                <if test="memoLike == true"> and memo like  CONCAT('%',#{memo},'%')</if>
+            </if>
+            <if test="totalActualPrice != null ">
+                <if test="totalActualPriceLike == false"> and total_actual_price=#{totalActualPrice}</if>
+                <if test="totalActualPriceLike == true"> and total_actual_price like  CONCAT('%',#{totalActualPrice},'%')</if>
+            </if>
+            <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
+            <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
+            -->
+        </where>
+    </sql>
+
+    <!--片段list排序-->
+    <sql id="selectorOrder">
+        <if test="orderFields != null and orderFields.size >0">
+            order by
+            <foreach collection="orderFields" separator="," item="orderField">
+                ${orderField.fieldName} ${orderField.order}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--片段list分页-->
+    <sql id="selectorLimit">
         <if test="startRow != null">
             limit  #{startRow},#{pageSize}
         </if>
+    </sql>
+
+    <!--查询所有记录-->
+    <select id="selectList" parameterType="com.cachexic.cloud.feign.order.entity.query.OrderQuery" resultMap="order">
+        <include refid="selectorFields" />
+        <include refid="selectorWhere" />
+        <include refid="selectorOrder" />
+    </select>
+
+    <!-- 分页 -->
+    <select id="selectListPage" parameterType="com.cachexic.cloud.feign.order.entity.query.OrderQuery" resultMap="order">
+        <include refid="selectorFields" />
+        <include refid="selectorWhere" />
+        <include refid="selectorOrder" />
+        <include refid="selectorLimit" />
     </select>
 
     <!--总条数-->
     <select id="selectListTotal" parameterType="com.cachexic.cloud.feign.order.entity.query.OrderQuery" resultType="long">
-        select count(1) from <include refid="table" />
+        select count(id) from <include refid="table" />
+        <include refid="selectorWhere" />
     </select>
 
-    <select id="selectTestOrderById" resultMap="order">
-        select * from <include refid="table"/> order by id desc
-    </select>
-
-    <select id="selectTestOrderByIdLimit" resultMap="order">
-        select * from <include refid="table"/> order by id limit #{rowStart},#{pageSize}
-    </select>
-
+    <!--///////////////////////////////自定义/////////////////////////-->
 </mapper>

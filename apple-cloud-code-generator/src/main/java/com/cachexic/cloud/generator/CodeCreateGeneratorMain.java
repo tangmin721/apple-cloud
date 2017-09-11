@@ -24,9 +24,9 @@ public class CodeCreateGeneratorMain {
         //3、配置微服务名称(对应的是微服务模块：order,msg)
         codeGen.setServerName("order");
         //4、配置requestMapping
-        codeGen.setRequestMapPath("teacher");
+        codeGen.setRequestMapPath("order");
         //5、配置模块名称
-        codeGen.setModelName("教师");
+        codeGen.setModelName("订单");
 
         //6、代码生成存放位置
         codeGen.outPut("e:\\code\\order\\" + codeGen.getClazz().getSimpleName());

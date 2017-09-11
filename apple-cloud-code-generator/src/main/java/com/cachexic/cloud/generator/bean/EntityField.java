@@ -32,6 +32,8 @@ public class EntityField {
      */
     private String fieldTypeClassName;
 
+    private String simpleTypeName;
+
     private String mysqlFieldStr;
 
     public String getFieldName() {
@@ -73,6 +75,14 @@ public class EntityField {
 
     public void setMysqlFieldStr(String mysqlFieldStr) {
         this.mysqlFieldStr = mysqlFieldStr;
+    }
+
+    public String getSimpleTypeName() {
+        return simpleTypeName;
+    }
+
+    public void setSimpleTypeName(String simpleTypeName) {
+        this.simpleTypeName = simpleTypeName;
     }
 
     @Override

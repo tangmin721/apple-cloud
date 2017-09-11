@@ -39,7 +39,7 @@ public class TeacherServiceTest extends TestParent {
 
     @Test
     public void select(){
-        System.out.println("id:"+ JsonUtil.toJson(teacherService.selectById(1L)));
+        System.out.println("id:"+ JsonUtil.toJson(teacherService.selectById(4L)));
     }
 
 }
