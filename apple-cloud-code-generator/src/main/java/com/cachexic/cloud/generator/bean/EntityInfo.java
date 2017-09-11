@@ -5,19 +5,20 @@ import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.order.entity.Teacher;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * 实体信息
@@ -56,6 +57,11 @@ public class EntityInfo {
     String fullClassName;
 
     /**
+     * query的类名
+     */
+    String fullQueryClassName;
+
+    /**
      * 类名
      */
     String className;
@@ -81,9 +87,14 @@ public class EntityInfo {
      * @param clazz
      */
     private void parse(Class<?> clazz) {
-        this.className = clazz.getSimpleName();
-        this.fullClassName = clazz.getName();
-        this.firstLowName = StringUtils.uncapitalize(clazz.getSimpleName());//首字母小写
+        String simpleName = clazz.getSimpleName();
+        String fname = clazz.getName();
+
+        this.className = simpleName;
+        this.fullClassName = fname;
+        this.fullQueryClassName = fname.substring(0,fname.length()-simpleName.length())+"query."+simpleName+"Query";
+        System.out.println(fullQueryClassName);
+        this.firstLowName = StringUtils.uncapitalize(simpleName);//首字母小写
         this.underLineName = AppStringUtils.camelToUnderline(this.firstLowName);//驼峰转下划线
 
         List<Field> fieldList = new ArrayList<>();
@@ -343,6 +354,14 @@ public class EntityInfo {
             + ", fullClassName=" + fullClassName + ", className="
             + className + ", firstLowName=" + firstLowName
             + ", underLineName=" + underLineName + "]";
+    }
+
+    public String getFullQueryClassName() {
+        return fullQueryClassName;
+    }
+
+    public void setFullQueryClassName(String fullQueryClassName) {
+        this.fullQueryClassName = fullQueryClassName;
     }
 
     public static Field getDeclaredField(Object object, String fieldName) {
