@@ -10,14 +10,12 @@ import com.cachexic.cloud.common.base.entity.query.<#if CONFIG.extendBaseEntity=
 public class ${entity.className}Query extends <#if CONFIG.extendBaseEntity=="false">Pojo</#if>BaseQuery{
     private static final long serialVersionUID = 1L;
 
-<#list entity.myfieldListNotTransient as e>
-    private ${e.simpleTypeName} ${e.fieldName};
-    <#if e.fieldTypeClassName=="class java.lang.String">private Boolean ${e.fieldName}Like = false;</#if>
+<#list entity.myfieldListNotTransient as e><#if e.fieldTypeClassName=="class java.util.Date">    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+</#if>    private ${e.simpleTypeName} ${e.fieldName};<#if e.fieldTypeClassName=="class java.lang.String">
+    private Boolean ${e.fieldName}Like = false;</#if>
 
 </#list>
-
-<#list entity.myfieldListNotTransient as e>
-    public ${e.simpleTypeName} get${e.supFiledName}() {
+<#list entity.myfieldListNotTransient as e>    public ${e.simpleTypeName} get${e.supFiledName}() {
         return ${e.fieldName};
     }
 
@@ -26,7 +24,7 @@ public class ${entity.className}Query extends <#if CONFIG.extendBaseEntity=="fal
         return this;
     }
 
-    <#if e.fieldTypeClassName=="class java.lang.String">public Boolean get${e.supFiledName}Like() {
+<#if e.fieldTypeClassName=="class java.lang.String">    public Boolean get${e.supFiledName}Like() {
         return ${e.fieldName}Like;
     }
 

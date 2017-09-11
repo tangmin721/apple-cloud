@@ -2,7 +2,6 @@ package com.cachexic.cloud.provider.order.service.impl;
 
 import com.cachexic.cloud.common.base.service.impl.BaseServiceImpl;
 import com.cachexic.cloud.feign.order.entity.Teacher;
-import com.cachexic.cloud.feign.order.entity.query.TeacherQuery;
 import com.cachexic.cloud.provider.order.service.TeacherService;
 import org.springframework.stereotype.Service;
 

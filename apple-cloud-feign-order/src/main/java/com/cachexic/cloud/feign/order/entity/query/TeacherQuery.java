@@ -1,50 +1,68 @@
 package com.cachexic.cloud.feign.order.entity.query;
 
 import com.cachexic.cloud.common.base.entity.query.BaseQuery;
+import com.cachexic.cloud.common.enums.YesOrNoEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
- * 教师管理
+ * 订单管理
  * @author tangmin
- * @date 2017-09-11 17:31:24
+ * @date 2017-09-11 22:22:08
  */
 public class TeacherQuery extends BaseQuery{
     private static final long serialVersionUID = 1L;
 
+
+    
     private String name;
     private Boolean nameLike = false;
+
+    
     private String idCard;
     private Boolean idCardLike = false;
-    private String birthday;
-    private Boolean birthdayLike = false;
-    private String birthdayTime;
-    private Boolean birthdayTimeLike = false;
-    private String score;
-    private Boolean scoreLike = false;
-    private String book;
-    private Boolean bookLike = false;
-    private String num;
-    private Boolean numLike = false;
-    private String age;
-    private Boolean ageLike = false;
-    private String nameTransient;
-    private Boolean nameTransientLike = false;
-    private String classMater;
-    private Boolean classMaterLike = false;
-    private String account;
-    private Boolean accountLike = false;
-    private String supper;
-    private Boolean supperLike = false;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date birthday;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date birthdayTime;
+
+    
+    private Long score;
+
+    
+    private long book;
+
+    
+    private int num;
+
+    
+    private Integer age;
+
+    
+    private YesOrNoEnum classMater;
+
+    
+    private BigDecimal account;
+
+    
+    private Boolean supper;
 
     public String getName() {
         return name;
     }
+
     public TeacherQuery setName(String name) {
         this.name = name;
         return this;
     }
+
     public Boolean getNameLike() {
         return nameLike;
     }
+
     public TeacherQuery setNameLike(Boolean nameLike) {
         this.nameLike = nameLike;
         return this;
@@ -52,142 +70,100 @@ public class TeacherQuery extends BaseQuery{
     public String getIdCard() {
         return idCard;
     }
+
     public TeacherQuery setIdCard(String idCard) {
         this.idCard = idCard;
         return this;
     }
+
     public Boolean getIdCardLike() {
         return idCardLike;
     }
+
     public TeacherQuery setIdCardLike(Boolean idCardLike) {
         this.idCardLike = idCardLike;
         return this;
     }
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
-    public TeacherQuery setBirthday(String birthday) {
+
+    public TeacherQuery setBirthday(Date birthday) {
         this.birthday = birthday;
         return this;
     }
-    public Boolean getBirthdayLike() {
-        return birthdayLike;
-    }
-    public TeacherQuery setBirthdayLike(Boolean birthdayLike) {
-        this.birthdayLike = birthdayLike;
-        return this;
-    }
-    public String getBirthdayTime() {
+
+        public Date getBirthdayTime() {
         return birthdayTime;
     }
-    public TeacherQuery setBirthdayTime(String birthdayTime) {
+
+    public TeacherQuery setBirthdayTime(Date birthdayTime) {
         this.birthdayTime = birthdayTime;
         return this;
     }
-    public Boolean getBirthdayTimeLike() {
-        return birthdayTimeLike;
-    }
-    public TeacherQuery setBirthdayTimeLike(Boolean birthdayTimeLike) {
-        this.birthdayTimeLike = birthdayTimeLike;
-        return this;
-    }
-    public String getScore() {
+
+        public Long getScore() {
         return score;
     }
-    public TeacherQuery setScore(String score) {
+
+    public TeacherQuery setScore(Long score) {
         this.score = score;
         return this;
     }
-    public Boolean getScoreLike() {
-        return scoreLike;
-    }
-    public TeacherQuery setScoreLike(Boolean scoreLike) {
-        this.scoreLike = scoreLike;
-        return this;
-    }
-    public String getBook() {
+
+        public long getBook() {
         return book;
     }
-    public TeacherQuery setBook(String book) {
+
+    public TeacherQuery setBook(long book) {
         this.book = book;
         return this;
     }
-    public Boolean getBookLike() {
-        return bookLike;
-    }
-    public TeacherQuery setBookLike(Boolean bookLike) {
-        this.bookLike = bookLike;
-        return this;
-    }
-    public String getNum() {
+
+        public int getNum() {
         return num;
     }
-    public TeacherQuery setNum(String num) {
+
+    public TeacherQuery setNum(int num) {
         this.num = num;
         return this;
     }
-    public Boolean getNumLike() {
-        return numLike;
-    }
-    public TeacherQuery setNumLike(Boolean numLike) {
-        this.numLike = numLike;
-        return this;
-    }
-    public String getAge() {
+
+        public Integer getAge() {
         return age;
     }
-    public TeacherQuery setAge(String age) {
+
+    public TeacherQuery setAge(Integer age) {
         this.age = age;
         return this;
     }
-    public Boolean getAgeLike() {
-        return ageLike;
-    }
-    public TeacherQuery setAgeLike(Boolean ageLike) {
-        this.ageLike = ageLike;
-        return this;
-    }
-    public String getClassMater() {
+
+        public YesOrNoEnum getClassMater() {
         return classMater;
     }
-    public TeacherQuery setClassMater(String classMater) {
+
+    public TeacherQuery setClassMater(YesOrNoEnum classMater) {
         this.classMater = classMater;
         return this;
     }
-    public Boolean getClassMaterLike() {
-        return classMaterLike;
-    }
-    public TeacherQuery setClassMaterLike(Boolean classMaterLike) {
-        this.classMaterLike = classMaterLike;
-        return this;
-    }
-    public String getAccount() {
+
+        public BigDecimal getAccount() {
         return account;
     }
-    public TeacherQuery setAccount(String account) {
+
+    public TeacherQuery setAccount(BigDecimal account) {
         this.account = account;
         return this;
     }
-    public Boolean getAccountLike() {
-        return accountLike;
-    }
-    public TeacherQuery setAccountLike(Boolean accountLike) {
-        this.accountLike = accountLike;
-        return this;
-    }
-    public String getSupper() {
+
+        public Boolean getSupper() {
         return supper;
     }
-    public TeacherQuery setSupper(String supper) {
+
+    public TeacherQuery setSupper(Boolean supper) {
         this.supper = supper;
         return this;
     }
-    public Boolean getSupperLike() {
-        return supperLike;
-    }
-    public TeacherQuery setSupperLike(Boolean supperLike) {
-        this.supperLike = supperLike;
-        return this;
-    }
 
+    
 }

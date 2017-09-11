@@ -3,7 +3,6 @@ package com.cachexic.cloud.web.backstage.controller.order;
 import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.common.base.entity.query.Pagination;
 import com.cachexic.cloud.feign.order.entity.Teacher;
-import com.cachexic.cloud.feign.order.entity.query.TeacherQuery;
 import com.cachexic.cloud.feign.order.feign.TeacherFeign;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
