@@ -1,9 +1,9 @@
 package com.gasq.cloud.feign.${CONFIG.serverName}.feign;
 
-import com.gasq.cloud.common.result.Result;
+import com.cachexic.cloud.common.base.Result;
 import ${entity.fullClassName};
-import ${entity.fullClassName}Query;
-import com.gasq.cloud.feign.${CONFIG.serverName}.feign.fallback.${entity.className}FeignClientFallbackFactory;
+import ${entity.fullQueryClassName};
+import com.cachexic.cloud.feign.${CONFIG.serverName}.feign.fallback.${entity.className}FeignClientFallbackFactory;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public interface ${entity.className}Feign{
 
     /**
-     * 分页查询
+     * List
      * @param query
      */
     @PostMapping("list")
@@ -60,7 +60,6 @@ public interface ${entity.className}Feign{
     /**
      * 根据Id删除
      * @param id
-     * @return Result data: String
      */
     @DeleteMapping("{id}")
     Result deleteById(@PathVariable("id") Long id);
@@ -68,7 +67,6 @@ public interface ${entity.className}Feign{
     /**
      * 根据ids删除，id逗号隔开
      * @param ids
-     * @return Result data: String
      */
     @DeleteMapping("{ids}")
     Result deleteByIds(@PathVariable("ids") String ids);

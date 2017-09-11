@@ -15,40 +15,41 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
-import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * @author tangmin
- * @Description: 代码生成器测试类
- * @date 2017-09-10 14:01:30
  */
 @Entity("t_teacher")
-public class Teacher extends BaseEntity{
+public class Teacher extends BaseEntity {
 
-    @NotBlank(message="姓名{不能为空}",groups={Insert.class,Update.class})
-    @Size(max=20,message="姓名长度不能超过20",groups={Insert.class,Update.class})
+    @NotBlank(message = "姓名不能为空", groups = {Insert.class, Update.class})
+    @Size(max = 20, message = "姓名长度不能超过20", groups = {Insert.class, Update.class})
     private String name = "hehe";
 
-    @Length(message="身份证件号最大长度不能超过18位",max = 18,groups={Insert.class,Update.class})
+    @Length(message = "身份证件号最大长度不能超过18位", max = 18, groups = {Insert.class, Update.class})
     private String idCard;
 
-    @NotNull(message="出生日期",groups={Insert.class,Update.class})
+    @NotNull(message = "出生日期", groups = {Insert.class, Update.class})
     @JsonFormat(pattern = "yyyy-MM-dd")
-    @Past(message="出生日期只能为过去的时间",groups={Insert.class,Update.class})
+    @Past(message = "出生日期只能为过去的时间", groups = {Insert.class, Update.class})
     private Date birthday;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date birthdayTime;
 
-    @NotNull
-    private Long ageLong1;
-    private Long ageLong2=2L;
+    @NotNull(message = "score不能空", groups = {Insert.class, Update.class})
+    private Long score;
 
+    @NotNull
+    private long book = 2L;
+
+    @NotNull
     private int num;
 
     @NotNull
-    private Integer age =1;
+    private Integer age = 18;
 
     /** 不映射数据库列（insert方法没有） */
     @Transient
@@ -61,7 +62,7 @@ public class Teacher extends BaseEntity{
     private BigDecimal account;
 
     /** 是否是特级教师 */
-    private Boolean isSupper = true;
+    private Boolean supper = true;
 
     public String getName() {
         return name;
@@ -85,6 +86,38 @@ public class Teacher extends BaseEntity{
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public Date getBirthdayTime() {
+        return birthdayTime;
+    }
+
+    public void setBirthdayTime(Date birthdayTime) {
+        this.birthdayTime = birthdayTime;
+    }
+
+    public Long getScore() {
+        return score;
+    }
+
+    public void setScore(Long score) {
+        this.score = score;
+    }
+
+    public long getBook() {
+        return book;
+    }
+
+    public void setBook(long book) {
+        this.book = book;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
     }
 
     public Integer getAge() {
@@ -120,23 +153,25 @@ public class Teacher extends BaseEntity{
     }
 
     public Boolean getSupper() {
-        return isSupper;
+        return supper;
     }
 
     public void setSupper(Boolean supper) {
-        isSupper = supper;
+        this.supper = supper;
     }
 
     /**
      * 测试
+     *
      * @param args
      * @throws ParseException
      */
     public static void main(String[] args) throws ParseException {
         Teacher testTable = new Teacher();
-        testTable.setName("DADAWDADADADADAFSAADAD");
-        testTable.setBirthday(DateUtils.parseDate("2011-10-11","yyyy-MM-dd"));
+        testTable.setName("DADAWDADADADADA1");
+        //testTable.setBirthday(DateUtils.parseDate("2011-10-11", "yyyy-MM-dd"));
         testTable.setAge(129);
-        System.out.println("::::校验结果："+ JsonUtil.toJson(BeanValidator.validateResult(testTable,Insert.class)));
+        //System.out.println("::::校验结果：" + JsonUtil.toJson(BeanValidator.validateResult(testTable)));
+        System.out.println("::::校验结果：" + JsonUtil.toJson(BeanValidator.validateResult(testTable, Insert.class)));
     }
 }

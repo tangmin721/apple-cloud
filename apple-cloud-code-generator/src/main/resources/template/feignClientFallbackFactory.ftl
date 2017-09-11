@@ -2,7 +2,7 @@ package com.gasq.cloud.feign.${CONFIG.serverName}.feign.fallback;
 
 import com.cachexic.cloud.common.base.Result;
 import ${entity.fullClassName};
-import ${entity.fullClassName}Query;
+import ${entity.fullQueryClassName};
 import com.cachexic.cloud.feign.${CONFIG.serverName}.feign.${entity.className}FeignClient;
 import feign.hystrix.FallbackFactory;
 import org.slf4j.Logger;

@@ -1,8 +1,7 @@
 package com.gasq.cloud.common.provider.${CONFIG.serverName}.dao;
 
-import org.apache.ibatis.annotations.Param;
 import com.cachexic.cloud.common.base.dao.BaseDao;
-import com.cachexic.cloud.config.mybatis.annotation.MybatisDao
+import com.cachexic.cloud.config.mybatis.annotation.MybatisDao;
 import ${entity.fullClassName};
 import ${entity.fullQueryClassName};
 

@@ -1,10 +1,11 @@
 package com.gasq.cloud.consumer.${CONFIG.serverName}.controller;
 
-import com.gasq.cloud.common.result.Result;
-import com.gasq.cloud.common.utils.json.JsonUtils;
+import com.cachexic.cloud.common.base.Result;
+import com.cachexic.cloud.common.utils.id.IdsUtils;
+import com.cachexic.cloud.common.utils.json.JsonUtil;
 import ${entity.fullClassName};
-import ${entity.fullClassName}Query;
-import com.gasq.cloud.feign.${CONFIG.serverName}.feign.${entity.className}Feign;
+import ${entity.fullQueryClassName};
+import com.cachexic.cloud.feign.${CONFIG.serverName}.feign.${entity.className}Feign;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
  */
 @RestController
-@RequestMapping("/${CONFIG.requestMapPath}")
+@RequestMapping("/${CONFIG.serverName}/${CONFIG.requestMapPath}")
 public class ${entity.className}WebController{
 
     @Autowired
@@ -44,9 +45,8 @@ public class ${entity.className}WebController{
     /**
      * 根据主键查询
      * @param id
-     * @return Result data:${entity.className}
      */
-    @PostMapping("getById/{id}")
+    @GetMapping("getById/{id}")
     public Result<${entity.className}> getById(@PathVariable <#if CONFIG.idType==0>Long</#if><#if CONFIG.idType==1>String</#if> id){
         return ${entity.firstLowName}Feign.getById(id);
     }
@@ -73,7 +73,7 @@ public class ${entity.className}WebController{
      * 修改方法
      * @param entity
      */
-    @PostMapping
+    @PutMapping
     public Result update(@RequestBody ${entity.className} entity){
         return ${entity.firstLowName}Feign.update(entity);
     }
@@ -90,7 +90,6 @@ public class ${entity.className}WebController{
     /**
      * 根据ids删除，id逗号隔开
      * @param ids
-     * @return Result data: String
      */
     @DeleteMapping("{ids}")
     public Result deleteByIds(@PathVariable("ids") String ids){

@@ -1,11 +1,11 @@
 package com.gasq.cloud.provider.${CONFIG.serverName}.controller;
 
-import com.gasq.cloud.common.result.Result;
-import com.gasq.cloud.common.utils.collections.IdsUtils;
-import com.gasq.cloud.common.utils.json.JsonUtils;
+import com.cachexic.cloud.common.base.Result;
+import com.cachexic.cloud.common.utils.id.IdsUtils;
+import com.cachexic.cloud.common.utils.json.JsonUtil;
 import ${entity.fullClassName};
-import ${entity.fullClassName}Query;
-import com.gasq.cloud.provider.${CONFIG.serverName}.service.${entity.className}Service;
+import ${entity.fullQueryClassName};
+import com.cachexic.cloud.provider.${CONFIG.serverName}.service.${entity.className}Service;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class ${entity.className}Controller implements ${entity.className}Feign{
      * @param query
      */
     @Override
-    public Result<Pagination<List<${entity.className}>>> listPagination(@RequestBody ${entity.className}Query query){
+    public Result<Pagination<List<${entity.className}>>> pagination(@RequestBody ${entity.className}Query query){
         return Result.OK().setData(${entity.firstLowName}Service.selectListPagination(query));
     }
 
@@ -59,7 +59,7 @@ public class ${entity.className}Controller implements ${entity.className}Feign{
      */
     @Override
     public Result<List<${entity.className}>> getByIds(@PathVariable String ids){
-        return Result.OK().setData(${entity.firstLowName}Service.selectByIds(IdsUtils.listLong(ids));
+        return Result.OK().setData(${entity.firstLowName}Service.selectByIds(IdsUtils.listLong(ids)));
     }
 
     /**
@@ -68,7 +68,7 @@ public class ${entity.className}Controller implements ${entity.className}Feign{
      */
     @Override
     public Result save(@RequestBody ${entity.className} entity){
-        ${entity.firstLowName}Service.save(entity)
+        ${entity.firstLowName}Service.insert(entity);
         return Result.OK("新增成功");
     }
 
@@ -77,8 +77,8 @@ public class ${entity.className}Controller implements ${entity.className}Feign{
      * @param entity
      */
     @Override
-    public Result save(@RequestBody ${entity.className} entity){
-        ${entity.firstLowName}Service.save(entity)
+    public Result update(@RequestBody ${entity.className} entity){
+        ${entity.firstLowName}Service.update(entity);
         return Result.OK("修改成功");
     }
 

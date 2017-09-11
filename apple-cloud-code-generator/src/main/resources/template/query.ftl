@@ -1,6 +1,6 @@
 package com.cachexic.cloud.feign.${CONFIG.serverName}.entity;
 
-import com.cachexic.cloud.common.core.entity.<#if CONFIG.extendBaseEntity=="false">Pojo</#if>BaseQuery;
+import com.cachexic.cloud.common.base.entity.query.<#if CONFIG.extendBaseEntity=="false">Pojo</#if>BaseQuery;
 
 /**
  * ${CONFIG.modelName}管理
