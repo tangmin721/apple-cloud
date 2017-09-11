@@ -60,7 +60,7 @@
             </#list>
         </set>
         <where>
-            id = ${r"#{"}${"id"}${r"}"}
+            id = ${r"#{"}${"id"}${r"}"} and version = ${r"#{"}${"version"}${r"}"}
         </where>
     </update>
 
