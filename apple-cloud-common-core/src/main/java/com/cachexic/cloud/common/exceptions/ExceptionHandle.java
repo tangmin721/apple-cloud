@@ -34,9 +34,14 @@ public class ExceptionHandle {
     public Result handle(HttpServletRequest request, Exception e) {
 
         //当参数是一个空的 {} 时的处理
-        String args = request.getAttribute(SystemConst.REQUEST_ARGS).toString();
-        if(args.equals("{}")){
-            args = "";
+        String args = null;
+        try {
+            args = request.getAttribute(SystemConst.REQUEST_ARGS).toString();
+            if(args.equals("{}")){
+                args = "";
+            }
+        } catch (Exception e1) {
+            log.warn("====> ExceptionHandler get Parameter error==>"+e1.getClass());
         }
 
         String requestInfo = String.format("====> ExceptionHandler ==>[RequestInfo:url=[%s],method=%s,ip%s,requestId=%s,requestArgs=%s],",
@@ -52,15 +57,18 @@ public class ExceptionHandle {
         //传入参数异常
         if (e instanceof org.springframework.http.converter.HttpMessageNotReadableException) {
             log.warn(logStr, e.getClass().getName(), BizExceptionEnum.PARAMETER_ERROR.getCode(), e.getMessage());
-            return Result.FAIL(BizExceptionEnum.PARAMETER_ERROR.getCode(), BizExceptionEnum.PARAMETER_ERROR.getMsg());
+            return Result.FAIL(BizExceptionEnum.PARAMETER_ERROR.getCode(), BizExceptionEnum.PARAMETER_ERROR.getMsg()
+                //线上环境注释掉 message信息
+                 +":"+e.getMessage()
+                 );
             //再写总的业务异常
         } else if (e instanceof BizException) {
             BizException ex = (BizException) e;
             log.warn(logStr, e.getClass().getName(), ex.getCode(), e.getMessage());
             return Result.FAIL(ex.getCode(), ex.getMessage());
         } else {
-            log.error(logStr, e.getClass().getName(), BizExceptionEnum.SYS_EXCEPTION.getCode(), e);//长异常信息 e
-            return Result.FAIL(BizExceptionEnum.SYS_EXCEPTION.getCode(), BizExceptionEnum.SYS_EXCEPTION.getMsg() + ":" + e.getMessage());
+            log.error(logStr, e.getClass().getName(), BizExceptionEnum.SYS_EXCEPTION.getCode(), e.getClass());//长异常信息 e
+            return Result.FAIL(BizExceptionEnum.SYS_EXCEPTION.getCode(), BizExceptionEnum.SYS_EXCEPTION.getMsg() + ":" + e.getClass());
         }
     }
 }

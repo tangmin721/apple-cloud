@@ -28,7 +28,7 @@ public class BaseEntity extends PojoBaseEntity {
 
     private String updateUserName;
 
-    private StatusEnum status = StatusEnum.normal;
+    private StatusEnum status;
 
     public Integer getVersion() {
         return version;
