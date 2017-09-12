@@ -49,7 +49,7 @@ public class OrderController implements OrderFeign {
      * @param id
      */
     @Override
-    public Result<Order> getById(@PathVariable("ids") Long id){
+    public Result<Order> getById(@PathVariable("id") Long id){
         return Result.OK().setData(orderService.selectById(id));
     }
 

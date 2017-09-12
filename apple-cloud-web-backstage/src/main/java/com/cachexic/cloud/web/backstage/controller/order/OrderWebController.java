@@ -51,7 +51,7 @@ public class OrderWebController{
      * 根据主键查询
      * @param id
      */
-    @GetMapping("{id}")
+    @GetMapping("id/{id}")
     public Result<Order> getById(@PathVariable Long id){
         return orderFeign.getById(id);
     }
@@ -87,7 +87,7 @@ public class OrderWebController{
      * 根据Id删除
      * @param id
      */
-    @DeleteMapping("{id}")
+    @DeleteMapping("id/{id}")
     public Result deleteById(@PathVariable("id") Long id){
         return orderFeign.deleteById(id);
     }

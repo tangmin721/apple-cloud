@@ -46,8 +46,8 @@ public class ${entity.className}WebController{
      * 根据主键查询
      * @param id
      */
-    @GetMapping("{id}")
-    public Result<${entity.className}> getById(@PathVariable Long id){
+    @GetMapping("id/{id}")
+    public Result<${entity.className}> getById(@PathVariable("id") Long id){
         return ${entity.firstLowName}Feign.getById(id);
     }
 
@@ -82,7 +82,7 @@ public class ${entity.className}WebController{
      * 根据Id删除
      * @param id
      */
-    @DeleteMapping("{id}")
+    @DeleteMapping("id/{id}")
     public Result deleteById(@PathVariable("id") Long id){
         return ${entity.firstLowName}Feign.deleteById(id);
     }

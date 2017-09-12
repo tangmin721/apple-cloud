@@ -22,6 +22,8 @@ public enum BizExceptionEnum {
     TIMEOUT(-1, "请求响应超时"),
     REQUEST_EXP(-1, "请求已过期"),
     MD5_ERROR(-1, "MD5校验失败"),
+    REQUEST_METHOD_ERROR(-1, "请求方式错误"),
+    REQUEST_PATH_BING_ERROR(-1, "请求路径绑定参数错误"),
     PARAMETER_ERROR(-1, "参数错误"),
     STATE_ERROR(-1, "预设条件不成立"),
     NULL_ERROR(-1, "空指针异常"),
