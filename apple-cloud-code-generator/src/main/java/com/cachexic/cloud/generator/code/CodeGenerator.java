@@ -39,6 +39,9 @@ public class CodeGenerator {
     /** 是否继承BaseEntity */
     private String extendBaseEntity;
 
+    /** 是否启用乐观锁 */
+    private String openVersion;
+
     /** 主键类型 */
     private int idType = IdTypeEnum.AUTO_INCR.getCode();
 
@@ -103,6 +106,14 @@ public class CodeGenerator {
         this.idType = idType;
     }
 
+    public String getOpenVersion() {
+        return openVersion;
+    }
+
+    public void setOpenVersion(String openVersion) {
+        this.openVersion = openVersion;
+    }
+
     public Class<?> getClazz() {
         return clazz;
     }
@@ -148,7 +159,7 @@ public class CodeGenerator {
 
         //加载配置
         genConfig.setServerName(serverName);
-        //genConfig.setTableName(tableName);
+        genConfig.setOpenVersion(openVersion);
         genConfig.setRequestMapPath(requestMapPath);
         genConfig.setModelName(modelName);
         genConfig.setIdType(idType);

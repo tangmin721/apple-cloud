@@ -21,12 +21,14 @@ public class CodeCreateGeneratorMain {
         codeGen.setClazz(Order.class);
         //2、是否继承BaseEntity （如果是继承BaseEntity设置"true"，如果是继承：PojoBaseEntity，则设置为"false"）
         codeGen.setExtendBaseEntity("true");
-        //3、配置微服务名称(对应的是微服务模块：order,msg)
+        //3、是否启用乐观锁
+        codeGen.setOpenVersion("false");
+        //4、配置微服务名称(对应的是微服务模块：order,msg)
         codeGen.setServerName("order");
-        //4、配置模块名称
+        //5、配置模块名称
         codeGen.setModelName("订单");
 
-        //5、代码生成存放位置
+        //6、代码生成存放位置
         codeGen.outPut("e:\\code\\order\\" + codeGen.getClazz().getSimpleName());
         System.out.println("代码生成成功");
     }

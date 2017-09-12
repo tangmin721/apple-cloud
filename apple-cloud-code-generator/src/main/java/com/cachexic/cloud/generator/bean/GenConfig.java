@@ -19,6 +19,9 @@ public class GenConfig {
      * 是否继承BaseEntity
      */
     private String extendBaseEntity;
+
+    /** 是否启用乐观锁 */
+    private String openVersion;
     /**
      * 微服务名称
      */
@@ -96,4 +99,11 @@ public class GenConfig {
         this.modelName = modelName;
     }
 
+    public String getOpenVersion() {
+        return openVersion;
+    }
+
+    public void setOpenVersion(String openVersion) {
+        this.openVersion = openVersion;
+    }
 }

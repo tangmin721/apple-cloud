@@ -50,7 +50,7 @@
         <include refid="table" />
         <set>
         <#if CONFIG.extendBaseEntity=="true">
-            version = ${r"#{"}${"version"}${r"}"}+1,
+            version = <#if CONFIG.openVersion=="true">${r"#{"}${"version"}${r"}"}</#if><#if CONFIG.openVersion=="false">version</#if>+1,
             <if test="status != null">status = ${r"#{"}${"status"}${r"}"},</if>
             update_time = now(),
             <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
@@ -60,7 +60,7 @@
             </#list>
         </set>
         <where>
-            id = ${r"#{"}${"id"}${r"}"} and version = ${r"#{"}${"version"}${r"}"}
+            id = ${r"#{"}${"id"}${r"}"} <#if CONFIG.openVersion=="true">and version = ${r"#{"}${"version"}${r"}"}</#if>
         </where>
     </update>
 
@@ -68,12 +68,12 @@
     <update id="deleteById">
         update <include refid="table" />
         <set>
-            version = ${r"#{"}${"version"}${r"}"}+1,status='deleted',update_time = now(),
+            version = <#if CONFIG.openVersion=="true">${r"#{"}${"version"}${r"}"}</#if><#if CONFIG.openVersion=="false">version</#if>+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
             <if test="updateUserName != null and updateUserName !=''">update_user_id = ${r"#{"}${"updateUserName"}${r"}"},</if>
         </set>
         <where>
-            id = ${r"#{"}${"id"}${r"}"}
+            id = ${r"#{"}${"id"}${r"}"} <#if CONFIG.openVersion=="true">and version = ${r"#{"}${"version"}${r"}"}</#if>
         </where>
     </update>
 
@@ -81,7 +81,7 @@
     <update id="deleteByIds">
         update <include refid="table" />
         <set>
-            version = ${r"#{"}${"version"}${r"}"}+1,status='deleted',update_time = now(),
+            version = version+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
             <if test="updateUserName != null and updateUserName !=''">update_user_id = ${r"#{"}${"updateUserName"}${r"}"},</if>
         </set>
