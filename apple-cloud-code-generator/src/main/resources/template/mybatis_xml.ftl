@@ -54,7 +54,7 @@
             <if test="status != null">status = ${r"#{"}${"status"}${r"}"},</if>
             update_time = now(),
             <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_id = ${r"#{"}${"updateUserName"}${r"}"},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_name = ${r"#{"}${"updateUserName"}${r"}"},</if>
         </#if>
 <#list entity.myfieldListNotTransient as e>            <if test="${e.fieldName} != null <#if e.fieldTypeClassName=="class java.lang.String">and ${e.fieldName} !=''</#if>">${e.columnName} = ${r"#{"}${e.fieldName}${r"}"}<#if e_has_next>,</#if></if>
             </#list>
@@ -70,7 +70,7 @@
         <set>
             version = <#if CONFIG.openVersion=="true">${r"#{"}${"version"}${r"}"}</#if><#if CONFIG.openVersion=="false">version</#if>+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_id = ${r"#{"}${"updateUserName"}${r"}"},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_name = ${r"#{"}${"updateUserName"}${r"}"},</if>
         </set>
         <where>
             id = ${r"#{"}${"id"}${r"}"} <#if CONFIG.openVersion=="true">and version = ${r"#{"}${"version"}${r"}"}</#if>
@@ -83,7 +83,7 @@
         <set>
             version = version+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_id = ${r"#{"}${"updateUserName"}${r"}"},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_name = ${r"#{"}${"updateUserName"}${r"}"},</if>
         </set>
         <where>
             in <foreach collection="list" separator="," item="id" open="(" close=")"> ${r"#{"}${"id"}${r"}"} </foreach>
