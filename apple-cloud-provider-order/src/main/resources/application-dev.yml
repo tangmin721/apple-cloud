@@ -1,21 +1,21 @@
 server:
   port: 8001
 
-sharding:
-  jdbc:
-    datasource:
-      ds_0:
-        name: master
-        filters: stat
-        url: jdbc:mysql://localhost:3306/ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: root
-        password: root1234
-      ds_1:
-        name: master
-        filters: stat
-        url: jdbc:mysql://localhost:3306/ds_1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: root
-        password: root1234
+
+jdbc:
+  datasource:
+    ds_0:
+      name: master
+      filters: stat
+      url: jdbc:mysql://localhost:3306/ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root1234
+    ds_1:
+      name: master
+      filters: stat
+      url: jdbc:mysql://localhost:3306/ds_1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root1234
 
 spring:
   redis:

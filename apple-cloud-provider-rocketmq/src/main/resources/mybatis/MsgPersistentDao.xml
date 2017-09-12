@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cachexic.cloud.provider.rocketmq.dao.MsgPersistentDao">
+
+    <sql id="table"> t_msg_persistent </sql>
+    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,topic,tags,msg_data_type,msg_body,msg_send_times,msg_status </sql>
+
+    <resultMap id="msgPersistent" type="com.cachexic.cloud.feign.msg.entity.MsgPersistent">
+        <result property="id" column="id" />
+        <result property="version" column="version" />
+        <result property="createTime" column="create_time" />
+        <result property="createUserId" column="create_user_id" />
+        <result property="createUserName" column="create_user_name" />
+        <result property="updateTime" column="update_time" />
+        <result property="updateUserId" column="update_user_id" />
+        <result property="updateUserName" column="update_user_name" />
+        <result property="status" column="status" />
+        <result property="topic" column="topic" />
+        <result property="tags" column="tags" />
+        <result property="msgDataType" column="msg_data_type" />
+        <result property="msgBody" column="msg_body" />
+        <result property="msgSendTimes" column="msg_send_times" />
+        <result property="msgStatus" column="msg_status" />
+    </resultMap>
+
+    <!--单条插入-->
+    <insert id="insert" parameterType="com.cachexic.cloud.feign.msg.entity.MsgPersistent" keyProperty="id" useGeneratedKeys="true">
+        insert into
+        <include refid="table" />
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            create_time,create_user_id,create_user_name,status,
+            <if test="topic != null and topic !=''">topic,</if>
+            <if test="tags != null and tags !=''">tags,</if>
+            <if test="msgDataType != null and msgDataType !=''">msg_data_type,</if>
+            <if test="msgBody != null and msgBody !=''">msg_body,</if>
+            <if test="msgSendTimes != null ">msg_send_times,</if>
+            <if test="msgStatus != null ">msg_status</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            now(),#{createUserId},#{createUserName},'normal',
+            <if test="topic != null and topic !=''">#{topic},</if>
+            <if test="tags != null and tags !=''">#{tags},</if>
+            <if test="msgDataType != null and msgDataType !=''">#{msgDataType},</if>
+            <if test="msgBody != null and msgBody !=''">#{msgBody},</if>
+            <if test="msgSendTimes != null ">#{msgSendTimes},</if>
+            <if test="msgStatus != null ">#{msgStatus}</if>
+        </trim>
+    </insert>
+
+    <!--批量插入(可以直接拷贝到mybatis_xml中，sharding-jdbc不支持此方法)-->
+    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true">
+        insert into <include refid="table"/>
+        (<include refid="columns"/>)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (null,0,now(),#{item.createUserId},#{item.createUserName},null,null,null,'normal',#{item.topic},#{item.tags},#{item.msgDataType},#{item.msgBody},#{item.msgSendTimes},#{item.msgStatus})
+        </foreach>
+    </insert>
+
+    <!-- 根据主键查询 -->
+    <select id="selectById" resultMap="msgPersistent">
+        <include refid="selectorFields" />
+        where
+        id=#{id}
+    </select>
+
+    <!-- 根据主键批量查询 -->
+    <select id="selectByIds" resultMap="msgPersistent" >
+        <include refid="selectorFields" />
+        where id in
+        <foreach collection="ids" separator="," item="id" open="(" close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!-- 单条更新 -->
+    <update id="update" parameterType="com.cachexic.cloud.feign.msg.entity.MsgPersistent">
+        update
+        <include refid="table" />
+        <set>
+            version = version+1,
+            <if test="status != null">status = #{status},</if>
+            update_time = now(),
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_id = #{updateUserName},</if>
+            <if test="topic != null and topic !=''">topic = #{topic},</if>
+            <if test="tags != null and tags !=''">tags = #{tags},</if>
+            <if test="msgDataType != null and msgDataType !=''">msg_data_type = #{msgDataType},</if>
+            <if test="msgBody != null and msgBody !=''">msg_body = #{msgBody},</if>
+            <if test="msgSendTimes != null ">msg_send_times = #{msgSendTimes},</if>
+            <if test="msgStatus != null ">msg_status = #{msgStatus}</if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <!-- 根据id假删除 -->
+    <update id="deleteById">
+        update <include refid="table" />
+        <set>
+            version = version+1,status='deleted',update_time = now(),
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_id = #{updateUserName},</if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <!-- 根据主键批量假删除 -->
+    <update id="deleteByIds">
+        update <include refid="table" />
+        <set>
+            version = version+1,status='deleted',update_time = now(),
+            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_id = #{updateUserName},</if>
+        </set>
+        <where>
+            in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
+        </where>
+    </update>
+
+    <!-- 根据id彻底删除 -->
+    <delete id="removeById" parameterType="long">
+        delete from <include refid="table" /> where id=#{id}
+    </delete>
+
+    <!-- 根据主键批量彻底删除 -->
+    <delete id="removeByIds" parameterType="java.util.List">
+        delete from <include refid="table" /> where id in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
+    </delete>
+
+    <!--片段list字段查询器-->
+    <sql id="selectorFields">
+        select
+        <if test="fields != null and fields !=''">
+            ${fields}
+        </if>
+        <if test="fields == null or fields == ''">
+            *
+        </if>
+        from  <include refid="table" />
+    </sql>
+
+    <!--片段list条件判断 注意:如果用 like查询，建议去掉前面的'%'，不然索引无效-->
+    <sql id="selectorWhere">
+        <where>
+            <if test="status != null"> and status=#{status} </if>
+            <if test="startCreateTime != null"> and create_time <![CDATA[   >=  ]]>#{startCreateTime} </if>
+            <if test="endCreateTime != null"> and  create_time <![CDATA[   <  ]]> #{endCreateTime} </if>
+            <if test="startUpdateTime != null"> and update_time <![CDATA[   >=  ]]>#{startUpdateTime} </if>
+            <if test="endUpdateTime != null"> and  update_time <![CDATA[   <  ]]> #{endUpdateTime} </if>
+            <if test="createUserId != null">and createUserId=#{createUserId} </if>
+            <if test="updateUserId != null">and updateUserId=#{updateUserId} </if>
+            <if test="topic != null and topic !=''">
+                <if test="topicLike == false"> and topic=#{topic}</if>
+                <if test="topicLike == true"> and topic like  CONCAT('%',#{topic},'%')</if>
+            </if>
+            <if test="tags != null and tags !=''">
+                <if test="tagsLike == false"> and tags=#{tags}</if>
+                <if test="tagsLike == true"> and tags like  CONCAT('%',#{tags},'%')</if>
+            </if>
+            <if test="msgDataType != null and msgDataType !=''">
+                <if test="msgDataTypeLike == false"> and msg_data_type=#{msgDataType}</if>
+                <if test="msgDataTypeLike == true"> and msg_data_type like  CONCAT('%',#{msgDataType},'%')</if>
+            </if>
+            <if test="msgBody != null and msgBody !=''">
+                <if test="msgBodyLike == false"> and msg_body=#{msgBody}</if>
+                <if test="msgBodyLike == true"> and msg_body like  CONCAT('%',#{msgBody},'%')</if>
+            </if>
+            <if test="msgSendTimes != null "> and msg_send_times=#{msgSendTimes}</if>
+            <if test="msgStatus != null "> and msg_status=#{msgStatus}</if>
+            <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
+            <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
+            -->
+        </where>
+    </sql>
+
+    <!--片段list排序-->
+    <sql id="selectorOrder">
+        <if test="orderFields != null and orderFields.size >0">
+            order by
+            <foreach collection="orderFields" separator="," item="orderField">
+                ${orderField.fieldName} ${orderField.order}
+            </foreach>
+        </if>
+    </sql>
+
+    <!--片段list分页-->
+    <sql id="selectorLimit">
+        <if test="startRow != null">
+            limit  #{startRow},#{pageSize}
+        </if>
+    </sql>
+
+    <!--查询所有记录-->
+    <select id="selectList" parameterType="com.cachexic.cloud.feign.msg.entity.query.MsgPersistentQuery" resultMap="msgPersistent">
+        <include refid="selectorFields" />
+        <include refid="selectorWhere" />
+        <include refid="selectorOrder" />
+    </select>
+
+    <!-- 分页 -->
+    <select id="selectListPage" parameterType="com.cachexic.cloud.feign.msg.entity.query.MsgPersistentQuery" resultMap="msgPersistent">
+        <include refid="selectorFields" />
+        <include refid="selectorWhere" />
+        <include refid="selectorOrder" />
+        <include refid="selectorLimit" />
+    </select>
+
+    <!--总条数-->
+    <select id="selectListTotal" parameterType="com.cachexic.cloud.feign.msg.entity.query.MsgPersistentQuery" resultType="long">
+        select count(id) from <include refid="table" />
+        <include refid="selectorWhere" />
+    </select>
+
+    <!--///////////////////////////////自定义/////////////////////////-->
+</mapper>

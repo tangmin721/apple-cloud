@@ -4,7 +4,7 @@
 <mapper namespace="com.cachexic.cloud.provider.${CONFIG.serverName}.dao.${entity.className}Dao">
 
     <sql id="table"> ${entity.tableName} </sql>
-    <sql id="columns"> <#list entity.allfieldList as e>${e.columnName}<#if e_has_next>,</#if></#list> </sql>
+    <sql id="columns"> id,<#if CONFIG.extendBaseEntity=="true">version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,</#if><#list entity.myfieldListNotTransient as e>${e.columnName}<#if e_has_next>,</#if></#list> </sql>
 
     <resultMap id="${entity.firstLowName}" type="${entity.fullClassName}">
 <#list entity.allfieldList as e>        <result property="${e.fieldName}" column="${e.columnName}" />

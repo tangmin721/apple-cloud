@@ -1,15 +1,16 @@
 server:
   port: 8002
 
-sharding:
-  jdbc:
-    datasource:
-      ds_rocketmq:
-        name: master
-        filters: stat
-        url: jdbc:mysql://localhost:3306/ds_rocketmq?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: root
-        password: root1234
+
+jdbc:
+  datasource:
+    ds_rocketmq:
+      name: master
+      filters: stat
+      url: jdbc:mysql://localhost:3306/ds_rocketmq?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root1234
+      publickey: null
 
 rocketmq:
   group: apple-cloud-group

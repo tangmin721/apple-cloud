@@ -1,23 +1,22 @@
 server:
   port: 9001
 
-sharding:
-  jdbc:
-    datasource:
-      ds_0:
-        name: master
-        filters: config
-        url: jdbc:mysql://localhost:3306/prod_ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: root
-        password: hg4uZEbdFWp7NIfeJfIAjyEFvcaJ5wmT+/GC/921N0yTOfSwrMMeG6Rs7XOsjrdhR2rOBzEkdB0RNU5oagu/5A==
-        publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMZQbZXVGlg+cTJvBphpyxqiNznKh2pXlsULm+v6fEmrKCMNhPIThFbP30+bpfx3Rh0BHpc/gxvyPlSTb3Jmb40CAwEAAQ==
-      ds_1:
-        name: master
-        filters: config
-        url: jdbc:mysql://localhost:3306/prod_ds_1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: root
-        password: hGhoQPejnh60yzyXnK5dCXoCxIm2FhEbXe+0erhDog/KViP9rCoQ7MAigkI49zbDB1OjBmEEcG1Z1FldH2RyWQ==
-        publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIsclNlhr7IjHhInfg5V4Iw2J0JX9OANrzGND3C5lfp0kyjaJcu9oq7QRq4zX5ONRM64xL7HWNyh9AUaxRslr5MCAwEAAQ==
+jdbc:
+  datasource:
+    ds_0:
+      name: master
+      filters: config
+      url: jdbc:mysql://localhost:3306/prod_ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: hg4uZEbdFWp7NIfeJfIAjyEFvcaJ5wmT+/GC/921N0yTOfSwrMMeG6Rs7XOsjrdhR2rOBzEkdB0RNU5oagu/5A==
+      publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMZQbZXVGlg+cTJvBphpyxqiNznKh2pXlsULm+v6fEmrKCMNhPIThFbP30+bpfx3Rh0BHpc/gxvyPlSTb3Jmb40CAwEAAQ==
+    ds_1:
+      name: master
+      filters: config
+      url: jdbc:mysql://localhost:3306/prod_ds_1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: hGhoQPejnh60yzyXnK5dCXoCxIm2FhEbXe+0erhDog/KViP9rCoQ7MAigkI49zbDB1OjBmEEcG1Z1FldH2RyWQ==
+      publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIsclNlhr7IjHhInfg5V4Iw2J0JX9OANrzGND3C5lfp0kyjaJcu9oq7QRq4zX5ONRM64xL7HWNyh9AUaxRslr5MCAwEAAQ==
 
 spring:
   redis:

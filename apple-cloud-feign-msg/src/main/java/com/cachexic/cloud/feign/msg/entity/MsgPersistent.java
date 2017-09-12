@@ -1,6 +1,8 @@
 package com.cachexic.cloud.feign.msg.entity;
 
+import com.cachexic.cloud.common.base.annotations.Entity;
 import com.cachexic.cloud.common.base.entity.BaseEntity;
+import com.cachexic.cloud.feign.msg.enums.MsgStatusEnum;
 
 /**
  * @author tangmin
@@ -10,6 +12,7 @@ import com.cachexic.cloud.common.base.entity.BaseEntity;
  * @Description: 持久化消息实体类
  * @date 2017-09-09 16:55:20
  */
+@Entity("t_msg_persistent")
 public class MsgPersistent extends BaseEntity{
     private static final long serialVersionUID = -5497996812028362407L;
 
@@ -25,6 +28,8 @@ public class MsgPersistent extends BaseEntity{
 
     /** 消息发送次数 */
     private Integer msgSendTimes;
+
+    private MsgStatusEnum msgStatus;
 
     public String getTopic() {
         return topic;
@@ -70,6 +75,11 @@ public class MsgPersistent extends BaseEntity{
         msgSendTimes++;
     }
 
+    public MsgStatusEnum getMsgStatus() {
+        return msgStatus;
+    }
 
-
+    public void setMsgStatus(MsgStatusEnum msgStatus) {
+        this.msgStatus = msgStatus;
+    }
 }

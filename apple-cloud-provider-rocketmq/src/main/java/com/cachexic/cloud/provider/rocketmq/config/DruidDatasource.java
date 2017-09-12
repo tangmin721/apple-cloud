@@ -29,11 +29,11 @@ public class DruidDatasource {
     @Bean(name = "ds_rocketmq")
     @Primary
     public DataSource ds_rocketmq(
-            @Value("${sharding.jdbc.datasource.ds_rocketmq.url}") String url,
-            @Value("${sharding.jdbc.datasource.ds_rocketmq.username}") String username,
-            @Value("${sharding.jdbc.datasource.ds_rocketmq.password}") String password,
-            @Value("${sharding.jdbc.datasource.ds_rocketmq.publickey}") String publickey,
-            @Value("${sharding.jdbc.datasource.ds_rocketmq.filters}") String filters) {
+            @Value("${jdbc.datasource.ds_rocketmq.url}") String url,
+            @Value("${jdbc.datasource.ds_rocketmq.username}") String username,
+            @Value("${jdbc.datasource.ds_rocketmq.password}") String password,
+            @Value("${jdbc.datasource.ds_rocketmq.publickey}") String publickey,
+            @Value("${jdbc.datasource.ds_rocketmq.filters}") String filters) {
         return druidDatasourceBase.getDruidDataSource(url, username, password, publickey, filters);
     }
 
