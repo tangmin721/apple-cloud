@@ -49,13 +49,13 @@
         </trim>
     </insert>
 
-    <!--批量插入(可以直接拷贝到mybatis_xml中，sharding-jdbc不支持此方法)-->
+    <!--批量插入-->
     <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true">
         insert into <include refid="table"/>
         (<include refid="columns"/>)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (null,0,now(),#{item.createUserId},#{item.createUserName},null,null,null,'normal',#{item.topic},#{item.tags},#{item.msgDataType},#{item.msgBody},#{item.msgSendTimes},#{item.msgStatus})
+            (null,0,now(),#{item.createUserId},#{item.createUserName},null,null,'','normal',#{item.topic},#{item.tags},#{item.msgDataType},#{item.msgBody},#{item.msgSendTimes},#{item.msgStatus})
         </foreach>
     </insert>
 
@@ -93,7 +93,7 @@
             <if test="msgStatus != null ">msg_status = #{msgStatus}</if>
         </set>
         <where>
-            id = #{id}
+            id = #{id} 
         </where>
     </update>
 
@@ -106,7 +106,7 @@
             <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
         </set>
         <where>
-            id = #{id}
+            id = #{id} 
         </where>
     </update>
 
