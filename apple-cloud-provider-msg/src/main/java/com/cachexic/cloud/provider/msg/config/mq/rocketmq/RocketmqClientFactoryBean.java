@@ -1,4 +1,4 @@
-package com.cachexic.cloud.provider.msg.config;
+package com.cachexic.cloud.provider.msg.config.mq.rocketmq;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.slf4j.Logger;
