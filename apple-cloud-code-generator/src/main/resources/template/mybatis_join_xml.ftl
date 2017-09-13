@@ -33,13 +33,14 @@
         </trim>
     </insert>
 
-    <!--批量插入(可以直接拷贝到mybatis_xml中，sharding-jdbc不支持此方法)-->
+    <!--(可以直接拷贝到mybatis_xml中，sharding-jdbc不支持此方法)-->
+    <!--批量插入-->
     <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true">
         insert into <include refid="table"/>
         (<include refid="columns"/>)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (null,0,now(),${r"#{"}${"item.createUserId"}${r"}"},${r"#{"}${"item.createUserName"}${r"}"},null,null,null,'normal',<#list entity.myfieldListNotTransient as e>${r"#{"}item.${e.fieldName}${r"}"}<#if e_has_next>,</#if></#list>)
+            (null,0,now(),${r"#{"}${"item.createUserId"}${r"}"},${r"#{"}${"item.createUserName"}${r"}"},null,null,'','normal',<#list entity.myfieldListNotTransient as e>${r"#{"}item.${e.fieldName}${r"}"}<#if e_has_next>,</#if></#list>)
         </foreach>
     </insert>
 
