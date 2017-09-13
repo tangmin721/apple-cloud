@@ -1,6 +1,7 @@
 package com.cachexic.cloud.feign.msg.entity.query;
 
 import com.cachexic.cloud.common.base.entity.query.BaseQuery;
+import com.cachexic.cloud.common.base.entity.query.PojoBaseQuery;
 import com.cachexic.cloud.feign.msg.enums.MsgStatusEnum;
 
 /**
@@ -113,5 +114,23 @@ public class MsgPersistentQuery extends BaseQuery{
         return this;
     }
 
+    /**
+     * 覆写最大页
+     * @param pageSize
+     * @return
+     */
+    private static final long my_max_page_size = 1000L;
+    @Override
+    public PojoBaseQuery setPageSize(Long pageSize) {
+        if (pageSize.longValue() > my_max_page_size) {
+            this.pageSize = my_max_page_size;
+        }
+        if (pageSize.longValue() > 0 && pageSize.longValue() <= my_max_page_size) {
+            this.pageSize = pageSize;
+        }
+
+        this.startRow = (this.currentPage - 1) * this.pageSize;
+        return this;
+    }
 
 }

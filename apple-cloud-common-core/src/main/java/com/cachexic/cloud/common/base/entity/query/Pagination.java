@@ -18,10 +18,8 @@ import java.util.List;
 public class Pagination<T> implements Serializable {
     private static final long serialVersionUID = 5399980318862132190L;
 
-    /** protected使得继承此类，可以修改默认的分页参数 */
-    protected long DEFAULT_PAGE_SIZE = SystemConst.DEFAULT_PAGE_SIZE;
+    private long DEFAULT_PAGE_SIZE = SystemConst.DEFAULT_PAGE_SIZE;
 
-    protected long MAX_PAGE_SIZE = SystemConst.MAX_PAGE_SIZE;
     /** 实体的list */
     private List<T> list = Lists.newArrayList();
 
@@ -54,12 +52,7 @@ public class Pagination<T> implements Serializable {
     }
 
     public Pagination(Long currentPage, Long pageSize, Long total) {
-        if (pageSize.longValue() > MAX_PAGE_SIZE) {
-            this.pageSize = MAX_PAGE_SIZE;
-        }
-        if (pageSize.longValue() > 0 && pageSize.longValue() <= MAX_PAGE_SIZE) {
-            this.pageSize = pageSize;
-        }
+        this.pageSize = pageSize;
         this.currentPage = currentPage;
         this.total = total;
 
