@@ -16,6 +16,7 @@
  */
 package com.cachexic.cloud.provider.msg.example.quickstart;
 
+import java.util.List;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -24,22 +25,20 @@ import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 
-import java.util.List;
-
 /**
  * @author tangmin
  * @version V1.0
  * @Title: Consumer.java
  * @Package com.cachexic.cloud.provider.rocketmq.example.quickstart
- * @Description: 
+ * @Description: 只需要把 groupId换成别的，就是另一个消费组
  * @date 2017-09-09 09:25:58
  */
-public class Consumer {
+public class ConsumerOtherGroup3 {
 
     public static void main(String[] args) throws InterruptedException, MQClientException {
 
 
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("order_group_1");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("order_group_3");
         consumer.setNamesrvAddr("apple01:9876");
 
         /**
