@@ -84,7 +84,7 @@
             <if test="status != null">status = #{status},</if>
             update_time = now(),
             <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_id = #{updateUserName},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
             <if test="topic != null and topic !=''">topic = #{topic},</if>
             <if test="tags != null and tags !=''">tags = #{tags},</if>
             <if test="msgDataType != null and msgDataType !=''">msg_data_type = #{msgDataType},</if>
@@ -103,7 +103,7 @@
         <set>
             version = version+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_id = #{updateUserName},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
         </set>
         <where>
             id = #{id}
@@ -116,7 +116,7 @@
         <set>
             version = version+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_id = #{updateUserName},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
         </set>
         <where>
             in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
