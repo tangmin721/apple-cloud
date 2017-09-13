@@ -11,6 +11,7 @@ package com.cachexic.cloud.feign.msg.exceptions;
 public enum MsgBizExceptionEnum {
     MQ_CLIENT_EXCEPTION(-1,"消息中间件连接异常"),
     SAVA_MESSAGE_IS_NULL(-1,"保存的消息为空"),
+    SEND_MESSAGE_RESULT_IS_NOTOK(-1,"发送消息返回状态不是SEND_OK"),
     MESSAGE_CONSUMER_QUEUE_IS_NULL(-1,"消息的消费队列为空");
 
     private int code;

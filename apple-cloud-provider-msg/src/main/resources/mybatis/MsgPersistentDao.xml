@@ -4,7 +4,7 @@
 <mapper namespace="com.cachexic.cloud.provider.msg.dao.MsgPersistentDao">
 
     <sql id="table"> t_msg_persistent </sql>
-    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,topic,tags,msg_data_type,msg_body,msg_send_times,msg_status </sql>
+    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,consumer_queue,topic,tag,msg_id,mq_msg_id,msg_class_name,msg_body,msg_send_times,areadly_dead,msg_status,field_long1,field_long2,field_string1,field_string2 </sql>
 
     <resultMap id="msgPersistent" type="com.cachexic.cloud.feign.msg.entity.MsgPersistent">
         <result property="id" column="id" />
@@ -16,12 +16,20 @@
         <result property="updateUserId" column="update_user_id" />
         <result property="updateUserName" column="update_user_name" />
         <result property="status" column="status" />
+        <result property="consumerQueue" column="consumer_queue" />
         <result property="topic" column="topic" />
-        <result property="tags" column="tags" />
-        <result property="msgDataType" column="msg_data_type" />
+        <result property="tag" column="tag" />
+        <result property="msgId" column="msg_id" />
+        <result property="mqMsgId" column="mq_msg_id" />
+        <result property="msgClassName" column="msg_class_name" />
         <result property="msgBody" column="msg_body" />
         <result property="msgSendTimes" column="msg_send_times" />
+        <result property="areadlyDead" column="areadly_dead" />
         <result property="msgStatus" column="msg_status" />
+        <result property="fieldLong1" column="field_long1" />
+        <result property="fieldLong2" column="field_long2" />
+        <result property="fieldString1" column="field_string1" />
+        <result property="fieldString2" column="field_string2" />
     </resultMap>
 
     <!--单条插入-->
@@ -30,22 +38,38 @@
         <include refid="table" />
         <trim prefix="(" suffix=")" suffixOverrides=",">
             create_time,create_user_id,create_user_name,status,
+            <if test="consumerQueue != null and consumerQueue !=''">consumer_queue,</if>
             <if test="topic != null and topic !=''">topic,</if>
-            <if test="tags != null and tags !=''">tags,</if>
-            <if test="msgDataType != null and msgDataType !=''">msg_data_type,</if>
+            <if test="tag != null and tag !=''">tag,</if>
+            <if test="msgId != null and msgId !=''">msg_id,</if>
+            <if test="mqMsgId != null and mqMsgId !=''">mq_msg_id,</if>
+            <if test="msgClassName != null and msgClassName !=''">msg_class_name,</if>
             <if test="msgBody != null and msgBody !=''">msg_body,</if>
             <if test="msgSendTimes != null ">msg_send_times,</if>
-            <if test="msgStatus != null ">msg_status</if>
+            <if test="areadlyDead != null ">areadly_dead,</if>
+            <if test="msgStatus != null ">msg_status,</if>
+            <if test="fieldLong1 != null ">field_long1,</if>
+            <if test="fieldLong2 != null ">field_long2,</if>
+            <if test="fieldString1 != null and fieldString1 !=''">field_string1,</if>
+            <if test="fieldString2 != null and fieldString2 !=''">field_string2</if>
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
             now(),#{createUserId},#{createUserName},'normal',
+            <if test="consumerQueue != null and consumerQueue !=''">#{consumerQueue},</if>
             <if test="topic != null and topic !=''">#{topic},</if>
-            <if test="tags != null and tags !=''">#{tags},</if>
-            <if test="msgDataType != null and msgDataType !=''">#{msgDataType},</if>
+            <if test="tag != null and tag !=''">#{tag},</if>
+            <if test="msgId != null and msgId !=''">#{msgId},</if>
+            <if test="mqMsgId != null and mqMsgId !=''">#{mqMsgId},</if>
+            <if test="msgClassName != null and msgClassName !=''">#{msgClassName},</if>
             <if test="msgBody != null and msgBody !=''">#{msgBody},</if>
             <if test="msgSendTimes != null ">#{msgSendTimes},</if>
-            <if test="msgStatus != null ">#{msgStatus}</if>
+            <if test="areadlyDead != null ">#{areadlyDead},</if>
+            <if test="msgStatus != null ">#{msgStatus},</if>
+            <if test="fieldLong1 != null ">#{fieldLong1},</if>
+            <if test="fieldLong2 != null ">#{fieldLong2},</if>
+            <if test="fieldString1 != null and fieldString1 !=''">#{fieldString1},</if>
+            <if test="fieldString2 != null and fieldString2 !=''">#{fieldString2}</if>
         </trim>
     </insert>
 
@@ -55,7 +79,7 @@
         (<include refid="columns"/>)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (null,0,now(),#{item.createUserId},#{item.createUserName},null,null,'','normal',#{item.topic},#{item.tags},#{item.msgDataType},#{item.msgBody},#{item.msgSendTimes},#{item.msgStatus})
+            (null,0,now(),#{item.createUserId},#{item.createUserName},null,null,'','normal',#{item.consumerQueue},#{item.topic},#{item.tag},#{item.msgId},#{item.mqMsgId},#{item.msgClassName},#{item.msgBody},#{item.msgSendTimes},#{item.areadlyDead},#{item.msgStatus},#{item.fieldLong1},#{item.fieldLong2},#{item.fieldString1},#{item.fieldString2})
         </foreach>
     </insert>
 
@@ -85,12 +109,20 @@
             update_time = now(),
             <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
             <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
+            <if test="consumerQueue != null and consumerQueue !=''">consumer_queue = #{consumerQueue},</if>
             <if test="topic != null and topic !=''">topic = #{topic},</if>
-            <if test="tags != null and tags !=''">tags = #{tags},</if>
-            <if test="msgDataType != null and msgDataType !=''">msg_data_type = #{msgDataType},</if>
+            <if test="tag != null and tag !=''">tag = #{tag},</if>
+            <if test="msgId != null and msgId !=''">msg_id = #{msgId},</if>
+            <if test="mqMsgId != null and mqMsgId !=''">mq_msg_id = #{mqMsgId},</if>
+            <if test="msgClassName != null and msgClassName !=''">msg_class_name = #{msgClassName},</if>
             <if test="msgBody != null and msgBody !=''">msg_body = #{msgBody},</if>
             <if test="msgSendTimes != null ">msg_send_times = #{msgSendTimes},</if>
-            <if test="msgStatus != null ">msg_status = #{msgStatus}</if>
+            <if test="areadlyDead != null ">areadly_dead = #{areadlyDead},</if>
+            <if test="msgStatus != null ">msg_status = #{msgStatus},</if>
+            <if test="fieldLong1 != null ">field_long1 = #{fieldLong1},</if>
+            <if test="fieldLong2 != null ">field_long2 = #{fieldLong2},</if>
+            <if test="fieldString1 != null and fieldString1 !=''">field_string1 = #{fieldString1},</if>
+            <if test="fieldString2 != null and fieldString2 !=''">field_string2 = #{fieldString2}</if>
         </set>
         <where>
             id = #{id} 
@@ -155,24 +187,47 @@
             <if test="endUpdateTime != null"> and  update_time <![CDATA[   <  ]]> #{endUpdateTime} </if>
             <if test="createUserId != null">and createUserId=#{createUserId} </if>
             <if test="updateUserId != null">and updateUserId=#{updateUserId} </if>
+            <if test="consumerQueue != null and consumerQueue !=''">
+                <if test="consumerQueueLike == false"> and consumer_queue=#{consumerQueue}</if>
+                <if test="consumerQueueLike == true"> and consumer_queue like  CONCAT('%',#{consumerQueue},'%')</if>
+            </if>
             <if test="topic != null and topic !=''">
                 <if test="topicLike == false"> and topic=#{topic}</if>
                 <if test="topicLike == true"> and topic like  CONCAT('%',#{topic},'%')</if>
             </if>
-            <if test="tags != null and tags !=''">
-                <if test="tagsLike == false"> and tags=#{tags}</if>
-                <if test="tagsLike == true"> and tags like  CONCAT('%',#{tags},'%')</if>
+            <if test="tag != null and tag !=''">
+                <if test="tagLike == false"> and tag=#{tag}</if>
+                <if test="tagLike == true"> and tag like  CONCAT('%',#{tag},'%')</if>
             </if>
-            <if test="msgDataType != null and msgDataType !=''">
-                <if test="msgDataTypeLike == false"> and msg_data_type=#{msgDataType}</if>
-                <if test="msgDataTypeLike == true"> and msg_data_type like  CONCAT('%',#{msgDataType},'%')</if>
+            <if test="msgId != null and msgId !=''">
+                <if test="msgIdLike == false"> and msg_id=#{msgId}</if>
+                <if test="msgIdLike == true"> and msg_id like  CONCAT('%',#{msgId},'%')</if>
+            </if>
+            <if test="mqMsgId != null and mqMsgId !=''">
+                <if test="mqMsgIdLike == false"> and mq_msg_id=#{mqMsgId}</if>
+                <if test="mqMsgIdLike == true"> and mq_msg_id like  CONCAT('%',#{mqMsgId},'%')</if>
+            </if>
+            <if test="msgClassName != null and msgClassName !=''">
+                <if test="msgClassNameLike == false"> and msg_class_name=#{msgClassName}</if>
+                <if test="msgClassNameLike == true"> and msg_class_name like  CONCAT('%',#{msgClassName},'%')</if>
             </if>
             <if test="msgBody != null and msgBody !=''">
                 <if test="msgBodyLike == false"> and msg_body=#{msgBody}</if>
                 <if test="msgBodyLike == true"> and msg_body like  CONCAT('%',#{msgBody},'%')</if>
             </if>
             <if test="msgSendTimes != null "> and msg_send_times=#{msgSendTimes}</if>
+            <if test="areadlyDead != null "> and areadly_dead=#{areadlyDead}</if>
             <if test="msgStatus != null "> and msg_status=#{msgStatus}</if>
+            <if test="fieldLong1 != null "> and field_long1=#{fieldLong1}</if>
+            <if test="fieldLong2 != null "> and field_long2=#{fieldLong2}</if>
+            <if test="fieldString1 != null and fieldString1 !=''">
+                <if test="fieldString1Like == false"> and field_string1=#{fieldString1}</if>
+                <if test="fieldString1Like == true"> and field_string1 like  CONCAT('%',#{fieldString1},'%')</if>
+            </if>
+            <if test="fieldString2 != null and fieldString2 !=''">
+                <if test="fieldString2Like == false"> and field_string2=#{fieldString2}</if>
+                <if test="fieldString2Like == true"> and field_string2 like  CONCAT('%',#{fieldString2},'%')</if>
+            </if>
             <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
             <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
             -->

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @Description: 消息中间件对外暴露的接口
  * @date 2017-09-09 16:47:25
  */
-@FeignClient(name = "provider-msg", path = "/msg")
+@FeignClient(name = "provider-msg", path = "/producer")
 public interface MsgFeign {
 
     /** 预存储消息 */
