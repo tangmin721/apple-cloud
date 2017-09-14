@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * @author tangmin
  * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
  */
-@Service
+@Service("${entity.firstLowName}Service")
 public class ${entity.className}ServiceImpl extends BaseServiceImpl<${entity.className}, ${entity.className}Query> implements ${entity.className}Service{
 
 }

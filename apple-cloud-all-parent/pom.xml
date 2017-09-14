@@ -45,6 +45,7 @@
         <mysql-connector-java.version>5.1.43</mysql-connector-java.version>
         <sharding-jdbc.version>1.5.3</sharding-jdbc.version>
 
+        <ehcache.version>2.10.0</ehcache.version>
         <guava.version>23.0</guava.version>
         <commons-lang3.version>3.6</commons-lang3.version>
         <jackson.version>2.8.3</jackson.version>
@@ -78,6 +79,13 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <!--本地缓存-->
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>${ehcache.version}</version>
             </dependency>
 
             <!--sjdbc分库分表-->

@@ -23,10 +23,20 @@
             <artifactId>apple-cloud-feign-msg</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
+
+
+        <!--rocketmq-->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
             <version>4.1.0-incubating</version>
+        </dependency>
+        <!--kafka-->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.11</artifactId>
+            <version>0.10.1.1</version>
         </dependency>
     </dependencies>
 

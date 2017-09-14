@@ -39,6 +39,11 @@
             <artifactId>druid</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+        </dependency>
+
         <!--sjdbc分库分表-->
         <dependency>
             <groupId>com.dangdang</groupId>
