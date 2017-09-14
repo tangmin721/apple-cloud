@@ -1,6 +1,6 @@
 package com.cachexic.cloud.provider.order.listener;
 
-import com.cachexic.cloud.provider.order.listener.runnable.OrderCreateConsumer;
+import com.cachexic.cloud.provider.order.listener.rocketmq.OrderCreateRocketmqConsumer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -23,7 +23,7 @@ public class InitListener implements ServletContextListener{
         ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(sc);
         SpringContext.setApplicationContext(context);
 
-        new Thread(new OrderCreateConsumer()).start();
+        new Thread(new OrderCreateRocketmqConsumer()).start();
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.cachexic.cloud.provider.order.listener.kafkaconsumer;
+package com.cachexic.cloud.provider.order.listener.kafka;
 
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.msg.entity.MsgPersistent;

@@ -1,4 +1,4 @@
-package com.cachexic.cloud.provider.order.listener.runnable;
+package com.cachexic.cloud.provider.order.listener.rocketmq;
 
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.order.entity.Order;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * Created by tangm on 2017/9/14.
  */
 @Component
-public class OrderCreateConsumer implements Runnable{
+public class OrderCreateRocketmqConsumer implements Runnable{
 
     @Autowired
     private OrderService orderService;
