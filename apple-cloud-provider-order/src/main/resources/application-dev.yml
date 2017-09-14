@@ -17,9 +17,16 @@ jdbc:
       username: root
       password: root1234
 
+rocketmq:
+  namesrv: apple01:9876 # name-server1-ip:9876;name-server2-ip:9876 注意是分号分割
+
 spring:
   redis:
     cluster:
       nodes: 10.16.70.230:8000,10.16.70.231:8000,10.16.70.232:8000,10.16.70.230:9000,10.16.70.231:9000,10.16.70.232:9000
+  kafka:
+      bootstrap-servers: kafka01:9092,kafka02:9092,kafka03:9092
+      consumer:
+        group-id: provider_order
 
 

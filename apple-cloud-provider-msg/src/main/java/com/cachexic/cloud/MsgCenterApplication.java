@@ -15,8 +15,8 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableFeignClients
 @EnableEurekaClient
 @EnableCircuitBreaker
-public class RockemqApplication {
+public class MsgCenterApplication {
     public static void main(String[] args) {
-        SpringApplication.run(RockemqApplication.class, args);
+        SpringApplication.run(MsgCenterApplication.class, args);
     }
 }

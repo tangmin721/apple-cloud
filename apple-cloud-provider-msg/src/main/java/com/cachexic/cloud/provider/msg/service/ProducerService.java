@@ -18,7 +18,7 @@ public interface ProducerService {
     void saveAndSendMsg(MsgPersistent msgPersistent);
 
     /** 直接发送消息 */
-    void directSendMsg(MsgPersistent msgPersistent) throws Exception;
+    void directSendMsg(MsgPersistent msgPersistent);
 
     /** 重发消息 */
     void reSendMsg(@RequestBody MsgPersistent msgPersistent);

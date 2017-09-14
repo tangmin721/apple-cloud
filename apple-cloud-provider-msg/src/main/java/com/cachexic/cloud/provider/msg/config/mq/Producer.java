@@ -13,5 +13,5 @@ public interface Producer {
      * 发送消息实体，返回mqMsgId
      * @param msgPersistent
      */
-    String sendSyncMsg(MsgPersistent msgPersistent);
+    String send(MsgPersistent msgPersistent);
 }

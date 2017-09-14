@@ -18,7 +18,14 @@ jdbc:
       password: hGhoQPejnh60yzyXnK5dCXoCxIm2FhEbXe+0erhDog/KViP9rCoQ7MAigkI49zbDB1OjBmEEcG1Z1FldH2RyWQ==
       publickey: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIsclNlhr7IjHhInfg5V4Iw2J0JX9OANrzGND3C5lfp0kyjaJcu9oq7QRq4zX5ONRM64xL7HWNyh9AUaxRslr5MCAwEAAQ==
 
+rocketmq:
+  namesrv: apple01:9876 # name-server1-ip:9876;name-server2-ip:9876 注意是分号分割
+
 spring:
   redis:
     host: apple01
     port: 6379
+  kafka:
+      bootstrap-servers: kafka01:9092,kafka02:9092,kafka03:9092
+      consumer:
+        group-id: provider_order

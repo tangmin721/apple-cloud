@@ -40,8 +40,7 @@ public class ProducerController implements MsgFeign {
 
     @Override
     public Result directSendMsg(@RequestBody MsgPersistent msgPersistent) {
-
-
+        producerService.directSendMsg(msgPersistent);
         return Result.OK();
     }
 

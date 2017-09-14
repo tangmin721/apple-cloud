@@ -24,19 +24,22 @@
             <version>${project.parent.version}</version>
         </dependency>
 
-
-
         <!--rocketmq-->
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
             <version>4.1.0-incubating</version>
         </dependency>
-        <!--kafka-->
+        <!--kafka
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.11</artifactId>
             <version>0.10.1.1</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
     </dependencies>
 
@@ -60,7 +63,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.cachexic.cloud.RockemqApplication</mainClass>
+                    <mainClass>com.cachexic.cloud.MsgCenterApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

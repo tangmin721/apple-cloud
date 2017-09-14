@@ -2,22 +2,17 @@ package com.cachexic.cloud.provider.msg.service.impl;
 
 import com.cachexic.cloud.common.enums.YesOrNoEnum;
 import com.cachexic.cloud.common.exceptions.BizPreconditions;
-import com.cachexic.cloud.common.utils.json.JsonUtil;
+import com.cachexic.cloud.common.utils.id.UUIDUtil;
 import com.cachexic.cloud.feign.msg.entity.MsgPersistent;
 import com.cachexic.cloud.feign.msg.enums.MsgStatusEnum;
-import com.cachexic.cloud.feign.msg.exceptions.MsgBizException;
-import com.cachexic.cloud.feign.msg.exceptions.MsgBizExceptionEnum;
+import com.cachexic.cloud.provider.msg.config.mq.Producer;
 import com.cachexic.cloud.provider.msg.service.MsgPersistentService;
 import com.cachexic.cloud.provider.msg.service.ProducerService;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.client.producer.SendResult;
-import org.apache.rocketmq.client.producer.SendStatus;
-import org.apache.rocketmq.common.message.Message;
-import org.apache.rocketmq.remoting.common.RemotingHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,7 +26,8 @@ public class ProducerServiceImpl implements ProducerService {
     private static final Logger log = LoggerFactory.getLogger(ProducerServiceImpl.class);
 
     @Autowired
-    private DefaultMQProducer producer;
+    @Qualifier("kafkaProducer")
+    private Producer producer;
 
     @Autowired
     private MsgPersistentService msgPersistentService;
@@ -43,6 +39,7 @@ public class ProducerServiceImpl implements ProducerService {
         BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTag()),"消息tags不能为空");
         BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTag()),"消息tags不能为空");
 
+        msgPersistent.setMsgId(UUIDUtil.get32UUID());
         msgPersistent.setMsgStatus(MsgStatusEnum.waiting_confirm);
         msgPersistent.setAreadlyDead(YesOrNoEnum.no);
         msgPersistent.setMsgSendTimes(0);
@@ -61,8 +58,8 @@ public class ProducerServiceImpl implements ProducerService {
     }
 
     @Override
-    public void directSendMsg(MsgPersistent msgPersistent) throws Exception{
-
+    public void directSendMsg(MsgPersistent msgPersistent){
+        producer.send(msgPersistent);
     }
 
     @Override
@@ -95,27 +92,4 @@ public class ProducerServiceImpl implements ProducerService {
 
     }
 
-    /**
-     * 发送同步消息，并返回消息的id
-     * @param msgPersistent
-     */
-    private MsgPersistent sendSyncMsg(MsgPersistent msgPersistent){
-        try {
-            Message msg = new Message(msgPersistent.getTopic() /* Topic */,
-                msgPersistent.getTag()/* Tag */,
-                (msgPersistent.getMsgBody()).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
-            );
-            SendResult sendResult = producer.send(msg);
-            log.debug(JsonUtil.toJson(sendResult));
-            if(sendResult.getSendStatus().equals(SendStatus.SEND_OK)){
-                sendResult.getMsgId();
-            }else {
-                throw new MsgBizException(MsgBizExceptionEnum.SEND_MESSAGE_RESULT_IS_NOTOK);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new MsgBizException(MsgBizExceptionEnum.MQ_CLIENT_EXCEPTION);
-        }
-        return msgPersistent;
-    }
 }
