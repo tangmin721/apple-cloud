@@ -16,9 +16,6 @@ import java.lang.reflect.Method;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: RedisCacheConfig.java
- * @Package com.gasq.cloud.common.provider.config.redis
  * @Description: redis配置
  * @date 2017-05-04 14:52:50
  */

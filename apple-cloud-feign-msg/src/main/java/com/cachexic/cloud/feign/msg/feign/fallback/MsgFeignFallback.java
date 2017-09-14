@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: MsgFeignFallback.java
- * @Package com.cachexic.cloud.feign.msg.feign.fallback
  * @Description: feign hystrix快速返回实现
  * @date 2017-09-09 18:58:45
  */

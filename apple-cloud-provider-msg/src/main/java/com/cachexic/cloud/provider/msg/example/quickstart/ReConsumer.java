@@ -27,10 +27,7 @@ import org.apache.rocketmq.common.message.MessageExt;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: Consumer.java
- * @Package com.cachexic.cloud.provider.rocketmq.example.quickstart
- * @Description: 
+ * @Description:
  * @date 2017-09-09 09:25:58
  */
 public class ReConsumer {

@@ -17,9 +17,6 @@ import java.util.Map;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: Result.java
- * @Package com.cachexic.springboot.common.result
  * @Description: 返回信息统一包装 使之能匹配cloud的错误消息1
  * @date 2017-04-04 22:13:02
  */
@@ -30,10 +27,13 @@ public class Result<T> implements Serializable {
 
     public final static int OK_CODE = 0;
     public final static int EMPTY_CODE = 1;
+    public final static int VALID_ERROR_CODE = 2;//数据校验异常，返回前端
     public final static int FAIL_CODE = -1;
+
 
     public final static String OK_MSG = "操作成功";
     public final static String EMPTY_MSG = "找不到纪录";
+    public final static String VALID_ERROR_MSG = "数据校验失败";
     public final static String FAIL_MSG = "操作失败";
 
     private int status;
@@ -86,6 +86,19 @@ public class Result<T> implements Serializable {
         Result success = new Result();
         success.setStatus(code);
         success.setMessage(errorMsg);
+        return success;
+    }
+
+    /**
+     * 数据校验失败
+     * @param code
+     * @param errorMsg
+     * @return
+     */
+    public static Result FAIL_VALID(int code, String errorMsg) {
+        Result success = new Result();
+        success.setStatus(VALID_ERROR_CODE);
+        success.setMessage(VALID_ERROR_MSG);
         return success;
     }
 
@@ -159,10 +172,7 @@ public class Result<T> implements Serializable {
         if(result == null){
             return false;
         }
-        if (result.getStatus()!=0){
-            return false;
-        }
-        return true;
+        return result.getStatus() == 0;
     }
 
     public static void main(String[] args) {

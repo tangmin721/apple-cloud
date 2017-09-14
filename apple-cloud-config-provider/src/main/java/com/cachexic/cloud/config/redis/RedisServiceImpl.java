@@ -12,9 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: RedisUtils.java
- * @Package com.gasq.cloud.common.provider.config.redis
  * @Description: Redis常用工具类
  * @date 2017-05-05 09:48:31
  */

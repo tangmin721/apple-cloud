@@ -8,10 +8,7 @@ import java.util.List;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: PaywayEnum.java
- * @Package com.cachexic.cloud.feign.order.enums
- * @Description: 
+ * @Description:
  * @date 2017-09-06 16:20:20
  */
 public enum PaywayEnum {

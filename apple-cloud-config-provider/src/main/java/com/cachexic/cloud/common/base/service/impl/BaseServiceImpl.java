@@ -9,6 +9,8 @@ import com.cachexic.cloud.common.base.validator.BeanValidator;
 import com.cachexic.cloud.common.base.validator.ValidatorResult;
 import com.cachexic.cloud.common.base.validator.annotations.Insert;
 import com.cachexic.cloud.common.base.validator.annotations.Update;
+import com.cachexic.cloud.common.base.validator.exceptions.ValidBizException;
+import com.cachexic.cloud.common.base.validator.exceptions.ValidBizExceptionEnum;
 import com.cachexic.cloud.common.exceptions.BizException;
 import com.cachexic.cloud.common.exceptions.BizExceptionEnum;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
@@ -44,7 +46,7 @@ public abstract class BaseServiceImpl<T extends PojoBaseEntity, Q extends PojoBa
         //校验
         ValidatorResult validateResult = BeanValidator.validateResult(entity, Insert.class);
         if (!validateResult.getFlag()) {
-            throw new BizException(BizExceptionEnum.VALID_INSERT_ERROR.getCode(), JsonUtil.toJson(validateResult.getErrorObjs()));
+            throw new ValidBizException(ValidBizExceptionEnum.VALID_INSERT_ERROR.getCode(), JsonUtil.toJson(validateResult.getErrorObjs()));
             //throw new BizException(BizExceptionEnum.VALID_INSERT_ERROR.getCode(), validateResult.getErrorStr());
         }
         int result = dao.insert(entity);
@@ -63,7 +65,7 @@ public abstract class BaseServiceImpl<T extends PojoBaseEntity, Q extends PojoBa
             //校验
             ValidatorResult validateResult = BeanValidator.validateResult(entity, Insert.class);
             if (!validateResult.getFlag()) {
-                throw new BizException(BizExceptionEnum.VALID_INSERT_ERROR.getCode(), JsonUtil.toJson(validateResult.getErrorObjs()));
+                throw new ValidBizException(ValidBizExceptionEnum.VALID_INSERT_ERROR.getCode(), JsonUtil.toJson(validateResult.getErrorObjs()));
             }
         }
 
@@ -101,7 +103,7 @@ public abstract class BaseServiceImpl<T extends PojoBaseEntity, Q extends PojoBa
         //校验
         ValidatorResult validateResult = BeanValidator.validateResult(entity, Update.class);
         if (!validateResult.getFlag()) {
-            throw new BizException(BizExceptionEnum.VALID_UPDATE_ERROR.getCode(), JsonUtil.toJson(validateResult.getErrorObjs()));
+            throw new ValidBizException(ValidBizExceptionEnum.VALID_UPDATE_ERROR.getCode(), JsonUtil.toJson(validateResult.getErrorObjs()));
             //throw new BizException(BizExceptionEnum.VALID_UPDATE_ERROR.getCode(), validateResult.getErrorStr());
         }
 

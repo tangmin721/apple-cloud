@@ -27,9 +27,6 @@ import org.apache.rocketmq.common.message.MessageExt;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: Consumer.java
- * @Package com.cachexic.cloud.provider.rocketmq.example.quickstart
  * @Description: 只需要把 groupId换成别的，就是另一个消费组
  * @date 2017-09-09 09:25:58
  */

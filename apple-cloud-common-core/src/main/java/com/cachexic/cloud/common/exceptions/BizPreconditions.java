@@ -6,9 +6,6 @@ import javax.annotation.Nullable;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: BizExceptionUtil.java
- * @Package com.cachexic.sjdbc.common.exceptions
  * @Description: 模仿guava的Preconditions check预设条件,抛出业务异常，以便统一异常处理
  * @date 2017-09-01 23:10:27
  */

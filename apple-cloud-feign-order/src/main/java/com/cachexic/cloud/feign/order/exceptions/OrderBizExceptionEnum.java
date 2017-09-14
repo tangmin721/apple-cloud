@@ -2,9 +2,6 @@ package com.cachexic.cloud.feign.order.exceptions;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: OrderBizExceptionEnum.java
- * @Package com.cachexic.cloud.feign.order.exceptions
  * @Description: 订单异常
  * @date 2017-09-09 17:11:40
  */

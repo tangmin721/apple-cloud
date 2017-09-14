@@ -1,8 +1,5 @@
 package com.cachexic.cloud.common.exceptions;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * @author tangmin
  * @version V1.0
@@ -16,17 +13,15 @@ public class BizException extends RuntimeException {
 
     private static final long serialVersionUID = -6038011143205032883L;
 
-    private final static Logger log = LoggerFactory.getLogger(ExceptionHandle.class);
-
     /**
      * 错误编码
      */
-    private int code;
+    protected int code;
 
     /**
      * 默认错误编码
      */
-    private static final int DEFAULT_CODE = -1;
+    protected static final int DEFAULT_CODE = -1;
 
     /**
      * 构造方法

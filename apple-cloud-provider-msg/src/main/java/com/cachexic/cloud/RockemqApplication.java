@@ -8,9 +8,6 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: OrderProviderApplication.java
- * @Package com.cachexic.cloud
  * @Description: rocketmq消息队列服务提供方，只对外提供服务，所以，不需要@EnableFeignClients和@EnableCircuitBreaker
  * @date 2017-09-06 22:20:18
  */

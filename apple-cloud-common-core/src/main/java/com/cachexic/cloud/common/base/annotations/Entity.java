@@ -7,9 +7,6 @@ import java.lang.annotation.Target;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: Entity.java
- * @Package com.cachexic.sjdbc.common.config.mybatis
  * @Description: 声明是一个entity类,有对应的mapper文件,用于代码生成
  * @date 2017-08-26 10:16:49
  */

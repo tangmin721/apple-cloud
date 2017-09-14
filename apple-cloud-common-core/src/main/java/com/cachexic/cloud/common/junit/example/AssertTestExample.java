@@ -10,10 +10,7 @@ import static org.junit.Assert.*;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: AssertTestExample.java
- * @Package com.cachexic.sjdbc.common.junit.example
- * @Description: 
+ * @Description:
  * @date 2017-09-02 13:54:04
  */
 public class AssertTestExample extends TestParent {

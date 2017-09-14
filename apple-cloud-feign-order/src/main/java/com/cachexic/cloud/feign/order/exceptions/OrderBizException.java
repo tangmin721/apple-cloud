@@ -4,9 +4,6 @@ import com.cachexic.cloud.common.exceptions.BizException;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: MsgBizException.java
- * @Package com.cachexic.cloud.feign.msg.exceptions
  * @Description: 订单模块的异常信息
  * @date 2017-09-09 17:08:09
  */

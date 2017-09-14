@@ -7,9 +7,6 @@ import java.util.List;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: MsgStatusEnum.java
- * @Package com.cachexic.cloud.provider.rocketmq.enums
  * @Description: 消息状态
  * @date 2017-09-09 16:11:03
  */

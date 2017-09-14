@@ -1,12 +1,9 @@
 package com.cachexic.cloud.feign.msg.exceptions;
 
 /**
- * @author liTengfei
- * @version V1.0
- * @Title: OrderBizExceptionEnum.java
- * @Package com.gasq.cloud.provider.order.exceptions.enums
- * @Description: 订单模块
- * @date 2017-05-26 14:23:15
+ * @author tangmin
+ * @Description: 消息中间件的异常信息
+ * @date 2017-09-14 09:35:53
  */
 public enum MsgBizExceptionEnum {
     MQ_CLIENT_EXCEPTION(-1,"消息中间件连接异常"),

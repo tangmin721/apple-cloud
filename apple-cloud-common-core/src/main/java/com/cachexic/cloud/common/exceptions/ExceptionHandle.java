@@ -1,7 +1,10 @@
 package com.cachexic.cloud.common.exceptions;
 
 import com.cachexic.cloud.common.base.Result;
+import com.cachexic.cloud.common.base.validator.ValidatorBean;
+import com.cachexic.cloud.common.base.validator.exceptions.ValidBizException;
 import com.cachexic.cloud.common.constants.SystemConst;
+import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.common.utils.network.IpAddressUtil;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -12,9 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: ExceptionHandle.java
- * @Package com.cachexic.sjdbc.common.exceptions
  * @Description: 统一异常处理
  * @date 2017-08-26 13:16:32
  */
@@ -65,6 +65,12 @@ public class ExceptionHandle {
                 //线上环境注释掉 message信息
                  +":"+e.getMessage()
                  );
+            //valid异常
+        } else if (e instanceof ValidBizException) {
+            ValidBizException ex = (ValidBizException) e;
+            String message = ex.getMessage();
+            log.warn(logStr, e.getClass().getName(), ex.getCode(), message);
+            return Result.FAIL_VALID(ex.getCode(), message).setData(JsonUtil.toList(message, ValidatorBean.class));
             //再写总的业务异常
         } else if (e instanceof BizException) {
             BizException ex = (BizException) e;

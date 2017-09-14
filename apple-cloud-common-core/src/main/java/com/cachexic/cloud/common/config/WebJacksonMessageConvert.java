@@ -16,9 +16,6 @@ import static org.springframework.http.MediaType.TEXT_HTML;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: WebJacksonMessageConvert.java
- * @Package com.cachexic.sjdbc.common.config
  * @Description: 覆盖jackson的默认的objmapper配置，使得过滤NULL属性而不再显示
  * @date 2017-09-02 06:55:20
  */

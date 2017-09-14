@@ -4,9 +4,6 @@ import java.util.Set;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: RedisService.java
- * @Package com.gasq.cloud.common.provider.config.redis
  * @Description: Redis操作类，通过redisTemplate实现，使其拥有事务功能
  * @date 2017-05-05 11:07:15
  */

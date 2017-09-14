@@ -7,9 +7,6 @@ import java.lang.annotation.Target;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: Transient.java
- * @Package com.cachexic.sjdbc.common.config.mybatis
  * @Description: 自定义注解，只是标识不在数据库中保存的字段，没有实际作用。
  * @date 2017-08-20 16:08:24
  */

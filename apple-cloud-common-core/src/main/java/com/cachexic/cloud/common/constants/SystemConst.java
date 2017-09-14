@@ -2,9 +2,6 @@ package com.cachexic.cloud.common.constants;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: SystemConst.java
- * @Package com.cachexic.sjdbc.common.constants
  * @Description: 系统常量
  * @date 2017-08-26 12:19:36
  */

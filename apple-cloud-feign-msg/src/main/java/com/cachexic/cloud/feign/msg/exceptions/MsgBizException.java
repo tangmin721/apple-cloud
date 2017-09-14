@@ -4,11 +4,8 @@ import com.cachexic.cloud.common.exceptions.BizException;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: MsgBizException.java
- * @Package com.cachexic.cloud.feign.msg.exceptions
  * @Description: 消息中间件的异常信息
- * @date 2017-09-09 17:08:09
+ * @date 2017-09-14 09:35:43
  */
 public class MsgBizException extends BizException{
     private static final long serialVersionUID = -4580632478681261355L;

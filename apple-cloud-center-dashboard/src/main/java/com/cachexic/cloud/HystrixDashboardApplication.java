@@ -6,9 +6,6 @@ import org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboar
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: HystrixDashboardApplication.java
- * @Package com.cachexic.cloud
  * @Description: 监控hystrix.stream的图形界面
  * @date 2017-09-07 15:58:44
  */

@@ -7,9 +7,6 @@ import java.lang.annotation.Target;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: Field.java
- * @Package com.cachexic.sjdbc.common.config.mybatis.annotation
  * @Description: 标识主键id,用于代码生成
  * @date 2017-08-26 10:50:56
  */

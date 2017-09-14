@@ -25,9 +25,6 @@ import static org.mockito.Mockito.*;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: MockTestExample.java
- * @Package com.cachexic.sjdbc.common.junit.example
  * @Description:
  * @date 2017-09-02 13:54:49
  */

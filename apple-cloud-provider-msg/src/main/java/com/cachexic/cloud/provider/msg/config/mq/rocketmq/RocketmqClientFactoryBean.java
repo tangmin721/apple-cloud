@@ -12,9 +12,6 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: RocketmqClientFactoryBean.java
- * @Package com.cachexic.cloud.provider.rocketmq.config
  * @Description: 封装一个rocket客户端连接的bean
  * @date 2017-09-09 10:23:57
  */

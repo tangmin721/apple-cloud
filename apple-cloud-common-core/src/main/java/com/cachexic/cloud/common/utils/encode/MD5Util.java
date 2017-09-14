@@ -11,9 +11,6 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: MD5Util.java
- * @Package com.cachexic.cloud.common.utils.encode
  * @Description: MD5加密工具类
  * @date 2017-09-05 18:36:16
  */

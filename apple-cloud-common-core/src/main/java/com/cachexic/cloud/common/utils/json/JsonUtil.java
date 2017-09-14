@@ -4,9 +4,6 @@ import java.util.List;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: JsonUtil.java
- * @Package com.cachexic.cloud.common.utils.json
  * @Description: Json转换工具类
  * @date 2017-09-05 17:53:03
  */

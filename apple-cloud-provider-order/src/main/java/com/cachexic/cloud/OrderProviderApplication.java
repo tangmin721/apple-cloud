@@ -8,9 +8,6 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: OrderProviderApplication.java
- * @Package com.cachexic.cloud
  * @Description:
  * @date 2017-09-06 22:20:18
  */

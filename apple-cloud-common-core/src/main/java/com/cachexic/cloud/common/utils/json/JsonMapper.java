@@ -19,9 +19,6 @@ import java.util.List;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: JsonMapper.java
- * @Package com.cachexic.cloud.common.utils.json
  * @Description: 对ObjectMapper进行简单封装
  * @date 2017-09-05 17:53:29
  */

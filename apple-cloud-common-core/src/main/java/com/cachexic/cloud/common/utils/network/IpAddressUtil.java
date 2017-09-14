@@ -8,7 +8,9 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * 获取真实ip的工具类
+ * @author tangmin
+ * @Description: 获取真实ip的工具类
+ * @date 2017-09-14 09:47:09
  */
 public final class IpAddressUtil {
 

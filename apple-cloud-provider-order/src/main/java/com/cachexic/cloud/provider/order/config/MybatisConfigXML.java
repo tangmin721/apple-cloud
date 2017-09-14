@@ -6,9 +6,6 @@ import org.springframework.core.annotation.Order;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: com.cachexic.cloud.config.mybatis.annotation.MybatisConfig.java
- * @Package com.cachexic.sjdbc.common.config.mybatis
  * @Description:
  * @date 2017-08-20 15:56:00
  */

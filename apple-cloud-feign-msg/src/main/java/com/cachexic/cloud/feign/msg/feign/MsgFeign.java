@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: MsgFeign.java
- * @Package com.cachexic.cloud.feign.msg.feign
  * @Description: 消息中间件对外暴露的接口
  * @date 2017-09-09 16:47:25
  */

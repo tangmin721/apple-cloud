@@ -4,10 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: ValueDescVo.java
- * @Package com.cachexic.sjdbc.common.vo
- * @Description: 
+ * @Description:
  * @date 2017-08-25 23:04:10
  */
 public class ValueDescVo implements Serializable{

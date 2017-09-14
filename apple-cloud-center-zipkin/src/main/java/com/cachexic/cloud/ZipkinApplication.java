@@ -6,9 +6,6 @@ import zipkin.server.EnableZipkinServer;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: ZipkinServerApplication.java
- * @Package com.gasq.cloud
  * @Description: zipkin追踪服务
  * @date 2017-04-12 23:22:05
  */

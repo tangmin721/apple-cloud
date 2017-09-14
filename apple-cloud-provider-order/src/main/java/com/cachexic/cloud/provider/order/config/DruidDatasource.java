@@ -13,9 +13,6 @@ import javax.sql.DataSource;
 
 /**
  * @author tangmin
- * @version V1.0
- * @Title: DruidDatasource.java
- * @Package com.cachexic.cloud.provider.config
  * @Description: 每个工程配置自己的数据源
  * @date 2017-09-06 16:08:07
  */
