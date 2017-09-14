@@ -2,7 +2,6 @@ package com.cachexic.cloud.provider.msg.example.kafka;
 
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.msg.entity.MsgPersistent;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaConsumer {
 
-    @KafkaListener(topics = "my-topic4")
+    //@KafkaListener(topics = "my-topic4")
     public void processMessage(String message) {
         MsgPersistent persistent = JsonUtil.toEntity(message, MsgPersistent.class);
         System.out.println("====>KafkaConsumer:"+message);

@@ -1,11 +1,13 @@
 package com.cachexic.cloud.provider.msg.config.mq.rocketmq;
 
+import com.cachexic.cloud.common.utils.id.UUIDUtil;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.msg.entity.MsgPersistent;
 import com.cachexic.cloud.feign.msg.exceptions.MsgBizException;
 import com.cachexic.cloud.feign.msg.exceptions.MsgBizExceptionEnum;
 import com.cachexic.cloud.provider.msg.config.mq.Producer;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.SendCallback;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.message.Message;
@@ -53,6 +55,35 @@ public class RocketmqProducer implements Producer {
             throw new MsgBizException(MsgBizExceptionEnum.MQ_CLIENT_EXCEPTION);
         }
         return mqMsgId;
+    }
+
+    /**
+     * 异步发送消息
+     * @param msgPersistent
+     * @return
+     */
+    public String sendAsync(MsgPersistent msgPersistent) {
+        producer.setRetryTimesWhenSendAsyncFailed(0);
+        try {
+            Message msg = new Message(msgPersistent.getTopic() /* Topic */,
+                msgPersistent.getTag()/* Tag */,
+                (msgPersistent.getMsgBody()).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
+            );
+            producer.send(msg, new SendCallback() {
+                @Override
+                public void onSuccess(SendResult sendResult) {
+                    System.out.println(sendResult.getMsgId());
+                }
+                @Override
+                public void onException(Throwable e) {
+                    e.printStackTrace();
+                }
+            });
+
+        } catch (Exception e) {
+            throw new MsgBizException(MsgBizExceptionEnum.MQ_CLIENT_EXCEPTION);
+        }
+        return UUIDUtil.get32UUID();
     }
 
 }

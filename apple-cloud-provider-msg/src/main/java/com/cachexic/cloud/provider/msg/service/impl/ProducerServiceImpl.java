@@ -26,7 +26,8 @@ public class ProducerServiceImpl implements ProducerService {
     private static final Logger log = LoggerFactory.getLogger(ProducerServiceImpl.class);
 
     @Autowired
-    @Qualifier("kafkaProducer")
+    //@Qualifier("kafkaProducer")
+    @Qualifier("rocketmqProducer")
     private Producer producer;
 
     @Autowired
@@ -34,10 +35,7 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public void saveMsgWaitingConfirm(MsgPersistent msgPersistent) {
-        BizPreconditions.checkArgument(msgPersistent!=null,"保存消息为空");
-        BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTopic()),"消息topic不能为空");
-        BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTag()),"消息tags不能为空");
-        BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTag()),"消息tags不能为空");
+        checkArgs(msgPersistent);
 
         msgPersistent.setMsgId(UUIDUtil.get32UUID());
         msgPersistent.setMsgStatus(MsgStatusEnum.waiting_confirm);
@@ -59,7 +57,18 @@ public class ProducerServiceImpl implements ProducerService {
 
     @Override
     public void directSendMsg(MsgPersistent msgPersistent){
+        checkArgs(msgPersistent);
         producer.send(msgPersistent);
+    }
+
+    /**
+     * 校验消息
+     * @param msgPersistent
+     */
+    private void checkArgs(MsgPersistent msgPersistent) {
+        BizPreconditions.checkArgument(msgPersistent!=null,"保存消息为空");
+        BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTopic()),"消息topic不能为空");
+        BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getMsgBody()),"消息body不能为空");
     }
 
     @Override
