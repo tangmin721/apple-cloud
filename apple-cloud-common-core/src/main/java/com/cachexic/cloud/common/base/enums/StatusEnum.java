@@ -29,20 +29,6 @@ public enum StatusEnum {
     }
 
     /**
-     * 根据值获取枚举
-     * @return
-     */
-    public static StatusEnum getEnum(String name) {
-        if (null == name)
-            return null;
-        for (StatusEnum _enum : StatusEnum.values()) {
-            if (name.equals(_enum.name()))
-                return _enum;
-        }
-        return null;
-    }
-
-    /**
      * 转换为list
      * @return
      */

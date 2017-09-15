@@ -30,20 +30,6 @@ public enum YesOrNoEnum {
     }
 
     /**
-     * 根据值获取枚举
-     * @return
-     */
-    public static YesOrNoEnum getEnum(String name) {
-        if (null == name)
-            return null;
-        for (YesOrNoEnum _enum : YesOrNoEnum.values()) {
-            if (name.equals(_enum.name()))
-                return _enum;
-        }
-        return null;
-    }
-
-    /**
      * 转换为list
      * @return
      */

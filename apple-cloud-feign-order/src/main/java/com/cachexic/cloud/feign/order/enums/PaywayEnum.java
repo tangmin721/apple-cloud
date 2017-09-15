@@ -28,20 +28,6 @@ public enum PaywayEnum {
     }
 
     /**
-     * 根据值获取枚举
-     * @return
-     */
-    public static PaywayEnum getEnum(String name) {
-        if (null == name)
-            return null;
-        for (PaywayEnum _enum : PaywayEnum.values()) {
-            if (name.equals(_enum.name()))
-                return _enum;
-        }
-        return null;
-    }
-
-    /**
      * 转换为list
      * @return
      */

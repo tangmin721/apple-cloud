@@ -37,20 +37,6 @@ public enum RocketmqMsgQueueEnum {
     }
 
     /**
-     * 根据值获取枚举
-     * @return
-     */
-    public static RocketmqMsgQueueEnum getEnum(String name) {
-        if (null == name)
-            return null;
-        for (RocketmqMsgQueueEnum _enum : RocketmqMsgQueueEnum.values()) {
-            if (name.equals(_enum.name()))
-                return _enum;
-        }
-        return null;
-    }
-
-    /**
      * 转换为list
      * @return
      */

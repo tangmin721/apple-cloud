@@ -27,20 +27,6 @@ public enum MsgStatusEnum {
     }
 
     /**
-     * 根据值获取枚举
-     * @return
-     */
-    public static MsgStatusEnum getEnum(String name) {
-        if (null == name)
-            return null;
-        for (MsgStatusEnum _enum : MsgStatusEnum.values()) {
-            if (name.equals(_enum.name()))
-                return _enum;
-        }
-        return null;
-    }
-
-    /**
      * 转换为list
      * @return
      */

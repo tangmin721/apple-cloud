@@ -26,8 +26,8 @@ public class ProducerServiceImpl implements ProducerService {
     private static final Logger log = LoggerFactory.getLogger(ProducerServiceImpl.class);
 
     @Autowired
-    //@Qualifier("kafkaProducer")
-    @Qualifier("rocketmqProducer")
+    @Qualifier("kafkaProducer")
+    //@Qualifier("rocketmqProducer")
     private Producer producer;
 
     @Autowired
