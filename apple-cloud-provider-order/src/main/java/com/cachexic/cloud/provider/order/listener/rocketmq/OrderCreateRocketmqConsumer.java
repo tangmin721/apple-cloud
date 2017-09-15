@@ -30,7 +30,7 @@ public class OrderCreateRocketmqConsumer{
     @Value("${rocketmq.namesrv}")
     private String namesrv;
 
-    @Value("${rocketmq.consumer.group-id}")
+    @Value("${rocketmq.consumer.group-id.order}")
     private String consumerGroup;
 
     private DefaultMQPushConsumer consumer;

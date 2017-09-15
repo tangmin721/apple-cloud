@@ -1,6 +1,5 @@
-package com.cachexic.cloud.provider.order.listener;
+package com.cachexic.cloud.provider.order.listener.rocketmq;
 
-import com.cachexic.cloud.provider.order.listener.rocketmq.OrderCreateRocketmqConsumer;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.slf4j.LoggerFactory;
@@ -13,8 +12,8 @@ import org.springframework.stereotype.Component;
  * @date 2017-06-19 19:32:42
  */
 @Component
-public class InitListener{
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(InitListener.class);
+public class RocketmqInitListener {
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(RocketmqInitListener.class);
 
     @Autowired
     private OrderCreateRocketmqConsumer orderCreateRocketmqConsumer;

@@ -6,7 +6,6 @@ import com.cachexic.cloud.feign.msg.entity.MsgPersistent;
 import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 import com.cachexic.cloud.provider.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,7 +19,7 @@ public class OrderCreateKafkaConsumer {
     @Autowired
     private OrderService orderService;
 
-    @KafkaListener(topics = KafkaMsgQueueConts.TEST_TOPIC)
+    //@KafkaListener(topics = KafkaMsgQueueConts.TEST_TOPIC,containerFactory = "kafkaListenerContainerFactory")
     public void processMessage(String message) {
         MsgPersistent persistent = JsonUtil.toEntity(message, MsgPersistent.class);
         System.out.println("====>topic:"+ KafkaMsgQueueConts.TEST_TOPIC);

@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: ${random.int[8000,9000]}
 
 
 jdbc:
@@ -20,7 +20,9 @@ jdbc:
 rocketmq:
   namesrv: apple01:9876 # name-server1-ip:9876;name-server2-ip:9876 注意是分号分割
   consumer:
-    group-id: provider_order
+    group-id:
+      order: ${spring.application.name} #多实例只有一个消费者
+      #shopUpdateLocalCache: ${random.uuid} #为了每个实例都更新缓存，订阅模式
 
 spring:
   redis:
@@ -29,6 +31,6 @@ spring:
   kafka:
       bootstrap-servers: kafka01:9092,kafka02:9092,kafka03:9092
       consumer:
-        group-id: provider_order
+        group-id: ${random.uuid}
 
 
