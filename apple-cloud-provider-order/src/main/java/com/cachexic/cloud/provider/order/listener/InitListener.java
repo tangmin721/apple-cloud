@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
- * @Description: 系统web容器初始化的监听器,获取spring容器上下文
+ * @Description: spring容器启动后，再启动@PostConstruct里的语句
  * @date 2017-06-19 19:32:42
  */
 @Component
@@ -27,6 +27,7 @@ public class InitListener{
 
     @PreDestroy
     public void contextDestroyed() {
+        orderCreateRocketmqConsumer.stop();
         log.info("======================contextDestroyed===========================");
     }
 }

@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class MsgPersistent extends BaseEntity {
     private static final long serialVersionUID = -5497996812028362407L;
 
-    /** 消费对应的队列 MsgConsumerQueueEnum */
+    /** 消费对应的队列 RocketmqMsgQueueEnum */
     @NotBlank(message = "消费队列名称不能为空", groups =Insert.class)
     private String consumerQueue;
 

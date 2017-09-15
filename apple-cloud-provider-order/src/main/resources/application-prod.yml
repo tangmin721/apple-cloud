@@ -20,6 +20,8 @@ jdbc:
 
 rocketmq:
   namesrv: apple01:9876 # name-server1-ip:9876;name-server2-ip:9876 注意是分号分割
+  consumer:
+    group-id: provider_order
 
 spring:
   redis:
