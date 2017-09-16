@@ -10,6 +10,9 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 /**
+ *  Kafka生产者实现类
+ * /mydisk/kafka_2.11-0.11.0.1/bin/zookeeper-server-start.sh /mydisk/kafka_2.11-0.11.0.1/config/zookeeper.properties &
+ * /mydisk/kafka_2.11-0.11.0.1/bin/kafka-server-start.sh /mydisk/kafka_2.11-0.11.0.1/config/server.properties &
  * Created by tangm on 2017/9/13.
  */
 @Service("kafkaProducer")
