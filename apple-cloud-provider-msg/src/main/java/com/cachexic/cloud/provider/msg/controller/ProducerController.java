@@ -1,9 +1,11 @@
 package com.cachexic.cloud.provider.msg.controller;
 
 import com.cachexic.cloud.common.base.Result;
+import com.cachexic.cloud.common.utils.id.UUIDUtil;
 import com.cachexic.cloud.feign.msg.entity.MsgPersistent;
 import com.cachexic.cloud.feign.msg.feign.MsgFeign;
 import com.cachexic.cloud.provider.msg.service.ProducerService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +42,9 @@ public class ProducerController implements MsgFeign {
 
     @Override
     public Result directSendMsg(@RequestBody MsgPersistent msgPersistent) {
+        if(StringUtils.isBlank(msgPersistent.getMqMsgId())){
+            msgPersistent.setMsgId(UUIDUtil.get32UUID());
+        }
         producerService.directSendMsg(msgPersistent);
         return Result.OK();
     }

@@ -25,8 +25,10 @@ spring:
     cluster:
       nodes: 10.16.70.230:8000,10.16.70.231:8000,10.16.70.232:8000,10.16.70.230:9000,10.16.70.231:9000,10.16.70.232:9000
   kafka:
-      bootstrap-servers: kafka01:9092,kafka02:9092,kafka03:9092
+      bootstrap-servers: kafka01:9092
       consumer:
-        group-id: ${random.uuid}
+        group-id:
+          fixedGroup: ${spring.application.name} #多实例只有一个消费者
+          randomGroup: ${random.uuid} #随机消费组，如果不想要随机，只需要在@KafkaListener上写死group就可以了
 
 

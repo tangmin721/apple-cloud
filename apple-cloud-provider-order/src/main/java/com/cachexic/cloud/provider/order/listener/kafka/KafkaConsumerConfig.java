@@ -7,29 +7,43 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
+import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
  * @Description: Kafka生产者配置
  * @date 2017-09-15 23:03:50
  */
-//@Configuration
-//@EnableKafka
+@Component
+@Configuration
+@EnableKafka
 public class KafkaConsumerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
+    /**
+     * 解决随机配置groupId的问题
+     * 1、如果所有实例只有一个消费者可用，则指定group：fixedGroup。kafka消费者的负载均衡是通过配置多partition来实现的，比如同一个消费组，有2个消费者实例监听，如果partition=2，则可实现负载消费；
+     * 2、如果所有实例都需要消费（比如更新本地缓存）则用随机group：randomGroup
+     * 但是2者只能存在一个，所以，在消费的时候，需要确定好到底是什么模式
+     */
+    @Value("${spring.kafka.consumer.group-id.fixedGroup}")
+    //@Value("${spring.kafka.consumer.group-id.randomGroup}")
+    private String groupIdConfig;
+
     @Bean
     public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, String>> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<String, String> factory = new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
-        factory.setConcurrency(3);
+        factory.setConcurrency(3);//设置多线程消费，提升吞吐量
         factory.getContainerProperties().setPollTimeout(3000);
         return factory;
     }
@@ -47,7 +61,7 @@ public class KafkaConsumerConfig {
         propsMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "15000");
         propsMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         propsMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        propsMap.put(ConsumerConfig.GROUP_ID_CONFIG, "test-group");
+        propsMap.put(ConsumerConfig.GROUP_ID_CONFIG, groupIdConfig);
         propsMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
         return propsMap;
     }
