@@ -46,6 +46,8 @@
 
         <!--代码生成器-->
         <module>apple-cloud-code-generator</module>
+        <module>apple-cloud-cache-eshop</module>
+        <module>apple-cloud-cache-user</module>
 
     </modules>
 
