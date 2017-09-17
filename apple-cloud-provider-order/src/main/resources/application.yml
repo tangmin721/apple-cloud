@@ -1,3 +1,9 @@
 spring:
   application:
     name: provider-order
+server:
+  tomcat:
+    max-connections: 2000
+    max-threads: 1000
+    accept-count: 600
+    uri-encoding: UTF-8
