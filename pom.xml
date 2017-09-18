@@ -49,6 +49,12 @@
         <module>apple-cloud-web-backstage</module>
         <module>apple-cloud-web-app</module>
 
+        <!-- 权限框架 -->
+        <module>apple-cloud-security-core</module>
+        <module>apple-cloud-security-app</module>
+        <module>apple-cloud-security-browser</module>
+        <module>apple-cloud-security-demo</module>
+
         <!--代码生成器-->
         <module>apple-cloud-code-generator</module>
 
