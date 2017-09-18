@@ -13,6 +13,7 @@
     <name>${project.artifactId}</name>
 
     <modules>
+        <!--包版本管理-->
         <module>apple-cloud-all-parent</module>
 
         <!--所有工程的公共配置,包括管注册中心、服务跟踪等辅助工程-->
@@ -40,14 +41,16 @@
         <module>apple-cloud-provider-order</module>
         <module>apple-cloud-provider-msg</module>
 
-        <!--服务消费方-->
+        <!--服务消费方(缓存层)-->
+        <module>apple-cloud-cache-eshop</module>
+        <module>apple-cloud-cache-user</module>
+
+        <!--服务消费方(后台管理)-->
         <module>apple-cloud-web-backstage</module>
         <module>apple-cloud-web-app</module>
 
         <!--代码生成器-->
         <module>apple-cloud-code-generator</module>
-        <module>apple-cloud-cache-eshop</module>
-        <module>apple-cloud-cache-user</module>
 
     </modules>
 
