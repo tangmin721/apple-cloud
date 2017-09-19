@@ -63,14 +63,6 @@
                     <mainClass>com.cachexic.cloud.WebBackstageApplication</mainClass>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
 
             <!-- 打包跳过测试  mvn test -Dmaven.test.failure.ignore=true mvn install -Dmaven.test.skip=true -->
             <plugin>
