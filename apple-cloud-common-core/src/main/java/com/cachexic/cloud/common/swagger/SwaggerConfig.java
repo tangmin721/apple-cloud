@@ -26,13 +26,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Value("${swagger.api.title}")
+    @Value("${swagger.api.title:app-cloud}")
     private String title;
 
-    @Value("${swagger.api.description}")
+    @Value("${swagger.api.description:api文档}")
     private String description;
 
-    @Value("${swagger.api.version}")
+    @Value("${swagger.api.version:1}")
     private String version;
 
 
