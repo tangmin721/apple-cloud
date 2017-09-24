@@ -2,7 +2,6 @@ package com.cachexic.cloud.common.base.entity;
 
 import com.cachexic.cloud.common.base.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
 
 /**

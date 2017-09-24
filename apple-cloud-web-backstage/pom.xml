@@ -38,6 +38,11 @@
             <artifactId>apple-cloud-feign-msg</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <!--wiremock-->
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

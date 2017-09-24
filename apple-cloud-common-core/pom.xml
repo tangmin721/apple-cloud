@@ -33,6 +33,10 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
         <!-- jackson start -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -50,6 +54,16 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
         <!-- test end -->
+
+        <!--swagger对外暴露接口的文档生成 localhost:port/swagger-ui.html-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
