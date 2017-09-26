@@ -32,84 +32,49 @@ public class TeacherWebController {
     @Autowired
     private TeacherFeign teacherFeign;
 
-    /**
-     * 分页查询
-     *
-     * @param query
-     */
-    @ApiOperation(value = "批量获取数据", notes = "不带分页信息的list集合")
+    @ApiOperation(value = "list:批量获取数据", notes = "不带分页信息的list集合")
     @PostMapping("list")
     public Result<List<Teacher>> list(@RequestBody TeacherQuery query) {
         return teacherFeign.list(query);
     }
 
-    /**
-     * 分页查询
-     *
-     * @param query
-     */
-    @ApiOperation(value = "分页查询", notes = "带分页信息的Pagination对象")
+    @ApiOperation(value = "pagination:分页查询", notes = "带分页信息的Pagination对象")
     @PostMapping("pagination")
     public Result<Pagination<Teacher>> pagination(@RequestBody TeacherQuery query) {
         return teacherFeign.pagination(query);
     }
 
-    /**
-     * 根据主键查询
-     *
-     * @param id
-     */
+    @ApiOperation("getById:根据主键查询")
     @GetMapping("id/{id}")
     public Result<Teacher> getById(@PathVariable("id") Long id) {
         return teacherFeign.getById(id);
     }
 
-    /**
-     * 根据主键ids查询
-     *
-     * @param ids
-     */
+    @ApiOperation(value = "getByIds:根据主键ids查询",notes = "逗号分隔")
     @GetMapping("ids/{ids}")
     public Result<List<Teacher>> getByIds(@PathVariable("ids") String ids) {
         return teacherFeign.getByIds(ids);
     }
 
-    /**
-     * 新增方法
-     *
-     * @param entity
-     */
+    @ApiOperation("save:新增方法")
     @PostMapping
     public Result save(@RequestBody Teacher entity) {
         return teacherFeign.save(entity);
     }
 
-    /**
-     * 修改方法
-     *
-     * @param entity
-     */
+    @ApiOperation("update:修改方法")
     @PutMapping
     public Result update(@RequestBody Teacher entity) {
         return teacherFeign.update(entity);
     }
 
-    /**
-     * 根据Id删除
-     *
-     * @param id
-     */
+    @ApiOperation("deleteById:根据Id删除")
     @DeleteMapping("id/{id}")
     public Result deleteById(@ApiParam("teacher的id") @PathVariable("id") Long id) {
         return teacherFeign.deleteById(id);
     }
 
-    /**
-     * 根据ids删除，id逗号隔开
-     *
-     * @param ids
-     */
-    @ApiOperation("根据ids批量删除")
+    @ApiOperation(value = "deleteByIds:根据ids批量删除",notes = "逗号分隔")
     @DeleteMapping("ids/{ids}")
     public Result deleteByIds(@PathVariable("ids") String ids) {
         return teacherFeign.deleteByIds(ids);
