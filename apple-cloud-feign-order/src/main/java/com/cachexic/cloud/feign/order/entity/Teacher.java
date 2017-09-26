@@ -60,17 +60,17 @@ public class Teacher extends BaseEntity {
     @ApiModelProperty("年龄")
     private Integer age = 18;
 
-    /** 不映射数据库列（insert方法没有） */
+    @ApiModelProperty(value = "不映射数据库,insert方法没有",readOnly = true)
     @Transient
     private String nameTransient;
 
-    /** 是否班主任 */
+    @ApiModelProperty("是否班主任")
     private YesOrNoEnum classMater = YesOrNoEnum.no;
 
-    /** 账户金额 */
+    @ApiModelProperty("账户金额")
     private BigDecimal account;
 
-    /** 是否是特级教师 */
+    @ApiModelProperty("是否是特级教师")
     private Boolean supper = true;
 
     public String getName() {

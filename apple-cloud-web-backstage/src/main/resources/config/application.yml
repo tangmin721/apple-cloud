@@ -1,3 +1,8 @@
 spring:
   application:
     name: web-backstage
+
+swagger:
+  api:
+    title: 后台管理系统文档
+    description: 后台API

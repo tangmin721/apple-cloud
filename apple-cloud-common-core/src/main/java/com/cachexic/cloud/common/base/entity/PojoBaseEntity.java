@@ -1,7 +1,7 @@
 package com.cachexic.cloud.common.base.entity;
 
 import com.cachexic.cloud.common.base.annotations.Id;
-
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
@@ -12,6 +12,7 @@ import java.io.Serializable;
 public class PojoBaseEntity implements Serializable {
     private static final long serialVersionUID = -4363506460772117197L;
 
+    @ApiModelProperty(value = "主键id",position = -999)
     @Id
     protected Long id;
 

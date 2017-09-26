@@ -63,7 +63,7 @@
         </dependency>
         <!-- test end -->
 
-        <!--swagger对外暴露接口的文档生成 localhost:port/swagger-ui.html-->
+        <!--swagger对外暴露接口的文档生成 http://localhost:{port}/swagger-ui.html-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
