@@ -10,30 +10,26 @@ import java.util.List;
 
 /**
  * @author tangmin
- * @version V1.0
+ * @Description: 分页对象包装类
+ * @date 2017-09-16 19:21:30
  */
 public class Pagination<T> implements Serializable {
     private static final long serialVersionUID = 5399980318862132190L;
 
     private long DEFAULT_PAGE_SIZE = SystemConst.DEFAULT_PAGE_SIZE;
 
-    /** 实体的list */
     @ApiModelProperty("返回的list集合")
     private List<T> list = Lists.newArrayList();
 
-    /** 当前页 */
     @ApiModelProperty(value = "当前页", example = "10", position = 1)
     private Long currentPage;
 
-    /** 每页记录条数 */
     @ApiModelProperty(value = "每页记录条数", example = "10", position = 2)
     private Long pageSize = DEFAULT_PAGE_SIZE;
 
-    /** 总记录条数 */
     @ApiModelProperty(value = "总记录条数", example = "50", position = 3)
     private Long total;
 
-    /** 总页数 */
     @ApiModelProperty(value = "总页数", example = "5", position = 4)
     private Long pageCount = 0l;
 
