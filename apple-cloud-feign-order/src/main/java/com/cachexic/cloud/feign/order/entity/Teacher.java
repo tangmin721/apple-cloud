@@ -9,6 +9,7 @@ import com.cachexic.cloud.common.base.validator.annotations.Update;
 import com.cachexic.cloud.common.enums.YesOrNoEnum;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.Date;
@@ -26,29 +27,37 @@ public class Teacher extends BaseEntity {
 
     @NotBlank(message = "姓名不能为空", groups = {Insert.class, Update.class})
     @Size(max = 20, message = "姓名长度不能超过20", groups = {Insert.class, Update.class})
+    @ApiModelProperty(value = "姓名", example = "hehe")
     private String name = "hehe";
 
     @Length(message = "身份证件号最大长度不能超过18位", max = 18, groups = {Insert.class, Update.class})
+    @ApiModelProperty("身份证")
     private String idCard;
 
     @NotNull(message = "出生日期", groups = {Insert.class, Update.class})
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Past(message = "出生日期只能为过去的时间", groups = {Insert.class, Update.class})
+    @ApiModelProperty(value = "出生日期", example = "1999-09-09")
     private Date birthday;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @ApiModelProperty(value = "出生时间", example = "1999-09-09 09:09:09")
     private Date birthdayTime;
 
     @NotNull(message = "score不能空", groups = {Insert.class, Update.class})
+    @ApiModelProperty("分数")
     private Long score;
 
     @NotNull
+    @ApiModelProperty("出版的书籍数量")
     private long book = 2L;
 
     @NotNull
+    @ApiModelProperty("数量")
     private int num;
 
     @NotNull
+    @ApiModelProperty("年龄")
     private Integer age = 18;
 
     /** 不映射数据库列（insert方法没有） */

@@ -19,11 +19,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-thymeleaf</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>apple-cloud-config-micro</artifactId>
             <version>${project.parent.version}</version>
@@ -38,6 +33,11 @@
             <artifactId>apple-cloud-feign-msg</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <!--wiremock-->
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
@@ -49,6 +49,7 @@
                 <filtering>true</filtering>
                 <includes>
                     <include>*.*</include>
+                    <include>**/*.json</include>
                     <include>**/*.xml</include>
                     <include>**/*.yml</include>
                     <include>**/*.properties</include>

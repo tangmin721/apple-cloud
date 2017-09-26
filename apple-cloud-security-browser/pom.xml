@@ -12,5 +12,16 @@
 
     <artifactId>apple-cloud-security-browser</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>apple-cloud-security-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!--与app不同-->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session</artifactId>
+        </dependency>
+    </dependencies>
 </project>

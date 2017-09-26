@@ -12,5 +12,11 @@
 
     <artifactId>apple-cloud-security-app</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>apple-cloud-security-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
 </project>

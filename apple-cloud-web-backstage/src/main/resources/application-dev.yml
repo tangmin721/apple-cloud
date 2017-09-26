@@ -1,0 +1,7 @@
+server:
+  port: 9051
+
+swagger:
+  api:
+    title: 后台管理系统文档
+    description: 后台API
