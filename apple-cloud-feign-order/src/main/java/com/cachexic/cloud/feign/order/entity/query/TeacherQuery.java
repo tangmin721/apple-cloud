@@ -3,6 +3,7 @@ package com.cachexic.cloud.feign.order.entity.query;
 import com.cachexic.cloud.common.base.entity.query.BaseQuery;
 import com.cachexic.cloud.common.enums.YesOrNoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -14,30 +15,41 @@ import java.util.Date;
 public class TeacherQuery extends BaseQuery{
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("姓名")
     private String name;
     private Boolean nameLike = false;
 
+    @ApiModelProperty("身份证")
     private String idCard;
     private Boolean idCardLike = false;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "出生日期", example = "2018-08-08 09:09:09")
     private Date birthday;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "出生时间", example = "2018-08-08 09:09:09")
     private Date birthdayTime;
 
+    @ApiModelProperty("分数")
     private Long score;
 
+    @ApiModelProperty("出版的书籍数量")
     private long book;
 
+    @ApiModelProperty("数量")
     private int num;
 
+    @ApiModelProperty("年龄")
     private Integer age;
 
+    @ApiModelProperty("是否班主任")
     private YesOrNoEnum classMater;
 
+    @ApiModelProperty("账户金额")
     private BigDecimal account;
 
+    @ApiModelProperty("是否是特级教师")
     private Boolean supper;
 
     public String getName() {

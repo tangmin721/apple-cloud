@@ -27,21 +27,21 @@ public class Teacher extends BaseEntity {
 
     @NotBlank(message = "姓名不能为空", groups = {Insert.class, Update.class})
     @Size(max = 20, message = "姓名长度不能超过20", groups = {Insert.class, Update.class})
-    @ApiModelProperty(value = "姓名", example = "hehe")
+    @ApiModelProperty(value = "姓名", example = "hehe",required = true)
     private String name = "hehe";
 
     @Length(message = "身份证件号最大长度不能超过18位", max = 18, groups = {Insert.class, Update.class})
-    @ApiModelProperty("身份证")
+    @ApiModelProperty(value = "身份证",required = true)
     private String idCard;
 
     @NotNull(message = "出生日期", groups = {Insert.class, Update.class})
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Past(message = "出生日期只能为过去的时间", groups = {Insert.class, Update.class})
-    @ApiModelProperty(value = "出生日期", example = "1999-09-09")
+    @ApiModelProperty(value = "出生日期", example = "2018-08-08")
     private Date birthday;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "出生时间", example = "1999-09-09 09:09:09")
+    @ApiModelProperty(value = "出生时间", example = "2018-08-08 09:09:09")
     private Date birthdayTime;
 
     @NotNull(message = "score不能空", groups = {Insert.class, Update.class})

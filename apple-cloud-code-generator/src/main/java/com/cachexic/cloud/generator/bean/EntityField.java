@@ -10,31 +10,26 @@ import org.apache.commons.lang3.StringUtils;
  * @date 2016年2月26日
  */
 public class EntityField {
-    /**
-     * entity字段
-     */
+    /** entity字段 */
     private String fieldName;
 
-    /**
-     * 数据库字段
-     */
+    /** 数据库字段 */
     private String columnName;
 
-    /**
-     * 首字母大写，用于模板的get  SET方法
-     *
-     * @return
-     */
+    /** 首字母大写，用于模板的get  SET方法 */
     private String supFiledName;
 
-    /**
-     * 用于判断class java.util.Date double
-     */
+    /** 用于判断class java.util.Date double */
     private String fieldTypeClassName;
 
+    /** 简单的类名 Date */
     private String simpleTypeName;
 
+    /** mysql 定义一个column的语句 */
     private String mysqlFieldStr;
+
+    /** 字段描述 */
+    private String columnComment;
 
     public String getFieldName() {
         return fieldName;
@@ -83,6 +78,14 @@ public class EntityField {
 
     public void setSimpleTypeName(String simpleTypeName) {
         this.simpleTypeName = simpleTypeName;
+    }
+
+    public String getColumnComment() {
+        return columnComment;
+    }
+
+    public void setColumnComment(String columnComment) {
+        this.columnComment = columnComment;
     }
 
     @Override

@@ -7,12 +7,12 @@ CREATE TABLE `${entity.tableName}` (
 <#list entity.myfieldListNotTransient as e>  ${e.mysqlFieldStr},
   </#list>
   <#if CONFIG.extendBaseEntity=="true">`version` int DEFAULT 0 COMMENT '乐观锁版本号',
-  `create_time` datetime COMMENT '记录创建时间',
-  `create_user_id` bigint COMMENT '创建人ID',
+  `create_time` datetime COMMENT '创建时间',
+  `create_user_id` bigint COMMENT '创建人id',
   `create_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '创建人name',
-  `update_time` datetime COMMENT '记录更新时间',
-  `update_user_id` bigint COMMENT '更新人ID',
-  `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人name',
+  `update_time` datetime COMMENT '最后修改时间',
+  `update_user_id` bigint COMMENT '修改人id',
+  `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '修改人name',
   `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态',</#if>
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='${CONFIG.modelName}';

@@ -2,6 +2,7 @@ package com.cachexic.cloud.common.base.entity.query;
 
 import com.cachexic.cloud.common.constants.SystemConst;
 import com.google.common.collect.Lists;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -10,10 +11,6 @@ import java.util.List;
 /**
  * @author tangmin
  * @version V1.0
- * @Title: PojoPojoBaseQuery.java
- * @Package com.gasq.cloud.common.core.entity
- * @Description: 只带id的类，不带其他业务信息比如（createTime，updateTime）等
- * @date 2017-04-27 16:12:37
  */
 public class PojoBaseQuery implements Serializable {
     private static final long serialVersionUID = -3499284113420390114L;
@@ -22,24 +19,25 @@ public class PojoBaseQuery implements Serializable {
 
     protected long MAX_PAGE_SIZE = SystemConst.MAX_PAGE_SIZE;
 
+    @ApiModelProperty(value = "每页记录条数", position = 901)
     protected Long pageSize = DEFAULT_PAGE_SIZE;
 
-    /** 起始行 */
+    @ApiModelProperty(value = "起始行", hidden = true)
     protected Long startRow;
 
-    /** 当前页 */
+    @ApiModelProperty(value = "当前页", example = "1", position = 902)
     protected Long currentPage = 1L;
 
-    /** Sql查询字段,可自定义只取哪几列的信息 */
+    @ApiModelProperty(value = "Sql查询字段,可自定义只取哪几列的信息", hidden = true, example = "1", position = 903)
     protected String fields;
 
-    /** 排序字段：默认按id，如果默认按其他，set一下 */
+    @ApiModelProperty(value = "单排序字段", position = 904)
     protected String orderField;
 
-    /** asc or desc  默认正序 */
+    @ApiModelProperty(value = "单字段升序或降序", position = 905)
     protected String orderSort = "asc";
 
-    /** 排序列表字段 */
+    @ApiModelProperty(value = "多字段排序", notes = "多字段排序,OrderField对象list", position = 906)
     private List<OrderField> orderFields = Lists.newArrayList();
 
     public PojoBaseQuery() {

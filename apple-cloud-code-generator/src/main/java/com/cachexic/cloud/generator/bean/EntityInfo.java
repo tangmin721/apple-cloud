@@ -5,6 +5,7 @@ import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.order.entity.Teacher;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.google.common.collect.Lists;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
@@ -92,8 +93,7 @@ public class EntityInfo {
 
         this.className = simpleName;
         this.fullClassName = fname;
-        this.fullQueryClassName = fname.substring(0,fname.length()-simpleName.length())+"query."+simpleName+"Query";
-        System.out.println(fullQueryClassName);
+        this.fullQueryClassName = fname.substring(0, fname.length() - simpleName.length()) + "query." + simpleName + "Query";
         this.firstLowName = StringUtils.uncapitalize(simpleName);//首字母小写
         this.underLineName = AppStringUtils.camelToUnderline(this.firstLowName);//驼峰转下划线
 
@@ -143,6 +143,10 @@ public class EntityInfo {
 
     }
 
+    /**
+     * 测试
+     * @param args
+     */
     public static void main(String[] args) {
 //        EntityInfo entityInfo = new EntityInfo(EntityField.class, "test_table");
 //        System.out.println(entityInfo);
@@ -169,7 +173,7 @@ public class EntityInfo {
         entityField.setColumnName(AppStringUtils.camelToUnderline(field.getName()));//驼峰转下划线
         entityField.setSimpleTypeName(field.getType().getSimpleName());
 
-        StringBuilder mysqlStament = new StringBuilder("`"+entityField.getColumnName()+"`")
+        StringBuilder mysqlStament = new StringBuilder("`" + entityField.getColumnName() + "`")
             .append(" ");
         if (field.getType().isAssignableFrom(String.class)) {//字符串
             int length = 255;//默认长度
@@ -188,9 +192,9 @@ public class EntityInfo {
             if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
                 mysqlStament.append("NOT NULL ");
             }
-            if(defalutValue==null){
+            if (defalutValue == null) {
                 mysqlStament.append("DEFAULT '' ");
-            }else {
+            } else {
                 mysqlStament.append("DEFAULT '" + defalutValue + "' ");
             }
 
@@ -241,36 +245,30 @@ public class EntityInfo {
             if (defalutValue != null) {
                 mysqlStament.append("DEFAULT '" + defalutValue + "'");
             }
-        }else if(field.getType().isAssignableFrom(Boolean.class) || field.getType().getSimpleName().equals("boolean")){
+        } else if (field.getType().isAssignableFrom(Boolean.class) || field.getType().getSimpleName().equals("boolean")) {
             mysqlStament.append("bit(1)").append(" ");
             if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
                 mysqlStament.append("NOT NULL ");
             }
             if (defalutValue != null) {
-                if((Boolean) defalutValue){
+                if ((Boolean) defalutValue) {
                     mysqlStament.append("DEFAULT b'1'");
-                }else {
+                } else {
                     mysqlStament.append("DEFAULT b'0'");
                 }
             }
         }
-        mysqlStament.append(" COMMENT '").append(field.getName()).append("描述'");
-
-       /* StringBuffer builder = new StringBuffer();
-        builder.append("fieldName:" + field.getName());
-        builder.append(",defalutValue:" + defalutValue);
-        builder.append(",Transient:" + field.isAnnotationPresent(Transient.class));
-        builder.append(",enum:" + field.getType().isEnum());
-        builder.append(",simpleName:" + field.getType().getSimpleName());
-
-        if (field.isAnnotationPresent(Size.class)) {
-            builder.append(",max:" + field.getAnnotation(Size.class).max());
-        } else if (field.isAnnotationPresent(Length.class)) {
-            builder.append(",max:" + field.getAnnotation(Length.class).max());
+        mysqlStament.append(" COMMENT '");
+        if (field.isAnnotationPresent(ApiModelProperty.class)) {
+            mysqlStament.append(field.getAnnotation(ApiModelProperty.class).value()).append("'");
+            //设置字段描述
+            entityField.setColumnComment(field.getAnnotation(ApiModelProperty.class).value());
+        } else {
+            mysqlStament.append(field.getName()).append("描述@TODO'");
         }
 
-        System.out.println(builder.toString());*/
         entityField.setMysqlFieldStr(mysqlStament.toString());
+        //System.out.println(JsonUtil.toJson(entityField));
         return entityField;
     }
 
@@ -380,7 +378,6 @@ public class EntityInfo {
             } catch (Exception e) {
                 //这里甚么都不要做！并且这里的异常必须这样写，不能抛出去。
                 //如果这里的异常打印或者往外抛，则就不会执行clazz = clazz.getSuperclass(),最后就不会进入到父类中了
-
             }
         }
 
@@ -391,14 +388,12 @@ public class EntityInfo {
 
         //根据 对象和属性名通过反射 调用上面的方法获取 Field对象
         Field field = getDeclaredField(object, fieldName);
-
         //抑制Java对其的检查
         field.setAccessible(true);
 
         try {
             //获取 object 中 field 所代表的属性值
             return field.get(object);
-
         } catch (Exception e) {
             e.printStackTrace();
         }

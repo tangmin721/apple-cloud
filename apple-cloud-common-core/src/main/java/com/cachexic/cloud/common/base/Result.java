@@ -6,6 +6,7 @@ import com.cachexic.cloud.common.base.entity.query.Pagination;
 import com.cachexic.cloud.common.exceptions.BizExceptionEnum;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.google.common.collect.Lists;
+import io.swagger.annotations.ApiModelProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +37,13 @@ public class Result<T> implements Serializable {
     public final static String VALID_ERROR_MSG = "数据校验失败";
     public final static String FAIL_MSG = "操作失败";
 
+    @ApiModelProperty(value = "返回结果状态值",notes = "0:操作成功,1:期望返回对象或数组,但是结果为empty,2:数据校验失败(前端交互),-1:操作失败",example = "0")
     private int status;
+
+    @ApiModelProperty(value = "返回结果文字说明",example = "操作成功")
     private String message;
+
+    @ApiModelProperty(value = "返回数据对象")
     private T data;
 
     public static Result OK() {

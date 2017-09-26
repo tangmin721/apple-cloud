@@ -2,39 +2,39 @@ package com.cachexic.cloud.common.base.entity.query;
 
 import com.cachexic.cloud.common.base.enums.StatusEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 
 /**
  * @author tangmin
  * @version V1.0
- * @Title: BaseQuery.java
- * @Package com.gasq.cloud.provider.customer.core.query
- * @Description:
- * @date 2017-04-26 11:05:19
  */
 public class BaseQuery extends PojoBaseQuery {
-    private static final long serialVersionUID = -1385062464518193766L;
+    private static final long serialVersionUID = 1919774516804971541L;
 
-    /** 删除标记 */
+    @ApiModelProperty(value = "状态", position = 800)
     protected StatusEnum status = StatusEnum.normal;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "创建开始时间", example = "2018-08-08 09:09:09", position = 801, hidden = true)
     protected Date startCreateTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "创建结束时间", example = "2018-08-08 09:09:09", position = 802, hidden = true)
     protected Date endCreateTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "修改开始时间", example = "2018-08-08 09:09:09", position = 803, hidden = true)
     protected Date startUpdateTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "修改开始时间", example = "2018-08-08 09:09:09", position = 804, hidden = true)
     protected Date endUpdateTime;
 
-    /** 如果 uuid改为Long 需要变更为Long */
+    @ApiModelProperty(value = "创建人id", position = 805)
     protected Long createUserId;
 
-    /** 如果 uuid改为Long 需要变更为Long */
+    @ApiModelProperty(value = "修改人id", position = 806)
     protected Long updateUserId;
 
     public StatusEnum getStatus() {
@@ -49,36 +49,32 @@ public class BaseQuery extends PojoBaseQuery {
         return startCreateTime;
     }
 
-    public BaseQuery setStartCreateTime(Date startCreateTime) {
+    public void setStartCreateTime(Date startCreateTime) {
         this.startCreateTime = startCreateTime;
-        return this;
     }
 
     public Date getEndCreateTime() {
         return endCreateTime;
     }
 
-    public BaseQuery setEndCreateTime(Date endCreateTime) {
+    public void setEndCreateTime(Date endCreateTime) {
         this.endCreateTime = endCreateTime;
-        return this;
     }
 
     public Date getStartUpdateTime() {
         return startUpdateTime;
     }
 
-    public BaseQuery setStartUpdateTime(Date startUpdateTime) {
+    public void setStartUpdateTime(Date startUpdateTime) {
         this.startUpdateTime = startUpdateTime;
-        return this;
     }
 
     public Date getEndUpdateTime() {
         return endUpdateTime;
     }
 
-    public BaseQuery setEndUpdateTime(Date endUpdateTime) {
+    public void setEndUpdateTime(Date endUpdateTime) {
         this.endUpdateTime = endUpdateTime;
-        return this;
     }
 
     public Long getCreateUserId() {

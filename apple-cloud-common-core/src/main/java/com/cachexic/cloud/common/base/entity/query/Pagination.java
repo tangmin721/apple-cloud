@@ -4,16 +4,13 @@ import com.cachexic.cloud.common.constants.SystemConst;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * @author tangmin
  * @version V1.0
- * @Title: Pagination.java
- * @Package com.cachexic.sjdbc.common.core
- * @Description: 分页对象
- * @date 2017-08-26 12:39:10
  */
 public class Pagination<T> implements Serializable {
     private static final long serialVersionUID = 5399980318862132190L;
@@ -21,34 +18,37 @@ public class Pagination<T> implements Serializable {
     private long DEFAULT_PAGE_SIZE = SystemConst.DEFAULT_PAGE_SIZE;
 
     /** 实体的list */
+    @ApiModelProperty("返回的list集合")
     private List<T> list = Lists.newArrayList();
 
+    /** 当前页 */
+    @ApiModelProperty(value = "当前页", example = "10", position = 1)
+    private Long currentPage;
+
+    /** 每页记录条数 */
+    @ApiModelProperty(value = "每页记录条数", example = "10", position = 2)
+    private Long pageSize = DEFAULT_PAGE_SIZE;
+
     /** 总记录条数 */
+    @ApiModelProperty(value = "总记录条数", example = "50", position = 3)
     private Long total;
 
     /** 总页数 */
+    @ApiModelProperty(value = "总页数", example = "5", position = 4)
     private Long pageCount = 0l;
-
-    /** 每页记录条数 */
-    private Long pageSize = DEFAULT_PAGE_SIZE;
-
-    /** 当前页 */
-    private Long currentPage;
 
     /** 起始行,用于页面序号相加 */
     @JsonIgnore
     private Long pageStart = 0l;
 
-    /**
-     * 是否使用小型分页样式
-     */
+    /** 是否使用小型分页样式 */
     @JsonIgnore
     protected boolean small;
 
     /**
      * 私有化无参构造，feign层调用的时候用到对象的转换
      */
-    private Pagination(){
+    private Pagination() {
     }
 
     public Pagination(Long currentPage, Long pageSize, Long total) {

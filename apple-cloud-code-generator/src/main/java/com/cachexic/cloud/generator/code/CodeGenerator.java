@@ -150,6 +150,8 @@ public class CodeGenerator {
      * @throws Exception
      */
     public void outPut(String path) throws Exception {
+        System.out.println("代码生成器开始运行...");
+        long startTime = System.nanoTime();
         File dir = new File(path);
         if (!dir.exists()) {
             dir.mkdirs();
@@ -206,6 +208,7 @@ public class CodeGenerator {
                 feignClien.generateCode(entity, genConfig));
 
         Runtime.getRuntime().exec("cmd /c start " + path);
+        System.out.println("生成代码成功!!!耗时:"+(System.nanoTime()-startTime)/(1000*1000) +"ms.");
     }
 
 
