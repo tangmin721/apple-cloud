@@ -35,7 +35,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 @Aspect
 @Component
-@Profile("dev")
+@Profile({"dev","test"})
 public class HttpAspect {
 
     private final static Logger log = LoggerFactory.getLogger(HttpAspect.class);
@@ -116,7 +116,6 @@ public class HttpAspect {
         //拦截的方法名称
         String methodName = point.getSignature().getName();
 
-        // System.out.println(target.getClass()+"@Around：执行目标方法之前...");
         Object result = point.proceed();
         log.info("====>Class:"+target.getClass()+",Method: "+methodName+"====>执行耗时 : 【"+(System.nanoTime()-start)/(1000*1000)+" 毫秒】 ");
         //}
