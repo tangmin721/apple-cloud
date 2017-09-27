@@ -53,35 +53,39 @@ public class HttpAspect {
     @Before("log()")
     public void doBefore(JoinPoint joinpoint) {
 
-        log.info("====> before controller...");
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
+        try {
+            log.info("====> before controller...");
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            HttpServletRequest request = attributes.getRequest();
 
-        String uuid = UUIDUtil.get32UUID();//暂时在这里面设置requestId，如果是分布式springCloud，可以在zuul过滤器设置： ctx.addZuulRequestHeader(SystemConst.REQUEST_ID,,uuid);
-        request.setAttribute(SystemConst.REQUEST_ID, uuid);
+            String uuid = UUIDUtil.get32UUID();//暂时在这里面设置requestId，如果是分布式springCloud，可以在zuul过滤器设置： ctx.addZuulRequestHeader(SystemConst.REQUEST_ID,,uuid);
+            request.setAttribute(SystemConst.REQUEST_ID, uuid);
 
-        List<Map<String,String>> headsMapList = Lists.newArrayList();
+            List<Map<String,String>> headsMapList = Lists.newArrayList();
 
-        Enumeration<String> names = request.getHeaderNames();
-        while (names.hasMoreElements()){
-            String head = names.nextElement();
-            HashMap<String, String> map = new HashMap<>();
-            map.put(head,request.getHeader(head));
-            headsMapList.add(map);
+            Enumeration<String> names = request.getHeaderNames();
+            while (names.hasMoreElements()){
+                String head = names.nextElement();
+                HashMap<String, String> map = new HashMap<>();
+                map.put(head,request.getHeader(head));
+                headsMapList.add(map);
+            }
+
+            //设置参数，以便在异常处理的时候日志里打印
+            request.setAttribute(SystemConst.REQUEST_ARGS, JsonUtil.toJson(joinpoint.getArgs()));
+
+            log.info("====> url=[{}],method={},ip={},class_method={},requestId={},requestHead={},requestArgs={}",
+                    request.getRequestURL(),
+                    request.getMethod(),
+                    IpAddressUtil.getRealIp(request),
+                    joinpoint.getSignature().getDeclaringTypeName() + "." + joinpoint.getSignature().getName(),
+                    uuid,
+                    JsonUtil.toJson(headsMapList),
+                    JsonUtil.toJson(joinpoint.getArgs())
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        //设置参数，以便在异常处理的时候日志里打印
-        request.setAttribute(SystemConst.REQUEST_ARGS, JsonUtil.toJson(joinpoint.getArgs()));
-
-        log.info("====> url=[{}],method={},ip={},class_method={},requestId={},requestHead={},requestArgs={}",
-                request.getRequestURL(),
-                request.getMethod(),
-                IpAddressUtil.getRealIp(request),
-                joinpoint.getSignature().getDeclaringTypeName() + "." + joinpoint.getSignature().getName(),
-                uuid,
-                JsonUtil.toJson(headsMapList),
-                JsonUtil.toJson(joinpoint.getArgs())
-        );
     }
 
     @After("log()")
@@ -96,7 +100,11 @@ public class HttpAspect {
      */
     @AfterReturning(returning = "object", pointcut = "log()")
     public void returning(Object object) {
-        log.info("====> response={}", JsonUtil.toJson(object));
+        try {
+            log.info("====> response={}", JsonUtil.toJson(object));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         log.info("****************************************[ request  end  ]****************************************");
     }
 
@@ -108,18 +116,24 @@ public class HttpAspect {
      */
     @Around(value = "log()")
     public Object  doAroundMethodController(ProceedingJoinPoint point) throws Throwable{
-        log.info("****************************************[ request start ]****************************************");
-        //if(){ 判断权限
-        long start=System.nanoTime();
-        //拦截的实体类
-        Object target = point.getTarget();
-        //拦截的方法名称
-        String methodName = point.getSignature().getName();
+        Object result = null;
+        try {
+            log.info("****************************************[ request start ]****************************************");
+            //if(){ 判断权限
+            long start=System.nanoTime();
+            //拦截的实体类
+            Object target = point.getTarget();
+            //拦截的方法名称
+            String methodName = point.getSignature().getName();
 
-        Object result = point.proceed();
-        log.info("====>Class:"+target.getClass()+",Method: "+methodName+"====>执行耗时 : 【"+(System.nanoTime()-start)/(1000*1000)+" 毫秒】 ");
-        //}
+            result = point.proceed();
+            log.info("====>Class:"+target.getClass()+",Method: "+methodName+"====>执行耗时 : 【"+(System.nanoTime()-start)/(1000*1000)+" 毫秒】 ");
+            //}
 
+            return result;
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
+        }
         return result;
     }
 }

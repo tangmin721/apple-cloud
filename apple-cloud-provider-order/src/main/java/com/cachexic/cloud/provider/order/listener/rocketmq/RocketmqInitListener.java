@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
- * @Description: spring容器启动后，再启动@PostConstruct里的语句
+ * @Description: 启动监听方式1:spring容器启动后，再启动@PostConstruct里的语句,
+ * 启动监听的方式2参见:QueueListener
  * @date 2017-06-19 19:32:42
  */
 @Component
@@ -18,10 +19,14 @@ public class RocketmqInitListener {
     @Autowired
     private OrderCreateRocketmqConsumer orderCreateRocketmqConsumer;
 
+//    @Autowired
+//    private QueueListener queueListener;
+
     @PostConstruct
     public void contextInitialized() {
         log.info("======================contextInitialized===========================");
         orderCreateRocketmqConsumer.start();
+        //queueListener.start();
     }
 
     @PreDestroy
