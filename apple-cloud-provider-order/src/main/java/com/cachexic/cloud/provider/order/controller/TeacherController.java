@@ -43,13 +43,13 @@ public class TeacherController implements TeacherFeign {
 
     @ApiOperation("getById:根据主键查询")
     @Override
-    public Result<Teacher> getById(@PathVariable("ids") Long id){
+    public Result<Teacher> getById(@PathVariable("id") Long id){
         return Result.OK().setData(teacherService.selectById(id));
     }
 
     @ApiOperation(value = "getByIds:根据主键ids查询",notes = "逗号分隔")
     @Override
-    public Result<List<Teacher>> getByIds(@PathVariable String ids){
+    public Result<List<Teacher>> getByIds(@PathVariable("ids") String ids){
         return Result.OK().setData(teacherService.selectByIds(IdsUtil.listLong(ids)));
     }
 

@@ -41,13 +41,13 @@ public class ${entity.className}Controller implements ${entity.className}Feign{
 
     @ApiOperation("getById:根据主键查询")
     @Override
-    public Result<${entity.className}> getById(@PathVariable("ids") Long id){
+    public Result<${entity.className}> getById(@PathVariable("id") Long id){
         return Result.OK().setData(${entity.firstLowName}Service.selectById(id));
     }
 
     @ApiOperation(value = "getByIds:根据主键ids查询",notes = "逗号分隔")
     @Override
-    public Result<List<${entity.className}>> getByIds(@PathVariable String ids){
+    public Result<List<${entity.className}>> getByIds(@PathVariable("ids") String ids){
         return Result.OK().setData(${entity.firstLowName}Service.selectByIds(IdsUtil.listLong(ids)));
     }
 
