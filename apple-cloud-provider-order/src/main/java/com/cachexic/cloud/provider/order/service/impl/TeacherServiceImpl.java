@@ -7,11 +7,11 @@ import com.cachexic.cloud.provider.order.service.TeacherService;
 import org.springframework.stereotype.Service;
 
 /**
- * 教师管理
+ * 教师测试实体管理
  * @author tangmin
- * @date 2017-09-12 00:15:00
+ * @date 2017-09-27 14:42:38
  */
-@Service
+@Service("teacherService")
 public class TeacherServiceImpl extends BaseServiceImpl<Teacher, TeacherQuery> implements TeacherService{
 
 }

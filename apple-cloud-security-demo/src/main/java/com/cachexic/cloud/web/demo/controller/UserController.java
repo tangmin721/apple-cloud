@@ -1,14 +1,23 @@
 
 package com.cachexic.cloud.web.demo.controller;
 
+import com.cachexic.cloud.web.demo.dto.FileInfo;
 import com.cachexic.cloud.web.demo.entity.User;
 import com.cachexic.cloud.web.demo.entity.query.UserQuery;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +31,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author zhailiang
@@ -84,6 +94,38 @@ public class UserController {
         User user = new User();
         user.setUsername("tom");
         return user;
+    }
+
+    private String folder = "E:\\github-clone\\apple-cloud\\apple-cloud-security-demo\\src\\main\\java\\com\\cachexic\\cloud\\web\\demo\\controller";
+
+    @PostMapping("file")
+    public FileInfo upload(MultipartFile file) throws Exception {
+
+        System.out.println(file.getName());
+        System.out.println(file.getOriginalFilename());
+        System.out.println(file.getSize());
+
+        File localFile = new File(folder, new Date().getTime() + ".txt");
+
+        file.transferTo(localFile);
+
+        return new FileInfo(localFile.getAbsolutePath());
+    }
+
+    @GetMapping("/file/{id}")
+    public void download(@PathVariable String id, HttpServletRequest request,
+        HttpServletResponse response) throws Exception {
+
+        try (InputStream inputStream = new FileInputStream(new File(folder, id + ".txt"));
+             OutputStream outputStream = response.getOutputStream()) {
+
+            response.setContentType("application/x-download");
+            response.addHeader("Content-Disposition", "attachment;filename=test.txt");
+
+            IOUtils.copy(inputStream, outputStream);
+            outputStream.flush();
+        }
+
     }
 
 }

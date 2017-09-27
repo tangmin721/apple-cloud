@@ -10,9 +10,9 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 /**
- * 教师管理  feign hystrix快速返回实现
+ * 教师测试实体管理  feign hystrix快速返回实现
  * @author tangmin
- * @date 2017-09-12 00:15:00
+ * @date 2017-09-27 14:42:38
  */
 @Component
 public class TeacherFeignFallback implements FallbackFactory<TeacherFeign> {

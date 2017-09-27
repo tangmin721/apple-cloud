@@ -21,9 +21,9 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderQuery> impleme
     /**
      * 定时任务开启：
      * 1、springBoot启动类增加注解@EnableScheduling
-     * 2、@Scheduled(fixedRate = 10000)在无参数的方法上
+     * 2、@Scheduled(fixedRate = 60000)在无参数的方法上 60s
      */
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 60000)
     public void reportCurrenTime(){
         System.out.println(DateUtil.formatDateTime(new Date()));
         System.out.println("====>order service pagination:"+ JsonUtil.toJson(this.selectList(new OrderQuery())));

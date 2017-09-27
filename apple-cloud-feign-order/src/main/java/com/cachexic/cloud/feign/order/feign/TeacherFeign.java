@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * 教师管理
+ * 教师测试实体管理
  * @author tangmin
- * @date 2017-09-12 00:38:43
+ * @date 2017-09-27 14:42:38
  */
 @FeignClient(name = "provider-order", path = "/teacher", fallbackFactory = TeacherFeignFallback.class)
 public interface TeacherFeign{

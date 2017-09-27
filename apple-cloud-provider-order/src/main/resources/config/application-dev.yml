@@ -1,3 +1,5 @@
+server.port: 8001
+
 jdbc:
   datasource:
     ds_0:

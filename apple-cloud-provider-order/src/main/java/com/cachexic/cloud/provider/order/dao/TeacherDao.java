@@ -6,9 +6,9 @@ import com.cachexic.cloud.feign.order.entity.Teacher;
 import com.cachexic.cloud.feign.order.entity.query.TeacherQuery;
 
 /**
- * 教师管理
+ * 教师测试实体管理
  * @author tangmin
- * @date 2017-09-12 00:15:00
+ * @date 2017-09-27 14:42:38
  */
 @MybatisDao
 public interface TeacherDao extends BaseDao<Teacher, TeacherQuery>{

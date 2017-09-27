@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 教师管理
+ * 教师测试实体管理
  * @author tangmin
- * @date 2017-09-12 00:15:00
+ * @date 2017-09-27 14:42:38
  */
 public class TeacherQuery extends BaseQuery{
     private static final long serialVersionUID = 1L;
@@ -24,21 +24,21 @@ public class TeacherQuery extends BaseQuery{
     private Boolean idCardLike = false;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @ApiModelProperty(value = "出生日期", example = "2018-08-08 09:09:09")
+    @ApiModelProperty(value = "出生日期", example = "2018-08-08 09:09:09")    
     private Date birthday;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @ApiModelProperty(value = "出生时间", example = "2018-08-08 09:09:09")
+    @ApiModelProperty(value = "出生时间", example = "2018-08-08 09:09:09")    
     private Date birthdayTime;
 
     @ApiModelProperty("分数")
     private Long score;
 
     @ApiModelProperty("出版的书籍数量")
-    private long book;
+    private Long book;
 
     @ApiModelProperty("数量")
-    private int num;
+    private Integer num;
 
     @ApiModelProperty("年龄")
     private Integer age;
@@ -113,20 +113,20 @@ public class TeacherQuery extends BaseQuery{
         return this;
     }
 
-    public long getBook() {
+    public Long getBook() {
         return book;
     }
 
-    public TeacherQuery setBook(long book) {
+    public TeacherQuery setBook(Long book) {
         this.book = book;
         return this;
     }
 
-    public int getNum() {
+    public Integer getNum() {
         return num;
     }
 
-    public TeacherQuery setNum(int num) {
+    public TeacherQuery setNum(Integer num) {
         this.num = num;
         return this;
     }

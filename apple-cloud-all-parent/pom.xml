@@ -46,7 +46,7 @@
 
         <druid.version>1.0.31</druid.version>
         <mysql-connector-java.version>5.1.43</mysql-connector-java.version>
-        <sharding-jdbc.version>1.5.3</sharding-jdbc.version>
+        <sharding-jdbc.version>1.5.4.1</sharding-jdbc.version>
 
         <guava.version>23.0</guava.version>
         <hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
