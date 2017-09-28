@@ -11,3 +11,11 @@ server:
     uri-encoding: UTF-8
 
 # security.basic.enabled: false
+
+## apple cloud security config
+apple:
+  security:
+    browser:
+      loginPage: /order-login.html
+    app:
+      loginPage: /order-app

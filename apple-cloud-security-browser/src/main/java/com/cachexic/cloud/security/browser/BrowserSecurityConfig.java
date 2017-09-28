@@ -1,5 +1,6 @@
 package com.cachexic.cloud.security.browser;
 
+import com.cachexic.cloud.security.core.properties.SecurityConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -39,12 +40,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         log.info("====>>override WebSecurityConfigurerAdapter...");
         //http.httpBasic()// 弹框默认的方式登录
         http.formLogin()  //表单登录
-            .loginPage("/authentication/require") //配置自定义表单
-            .loginProcessingUrl("/authentication/require") //指定自定义controller处理登录请求
+//            .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL) //当请求需要身份认证时，默认跳转的url
+//            .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM) //默认的用户名密码登录请求处理url
             .and()
 
             .authorizeRequests() //对请求做授权
-            .antMatchers("/apple-login.html").permitAll() //排除登录页的身份验证
+            .antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL).permitAll() //排除登录页的身份验证
             .anyRequest()  //对所有请求
             .authenticated() //都是要身份认证
 

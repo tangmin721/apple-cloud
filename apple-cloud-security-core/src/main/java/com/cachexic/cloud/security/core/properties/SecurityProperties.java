@@ -10,13 +10,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "apple.security")
 public class SecurityProperties {
 
-    private BrowerProperties browerProperties;
+    private BrowerProperties browser;
 
-    public BrowerProperties getBrowerProperties() {
-        return browerProperties;
+    public BrowerProperties getBrowser() {
+        return browser;
     }
 
-    public void setBrowerProperties(BrowerProperties browerProperties) {
-        this.browerProperties = browerProperties;
+    public void setBrowser(BrowerProperties browser) {
+        this.browser = browser;
     }
 }
