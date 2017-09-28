@@ -12,6 +12,7 @@ import java.util.List;
  */
 public enum StatusEnum {
 
+    invalid("无效"),
     normal("正常"),
     deleted("删除"),
     disabled("禁用"),

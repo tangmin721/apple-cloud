@@ -1,13 +1,10 @@
--- create database zipkin--
--- DROP DATABASE IF EXISTS zipkin;
+CREATE DATABASE ds_msg DEFAULT CHARACTER
+--SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+SET utf8 COLLATE utf8_general_ci;
 
-CREATE DATABASE ds_rocketmq DEFAULT CHARACTER
-SET utf8mb4 COLLATE utf8mb4_unicode_ci;
--- SET utf8 COLLATE utf8_general_ci;
+USE ds_msg;
 
-USE ds_rocketmq;
-
-DROP TABLE IF EXISTS `t_msg_persistent`;
+-- DROP TABLE IF EXISTS `t_msg_persistent`;
 
 CREATE TABLE `t_msg_persistent` (
   `id` bigint AUTO_INCREMENT,
@@ -32,6 +29,11 @@ CREATE TABLE `t_msg_persistent` (
   `update_time` datetime COMMENT '记录更新时间',
   `update_user_id` bigint COMMENT '更新人ID',
   `update_user_name` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT '' COMMENT '更新人name',
-  `status` enum ('normal', 'deleted','disabled','frozen') DEFAULT 'normal' COMMENT '状态',
+  `status` enum ('invalid','normal', 'deleted','disabled','frozen') DEFAULT 'invalid' COMMENT '状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='持久化消息';
+
+ALTER TABLE `t_msg_persistent` ADD INDEX(`consumer_queue`) COMMENT 'for select by consumer_queue';
+ALTER TABLE `t_msg_persistent` ADD INDEX(`topic`) COMMENT 'for select by topic';
+ALTER TABLE `t_msg_persistent` ADD INDEX(`tag`) COMMENT 'for select by tag';
+ALTER TABLE `t_msg_persistent` ADD INDEX(`msg_id`) COMMENT 'for select by msg_id';

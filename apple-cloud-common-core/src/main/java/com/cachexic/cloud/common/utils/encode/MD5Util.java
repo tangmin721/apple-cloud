@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import org.springframework.util.DigestUtils;
 
 /**
  * @author tangmin
@@ -87,6 +88,9 @@ public class MD5Util {
 
     //测试
     public static void main(String[] args) {
-        System.out.println(MD5Util.getStringMD5("qweasdas123456"));//c163b192c0ac147da683456c6100f0d9
+        String base = "qweasdas123456";
+        System.out.println(MD5Util.getStringMD5(base));//c163b192c0ac147da683456c6100f0d9
+        //spring 工具类的MD5加密
+        System.out.println(DigestUtils.md5DigestAsHex(base.getBytes()));
     }
 }    
