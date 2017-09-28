@@ -37,7 +37,6 @@ public abstract class BaseServiceImpl<T extends PojoBaseEntity, Q extends PojoBa
     @Autowired
     protected BaseDao<T, Q> dao;
 
-    @Transactional
     public Long insert(T entity) {
         if (entity == null) {
             throw new RuntimeException("insert entity:T is null");
@@ -57,6 +56,7 @@ public abstract class BaseServiceImpl<T extends PojoBaseEntity, Q extends PojoBa
         return entity.getId();
     }
 
+    @Transactional
     public int insertBatch(List<T> list) {
         if (list == null || list.size() <= 0) {
             return 0;

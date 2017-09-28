@@ -1,9 +1,13 @@
 spring:
   application:
     name: provider-order
+  session:
+    store-type: none
 server:
   tomcat:
     max-connections: 2000
     max-threads: 1000
     accept-count: 600
     uri-encoding: UTF-8
+
+# security.basic.enabled: false

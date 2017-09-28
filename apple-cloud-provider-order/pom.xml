@@ -38,24 +38,17 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>apple-cloud-security-browser</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
 
 
     <build>
+        <!--如果不加finalName,jar包会带上版本号-->
         <finalName>${project.name}</finalName>
-        <resources>
-            <resource>
-                <targetPath>${project.build.directory}/classes</targetPath>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>*.*</include>
-                    <include>**/*.xml</include>
-                    <include>**/*.yml</include>
-                    <include>**/*.properties</include>
-                </includes>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
