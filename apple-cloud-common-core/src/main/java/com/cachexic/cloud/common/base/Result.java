@@ -27,15 +27,24 @@ public class Result<T> implements Serializable {
     private final static Logger log = LoggerFactory.getLogger(Result.class);
 
     public final static int OK_CODE = 0;
-    public final static int EMPTY_CODE = 1;
-    public final static int VALID_ERROR_CODE = 2;//数据校验异常，返回前端
-    public final static int FAIL_CODE = -1;
-
-
     public final static String OK_MSG = "操作成功";
-    public final static String EMPTY_MSG = "找不到纪录";
-    public final static String VALID_ERROR_MSG = "数据校验失败";
+
+    public final static int FAIL_CODE = -1;
     public final static String FAIL_MSG = "操作失败";
+
+    /** ------------特殊处理的异常--------------------- */
+
+    public final static int EMPTY_CODE = 1;
+    public final static String EMPTY_MSG = "找不到纪录";
+
+    public final static int VALID_ERROR_CODE = 2;//数据校验异常，返回前端
+    public final static String VALID_ERROR_MSG = "数据校验失败";
+
+
+    public final static int UNAUTHORIZED_CODE = 3;//需要登录，返回前端
+    public final static String UNAUTHORIZED_MSG = "身份校验失败,请重新登录";//需要登录，返回前端
+
+
 
     @ApiModelProperty(value = "返回结果状态值",notes = "0:操作成功,1:期望返回对象或数组,但是结果为empty,2:数据校验失败(前端交互),-1:操作失败",example = "0")
     private int status;
@@ -54,45 +63,45 @@ public class Result<T> implements Serializable {
     }
 
     public static Result OK(String msg) {
-        Result success = new Result();
-        success.setStatus(OK_CODE);
-        success.setMessage(msg);
-        return success;
+        Result result = new Result();
+        result.setStatus(OK_CODE);
+        result.setMessage(msg);
+        return result;
     }
 
     public static Result OK(int code, String msg) {
-        Result success = new Result();
-        success.setStatus(code);
-        success.setMessage(msg);
-        return success;
+        Result result = new Result();
+        result.setStatus(code);
+        result.setMessage(msg);
+        return result;
     }
 
     public static Result FAIL() {
-        Result success = new Result();
-        success.setStatus(FAIL_CODE);
-        success.setMessage(FAIL_MSG);
-        return success;
+        Result result = new Result();
+        result.setStatus(FAIL_CODE);
+        result.setMessage(FAIL_MSG);
+        return result;
     }
 
     public static Result FAIL(String errorMsg) {
-        Result success = new Result();
-        success.setStatus(FAIL_CODE);
-        success.setMessage(errorMsg);
-        return success;
+        Result result = new Result();
+        result.setStatus(FAIL_CODE);
+        result.setMessage(errorMsg);
+        return result;
     }
 
     public static Result FAIL(BizExceptionEnum exceptionEnum) {
-        Result success = new Result();
-        success.setStatus(exceptionEnum.getCode());
-        success.setMessage(exceptionEnum.getMsg());
-        return success;
+        Result result = new Result();
+        result.setStatus(exceptionEnum.getCode());
+        result.setMessage(exceptionEnum.getMsg());
+        return result;
     }
 
     public static Result FAIL(int code, String errorMsg) {
-        Result success = new Result();
-        success.setStatus(code);
-        success.setMessage(errorMsg);
-        return success;
+        Result result = new Result();
+        result.setStatus(code);
+        result.setMessage(errorMsg);
+        return result;
     }
 
     /**
@@ -102,10 +111,22 @@ public class Result<T> implements Serializable {
      * @return
      */
     public static Result FAIL_VALID(int code, String errorMsg) {
-        Result success = new Result();
-        success.setStatus(VALID_ERROR_CODE);
-        success.setMessage(VALID_ERROR_MSG);
-        return success;
+        Result result = new Result();
+        result.setStatus(VALID_ERROR_CODE);
+        result.setMessage(VALID_ERROR_MSG);
+        return result;
+    }
+
+    /**
+     * @author tangmin
+     * @Description: 没有授权登录
+     * @date 2017-09-28 17:29:50
+     */
+    public static Result UNAUTHORIZED() {
+        Result result = new Result();
+        result.setStatus(UNAUTHORIZED_CODE);
+        result.setMessage(UNAUTHORIZED_MSG);
+        return result;
     }
 
     public static Result FALLBACK(Throwable cause) {

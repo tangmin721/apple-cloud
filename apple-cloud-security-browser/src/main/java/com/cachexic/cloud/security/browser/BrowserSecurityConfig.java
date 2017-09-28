@@ -39,15 +39,17 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
         log.info("====>>override WebSecurityConfigurerAdapter...");
         //http.httpBasic()// 弹框默认的方式登录
         http.formLogin()  //表单登录
-            .loginPage("/login.html") //配置自定义表单
-
+            .loginPage("/authentication/require") //配置自定义表单
+            .loginProcessingUrl("/authentication/require") //指定自定义controller处理登录请求
             .and()
 
             .authorizeRequests() //对请求做授权
-            .antMatchers("/login.html").permitAll() //排除登录页的身份验证
+            .antMatchers("/apple-login.html").permitAll() //排除登录页的身份验证
             .anyRequest()  //对所有请求
             .authenticated() //都是要身份认证
 
+            .and()
+            .csrf().disable() //暂时禁用掉跨站伪造防护
             ;
     }
 }
