@@ -33,7 +33,7 @@ public class MockQueue {
         new Thread(() -> {
             log.info("接到下单请求, " + placeOrder);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(200);
             } catch (Exception e) {
                 e.printStackTrace();
             }

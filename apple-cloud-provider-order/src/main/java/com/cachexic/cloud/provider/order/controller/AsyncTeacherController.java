@@ -41,12 +41,8 @@ public class AsyncTeacherController {
     @Autowired
     private DeferredResultHolder deferredResultHolder;
 
-    /**
-     * 方式1:简单的异步接口
-     * @param id
-     * @return
-     */
-    @ApiOperation("getById:根据主键查询")
+
+    @ApiOperation(value = "getById:根据主键查询",notes = "方式1:Callable简单的异步接口")
     @GetMapping("id/{id}")
     public Callable<Result<Teacher>> getById(@PathVariable("id") Long id){
         log.info("*********主线程开始*********");
@@ -62,12 +58,8 @@ public class AsyncTeacherController {
         return resultCallable;
     }
 
-    /**
-     * 方式2:通过消息队列异步消费(模拟一下)
-     * @param ids
-     * @return
-     */
-    @ApiOperation(value = "getByIds:根据主键ids查询",notes = "逗号分隔")
+
+    @ApiOperation(value = "getByIds:根据主键ids查询",notes = "逗号分隔.方式2:通过消息队列异步消费(模拟一下)")
     @GetMapping("ids/{ids}")
     public DeferredResult<Result<List<Teacher>>> getByIds(@PathVariable("ids") String ids){
         log.info("*********主线程开始*********");

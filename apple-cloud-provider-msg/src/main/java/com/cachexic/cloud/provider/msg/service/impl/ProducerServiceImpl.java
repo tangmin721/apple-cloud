@@ -39,7 +39,7 @@ public class ProducerServiceImpl implements ProducerService {
 
         msgPersistent.setMsgId(UUIDUtil.get32UUID());
         msgPersistent.setMsgStatus(MsgStatusEnum.waiting_confirm);
-        msgPersistent.setAreadlyDead(YesOrNoEnum.no);
+        msgPersistent.setAlreadyDead(YesOrNoEnum.no);
         msgPersistent.setMsgSendTimes(0);
 
         msgPersistentService.insert(msgPersistent);
