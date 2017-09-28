@@ -187,15 +187,15 @@ public class EntityInfo {
             if (length == 2147483647) {
                 length = 255;
             }
-            mysqlStament.append(length + ")").append(" COLLATE utf8mb4_unicode_ci ");
+            mysqlStament.append(length + ")");
 
             if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class) || field.isAnnotationPresent(NotEmpty.class)) {
-                mysqlStament.append("NOT NULL ");
+                mysqlStament.append(" NOT NULL");
             }
             if (defalutValue == null) {
-                mysqlStament.append("DEFAULT '' ");
+                mysqlStament.append(" DEFAULT ''");
             } else {
-                mysqlStament.append("DEFAULT '" + defalutValue + "' ");
+                mysqlStament.append(" DEFAULT '" + defalutValue + "'");
             }
 
         } else if (field.getType().isAssignableFrom(Long.class) || field.getType().getSimpleName().equals("long")) {
@@ -265,6 +265,8 @@ public class EntityInfo {
             entityField.setColumnComment(field.getAnnotation(ApiModelProperty.class).value());
         } else {
             mysqlStament.append(field.getName()).append("描述@TODO'");
+            //设置字段描述
+            entityField.setColumnComment(field.getName()+"描述@TODO'");
         }
 
         entityField.setMysqlFieldStr(mysqlStament.toString());

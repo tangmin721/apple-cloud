@@ -1,5 +1,3 @@
--- 注意：请建表后要加索引的列也加上,写法参考本sql底部
-
 -- DROP TABLE IF EXISTS `${entity.tableName}`;
 
 CREATE TABLE `${entity.tableName}` (

@@ -5,6 +5,7 @@ import com.cachexic.cloud.common.base.entity.BaseEntity;
 import com.cachexic.cloud.common.base.validator.annotations.Insert;
 import com.cachexic.cloud.common.enums.YesOrNoEnum;
 import com.cachexic.cloud.feign.msg.enums.MsgStatusEnum;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -15,44 +16,50 @@ import org.hibernate.validator.constraints.NotBlank;
 public class MsgPersistent extends BaseEntity {
     private static final long serialVersionUID = -5497996812028362407L;
 
-    /** 消费对应的队列 RocketmqMsgQueueEnum */
+    @ApiModelProperty(value = "消费对应的队列",notes = "对应RocketmqMsgQueueEnum")
     @NotBlank(message = "消费队列名称不能为空", groups =Insert.class)
     private String consumerQueue;
 
-    /** 冗余MsgConsumerQueueEnum的topic查询 */
+    @ApiModelProperty(value = "消息topic",notes = "冗余MsgConsumerQueueEnum的topic查询")
     @NotBlank(message = "topic不能为空",groups =Insert.class)
     private String topic;
 
-    /** 冗余MsgConsumerQueueEnum的tag查询 */
+    @ApiModelProperty(value = "rocketMq tag",notes = "冗余MsgConsumerQueueEnum的tag查询")
     private String tag;
 
-    /** 32UUID作为唯一消息主键 */
+    @ApiModelProperty(value = "消息Id",notes = "32UUID作为唯一消息主键")
     @NotBlank(message = "msgId不能为空", groups =Insert.class)
     private String msgId;
 
-    /** rocketmq的消息Id */
+    @ApiModelProperty("rocketmq的消息Id")
     private String mqMsgId;
 
-    /** 消息的数据类型 */
+    @ApiModelProperty("消息的数据类型")
     private String msgClassName;
 
-    /** 消息主体 */
+    @ApiModelProperty("消息主体")
     @NotBlank(message = "消息主体不能为空", groups =Insert.class)
     private String msgBody;
 
-    /** 消息发送次数 */
+    @ApiModelProperty("消息发送次数")
     private Integer msgSendTimes;
 
-    /** 是否是死亡消息 */
+    @ApiModelProperty("是否是死亡消息")
     private YesOrNoEnum areadlyDead;
 
-    /** 消息状态 */
+    @ApiModelProperty("消息状态")
     private MsgStatusEnum msgStatus;
 
-    /** 备用字段，存储一些业务信息，比如订单号，流水号之类，但是又不能通用的，便于查询 */
+    @ApiModelProperty(value = "Long备用字段1",notes = "存储一些业务信息，比如订单号，流水号之类，但是又不能通用的，便于查询")
     private Long fieldLong1;
+
+    @ApiModelProperty(value = "Long备用字段2",notes = "存储一些业务信息，比如订单号，流水号之类，但是又不能通用的，便于查询")
     private Long fieldLong2;
+
+    @ApiModelProperty(value = "String备用字段1",notes = "存储一些业务信息，比如订单号，流水号之类，但是又不能通用的，便于查询")
     private String fieldString1;
+
+    @ApiModelProperty(value = "String备用字段2",notes = "存储一些业务信息，比如订单号，流水号之类，但是又不能通用的，便于查询")
     private String fieldString2;
 
     public String getConsumerQueue() {
