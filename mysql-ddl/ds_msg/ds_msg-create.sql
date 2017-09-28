@@ -15,7 +15,7 @@ CREATE TABLE `t_msg_persistent` (
   `msg_class_name` varchar(255) DEFAULT '' COMMENT '消息的数据类型',
   `msg_body` text NOT NULL COMMENT '消息主体',
   `msg_send_times` int  COMMENT '消息发送次数',
-  `areadly_dead` enum('yes','no')  COMMENT '是否是死亡消息',
+  `already_dead` enum('yes','no')  COMMENT '是否是死亡消息',
   `msg_status` enum('waiting_confirm','sending')  COMMENT '消息状态',
   `field_long1` bigint  COMMENT 'Long备用字段1',
   `field_long2` bigint  COMMENT 'Long备用字段2',

@@ -45,7 +45,7 @@ public class MsgPersistent extends BaseEntity {
     private Integer msgSendTimes;
 
     @ApiModelProperty("是否是死亡消息")
-    private YesOrNoEnum areadlyDead;
+    private YesOrNoEnum alreadyDead;
 
     @ApiModelProperty("消息状态")
     private MsgStatusEnum msgStatus;
@@ -126,12 +126,12 @@ public class MsgPersistent extends BaseEntity {
         this.msgSendTimes = msgSendTimes;
     }
 
-    public YesOrNoEnum getAreadlyDead() {
-        return areadlyDead;
+    public YesOrNoEnum getAlreadyDead() {
+        return alreadyDead;
     }
 
-    public void setAreadlyDead(YesOrNoEnum areadlyDead) {
-        this.areadlyDead = areadlyDead;
+    public void setAlreadyDead(YesOrNoEnum alreadyDead) {
+        this.alreadyDead = alreadyDead;
     }
 
     public MsgStatusEnum getMsgStatus() {

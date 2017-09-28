@@ -5,6 +5,8 @@ import com.cachexic.cloud.common.base.entity.query.Pagination;
 import com.cachexic.cloud.feign.order.entity.Order;
 import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 import com.cachexic.cloud.feign.order.feign.OrderFeign;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,8 +22,9 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 订单管理  /order
  * @author tangmin
- * @date 2017-09-12 00:40:09
+ * @date 2017-09-28 12:51:58
  */
+@Api(description = "订单管理")
 @RestController
 @RequestMapping("/order")
 public class OrderWebController{
@@ -29,73 +32,49 @@ public class OrderWebController{
     @Autowired
     private OrderFeign orderFeign;
 
-    /**
-     * 分页查询
-     * @param query
-     */
+    @ApiOperation(value = "list:批量获取数据", notes = "不带分页信息的list集合")
     @PostMapping("list")
     public Result<List<Order>> list(@RequestBody OrderQuery query){
         return orderFeign.list(query);
     }
 
-    /**
-     * 分页查询
-     * @param query
-     */
+    @ApiOperation(value = "pagination:分页查询", notes = "带分页信息的Pagination对象")
     @PostMapping("pagination")
     public Result<Pagination<Order>> pagination(@RequestBody OrderQuery query){
         return orderFeign.pagination(query);
     }
 
-    /**
-     * 根据主键查询
-     * @param id
-     */
+    @ApiOperation("getById:根据主键查询")
     @GetMapping("id/{id}")
-    public Result<Order> getById(@PathVariable Long id){
+    public Result<Order> getById(@PathVariable("id") Long id){
         return orderFeign.getById(id);
     }
 
-    /**
-     * 根据主键ids查询
-     * @param ids
-     */
+    @ApiOperation(value = "getByIds:根据主键ids查询",notes = "逗号分隔")
     @GetMapping("ids/{ids}")
     public Result<List<Order>> getByIds(@PathVariable("ids") String ids){
         return orderFeign.getByIds(ids);
     }
 
-    /**
-     * 新增方法
-     * @param entity
-     */
+    @ApiOperation("save:新增方法")
     @PostMapping
     public Result save(@RequestBody Order entity){
         return orderFeign.save(entity);
     }
 
-    /**
-     * 修改方法
-     * @param entity
-     */
+    @ApiOperation("update:修改方法")
     @PutMapping
     public Result update(@RequestBody Order entity){
         return orderFeign.update(entity);
     }
 
-    /**
-     * 根据Id删除
-     * @param id
-     */
+    @ApiOperation("deleteById:根据Id删除")
     @DeleteMapping("id/{id}")
     public Result deleteById(@PathVariable("id") Long id){
         return orderFeign.deleteById(id);
     }
 
-    /**
-     * 根据ids删除，id逗号隔开
-     * @param ids
-     */
+    @ApiOperation(value = "deleteByIds:根据ids批量删除",notes = "逗号分隔")
     @DeleteMapping("ids/{ids}")
     public Result deleteByIds(@PathVariable("ids") String ids){
         return orderFeign.deleteByIds(ids);

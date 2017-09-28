@@ -4,7 +4,7 @@
 <mapper namespace="com.cachexic.cloud.provider.msg.dao.MsgPersistentDao">
 
     <sql id="table"> t_msg_persistent </sql>
-    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,consumer_queue,topic,tag,msg_id,mq_msg_id,msg_class_name,msg_body,msg_send_times,areadly_dead,msg_status,field_long1,field_long2,field_string1,field_string2 </sql>
+    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,consumer_queue,topic,tag,msg_id,mq_msg_id,msg_class_name,msg_body,msg_send_times,already_dead,msg_status,field_long1,field_long2,field_string1,field_string2 </sql>
 
     <resultMap id="msgPersistent" type="com.cachexic.cloud.feign.msg.entity.MsgPersistent">
         <result property="id" column="id" />
@@ -24,7 +24,7 @@
         <result property="msgClassName" column="msg_class_name" />
         <result property="msgBody" column="msg_body" />
         <result property="msgSendTimes" column="msg_send_times" />
-        <result property="areadlyDead" column="areadly_dead" />
+        <result property="alreadyDead" column="already_dead" />
         <result property="msgStatus" column="msg_status" />
         <result property="fieldLong1" column="field_long1" />
         <result property="fieldLong2" column="field_long2" />
@@ -46,7 +46,7 @@
             <if test="msgClassName != null and msgClassName !=''">msg_class_name,</if>
             <if test="msgBody != null and msgBody !=''">msg_body,</if>
             <if test="msgSendTimes != null ">msg_send_times,</if>
-            <if test="areadlyDead != null ">areadly_dead,</if>
+            <if test="alreadyDead != null ">already_dead,</if>
             <if test="msgStatus != null ">msg_status,</if>
             <if test="fieldLong1 != null ">field_long1,</if>
             <if test="fieldLong2 != null ">field_long2,</if>
@@ -64,7 +64,7 @@
             <if test="msgClassName != null and msgClassName !=''">#{msgClassName},</if>
             <if test="msgBody != null and msgBody !=''">#{msgBody},</if>
             <if test="msgSendTimes != null ">#{msgSendTimes},</if>
-            <if test="areadlyDead != null ">#{areadlyDead},</if>
+            <if test="alreadyDead != null ">#{alreadyDead},</if>
             <if test="msgStatus != null ">#{msgStatus},</if>
             <if test="fieldLong1 != null ">#{fieldLong1},</if>
             <if test="fieldLong2 != null ">#{fieldLong2},</if>
@@ -79,7 +79,7 @@
         (<include refid="columns"/>)
         values
         <foreach collection="list" item="item" index="index" separator=",">
-            (null,0,now(),#{item.createUserId},#{item.createUserName},null,null,'','normal',#{item.consumerQueue},#{item.topic},#{item.tag},#{item.msgId},#{item.mqMsgId},#{item.msgClassName},#{item.msgBody},#{item.msgSendTimes},#{item.areadlyDead},#{item.msgStatus},#{item.fieldLong1},#{item.fieldLong2},#{item.fieldString1},#{item.fieldString2})
+            (null,0,now(),#{item.createUserId},#{item.createUserName},null,null,'','normal',#{item.consumerQueue},#{item.topic},#{item.tag},#{item.msgId},#{item.mqMsgId},#{item.msgClassName},#{item.msgBody},#{item.msgSendTimes},#{item.alreadyDead},#{item.msgStatus},#{item.fieldLong1},#{item.fieldLong2},#{item.fieldString1},#{item.fieldString2})
         </foreach>
     </insert>
 
@@ -117,7 +117,7 @@
             <if test="msgClassName != null and msgClassName !=''">msg_class_name = #{msgClassName},</if>
             <if test="msgBody != null and msgBody !=''">msg_body = #{msgBody},</if>
             <if test="msgSendTimes != null ">msg_send_times = #{msgSendTimes},</if>
-            <if test="areadlyDead != null ">areadly_dead = #{areadlyDead},</if>
+            <if test="alreadyDead != null ">already_dead = #{alreadyDead},</if>
             <if test="msgStatus != null ">msg_status = #{msgStatus},</if>
             <if test="fieldLong1 != null ">field_long1 = #{fieldLong1},</if>
             <if test="fieldLong2 != null ">field_long2 = #{fieldLong2},</if>
@@ -216,7 +216,7 @@
                 <if test="msgBodyLike == true"> and msg_body like  CONCAT('%',#{msgBody},'%')</if>
             </if>
             <if test="msgSendTimes != null "> and msg_send_times=#{msgSendTimes}</if>
-            <if test="areadlyDead != null "> and areadly_dead=#{areadlyDead}</if>
+            <if test="alreadyDead != null "> and already_dead=#{alreadyDead}</if>
             <if test="msgStatus != null "> and msg_status=#{msgStatus}</if>
             <if test="fieldLong1 != null "> and field_long1=#{fieldLong1}</if>
             <if test="fieldLong2 != null "> and field_long2=#{fieldLong2}</if>

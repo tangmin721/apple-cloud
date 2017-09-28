@@ -1,24 +1,29 @@
 package com.cachexic.cloud.feign.order.entity.query;
 
 import com.cachexic.cloud.common.base.entity.query.BaseQuery;
+import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 
 /**
  * 订单管理
  * @author tangmin
- * @date 2017-09-11 22:31:40
+ * @date 2017-09-28 12:51:58
  */
 public class OrderQuery extends BaseQuery{
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("用户id")
     private Long userId;
 
+    @ApiModelProperty("订单号")
     private String orderSn;
     private Boolean orderSnLike = false;
 
+    @ApiModelProperty("备注")
     private String memo;
     private Boolean memoLike = false;
 
+    @ApiModelProperty("实付总价")
     private BigDecimal totalActualPrice;
 
     public Long getUserId() {

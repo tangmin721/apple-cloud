@@ -3,49 +3,64 @@ package com.cachexic.cloud.feign.msg.entity.query;
 import com.cachexic.cloud.common.base.entity.query.BaseQuery;
 import com.cachexic.cloud.common.enums.YesOrNoEnum;
 import com.cachexic.cloud.feign.msg.enums.MsgStatusEnum;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
- * 持久化消息管理
+ * 消息持久化管理
  * @author tangmin
- * @date 2017-09-13 20:18:26
+ * @date 2017-09-28 13:23:00
  */
 public class MsgPersistentQuery extends BaseQuery{
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty("消费对应的队列")
     private String consumerQueue;
     private Boolean consumerQueueLike = false;
 
+    @ApiModelProperty("消息topic")
     private String topic;
     private Boolean topicLike = false;
 
+    @ApiModelProperty("rocketMq tag")
     private String tag;
     private Boolean tagLike = false;
 
+    @ApiModelProperty("消息Id")
     private String msgId;
     private Boolean msgIdLike = false;
 
+    @ApiModelProperty("rocketmq的消息Id")
     private String mqMsgId;
     private Boolean mqMsgIdLike = false;
 
+    @ApiModelProperty("消息的数据类型")
     private String msgClassName;
     private Boolean msgClassNameLike = false;
 
+    @ApiModelProperty("消息主体")
     private String msgBody;
     private Boolean msgBodyLike = false;
 
+    @ApiModelProperty("消息发送次数")
     private Integer msgSendTimes;
 
-    private YesOrNoEnum areadlyDead;
+    @ApiModelProperty("是否是死亡消息")
+    private YesOrNoEnum alreadyDead;
 
+    @ApiModelProperty("消息状态")
     private MsgStatusEnum msgStatus;
 
+    @ApiModelProperty("Long备用字段1")
     private Long fieldLong1;
 
+    @ApiModelProperty("Long备用字段2")
     private Long fieldLong2;
 
+    @ApiModelProperty("String备用字段1")
     private String fieldString1;
     private Boolean fieldString1Like = false;
 
+    @ApiModelProperty("String备用字段2")
     private String fieldString2;
     private Boolean fieldString2Like = false;
 
@@ -177,12 +192,12 @@ public class MsgPersistentQuery extends BaseQuery{
         return this;
     }
 
-    public YesOrNoEnum getAreadlyDead() {
-        return areadlyDead;
+    public YesOrNoEnum getAlreadyDead() {
+        return alreadyDead;
     }
 
-    public MsgPersistentQuery setAreadlyDead(YesOrNoEnum areadlyDead) {
-        this.areadlyDead = areadlyDead;
+    public MsgPersistentQuery setAlreadyDead(YesOrNoEnum alreadyDead) {
+        this.alreadyDead = alreadyDead;
         return this;
     }
 
