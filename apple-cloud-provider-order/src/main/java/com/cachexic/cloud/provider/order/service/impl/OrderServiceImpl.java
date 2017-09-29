@@ -7,7 +7,6 @@ import com.cachexic.cloud.feign.order.entity.Order;
 import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 import com.cachexic.cloud.provider.order.service.OrderService;
 import java.util.Date;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,7 +22,7 @@ public class OrderServiceImpl extends BaseServiceImpl<Order, OrderQuery> impleme
      * 1、springBoot启动类增加注解@EnableScheduling
      * 2、@Scheduled(fixedRate = 60000)在无参数的方法上 60s
      */
-    @Scheduled(fixedRate = 60000)
+    //@Scheduled(fixedRate = 60000)
     public void reportCurrenTime(){
         System.out.println(DateUtil.formatDateTime(new Date()));
         System.out.println("====>order service pagination:"+ JsonUtil.toJson(this.selectList(new OrderQuery())));

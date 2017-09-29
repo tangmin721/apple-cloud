@@ -7,14 +7,13 @@ import com.cachexic.cloud.feign.order.entity.query.OrderQuery;
 import com.cachexic.cloud.provider.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
  * @Description: kafka监听消费队列
  * @date 2017-09-15 10:22:37
  */
-@Component
+//@Component
 public class OrderCreateKafkaConsumer {
 
     @Autowired

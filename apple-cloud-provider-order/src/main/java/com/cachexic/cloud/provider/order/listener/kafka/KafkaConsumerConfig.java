@@ -7,23 +7,20 @@ import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.config.KafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
-import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
  * @Description: Kafka生产者配置
  * @date 2017-09-15 23:03:50
  */
-@Component
-@Configuration
-@EnableKafka
+//@Component
+//@Configuration
+//@EnableKafka
 public class KafkaConsumerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")

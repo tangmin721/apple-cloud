@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 /**
  * 教师测试实体管理
+ *
  * @author tangmin
  * @date 2017-09-27 14:42:38
  */
 @Service("teacherService")
-public class TeacherServiceImpl extends BaseServiceImpl<Teacher, TeacherQuery> implements TeacherService{
+public class TeacherServiceImpl extends BaseServiceImpl<Teacher, TeacherQuery> implements
+    TeacherService {
 
 }

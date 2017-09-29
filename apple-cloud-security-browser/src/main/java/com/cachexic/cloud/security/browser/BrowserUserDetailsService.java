@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
  * @author tangmin
  */
 @Component
-public class BrowerUserDetailsService implements UserDetailsService {
+public class BrowserUserDetailsService implements UserDetailsService {
 
-    private static final Logger log = LoggerFactory.getLogger(BrowerUserDetailsService.class);
+    private static final Logger log = LoggerFactory.getLogger(BrowserUserDetailsService.class);
 
     /**
      * 给密码加密
@@ -30,6 +30,7 @@ public class BrowerUserDetailsService implements UserDetailsService {
      * accountNonExpired:用户帐号已过期
      * credentialsNonExpired:用户凭证已过期
      * accountNonLocked:用户帐号已被锁定
+     *
      * @param username
      * @return
      * @throws UsernameNotFoundException
@@ -38,9 +39,9 @@ public class BrowerUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("===>登录用户名:" + username);
         String encode = passwordEncoder.encode("123456");
-        log.info("====>数据库密码是:"+encode);
+        log.info("====>数据库密码是:" + encode);
         return new User(username, encode,
-            true,true,true,true,
+            true, true, true, true,
             AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }

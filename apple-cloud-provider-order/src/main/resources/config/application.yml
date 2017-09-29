@@ -13,9 +13,5 @@ server:
 # security.basic.enabled: false
 
 ## apple cloud security config
-apple:
-  security:
-    browser:
-      loginPage: /order-login.html
-    app:
-      loginPage: /order-app
+#apple.security.browser.loginPage: /order-login.html
+

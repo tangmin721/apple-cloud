@@ -3,9 +3,9 @@ package com.cachexic.cloud.security.browser;
 import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.security.core.properties.SecurityProperties;
 import java.io.IOException;
+import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,12 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author tangmin
- * @Description: 自定义的登录请求
+ * @Description: 自定义的登录请求,用浏览器登录的与app登录的分别处理
  * @date 2017-09-28 17:07:27
  */
 @RestController
@@ -33,17 +34,52 @@ public class BrowserSecurityController {
     @Autowired
     private SecurityProperties securityProperties;
 
-    @RequestMapping("/authentication/require")
+    /**
+     * 网页请求的拦截
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @RequestMapping(value = "/authentication/require",produces = "text/html")
     //@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-    public Result requireAuthentication(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public void requireAuthenticationHtml(HttpServletRequest request,HttpServletResponse response) throws IOException {
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 
         if(savedRequest!=null){
             String targetUrl = savedRequest.getRedirectUrl();
-            log.info("引发跳转的请求是:"+targetUrl);
-            if (StringUtils.endsWithIgnoreCase(targetUrl,".html")){
-                redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
+            log.info("原始url请求是:"+targetUrl);
+
+            Collection<String> names = savedRequest.getHeaderNames();
+            for (String name : names) {
+                System.out.println(name+":"+savedRequest.getHeaderValues(name));
+            }
+
+            //重定向到网页
+            redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
+
+        }
+    }
+
+    /**
+     * application/json 请求权限拦截
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/authentication/require")
+    @ResponseBody
+    //@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+    public Result requireAuthenticationApp(HttpServletRequest request,HttpServletResponse response) throws IOException {
+
+        SavedRequest savedRequest = requestCache.getRequest(request, response);
+        if(savedRequest!=null){
+            String targetUrl = savedRequest.getRedirectUrl();
+            log.info("原始url请求是:"+targetUrl);
+            Collection<String> names = savedRequest.getHeaderNames();
+            for (String name : names) {
+                System.out.println(name+":"+savedRequest.getHeaderValues(name));
             }
         }
 

@@ -4,7 +4,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
  * 启动监听的方式2参见:QueueListener
  * @date 2017-06-19 19:32:42
  */
-@Component
+//@Component
 public class RocketmqInitListener {
     private static final org.slf4j.Logger log = LoggerFactory.getLogger(RocketmqInitListener.class);
 

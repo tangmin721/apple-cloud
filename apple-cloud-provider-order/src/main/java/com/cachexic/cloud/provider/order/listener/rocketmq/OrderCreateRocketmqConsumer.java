@@ -14,14 +14,13 @@ import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
  * @Description: rocketmq监听消费队列
  * @date 2017-09-15 10:23:06
  */
-@Component
+//@Component
 public class OrderCreateRocketmqConsumer{
 
     @Autowired
