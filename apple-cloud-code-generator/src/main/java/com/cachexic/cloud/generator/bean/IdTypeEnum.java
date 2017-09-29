@@ -10,28 +10,25 @@ package com.cachexic.cloud.generator.bean;
  */
 public enum IdTypeEnum {
 
-    AUTO_INCR(0, "自增"),
-    UUID(1, "UUID");
+  AUTO_INCR(0, "自增"),
+  UUID(1, "UUID");
 
-    private int code;
-    private String msg;
+  private int code;
+  private String msg;
 
-    /**
-     * 构造方法
-     *
-     * @param code
-     * @param msg
-     */
-    IdTypeEnum(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
-    }
+  /**
+   * 构造方法
+   */
+  IdTypeEnum(int code, String msg) {
+    this.code = code;
+    this.msg = msg;
+  }
 
-    public int getCode() {
-        return code;
-    }
+  public int getCode() {
+    return code;
+  }
 
-    public String getMsg() {
-        return msg;
-    }
+  public String getMsg() {
+    return msg;
+  }
 }

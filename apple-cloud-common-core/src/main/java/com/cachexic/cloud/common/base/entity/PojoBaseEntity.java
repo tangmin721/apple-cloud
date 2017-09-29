@@ -10,17 +10,18 @@ import java.io.Serializable;
  * @date 2017-08-26 12:28:30
  */
 public class PojoBaseEntity implements Serializable {
-    private static final long serialVersionUID = -4363506460772117197L;
 
-    @ApiModelProperty(value = "主键id",position = -999)
-    @Id
-    protected Long id;
+  private static final long serialVersionUID = -4363506460772117197L;
 
-    public Long getId() {
-        return id;
-    }
+  @ApiModelProperty(value = "主键id", position = -999)
+  @Id
+  protected Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
 }

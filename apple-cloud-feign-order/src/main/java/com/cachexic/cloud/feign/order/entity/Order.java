@@ -15,60 +15,60 @@ import javax.validation.constraints.Size;
 @Entity("t_order")
 public class Order extends BaseEntity {
 
-    @ApiModelProperty("用户id")
-    private Long userId;
+  @ApiModelProperty("用户id")
+  private Long userId;
 
-    @ApiModelProperty("用户名")
-    @Transient
-    private String userName;
+  @ApiModelProperty("用户名")
+  @Transient
+  private String userName;
 
-    @ApiModelProperty("订单号")
-    private String orderSn;
+  @ApiModelProperty("订单号")
+  private String orderSn;
 
-    @ApiModelProperty("备注")
-    @Size(max = 255, message = "备注长度不能超过255个字节", groups = {Insert.class, Update.class})
-    private String memo;
+  @ApiModelProperty("备注")
+  @Size(max = 255, message = "备注长度不能超过255个字节", groups = {Insert.class, Update.class})
+  private String memo;
 
-    @ApiModelProperty("实付总价")
-    private BigDecimal totalActualPrice;
+  @ApiModelProperty("实付总价")
+  private BigDecimal totalActualPrice;
 
-    public Long getUserId() {
-        return userId;
-    }
+  public Long getUserId() {
+    return userId;
+  }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+  public void setUserId(Long userId) {
+    this.userId = userId;
+  }
 
-    public String getUserName() {
-        return userName;
-    }
+  public String getUserName() {
+    return userName;
+  }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
-    public String getOrderSn() {
-        return orderSn;
-    }
+  public String getOrderSn() {
+    return orderSn;
+  }
 
-    public void setOrderSn(String orderSn) {
-        this.orderSn = orderSn;
-    }
+  public void setOrderSn(String orderSn) {
+    this.orderSn = orderSn;
+  }
 
-    public String getMemo() {
-        return memo;
-    }
+  public String getMemo() {
+    return memo;
+  }
 
-    public void setMemo(String memo) {
-        this.memo = memo;
-    }
+  public void setMemo(String memo) {
+    this.memo = memo;
+  }
 
-    public BigDecimal getTotalActualPrice() {
-        return totalActualPrice;
-    }
+  public BigDecimal getTotalActualPrice() {
+    return totalActualPrice;
+  }
 
-    public void setTotalActualPrice(BigDecimal totalActualPrice) {
-        this.totalActualPrice = totalActualPrice;
-    }
+  public void setTotalActualPrice(BigDecimal totalActualPrice) {
+    this.totalActualPrice = totalActualPrice;
+  }
 }

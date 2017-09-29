@@ -7,260 +7,270 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 消息持久化管理
+ *
  * @author tangmin
  * @date 2017-09-28 13:23:00
  */
-public class MsgPersistentQuery extends BaseQuery{
-    private static final long serialVersionUID = 1L;
+public class MsgPersistentQuery extends BaseQuery {
 
-    @ApiModelProperty("消费对应的队列")
-    private String consumerQueue;
-    private Boolean consumerQueueLike = false;
+  private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("消息topic")
-    private String topic;
-    private Boolean topicLike = false;
+  @ApiModelProperty("消费对应的队列")
+  private String consumerQueue;
+  private Boolean consumerQueueLike = false;
 
-    @ApiModelProperty("rocketMq tag")
-    private String tag;
-    private Boolean tagLike = false;
+  @ApiModelProperty("消息topic")
+  private String topic;
+  private Boolean topicLike = false;
 
-    @ApiModelProperty("消息Id")
-    private String msgId;
-    private Boolean msgIdLike = false;
+  @ApiModelProperty("rocketMq tag")
+  private String tag;
+  private Boolean tagLike = false;
 
-    @ApiModelProperty("rocketmq的消息Id")
-    private String mqMsgId;
-    private Boolean mqMsgIdLike = false;
+  @ApiModelProperty("消息Id")
+  private String msgId;
+  private Boolean msgIdLike = false;
 
-    @ApiModelProperty("消息的数据类型")
-    private String msgClassName;
-    private Boolean msgClassNameLike = false;
+  @ApiModelProperty("rocketmq的消息Id")
+  private String mqMsgId;
+  private Boolean mqMsgIdLike = false;
 
-    @ApiModelProperty("消息主体")
-    private String msgBody;
-    private Boolean msgBodyLike = false;
+  @ApiModelProperty("消息的数据类型")
+  private String msgClassName;
+  private Boolean msgClassNameLike = false;
 
-    @ApiModelProperty("消息发送次数")
-    private Integer msgSendTimes;
+  @ApiModelProperty("消息主体")
+  private String msgBody;
+  private Boolean msgBodyLike = false;
 
-    @ApiModelProperty("是否是死亡消息")
-    private YesOrNoEnum alreadyDead;
+  @ApiModelProperty("消息发送次数")
+  private Integer msgSendTimes;
 
-    @ApiModelProperty("消息状态")
-    private MsgStatusEnum msgStatus;
+  @ApiModelProperty("是否是死亡消息")
+  private YesOrNoEnum alreadyDead;
 
-    @ApiModelProperty("Long备用字段1")
-    private Long fieldLong1;
+  @ApiModelProperty("消息状态")
+  private MsgStatusEnum msgStatus;
 
-    @ApiModelProperty("Long备用字段2")
-    private Long fieldLong2;
+  @ApiModelProperty("Long备用字段1")
+  private Long fieldLong1;
 
-    @ApiModelProperty("String备用字段1")
-    private String fieldString1;
-    private Boolean fieldString1Like = false;
+  @ApiModelProperty("Long备用字段2")
+  private Long fieldLong2;
 
-    @ApiModelProperty("String备用字段2")
-    private String fieldString2;
-    private Boolean fieldString2Like = false;
+  @ApiModelProperty("String备用字段1")
+  private String fieldString1;
+  private Boolean fieldString1Like = false;
 
-    public String getConsumerQueue() {
-        return consumerQueue;
-    }
+  @ApiModelProperty("String备用字段2")
+  private String fieldString2;
+  private Boolean fieldString2Like = false;
 
-    public MsgPersistentQuery setConsumerQueue(String consumerQueue) {
-        this.consumerQueue = consumerQueue;
-        return this;
-    }
+  public String getConsumerQueue() {
+    return consumerQueue;
+  }
 
-    public Boolean getConsumerQueueLike() {
-        return consumerQueueLike;
-    }
+  public MsgPersistentQuery setConsumerQueue(String consumerQueue) {
+    this.consumerQueue = consumerQueue;
+    return this;
+  }
 
-    public MsgPersistentQuery setConsumerQueueLike(Boolean consumerQueueLike) {
-        this.consumerQueueLike = consumerQueueLike;
-        return this;
-    }
-    public String getTopic() {
-        return topic;
-    }
+  public Boolean getConsumerQueueLike() {
+    return consumerQueueLike;
+  }
 
-    public MsgPersistentQuery setTopic(String topic) {
-        this.topic = topic;
-        return this;
-    }
+  public MsgPersistentQuery setConsumerQueueLike(Boolean consumerQueueLike) {
+    this.consumerQueueLike = consumerQueueLike;
+    return this;
+  }
 
-    public Boolean getTopicLike() {
-        return topicLike;
-    }
+  public String getTopic() {
+    return topic;
+  }
 
-    public MsgPersistentQuery setTopicLike(Boolean topicLike) {
-        this.topicLike = topicLike;
-        return this;
-    }
-    public String getTag() {
-        return tag;
-    }
+  public MsgPersistentQuery setTopic(String topic) {
+    this.topic = topic;
+    return this;
+  }
 
-    public MsgPersistentQuery setTag(String tag) {
-        this.tag = tag;
-        return this;
-    }
+  public Boolean getTopicLike() {
+    return topicLike;
+  }
 
-    public Boolean getTagLike() {
-        return tagLike;
-    }
+  public MsgPersistentQuery setTopicLike(Boolean topicLike) {
+    this.topicLike = topicLike;
+    return this;
+  }
 
-    public MsgPersistentQuery setTagLike(Boolean tagLike) {
-        this.tagLike = tagLike;
-        return this;
-    }
-    public String getMsgId() {
-        return msgId;
-    }
+  public String getTag() {
+    return tag;
+  }
 
-    public MsgPersistentQuery setMsgId(String msgId) {
-        this.msgId = msgId;
-        return this;
-    }
+  public MsgPersistentQuery setTag(String tag) {
+    this.tag = tag;
+    return this;
+  }
 
-    public Boolean getMsgIdLike() {
-        return msgIdLike;
-    }
+  public Boolean getTagLike() {
+    return tagLike;
+  }
 
-    public MsgPersistentQuery setMsgIdLike(Boolean msgIdLike) {
-        this.msgIdLike = msgIdLike;
-        return this;
-    }
-    public String getMqMsgId() {
-        return mqMsgId;
-    }
+  public MsgPersistentQuery setTagLike(Boolean tagLike) {
+    this.tagLike = tagLike;
+    return this;
+  }
 
-    public MsgPersistentQuery setMqMsgId(String mqMsgId) {
-        this.mqMsgId = mqMsgId;
-        return this;
-    }
+  public String getMsgId() {
+    return msgId;
+  }
 
-    public Boolean getMqMsgIdLike() {
-        return mqMsgIdLike;
-    }
+  public MsgPersistentQuery setMsgId(String msgId) {
+    this.msgId = msgId;
+    return this;
+  }
 
-    public MsgPersistentQuery setMqMsgIdLike(Boolean mqMsgIdLike) {
-        this.mqMsgIdLike = mqMsgIdLike;
-        return this;
-    }
-    public String getMsgClassName() {
-        return msgClassName;
-    }
+  public Boolean getMsgIdLike() {
+    return msgIdLike;
+  }
 
-    public MsgPersistentQuery setMsgClassName(String msgClassName) {
-        this.msgClassName = msgClassName;
-        return this;
-    }
+  public MsgPersistentQuery setMsgIdLike(Boolean msgIdLike) {
+    this.msgIdLike = msgIdLike;
+    return this;
+  }
 
-    public Boolean getMsgClassNameLike() {
-        return msgClassNameLike;
-    }
+  public String getMqMsgId() {
+    return mqMsgId;
+  }
 
-    public MsgPersistentQuery setMsgClassNameLike(Boolean msgClassNameLike) {
-        this.msgClassNameLike = msgClassNameLike;
-        return this;
-    }
-    public String getMsgBody() {
-        return msgBody;
-    }
+  public MsgPersistentQuery setMqMsgId(String mqMsgId) {
+    this.mqMsgId = mqMsgId;
+    return this;
+  }
 
-    public MsgPersistentQuery setMsgBody(String msgBody) {
-        this.msgBody = msgBody;
-        return this;
-    }
+  public Boolean getMqMsgIdLike() {
+    return mqMsgIdLike;
+  }
 
-    public Boolean getMsgBodyLike() {
-        return msgBodyLike;
-    }
+  public MsgPersistentQuery setMqMsgIdLike(Boolean mqMsgIdLike) {
+    this.mqMsgIdLike = mqMsgIdLike;
+    return this;
+  }
 
-    public MsgPersistentQuery setMsgBodyLike(Boolean msgBodyLike) {
-        this.msgBodyLike = msgBodyLike;
-        return this;
-    }
-    public Integer getMsgSendTimes() {
-        return msgSendTimes;
-    }
+  public String getMsgClassName() {
+    return msgClassName;
+  }
 
-    public MsgPersistentQuery setMsgSendTimes(Integer msgSendTimes) {
-        this.msgSendTimes = msgSendTimes;
-        return this;
-    }
+  public MsgPersistentQuery setMsgClassName(String msgClassName) {
+    this.msgClassName = msgClassName;
+    return this;
+  }
 
-    public YesOrNoEnum getAlreadyDead() {
-        return alreadyDead;
-    }
+  public Boolean getMsgClassNameLike() {
+    return msgClassNameLike;
+  }
 
-    public MsgPersistentQuery setAlreadyDead(YesOrNoEnum alreadyDead) {
-        this.alreadyDead = alreadyDead;
-        return this;
-    }
+  public MsgPersistentQuery setMsgClassNameLike(Boolean msgClassNameLike) {
+    this.msgClassNameLike = msgClassNameLike;
+    return this;
+  }
 
-    public MsgStatusEnum getMsgStatus() {
-        return msgStatus;
-    }
+  public String getMsgBody() {
+    return msgBody;
+  }
 
-    public MsgPersistentQuery setMsgStatus(MsgStatusEnum msgStatus) {
-        this.msgStatus = msgStatus;
-        return this;
-    }
+  public MsgPersistentQuery setMsgBody(String msgBody) {
+    this.msgBody = msgBody;
+    return this;
+  }
 
-    public Long getFieldLong1() {
-        return fieldLong1;
-    }
+  public Boolean getMsgBodyLike() {
+    return msgBodyLike;
+  }
 
-    public MsgPersistentQuery setFieldLong1(Long fieldLong1) {
-        this.fieldLong1 = fieldLong1;
-        return this;
-    }
+  public MsgPersistentQuery setMsgBodyLike(Boolean msgBodyLike) {
+    this.msgBodyLike = msgBodyLike;
+    return this;
+  }
 
-    public Long getFieldLong2() {
-        return fieldLong2;
-    }
+  public Integer getMsgSendTimes() {
+    return msgSendTimes;
+  }
 
-    public MsgPersistentQuery setFieldLong2(Long fieldLong2) {
-        this.fieldLong2 = fieldLong2;
-        return this;
-    }
+  public MsgPersistentQuery setMsgSendTimes(Integer msgSendTimes) {
+    this.msgSendTimes = msgSendTimes;
+    return this;
+  }
 
-    public String getFieldString1() {
-        return fieldString1;
-    }
+  public YesOrNoEnum getAlreadyDead() {
+    return alreadyDead;
+  }
 
-    public MsgPersistentQuery setFieldString1(String fieldString1) {
-        this.fieldString1 = fieldString1;
-        return this;
-    }
+  public MsgPersistentQuery setAlreadyDead(YesOrNoEnum alreadyDead) {
+    this.alreadyDead = alreadyDead;
+    return this;
+  }
 
-    public Boolean getFieldString1Like() {
-        return fieldString1Like;
-    }
+  public MsgStatusEnum getMsgStatus() {
+    return msgStatus;
+  }
 
-    public MsgPersistentQuery setFieldString1Like(Boolean fieldString1Like) {
-        this.fieldString1Like = fieldString1Like;
-        return this;
-    }
-    public String getFieldString2() {
-        return fieldString2;
-    }
+  public MsgPersistentQuery setMsgStatus(MsgStatusEnum msgStatus) {
+    this.msgStatus = msgStatus;
+    return this;
+  }
 
-    public MsgPersistentQuery setFieldString2(String fieldString2) {
-        this.fieldString2 = fieldString2;
-        return this;
-    }
+  public Long getFieldLong1() {
+    return fieldLong1;
+  }
 
-    public Boolean getFieldString2Like() {
-        return fieldString2Like;
-    }
+  public MsgPersistentQuery setFieldLong1(Long fieldLong1) {
+    this.fieldLong1 = fieldLong1;
+    return this;
+  }
 
-    public MsgPersistentQuery setFieldString2Like(Boolean fieldString2Like) {
-        this.fieldString2Like = fieldString2Like;
-        return this;
-    }
+  public Long getFieldLong2() {
+    return fieldLong2;
+  }
+
+  public MsgPersistentQuery setFieldLong2(Long fieldLong2) {
+    this.fieldLong2 = fieldLong2;
+    return this;
+  }
+
+  public String getFieldString1() {
+    return fieldString1;
+  }
+
+  public MsgPersistentQuery setFieldString1(String fieldString1) {
+    this.fieldString1 = fieldString1;
+    return this;
+  }
+
+  public Boolean getFieldString1Like() {
+    return fieldString1Like;
+  }
+
+  public MsgPersistentQuery setFieldString1Like(Boolean fieldString1Like) {
+    this.fieldString1Like = fieldString1Like;
+    return this;
+  }
+
+  public String getFieldString2() {
+    return fieldString2;
+  }
+
+  public MsgPersistentQuery setFieldString2(String fieldString2) {
+    this.fieldString2 = fieldString2;
+    return this;
+  }
+
+  public Boolean getFieldString2Like() {
+    return fieldString2Like;
+  }
+
+  public MsgPersistentQuery setFieldString2Like(Boolean fieldString2Like) {
+    this.fieldString2Like = fieldString2Like;
+    return this;
+  }
 
 }

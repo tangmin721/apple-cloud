@@ -10,8 +10,8 @@ import org.springframework.core.annotation.Order;
  * @date 2017-08-20 15:56:00
  */
 @Configuration
-@ImportResource(locations={"classpath:orm/mybatis.xml"})
+@ImportResource(locations = {"classpath:orm/mybatis.xml"})
 @Order(4)
-public class MybatisConfigXML{
+public class MybatisConfigXML {
 
 }

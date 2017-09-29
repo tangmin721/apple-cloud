@@ -8,13 +8,14 @@ import org.springframework.kafka.core.KafkaTemplate;
 /**
  * Created by tangm on 2017/9/14.
  */
-public class KafkaProducerTest extends TestParent{
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
+public class KafkaProducerTest extends TestParent {
 
-    @Test
-    public void test1() throws Exception {
+  @Autowired
+  private KafkaTemplate kafkaTemplate;
 
-    }
+  @Test
+  public void test1() throws Exception {
+
+  }
 
 }

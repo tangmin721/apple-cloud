@@ -8,13 +8,13 @@ import org.springframework.kafka.core.KafkaTemplate;
 /**
  * Created by tangm on 2017/9/14.
  */
-public class KafkaTest extends TestParent{
+public class KafkaTest extends TestParent {
 
-    @Autowired
-    private KafkaTemplate kafkaTemplate;
+  @Autowired
+  private KafkaTemplate kafkaTemplate;
 
-    @Test
-    public void testKafkaSend(){
-        kafkaTemplate.send("my-topic4","hello kafka");
-    }
+  @Test
+  public void testKafkaSend() {
+    kafkaTemplate.send("my-topic4", "hello kafka");
+  }
 }

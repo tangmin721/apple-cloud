@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="60 second" debug="true">
-    <contextName>web-backstage</contextName>
-    <include resource="logback-common.xml" />
+  <contextName>web-backstage</contextName>
+  <include resource="logback-common.xml"/>
 </configuration>

@@ -8,102 +8,116 @@ package com.cachexic.cloud.generator.bean;
  */
 public class GenConfig {
 
-    private String dbType = "mysql";
+  private String dbType = "mysql";
 
-    /**
-     * id类型
-     */
-    private int idType;
+  /**
+   * id类型
+   */
+  private int idType;
 
-    /**
-     * 是否继承BaseEntity
-     */
-    private String extendBaseEntity;
+  /**
+   * 是否继承BaseEntity
+   */
+  private String extendBaseEntity;
 
-    /** 是否启用乐观锁 */
-    private String openVersion;
-    /**
-     * 微服务名称
-     */
-    private String serverName;
+  /**
+   * 是否启用乐观锁
+   */
+  private String openVersion;
+  /**
+   * 微服务名称
+   */
+  private String serverName;
 
-    /**
-     * requestMapping路径
-     */
-    private String requestMapPath;
+  /**
+   * requestMapping路径
+   */
+  private String requestMapPath;
 
-    /**
-     * tableName
-     */
-    private String tableName;
+  /**
+   * tableName
+   */
+  private String tableName;
 
-    /**
-     * 模块名称
-     */
-    private String modelName;
+  /**
+   * 模块名称
+   */
+  private String modelName;
 
-    public String getExtendBaseEntity() {
-        return extendBaseEntity;
-    }
+  /**
+   * 开发人员姓名
+   */
+  private String author;
 
-    public void setExtendBaseEntity(String extendBaseEntity) {
-        this.extendBaseEntity = extendBaseEntity;
-    }
+  public String getExtendBaseEntity() {
+    return extendBaseEntity;
+  }
 
-    public int getIdType() {
-        return idType;
-    }
+  public void setExtendBaseEntity(String extendBaseEntity) {
+    this.extendBaseEntity = extendBaseEntity;
+  }
 
-    public void setIdType(int idType) {
-        this.idType = idType;
-    }
+  public int getIdType() {
+    return idType;
+  }
 
-    public String getDbType() {
-        return dbType;
-    }
+  public void setIdType(int idType) {
+    this.idType = idType;
+  }
 
-    public void setDbType(String dbType) {
-        this.dbType = dbType;
-    }
+  public String getDbType() {
+    return dbType;
+  }
 
+  public void setDbType(String dbType) {
+    this.dbType = dbType;
+  }
 
-    public String getTableName() {
-        return tableName;
-    }
+  public String getTableName() {
+    return tableName;
+  }
 
-    public void setTableName(String tableName) {
-        this.tableName = tableName;
-    }
+  public void setTableName(String tableName) {
+    this.tableName = tableName;
+  }
 
-    public String getServerName() {
-        return serverName;
-    }
+  public String getServerName() {
+    return serverName;
+  }
 
-    public void setServerName(String serverName) {
-        this.serverName = serverName;
-    }
+  public void setServerName(String serverName) {
+    this.serverName = serverName;
+  }
 
-    public String getRequestMapPath() {
-        return requestMapPath;
-    }
+  public String getRequestMapPath() {
+    return requestMapPath;
+  }
 
-    public void setRequestMapPath(String requestMapPath) {
-        this.requestMapPath = requestMapPath;
-    }
+  public void setRequestMapPath(String requestMapPath) {
+    this.requestMapPath = requestMapPath;
+  }
 
-    public String getModelName() {
-        return modelName;
-    }
+  public String getModelName() {
+    return modelName;
+  }
 
-    public void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
+  public void setModelName(String modelName) {
+    this.modelName = modelName;
+  }
 
-    public String getOpenVersion() {
-        return openVersion;
-    }
+  public String getOpenVersion() {
+    return openVersion;
+  }
 
-    public void setOpenVersion(String openVersion) {
-        this.openVersion = openVersion;
-    }
+  public void setOpenVersion(String openVersion) {
+    this.openVersion = openVersion;
+  }
+
+  public String getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(String author) {
+    this.author = author;
+  }
 }

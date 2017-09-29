@@ -7,32 +7,33 @@ import java.io.Serializable;
  * @Description:
  * @date 2017-08-25 23:04:10
  */
-public class ValueDescVo implements Serializable{
-    private static final long serialVersionUID = -8498932351402616916L;
-    private String value;
-    private String desc;
+public class ValueDescVo implements Serializable {
 
-    public ValueDescVo() {
-    }
+  private static final long serialVersionUID = -8498932351402616916L;
+  private String value;
+  private String desc;
 
-    public ValueDescVo(String value, String desc) {
-        this.value = value;
-        this.desc = desc;
-    }
+  public ValueDescVo() {
+  }
 
-    public String getValue() {
-        return value;
-    }
+  public ValueDescVo(String value, String desc) {
+    this.value = value;
+    this.desc = desc;
+  }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
+  public String getValue() {
+    return value;
+  }
 
-    public String getDesc() {
-        return desc;
-    }
+  public void setValue(String value) {
+    this.value = value;
+  }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+  public String getDesc() {
+    return desc;
+  }
+
+  public void setDesc(String desc) {
+    this.desc = desc;
+  }
 }

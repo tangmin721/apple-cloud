@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <!-- ==================================================================== -->
-    <!-- 缓存层，缓存user信息，可以理解为web层，直接对外暴露的接口层 -->
-    <!-- ==================================================================== -->
+  <!-- ==================================================================== -->
+  <!-- 缓存层，缓存user信息，可以理解为web层，直接对外暴露的接口层 -->
+  <!-- ==================================================================== -->
 
-    <parent>
-        <artifactId>apple-cloud-all-parent</artifactId>
-        <groupId>com.cachexic</groupId>
-        <version>0.1.0</version>
-        <relativePath>../apple-cloud-all-parent/pom.xml</relativePath>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>apple-cloud-all-parent</artifactId>
+    <groupId>com.cachexic</groupId>
+    <version>0.1.0</version>
+    <relativePath>../apple-cloud-all-parent/pom.xml</relativePath>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>apple-cloud-cache-user</artifactId>
+  <artifactId>apple-cloud-cache-user</artifactId>
 
 
 </project>

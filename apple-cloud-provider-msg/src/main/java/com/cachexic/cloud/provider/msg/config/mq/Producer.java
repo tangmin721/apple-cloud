@@ -9,9 +9,8 @@ import com.cachexic.cloud.feign.msg.entity.MsgPersistent;
  */
 public interface Producer {
 
-    /**
-     * 发送消息实体，返回mqMsgId
-     * @param msgPersistent
-     */
-    String send(MsgPersistent msgPersistent);
+  /**
+   * 发送消息实体，返回mqMsgId
+   */
+  String send(MsgPersistent msgPersistent);
 }

@@ -13,16 +13,16 @@ import org.springframework.web.context.request.async.DeferredResult;
 @Component
 public class DeferredResultHolder<T> {
 
-    /**
-     * 异步结果返回给前端,key为唯一主键(例如预创建的订单号,value即为返回给前端的信息)
-     */
-    private Map<String, DeferredResult<T >> map = Maps.newHashMap();
+  /**
+   * 异步结果返回给前端,key为唯一主键(例如预创建的订单号,value即为返回给前端的信息)
+   */
+  private Map<String, DeferredResult<T>> map = Maps.newHashMap();
 
-    public Map<String, DeferredResult<T>> getMap() {
-        return map;
-    }
+  public Map<String, DeferredResult<T>> getMap() {
+    return map;
+  }
 
-    public void setMap(Map<String, DeferredResult<T>> map) {
-        this.map = map;
-    }
+  public void setMap(Map<String, DeferredResult<T>> map) {
+    this.map = map;
+  }
 }

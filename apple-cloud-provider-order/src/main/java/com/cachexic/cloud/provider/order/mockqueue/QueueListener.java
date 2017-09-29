@@ -24,45 +24,46 @@ import org.springframework.stereotype.Component;
 @Component
 public class QueueListener implements ApplicationListener<ContextRefreshedEvent> {
 
-    @Autowired
-    private TeacherService teacherService;
+  @Autowired
+  private TeacherService teacherService;
 
-    @Autowired
-    private MockQueue mockQueue;
+  @Autowired
+  private MockQueue mockQueue;
 
-    @Autowired
-    private DeferredResultHolder<Result<List<Teacher>>> deferredResultHolder;
+  @Autowired
+  private DeferredResultHolder<Result<List<Teacher>>> deferredResultHolder;
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
-    /**
-     * 启动线程
-     */
-    public void start() {
+  /**
+   * 启动线程
+   */
+  public void start() {
 
-    }
+  }
 
-    @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
-        new Thread(() -> {
-            while (true) {
+  @Override
+  public void onApplicationEvent(ContextRefreshedEvent event) {
+    new Thread(() -> {
+      while (true) {
 
-                if (StringUtils.isNotBlank(mockQueue.getCompleteOrder())) {
+        if (StringUtils.isNotBlank(mockQueue.getCompleteOrder())) {
 
-                    String orderNumber = mockQueue.getCompleteOrder();
-                    logger.info("返回订单处理结果:" + orderNumber);
-                    deferredResultHolder.getMap().get(orderNumber).setResult(Result.OK().setData(teacherService.selectByIds(IdsUtil.listLong(orderNumber))));
-                    mockQueue.setCompleteOrder(null);
+          String orderNumber = mockQueue.getCompleteOrder();
+          logger.info("返回订单处理结果:" + orderNumber);
+          deferredResultHolder.getMap().get(orderNumber).setResult(
+              Result.OK().setData(teacherService.selectByIds(IdsUtil.listLong(orderNumber))));
+          mockQueue.setCompleteOrder(null);
 
-                } else {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+        } else {
+          try {
+            Thread.sleep(100);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
 
-            }
-        }).start();
-    }
+      }
+    }).start();
+  }
 }

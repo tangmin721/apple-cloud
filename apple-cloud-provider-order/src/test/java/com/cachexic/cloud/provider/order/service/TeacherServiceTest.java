@@ -15,31 +15,31 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class TeacherServiceTest extends TestParent {
 
-    @Autowired
-    private TeacherService teacherService;
+  @Autowired
+  private TeacherService teacherService;
 
-    @Test
-    public void insert(){
-        Teacher teacher = new Teacher();
-        teacher.setBirthday(DateUtil.parseDate("2017-01-23"));
-        teacher.setScore(100L);
-        Long insert = teacherService.insert(teacher);
-        System.out.println("id:"+insert);
-        Assert.assertTrue(insert.longValue()>0);
-    }
+  @Test
+  public void insert() {
+    Teacher teacher = new Teacher();
+    teacher.setBirthday(DateUtil.parseDate("2017-01-23"));
+    teacher.setScore(100L);
+    Long insert = teacherService.insert(teacher);
+    System.out.println("id:" + insert);
+    Assert.assertTrue(insert.longValue() > 0);
+  }
 
-    @Test
-    public void update(){
-        Teacher teacher = new Teacher();
-        teacher.setId(1L);
-        teacher.setBirthday(DateUtil.parseDate("2017-01-23"));
-        teacher.setScore(103L);
-        teacherService.update(teacher);
-    }
+  @Test
+  public void update() {
+    Teacher teacher = new Teacher();
+    teacher.setId(1L);
+    teacher.setBirthday(DateUtil.parseDate("2017-01-23"));
+    teacher.setScore(103L);
+    teacherService.update(teacher);
+  }
 
-    @Test
-    public void select(){
-        System.out.println("id:"+ JsonUtil.toJson(teacherService.selectById(4L)));
-    }
+  @Test
+  public void select() {
+    System.out.println("id:" + JsonUtil.toJson(teacherService.selectById(4L)));
+  }
 
 }

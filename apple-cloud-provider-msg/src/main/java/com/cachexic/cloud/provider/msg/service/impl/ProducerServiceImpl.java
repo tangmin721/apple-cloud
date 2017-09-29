@@ -23,82 +23,82 @@ import org.springframework.stereotype.Service;
 @Service("producerService")
 public class ProducerServiceImpl implements ProducerService {
 
-    private static final Logger log = LoggerFactory.getLogger(ProducerServiceImpl.class);
+  private static final Logger log = LoggerFactory.getLogger(ProducerServiceImpl.class);
 
-    @Autowired
-    @Qualifier("kafkaProducer")
-    //@Qualifier("rocketmqProducer")
-    private Producer producer;
+  @Autowired
+  @Qualifier("kafkaProducer")
+  //@Qualifier("rocketmqProducer")
+  private Producer producer;
 
-    @Autowired
-    private MsgPersistentService msgPersistentService;
+  @Autowired
+  private MsgPersistentService msgPersistentService;
 
-    @Override
-    public void saveMsgWaitingConfirm(MsgPersistent msgPersistent) {
-        checkArgs(msgPersistent);
+  @Override
+  public void saveMsgWaitingConfirm(MsgPersistent msgPersistent) {
+    checkArgs(msgPersistent);
 
-        msgPersistent.setMsgId(UUIDUtil.get32UUID());
-        msgPersistent.setMsgStatus(MsgStatusEnum.waiting_confirm);
-        msgPersistent.setAlreadyDead(YesOrNoEnum.no);
-        msgPersistent.setMsgSendTimes(0);
+    msgPersistent.setMsgId(UUIDUtil.get32UUID());
+    msgPersistent.setMsgStatus(MsgStatusEnum.waiting_confirm);
+    msgPersistent.setAlreadyDead(YesOrNoEnum.no);
+    msgPersistent.setMsgSendTimes(0);
 
-        msgPersistentService.insert(msgPersistent);
-    }
+    msgPersistentService.insert(msgPersistent);
+  }
 
-    @Override
-    public void confirmAndSendMsg(String msgId) {
+  @Override
+  public void confirmAndSendMsg(String msgId) {
 
-    }
+  }
 
-    @Override
-    public void saveAndSendMsg(MsgPersistent msgPersistent) {
+  @Override
+  public void saveAndSendMsg(MsgPersistent msgPersistent) {
 
-    }
+  }
 
-    @Override
-    public void directSendMsg(MsgPersistent msgPersistent){
-        checkArgs(msgPersistent);
-        producer.send(msgPersistent);
-    }
+  @Override
+  public void directSendMsg(MsgPersistent msgPersistent) {
+    checkArgs(msgPersistent);
+    producer.send(msgPersistent);
+  }
 
-    /**
-     * 校验消息
-     * @param msgPersistent
-     */
-    private void checkArgs(MsgPersistent msgPersistent) {
-        BizPreconditions.checkArgument(msgPersistent!=null,"保存消息为空");
-        BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTopic()),"消息topic不能为空");
-        BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getMsgBody()),"消息body不能为空");
-    }
+  /**
+   * 校验消息
+   */
+  private void checkArgs(MsgPersistent msgPersistent) {
+    BizPreconditions.checkArgument(msgPersistent != null, "保存消息为空");
+    BizPreconditions.checkArgument(StringUtils.isNotBlank(msgPersistent.getTopic()), "消息topic不能为空");
+    BizPreconditions
+        .checkArgument(StringUtils.isNotBlank(msgPersistent.getMsgBody()), "消息body不能为空");
+  }
 
-    @Override
-    public void reSendMsg(MsgPersistent msgPersistent) {
+  @Override
+  public void reSendMsg(MsgPersistent msgPersistent) {
 
-    }
+  }
 
-    @Override
-    public void reSendMsgByMsgId(String msgId) {
+  @Override
+  public void reSendMsgByMsgId(String msgId) {
 
-    }
+  }
 
-    @Override
-    public void setMsgToDead(String msgId) {
+  @Override
+  public void setMsgToDead(String msgId) {
 
-    }
+  }
 
-    @Override
-    public MsgPersistent getMsgByMsgId(String msgId) {
-        return null;
-    }
+  @Override
+  public MsgPersistent getMsgByMsgId(String msgId) {
+    return null;
+  }
 
-    @Override
-    public void deleteMsgByMsgId(String msgId) {
+  @Override
+  public void deleteMsgByMsgId(String msgId) {
 
-    }
+  }
 
-    @Override
-    public void reSendAllDeadMsgByTopic() {
+  @Override
+  public void reSendAllDeadMsgByTopic() {
 
-    }
+  }
 
 }

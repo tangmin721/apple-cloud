@@ -31,26 +31,29 @@ import java.net.UnknownHostException;
  * @author DonneyYoung
  */
 public final class IPKeyGenerator implements KeyGenerator {
-    
-    private final DefaultKeyGenerator defaultKeyGenerator = new DefaultKeyGenerator();
-    
-    static {
-        initWorkerId();
+
+  private final DefaultKeyGenerator defaultKeyGenerator = new DefaultKeyGenerator();
+
+  static {
+    initWorkerId();
+  }
+
+  static void initWorkerId() {
+    InetAddress address;
+    try {
+      address = InetAddress.getLocalHost();
+    } catch (final UnknownHostException e) {
+      throw new IllegalStateException(
+          "Cannot get LocalHost InetAddress, please check your network!");
     }
-    
-    static void initWorkerId() {
-        InetAddress address;
-        try {
-            address = InetAddress.getLocalHost();
-        } catch (final UnknownHostException e) {
-            throw new IllegalStateException("Cannot get LocalHost InetAddress, please check your network!");
-        }
-        byte[] ipAddressByteArray = address.getAddress();
-        DefaultKeyGenerator.setWorkerId((long) (((ipAddressByteArray[ipAddressByteArray.length - 2] & 0B11) << Byte.SIZE) + (ipAddressByteArray[ipAddressByteArray.length - 1] & 0xFF)));
-    }
-    
-    @Override
-    public Number generateKey() {
-        return defaultKeyGenerator.generateKey();
-    }
+    byte[] ipAddressByteArray = address.getAddress();
+    DefaultKeyGenerator.setWorkerId(
+        (long) (((ipAddressByteArray[ipAddressByteArray.length - 2] & 0B11) << Byte.SIZE) + (
+            ipAddressByteArray[ipAddressByteArray.length - 1] & 0xFF)));
+  }
+
+  @Override
+  public Number generateKey() {
+    return defaultKeyGenerator.generateKey();
+  }
 }

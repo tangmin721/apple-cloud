@@ -20,28 +20,29 @@ import javax.sql.DataSource;
 @Configuration
 @Order(2)
 public class DruidDatasource {
-    @Autowired
-    private DruidDatasourceBase druidDatasourceBase;
 
-    @Bean(name = "ds_0")
-    @Primary
-    public DataSource ds_0(
-            @Value("${jdbc.datasource.ds_0.url}") String url,
-            @Value("${jdbc.datasource.ds_0.username}") String username,
-            @Value("${jdbc.datasource.ds_0.password}") String password,
-            @Value("${jdbc.datasource.ds_0.publickey}") String publickey,
-            @Value("${jdbc.datasource.ds_0.filters}") String filters) {
-        return druidDatasourceBase.getDruidDataSource(url, username, password, publickey, filters);
-    }
+  @Autowired
+  private DruidDatasourceBase druidDatasourceBase;
 
-    @Bean(name = "ds_1")
-    public DataSource ds_1(
-            @Value("${jdbc.datasource.ds_1.url}") String url,
-            @Value("${jdbc.datasource.ds_1.username}") String username,
-            @Value("${jdbc.datasource.ds_1.password}") String password,
-            @Value("${jdbc.datasource.ds_1.publickey}") String publickey,
-            @Value("${jdbc.datasource.ds_1.filters}") String filters) {
-        return druidDatasourceBase.getDruidDataSource(url, username, password, publickey, filters);
-    }
+  @Bean(name = "ds_0")
+  @Primary
+  public DataSource ds_0(
+      @Value("${jdbc.datasource.ds_0.url}") String url,
+      @Value("${jdbc.datasource.ds_0.username}") String username,
+      @Value("${jdbc.datasource.ds_0.password}") String password,
+      @Value("${jdbc.datasource.ds_0.publickey}") String publickey,
+      @Value("${jdbc.datasource.ds_0.filters}") String filters) {
+    return druidDatasourceBase.getDruidDataSource(url, username, password, publickey, filters);
+  }
+
+  @Bean(name = "ds_1")
+  public DataSource ds_1(
+      @Value("${jdbc.datasource.ds_1.url}") String url,
+      @Value("${jdbc.datasource.ds_1.username}") String username,
+      @Value("${jdbc.datasource.ds_1.password}") String password,
+      @Value("${jdbc.datasource.ds_1.publickey}") String publickey,
+      @Value("${jdbc.datasource.ds_1.filters}") String filters) {
+    return druidDatasourceBase.getDruidDataSource(url, username, password, publickey, filters);
+  }
 
 }

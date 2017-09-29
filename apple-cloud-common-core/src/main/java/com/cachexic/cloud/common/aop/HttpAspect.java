@@ -30,110 +30,112 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @version V1.0
  * @Title: HttpAspect.java
  * @Package com.cachexic.sjdbc.common.aop
- * @Description: Http切面,开发调试
+ * @Description: Http切面, 开发调试
  * @date 2017-08-26 13:07:27
  */
 @Aspect
 @Component
-@Profile({"dev","test"})
+@Profile({"dev", "test"})
 public class HttpAspect {
 
-    private final static Logger log = LoggerFactory.getLogger(HttpAspect.class);
+  private final static Logger log = LoggerFactory.getLogger(HttpAspect.class);
 
-    /**
-     * 定义一个切面
-     */
-    @Pointcut("execution(public * com.cachexic.cloud..*.controller..*.*(..))")
-    public void log() {
+  /**
+   * 定义一个切面
+   */
+  @Pointcut("execution(public * com.cachexic.cloud..*.controller..*.*(..))")
+  public void log() {
+  }
+
+  /**
+   * 指定切面方法
+   */
+  @Before("log()")
+  public void doBefore(JoinPoint joinpoint) {
+
+    try {
+      log.info("====> before controller...");
+      ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
+          .getRequestAttributes();
+      HttpServletRequest request = attributes.getRequest();
+
+      String uuid = UUIDUtil
+          .get32UUID();//暂时在这里面设置requestId，如果是分布式springCloud，可以在zuul过滤器设置： ctx.addZuulRequestHeader(SystemConst.REQUEST_ID,,uuid);
+      request.setAttribute(SystemConst.REQUEST_ID, uuid);
+
+      List<Map<String, String>> headsMapList = Lists.newArrayList();
+
+      Enumeration<String> names = request.getHeaderNames();
+      while (names.hasMoreElements()) {
+        String head = names.nextElement();
+        HashMap<String, String> map = new HashMap<>();
+        map.put(head, request.getHeader(head));
+        headsMapList.add(map);
+      }
+
+      //设置参数，以便在异常处理的时候日志里打印
+      request.setAttribute(SystemConst.REQUEST_ARGS, JsonUtil.toJson(joinpoint.getArgs()));
+
+      log.info(
+          "====> url=[{}],method={},ip={},class_method={},requestId={},requestHead={},requestArgs={}",
+          request.getRequestURL(),
+          request.getMethod(),
+          IpAddressUtil.getRealIp(request),
+          joinpoint.getSignature().getDeclaringTypeName() + "." + joinpoint.getSignature()
+              .getName(),
+          uuid,
+          JsonUtil.toJson(headsMapList),
+          JsonUtil.toJson(joinpoint.getArgs())
+      );
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 
-    /**
-     * 指定切面方法
-     */
-    @Before("log()")
-    public void doBefore(JoinPoint joinpoint) {
+  @After("log()")
+  public void doAfter() {
+    log.info("====> do after controller...");
+  }
 
-        try {
-            log.info("====> before controller...");
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-            HttpServletRequest request = attributes.getRequest();
-
-            String uuid = UUIDUtil.get32UUID();//暂时在这里面设置requestId，如果是分布式springCloud，可以在zuul过滤器设置： ctx.addZuulRequestHeader(SystemConst.REQUEST_ID,,uuid);
-            request.setAttribute(SystemConst.REQUEST_ID, uuid);
-
-            List<Map<String,String>> headsMapList = Lists.newArrayList();
-
-            Enumeration<String> names = request.getHeaderNames();
-            while (names.hasMoreElements()){
-                String head = names.nextElement();
-                HashMap<String, String> map = new HashMap<>();
-                map.put(head,request.getHeader(head));
-                headsMapList.add(map);
-            }
-
-            //设置参数，以便在异常处理的时候日志里打印
-            request.setAttribute(SystemConst.REQUEST_ARGS, JsonUtil.toJson(joinpoint.getArgs()));
-
-            log.info("====> url=[{}],method={},ip={},class_method={},requestId={},requestHead={},requestArgs={}",
-                    request.getRequestURL(),
-                    request.getMethod(),
-                    IpAddressUtil.getRealIp(request),
-                    joinpoint.getSignature().getDeclaringTypeName() + "." + joinpoint.getSignature().getName(),
-                    uuid,
-                    JsonUtil.toJson(headsMapList),
-                    JsonUtil.toJson(joinpoint.getArgs())
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+  /**
+   * 获取切面方法返回结果
+   */
+  @AfterReturning(returning = "object", pointcut = "log()")
+  public void returning(Object object) {
+    try {
+      log.info("====> response={}", JsonUtil.toJson(object));
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    log.info(
+        "****************************************[ request  end  ]****************************************");
+  }
 
-    @After("log()")
-    public void doAfter() {
-        log.info("====> do after controller...");
+  /**
+   * 记录一次请求的耗时时间，通过环绕切面
+   */
+  @Around(value = "log()")
+  public Object doAroundMethodController(ProceedingJoinPoint point) throws Throwable {
+    Object result = null;
+    try {
+      log.info(
+          "****************************************[ request start ]****************************************");
+      //if(){ 判断权限
+      long start = System.nanoTime();
+      //拦截的实体类
+      Object target = point.getTarget();
+      //拦截的方法名称
+      String methodName = point.getSignature().getName();
+
+      result = point.proceed();
+      log.info("====>Class:" + target.getClass() + ",Method: " + methodName + "====>执行耗时 : 【"
+          + (System.nanoTime() - start) / (1000 * 1000) + " 毫秒】 ");
+      //}
+
+      return result;
+    } catch (Throwable throwable) {
+      throwable.printStackTrace();
     }
-
-    /**
-     * 获取切面方法返回结果
-     *
-     * @param object
-     */
-    @AfterReturning(returning = "object", pointcut = "log()")
-    public void returning(Object object) {
-        try {
-            log.info("====> response={}", JsonUtil.toJson(object));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        log.info("****************************************[ request  end  ]****************************************");
-    }
-
-    /**
-     * 记录一次请求的耗时时间，通过环绕切面
-     * @param point
-     * @return
-     * @throws Throwable
-     */
-    @Around(value = "log()")
-    public Object  doAroundMethodController(ProceedingJoinPoint point) throws Throwable{
-        Object result = null;
-        try {
-            log.info("****************************************[ request start ]****************************************");
-            //if(){ 判断权限
-            long start=System.nanoTime();
-            //拦截的实体类
-            Object target = point.getTarget();
-            //拦截的方法名称
-            String methodName = point.getSignature().getName();
-
-            result = point.proceed();
-            log.info("====>Class:"+target.getClass()+",Method: "+methodName+"====>执行耗时 : 【"+(System.nanoTime()-start)/(1000*1000)+" 毫秒】 ");
-            //}
-
-            return result;
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-        }
-        return result;
-    }
+    return result;
+  }
 }

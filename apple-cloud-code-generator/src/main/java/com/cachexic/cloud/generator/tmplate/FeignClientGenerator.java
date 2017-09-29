@@ -8,12 +8,12 @@ package com.cachexic.cloud.generator.tmplate;
  */
 public class FeignClientGenerator extends TemplateCodeGenerator {
 
-    @Override
-    public String getTemplateFile() {
-        /**
-         * 模板文件
-         */
-        return "/template/feignClient.ftl";
-    }
+  @Override
+  public String getTemplateFile() {
+    /**
+     * 模板文件
+     */
+    return "/template/feignClient.ftl";
+  }
 
 }

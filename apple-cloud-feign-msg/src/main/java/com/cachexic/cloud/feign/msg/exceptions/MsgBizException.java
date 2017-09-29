@@ -7,14 +7,14 @@ import com.cachexic.cloud.common.exceptions.BizException;
  * @Description: 消息中间件的异常信息
  * @date 2017-09-14 09:35:43
  */
-public class MsgBizException extends BizException{
-    private static final long serialVersionUID = -4580632478681261355L;
+public class MsgBizException extends BizException {
 
-    /**
-     * 构造方法
-     * @param _enum
-     */
-    public MsgBizException(MsgBizExceptionEnum _enum){
-        super(_enum.getCode(), _enum.getMsg());
-    }
+  private static final long serialVersionUID = -4580632478681261355L;
+
+  /**
+   * 构造方法
+   */
+  public MsgBizException(MsgBizExceptionEnum _enum) {
+    super(_enum.getCode(), _enum.getMsg());
+  }
 }

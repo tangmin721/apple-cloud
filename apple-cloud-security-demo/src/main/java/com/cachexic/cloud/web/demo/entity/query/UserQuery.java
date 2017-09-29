@@ -5,45 +5,46 @@ import io.swagger.annotations.ApiModelProperty;
 /**
  * Created by tangm on 2017/9/24.
  */
-public class UserQuery{
-    private String username;
+public class UserQuery {
 
-    @ApiModelProperty(value = "用户年龄起始值")
-    private int age;
-    @ApiModelProperty(value = "用户年龄终止值")
-    private int ageTo;
+  private String username;
 
-    private String xxx;
+  @ApiModelProperty(value = "用户年龄起始值")
+  private int age;
+  @ApiModelProperty(value = "用户年龄终止值")
+  private int ageTo;
 
-    public String getUsername() {
-        return username;
-    }
+  private String xxx;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public int getAge() {
-        return age;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public void setAge(int age) {
-        this.age = age;
-    }
+  public int getAge() {
+    return age;
+  }
 
-    public int getAgeTo() {
-        return ageTo;
-    }
+  public void setAge(int age) {
+    this.age = age;
+  }
 
-    public void setAgeTo(int ageTo) {
-        this.ageTo = ageTo;
-    }
+  public int getAgeTo() {
+    return ageTo;
+  }
 
-    public String getXxx() {
-        return xxx;
-    }
+  public void setAgeTo(int ageTo) {
+    this.ageTo = ageTo;
+  }
 
-    public void setXxx(String xxx) {
-        this.xxx = xxx;
-    }
+  public String getXxx() {
+    return xxx;
+  }
+
+  public void setXxx(String xxx) {
+    this.xxx = xxx;
+  }
 }

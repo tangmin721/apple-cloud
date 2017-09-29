@@ -1,6 +1,5 @@
 package com.cachexic.cloud.generator.bean;
 
-
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -10,91 +9,106 @@ import org.apache.commons.lang3.StringUtils;
  * @date 2016年2月26日
  */
 public class EntityField {
-    /** entity字段 */
-    private String fieldName;
 
-    /** 数据库字段 */
-    private String columnName;
+  /**
+   * entity字段
+   */
+  private String fieldName;
 
-    /** 首字母大写，用于模板的get  SET方法 */
-    private String supFiledName;
+  /**
+   * 数据库字段
+   */
+  private String columnName;
 
-    /** 用于判断class java.util.Date double */
-    private String fieldTypeClassName;
+  /**
+   * 首字母大写，用于模板的get  SET方法
+   */
+  private String supFiledName;
 
-    /** 简单的类名 Date */
-    private String simpleTypeName;
+  /**
+   * 用于判断class java.util.Date double
+   */
+  private String fieldTypeClassName;
 
-    /** mysql 定义一个column的语句 */
-    private String mysqlFieldStr;
+  /**
+   * 简单的类名 Date
+   */
+  private String simpleTypeName;
 
-    /** 字段描述 */
-    private String columnComment;
+  /**
+   * mysql 定义一个column的语句
+   */
+  private String mysqlFieldStr;
 
-    public String getFieldName() {
-        return fieldName;
-    }
+  /**
+   * 字段描述
+   */
+  private String columnComment;
 
-    public void setFieldName(String fieldName) {
-        this.fieldName = fieldName;
-        this.supFiledName = StringUtils.capitalize(this.fieldName);
-    }
+  public String getFieldName() {
+    return fieldName;
+  }
 
-    public String getColumnName() {
-        return columnName;
-    }
+  public void setFieldName(String fieldName) {
+    this.fieldName = fieldName;
+    this.supFiledName = StringUtils.capitalize(this.fieldName);
+  }
 
-    public void setColumnName(String columnName) {
-        this.columnName = columnName;
-    }
+  public String getColumnName() {
+    return columnName;
+  }
 
-    public String getSupFiledName() {
-        return supFiledName;//首字母大写
-    }
+  public void setColumnName(String columnName) {
+    this.columnName = columnName;
+  }
 
-    public void setSupFiledName(String supFiledName) {
-        this.supFiledName = supFiledName;
-    }
+  public String getSupFiledName() {
+    return supFiledName;//首字母大写
+  }
 
-    public String getFieldTypeClassName() {
-        return fieldTypeClassName;
-    }
+  public void setSupFiledName(String supFiledName) {
+    this.supFiledName = supFiledName;
+  }
 
-    public void setFieldTypeClassName(String fieldTypeClassName) {
-        this.fieldTypeClassName = fieldTypeClassName;
-    }
+  public String getFieldTypeClassName() {
+    return fieldTypeClassName;
+  }
 
-    public String getMysqlFieldStr() {
-        return mysqlFieldStr;
-    }
+  public void setFieldTypeClassName(String fieldTypeClassName) {
+    this.fieldTypeClassName = fieldTypeClassName;
+  }
 
-    public void setMysqlFieldStr(String mysqlFieldStr) {
-        this.mysqlFieldStr = mysqlFieldStr;
-    }
+  public String getMysqlFieldStr() {
+    return mysqlFieldStr;
+  }
 
-    public String getSimpleTypeName() {
-        return simpleTypeName;
-    }
+  public void setMysqlFieldStr(String mysqlFieldStr) {
+    this.mysqlFieldStr = mysqlFieldStr;
+  }
 
-    public void setSimpleTypeName(String simpleTypeName) {
-        this.simpleTypeName = simpleTypeName;
-    }
+  public String getSimpleTypeName() {
+    return simpleTypeName;
+  }
 
-    public String getColumnComment() {
-        return columnComment;
-    }
+  public void setSimpleTypeName(String simpleTypeName) {
+    this.simpleTypeName = simpleTypeName;
+  }
 
-    public void setColumnComment(String columnComment) {
-        this.columnComment = columnComment;
-    }
+  public String getColumnComment() {
+    return columnComment;
+  }
 
-    @Override
-    public String toString() {
-        return "EntityField{" +
-                "fieldName='" + fieldName + '\'' +
-                ", columnName='" + columnName + '\'' +
-                ", supFiledName='" + supFiledName + '\'' +
-                ", fieldTypeClassName='" + fieldTypeClassName + '\'' +
-                '}';
-    }
+  public void setColumnComment(String columnComment) {
+    this.columnComment = columnComment;
+  }
+
+  @Override
+  public String toString() {
+    return "EntityField{" +
+        "fieldName='" + fieldName + '\'' +
+        ", columnName='" + columnName + '\'' +
+        ", supFiledName='" + supFiledName + '\'' +
+        ", fieldTypeClassName='" + fieldTypeClassName + '\'' +
+        '}';
+  }
 }

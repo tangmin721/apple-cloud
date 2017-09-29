@@ -17,50 +17,50 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Configuration
-public class RocketmqClientFactoryBean implements FactoryBean<DefaultMQProducer>, InitializingBean, DisposableBean {
+public class RocketmqClientFactoryBean implements FactoryBean<DefaultMQProducer>, InitializingBean,
+    DisposableBean {
 
-    private static Logger logger = LoggerFactory.getLogger(RocketmqClientFactoryBean.class);
+  private static Logger logger = LoggerFactory.getLogger(RocketmqClientFactoryBean.class);
 
-    private DefaultMQProducer producer;
+  private DefaultMQProducer producer;
 
-    @Value("${rocketmq.group}")
-    private String group;
-    @Value("${rocketmq.namesrv}")
-    private String namesrvAddr;
+  @Value("${rocketmq.group}")
+  private String group;
+  @Value("${rocketmq.namesrv}")
+  private String namesrvAddr;
 
-    @Override
-    public void destroy() throws Exception {
-        try {
-            logger.info("Closing rocketmq producer client");
-            if (producer != null) {
-                producer.shutdown();
-            }
-        } catch (final Exception e) {
-            logger.error("Error closing rocketmq producer client: ", e);
-        }
+  @Override
+  public void destroy() throws Exception {
+    try {
+      logger.info("Closing rocketmq producer client");
+      if (producer != null) {
+        producer.shutdown();
+      }
+    } catch (final Exception e) {
+      logger.error("Error closing rocketmq producer client: ", e);
     }
+  }
 
+  @Override
+  public DefaultMQProducer getObject() throws Exception {
+    return producer;
+  }
 
-    @Override
-    public DefaultMQProducer getObject() throws Exception {
-        return producer;
-    }
+  @Override
+  public Class<?> getObjectType() {
+    return DefaultMQProducer.class;
+  }
 
-    @Override
-    public Class<?> getObjectType() {
-        return DefaultMQProducer.class;
-    }
+  @Override
+  public boolean isSingleton() {
+    return true;
+  }
 
-    @Override
-    public boolean isSingleton() {
-        return true;
-    }
-
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        producer = new DefaultMQProducer();
-        producer.setProducerGroup(group);
-        producer.setNamesrvAddr(namesrvAddr);
-        producer.start();
-    }
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    producer = new DefaultMQProducer();
+    producer.setProducerGroup(group);
+    producer.setNamesrvAddr(namesrvAddr);
+    producer.start();
+  }
 }

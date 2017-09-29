@@ -16,19 +16,20 @@ import org.springframework.kafka.annotation.KafkaListener;
 //@Component
 public class OrderCreateKafkaConsumer {
 
-    @Autowired
-    private OrderService orderService;
+  @Autowired
+  private OrderService orderService;
 
-    @KafkaListener(topics = KafkaMsgQueueConts.TEST_TOPIC,group = "group")
-    //@KafkaListener(topics = KafkaMsgQueueConts.TEST_TOPIC,containerFactory = "myKafkaListenerContainerFactory")
-    public void processMessage(String message) {
-        MsgPersistent persistent = JsonUtil.toEntity(message, MsgPersistent.class);
-        System.out.println("====>topic:"+ KafkaMsgQueueConts.TEST_TOPIC);
-        System.out.println("====>order service pagination:"+JsonUtil.toJson(orderService.selectList(new OrderQuery())));
-        System.out.println("====>order:KafkaConsumer:"+message);
-        System.out.println("====>order:getConsumerQueue:"+persistent.getConsumerQueue());
-        System.out.println("====>order:getMsgBody:"+persistent.getMsgBody());
-        System.out.println("====>order:getMsgId:"+persistent.getMsgId());
-    }
+  @KafkaListener(topics = KafkaMsgQueueConts.TEST_TOPIC, group = "group")
+  //@KafkaListener(topics = KafkaMsgQueueConts.TEST_TOPIC,containerFactory = "myKafkaListenerContainerFactory")
+  public void processMessage(String message) {
+    MsgPersistent persistent = JsonUtil.toEntity(message, MsgPersistent.class);
+    System.out.println("====>topic:" + KafkaMsgQueueConts.TEST_TOPIC);
+    System.out.println("====>order service pagination:" + JsonUtil
+        .toJson(orderService.selectList(new OrderQuery())));
+    System.out.println("====>order:KafkaConsumer:" + message);
+    System.out.println("====>order:getConsumerQueue:" + persistent.getConsumerQueue());
+    System.out.println("====>order:getMsgBody:" + persistent.getMsgBody());
+    System.out.println("====>order:getMsgId:" + persistent.getMsgId());
+  }
 
 }

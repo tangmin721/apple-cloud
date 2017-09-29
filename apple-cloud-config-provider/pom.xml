@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <!-- ==================================================================== -->
-    <!-- 服务需要连接底层资源的公共配置,一般只有provider需要连接，比如mysql，redis的一些公共属性配置-->
-    <!-- 个性化的比如es只需要在自己的工程里定义 -->
-    <!-- ==================================================================== -->
+  <!-- ==================================================================== -->
+  <!-- 服务需要连接底层资源的公共配置,一般只有provider需要连接，比如mysql，redis的一些公共属性配置-->
+  <!-- 个性化的比如es只需要在自己的工程里定义 -->
+  <!-- ==================================================================== -->
 
-    <parent>
-        <artifactId>apple-cloud-all-parent</artifactId>
-        <groupId>com.cachexic</groupId>
-        <version>0.1.0</version>
-        <relativePath>../apple-cloud-all-parent/pom.xml</relativePath>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>apple-cloud-all-parent</artifactId>
+    <groupId>com.cachexic</groupId>
+    <version>0.1.0</version>
+    <relativePath>../apple-cloud-all-parent/pom.xml</relativePath>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>apple-cloud-config-provider</artifactId>
+  <artifactId>apple-cloud-config-provider</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>apple-cloud-config-micro</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>apple-cloud-config-micro</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
 
-        <!--ORM-->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-        </dependency>
+    <!--ORM-->
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>druid</artifactId>
+    </dependency>
 
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
-        </dependency>
+    <dependency>
+      <groupId>net.sf.ehcache</groupId>
+      <artifactId>ehcache</artifactId>
+    </dependency>
 
-        <!--sjdbc分库分表-->
-        <dependency>
-            <groupId>com.dangdang</groupId>
-            <artifactId>sharding-jdbc-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.dangdang</groupId>
-            <artifactId>sharding-jdbc-transaction</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.dangdang</groupId>
-            <artifactId>sharding-jdbc-config-yaml</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.dangdang</groupId>
-            <artifactId>sharding-jdbc-config-spring</artifactId>
-        </dependency>
+    <!--sjdbc分库分表-->
+    <dependency>
+      <groupId>com.dangdang</groupId>
+      <artifactId>sharding-jdbc-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.dangdang</groupId>
+      <artifactId>sharding-jdbc-transaction</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.dangdang</groupId>
+      <artifactId>sharding-jdbc-config-yaml</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.dangdang</groupId>
+      <artifactId>sharding-jdbc-config-spring</artifactId>
+    </dependency>
 
-        <!--redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+    <!--redis-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
 
 
-    </dependencies>
+  </dependencies>
 </project>

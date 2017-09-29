@@ -16,65 +16,58 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * 教师测试实体管理
+ *
  * @author tangmin
  * @date 2017-09-27 14:42:38
  */
 @FeignClient(name = "provider-order", path = "/teacher", fallbackFactory = TeacherFeignFallback.class)
-public interface TeacherFeign{
+public interface TeacherFeign {
 
-    /**
-     * List
-     * @param query
-     */
-    @PostMapping("list")
-    Result<List<Teacher>> list(@RequestBody TeacherQuery query);
+  /**
+   * List
+   */
+  @PostMapping("list")
+  Result<List<Teacher>> list(@RequestBody TeacherQuery query);
 
-    /**
-     * 分页查询
-     * @param query
-     */
-    @PostMapping("pagination")
-    Result<Pagination<Teacher>> pagination(@RequestBody TeacherQuery query);
+  /**
+   * 分页查询
+   */
+  @PostMapping("pagination")
+  Result<Pagination<Teacher>> pagination(@RequestBody TeacherQuery query);
 
-    /**
-     * 根据主键查询
-     * @param id
-     */
-    @GetMapping("id/{id}")
-    Result<Teacher> getById(@PathVariable("id") Long id);
+  /**
+   * 根据主键查询
+   */
+  @GetMapping("id/{id}")
+  Result<Teacher> getById(@PathVariable("id") Long id);
 
-    /**
-     * 根据主键ids查询
-     * @param ids
-     */
-    @GetMapping("ids/{ids}")
-    Result<List<Teacher>> getByIds(@PathVariable("ids") String ids);
+  /**
+   * 根据主键ids查询
+   */
+  @GetMapping("ids/{ids}")
+  Result<List<Teacher>> getByIds(@PathVariable("ids") String ids);
 
-    /**
-     * 新增方法
-     * @param entity
-     */
-    @PostMapping
-    Result save(@RequestBody Teacher entity);
+  /**
+   * 新增方法
+   */
+  @PostMapping
+  Result save(@RequestBody Teacher entity);
 
-    /**
-     * 修改方法
-     * @param entity
-     */
-    @PutMapping
-    Result update(@RequestBody Teacher entity);
+  /**
+   * 修改方法
+   */
+  @PutMapping
+  Result update(@RequestBody Teacher entity);
 
-    /**
-     * 根据Id删除
-     * @param id
-     */
-    @DeleteMapping("id/{id}")
-    Result deleteById(@PathVariable("id") Long id);
+  /**
+   * 根据Id删除
+   */
+  @DeleteMapping("id/{id}")
+  Result deleteById(@PathVariable("id") Long id);
 
-    /**
-     * 根据ids删除，id逗号隔开
-     * @param ids
-     */
-    @DeleteMapping("ids/{ids}")
-    Result deleteByIds(@PathVariable("ids") String ids);
+  /**
+   * 根据ids删除，id逗号隔开
+   */
+  @DeleteMapping("ids/{ids}")
+  Result deleteByIds(@PathVariable("ids") String ids);
 }

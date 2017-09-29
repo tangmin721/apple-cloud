@@ -32,31 +32,33 @@ import java.net.UnknownHostException;
  **/
 public final class HostNameKeyGenerator implements KeyGenerator {
 
-    private final DefaultKeyGenerator defaultKeyGenerator = new DefaultKeyGenerator();
+  private final DefaultKeyGenerator defaultKeyGenerator = new DefaultKeyGenerator();
 
-    static {
-        initWorkerId();
-    }
-    
-    static void initWorkerId() {
-        InetAddress address;
-        Long workerId;
-        try {
-            address = InetAddress.getLocalHost();
-        } catch (final UnknownHostException e) {
-            throw new IllegalStateException("Cannot get LocalHost InetAddress, please check your network!");
-        }
-        String hostName = address.getHostName();
-        try {
-            workerId = Long.valueOf(hostName.replace(hostName.replaceAll("\\d+$", ""), ""));
-        } catch (final NumberFormatException e) {
-            throw new IllegalArgumentException(String.format("Wrong hostname:%s, hostname must be end with number!", hostName));
-        }
-        DefaultKeyGenerator.setWorkerId(workerId);
-    }
+  static {
+    initWorkerId();
+  }
 
-    @Override
-    public Number generateKey() {
-        return defaultKeyGenerator.generateKey();
+  static void initWorkerId() {
+    InetAddress address;
+    Long workerId;
+    try {
+      address = InetAddress.getLocalHost();
+    } catch (final UnknownHostException e) {
+      throw new IllegalStateException(
+          "Cannot get LocalHost InetAddress, please check your network!");
     }
+    String hostName = address.getHostName();
+    try {
+      workerId = Long.valueOf(hostName.replace(hostName.replaceAll("\\d+$", ""), ""));
+    } catch (final NumberFormatException e) {
+      throw new IllegalArgumentException(
+          String.format("Wrong hostname:%s, hostname must be end with number!", hostName));
+    }
+    DefaultKeyGenerator.setWorkerId(workerId);
+  }
+
+  @Override
+  public Number generateKey() {
+    return defaultKeyGenerator.generateKey();
+  }
 }

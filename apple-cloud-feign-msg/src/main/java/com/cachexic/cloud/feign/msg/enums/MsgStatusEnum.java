@@ -12,30 +12,31 @@ import java.util.List;
  */
 public enum MsgStatusEnum {
 
-    waiting_confirm("待确认"),
-    sending("发送中");
+  waiting_confirm("待确认"),
+  sending("发送中");
 
-    /** 备注信息 */
-    private final String desc;
+  /**
+   * 备注信息
+   */
+  private final String desc;
 
-    MsgStatusEnum(String desc) {
-        this.desc = desc;
+  MsgStatusEnum(String desc) {
+    this.desc = desc;
+  }
+
+  public String getDesc() {
+    return desc;
+  }
+
+  /**
+   * 转换为list
+   */
+  public static List toList() {
+    List list = new ArrayList();
+    for (MsgStatusEnum _enum : MsgStatusEnum.values()) {
+      list.add(new ValueDescVo(_enum.name(), _enum.getDesc()));
     }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    /**
-     * 转换为list
-     * @return
-     */
-    public static List toList() {
-        List list = new ArrayList();
-        for (MsgStatusEnum _enum : MsgStatusEnum.values()) {
-            list.add(new ValueDescVo(_enum.name(),_enum.getDesc()));
-        }
-        return list;
-    }
+    return list;
+  }
 
 }

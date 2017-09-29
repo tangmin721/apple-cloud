@@ -18,65 +18,65 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 /**
  * 教师测试实体管理  /order
+ *
  * @author tangmin
  * @date 2017-09-27 14:42:38
  */
 @Api(description = "教师测试实体管理")
 @RestController
 @RequestMapping("/teacher")
-public class TeacherWebController{
+public class TeacherWebController {
 
-    @Autowired
-    private TeacherFeign teacherFeign;
+  @Autowired
+  private TeacherFeign teacherFeign;
 
-    @ApiOperation(value = "list:批量获取数据", notes = "不带分页信息的list集合")
-    @PostMapping("list")
-    public Result<List<Teacher>> list(@RequestBody TeacherQuery query){
-        return teacherFeign.list(query);
-    }
+  @ApiOperation(value = "list:批量获取数据", notes = "不带分页信息的list集合")
+  @PostMapping("list")
+  public Result<List<Teacher>> list(@RequestBody TeacherQuery query) {
+    return teacherFeign.list(query);
+  }
 
-    @ApiOperation(value = "pagination:分页查询", notes = "带分页信息的Pagination对象")
-    @PostMapping("pagination")
-    public Result<Pagination<Teacher>> pagination(@RequestBody TeacherQuery query){
-        return teacherFeign.pagination(query);
-    }
+  @ApiOperation(value = "pagination:分页查询", notes = "带分页信息的Pagination对象")
+  @PostMapping("pagination")
+  public Result<Pagination<Teacher>> pagination(@RequestBody TeacherQuery query) {
+    return teacherFeign.pagination(query);
+  }
 
-    @ApiOperation("getById:根据主键查询")
-    @GetMapping("id/{id}")
-    public Result<Teacher> getById(@PathVariable("id") Long id){
-        return teacherFeign.getById(id);
-    }
+  @ApiOperation("getById:根据主键查询")
+  @GetMapping("id/{id}")
+  public Result<Teacher> getById(@PathVariable("id") Long id) {
+    return teacherFeign.getById(id);
+  }
 
-    @ApiOperation(value = "getByIds:根据主键ids查询",notes = "逗号分隔")
-    @GetMapping("ids/{ids}")
-    public Result<List<Teacher>> getByIds(@PathVariable("ids") String ids){
-        return teacherFeign.getByIds(ids);
-    }
+  @ApiOperation(value = "getByIds:根据主键ids查询", notes = "逗号分隔")
+  @GetMapping("ids/{ids}")
+  public Result<List<Teacher>> getByIds(@PathVariable("ids") String ids) {
+    return teacherFeign.getByIds(ids);
+  }
 
-    @ApiOperation("save:新增方法")
-    @PostMapping
-    public Result save(@RequestBody Teacher entity){
-        return teacherFeign.save(entity);
-    }
+  @ApiOperation("save:新增方法")
+  @PostMapping
+  public Result save(@RequestBody Teacher entity) {
+    return teacherFeign.save(entity);
+  }
 
-    @ApiOperation("update:修改方法")
-    @PutMapping
-    public Result update(@RequestBody Teacher entity){
-        return teacherFeign.update(entity);
-    }
+  @ApiOperation("update:修改方法")
+  @PutMapping
+  public Result update(@RequestBody Teacher entity) {
+    return teacherFeign.update(entity);
+  }
 
-    @ApiOperation("deleteById:根据Id删除")
-    @DeleteMapping("id/{id}")
-    public Result deleteById(@PathVariable("id") Long id){
-        return teacherFeign.deleteById(id);
-    }
+  @ApiOperation("deleteById:根据Id删除")
+  @DeleteMapping("id/{id}")
+  public Result deleteById(@PathVariable("id") Long id) {
+    return teacherFeign.deleteById(id);
+  }
 
-    @ApiOperation(value = "deleteByIds:根据ids批量删除",notes = "逗号分隔")
-    @DeleteMapping("ids/{ids}")
-    public Result deleteByIds(@PathVariable("ids") String ids){
-        return teacherFeign.deleteByIds(ids);
-    }
+  @ApiOperation(value = "deleteByIds:根据ids批量删除", notes = "逗号分隔")
+  @DeleteMapping("ids/{ids}")
+  public Result deleteByIds(@PathVariable("ids") String ids) {
+    return teacherFeign.deleteByIds(ids);
+  }
 }

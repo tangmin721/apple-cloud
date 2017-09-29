@@ -18,60 +18,60 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Component
 public class MsgFeignFallback implements FallbackFactory<MsgFeign> {
 
-    private static final Logger log = LoggerFactory.getLogger(MsgFeignFallback.class);
+  private static final Logger log = LoggerFactory.getLogger(MsgFeignFallback.class);
 
-    @Override
-    public MsgFeign create(Throwable cause) {
-        return new MsgFeign() {
-            @Override
-            public Result saveMsgWaitingConfirm(MsgPersistent msgPersistent) {
-                return Result.FALLBACK(cause);
-            }
+  @Override
+  public MsgFeign create(Throwable cause) {
+    return new MsgFeign() {
+      @Override
+      public Result saveMsgWaitingConfirm(MsgPersistent msgPersistent) {
+        return Result.FALLBACK(cause);
+      }
 
-            @Override
-            public Result confirmAndSendMsg(@PathVariable("msgId") String msgId) {
-                return Result.FALLBACK(cause);
-            }
+      @Override
+      public Result confirmAndSendMsg(@PathVariable("msgId") String msgId) {
+        return Result.FALLBACK(cause);
+      }
 
-            @Override
-            public Result saveAndSendMsg(@RequestBody MsgPersistent msgPersistent) {
-                return Result.FALLBACK(cause);
-            }
+      @Override
+      public Result saveAndSendMsg(@RequestBody MsgPersistent msgPersistent) {
+        return Result.FALLBACK(cause);
+      }
 
-            @Override
-            public Result directSendMsg(@RequestBody MsgPersistent msgPersistent) {
-                return Result.FALLBACK(cause);
-            }
+      @Override
+      public Result directSendMsg(@RequestBody MsgPersistent msgPersistent) {
+        return Result.FALLBACK(cause);
+      }
 
-            @Override
-            public Result reSendMsg(@RequestBody MsgPersistent msgPersistent) {
-                return Result.FALLBACK(cause);
-            }
+      @Override
+      public Result reSendMsg(@RequestBody MsgPersistent msgPersistent) {
+        return Result.FALLBACK(cause);
+      }
 
-            @Override
-            public Result reSendMsgByMsgId(String msgId) {
-                return Result.FALLBACK(cause);
-            }
+      @Override
+      public Result reSendMsgByMsgId(String msgId) {
+        return Result.FALLBACK(cause);
+      }
 
-            @Override
-            public Result setMsgToDead(String msgId) {
-                return Result.FALLBACK(cause);
-            }
+      @Override
+      public Result setMsgToDead(String msgId) {
+        return Result.FALLBACK(cause);
+      }
 
-            @Override
-            public Result<MsgPersistent> getMsgByMsgId(String msgId) {
-                return Result.FALLBACK(cause);
-            }
+      @Override
+      public Result<MsgPersistent> getMsgByMsgId(String msgId) {
+        return Result.FALLBACK(cause);
+      }
 
-            @Override
-            public Result deleteMsgByMsgId(String msgId) {
-                return Result.FALLBACK(cause);
-            }
+      @Override
+      public Result deleteMsgByMsgId(String msgId) {
+        return Result.FALLBACK(cause);
+      }
 
-            @Override
-            public Result reSendAllDeadMsgByTopic() {
-                return Result.FALLBACK(cause);
-            }
-        };
-    }
+      @Override
+      public Result reSendAllDeadMsgByTopic() {
+        return Result.FALLBACK(cause);
+      }
+    };
+  }
 }

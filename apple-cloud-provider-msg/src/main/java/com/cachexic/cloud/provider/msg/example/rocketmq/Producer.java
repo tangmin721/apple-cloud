@@ -26,28 +26,29 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
  * This class demonstrates how to send messages to brokers using provided {@link DefaultMQProducer}.
  */
 public class Producer {
-    public static void main(String[] args) throws MQClientException, InterruptedException {
 
-        DefaultMQProducer producer = new DefaultMQProducer("order_group");
-        producer.setNamesrvAddr("apple01:9876");
+  public static void main(String[] args) throws MQClientException, InterruptedException {
 
-        producer.start();
+    DefaultMQProducer producer = new DefaultMQProducer("order_group");
+    producer.setNamesrvAddr("apple01:9876");
 
-        for (int i = 0; i < 100; i++) {
-            try {
-                Message msg = new Message("orderTopic" /* Topic */,
-                    "orderCreateTag" /* Tag */,
-                    ("订单[" + i +"]创建成功").getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
-                );
+    producer.start();
 
-                SendResult sendResult = producer.send(msg);
-                System.out.printf("%s%n", sendResult);
-            } catch (Exception e) {
-                e.printStackTrace();
-                Thread.sleep(1000);
-            }
-        }
+    for (int i = 0; i < 100; i++) {
+      try {
+        Message msg = new Message("orderTopic" /* Topic */,
+            "orderCreateTag" /* Tag */,
+            ("订单[" + i + "]创建成功").getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
+        );
 
-        producer.shutdown();
+        SendResult sendResult = producer.send(msg);
+        System.out.printf("%s%n", sendResult);
+      } catch (Exception e) {
+        e.printStackTrace();
+        Thread.sleep(1000);
+      }
     }
+
+    producer.shutdown();
+  }
 }

@@ -1,231 +1,256 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cachexic.cloud.provider.order.dao.TeacherDao">
 
-    <sql id="table"> t_teacher </sql>
-    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,name,id_card,birthday,birthday_time,score,book,num,age,class_mater,account,supper </sql>
-
-    <resultMap id="teacher" type="com.cachexic.cloud.feign.order.entity.Teacher">
-        <result property="id" column="id" />
-        <result property="version" column="version" />
-        <result property="createTime" column="create_time" />
-        <result property="createUserId" column="create_user_id" />
-        <result property="createUserName" column="create_user_name" />
-        <result property="updateTime" column="update_time" />
-        <result property="updateUserId" column="update_user_id" />
-        <result property="updateUserName" column="update_user_name" />
-        <result property="status" column="status" />
-        <result property="name" column="name" />
-        <result property="idCard" column="id_card" />
-        <result property="birthday" column="birthday" />
-        <result property="birthdayTime" column="birthday_time" />
-        <result property="score" column="score" />
-        <result property="book" column="book" />
-        <result property="num" column="num" />
-        <result property="age" column="age" />
-        <result property="nameTransient" column="name_transient" />
-        <result property="classMater" column="class_mater" />
-        <result property="account" column="account" />
-        <result property="supper" column="supper" />
-    </resultMap>
-
-    <!--单条插入-->
-    <insert id="insert" parameterType="com.cachexic.cloud.feign.order.entity.Teacher" keyProperty="id" useGeneratedKeys="true">
-        insert into
-        <include refid="table" />
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            create_time,create_user_id,create_user_name,status,
-            <if test="name != null and name !=''">name,</if>
-            <if test="idCard != null and idCard !=''">id_card,</if>
-            <if test="birthday != null ">birthday,</if>
-            <if test="birthdayTime != null ">birthday_time,</if>
-            <if test="score != null ">score,</if>
-            <if test="book != null ">book,</if>
-            <if test="num != null ">num,</if>
-            <if test="age != null ">age,</if>
-            <if test="classMater != null ">class_mater,</if>
-            <if test="account != null ">account,</if>
-            <if test="supper != null ">supper</if>
-        </trim>
-        values
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            now(),#{createUserId},#{createUserName},'normal',
-            <if test="name != null and name !=''">#{name},</if>
-            <if test="idCard != null and idCard !=''">#{idCard},</if>
-            <if test="birthday != null ">#{birthday},</if>
-            <if test="birthdayTime != null ">#{birthdayTime},</if>
-            <if test="score != null ">#{score},</if>
-            <if test="book != null ">#{book},</if>
-            <if test="num != null ">#{num},</if>
-            <if test="age != null ">#{age},</if>
-            <if test="classMater != null ">#{classMater},</if>
-            <if test="account != null ">#{account},</if>
-            <if test="supper != null ">#{supper}</if>
-        </trim>
-    </insert>
-
-    <!-- 根据主键查询 -->
-    <select id="selectById" resultMap="teacher">
-        <include refid="selectorFields" />
-        where
-        id=#{id}
-    </select>
-
-    <!-- 根据主键批量查询 -->
-    <select id="selectByIds" resultMap="teacher" >
-        <include refid="selectorFields" />
-        where id in
-        <foreach collection="ids" separator="," item="id" open="(" close=")">
-            #{id}
-        </foreach>
-    </select>
-
-    <!-- 单条更新 -->
-    <update id="update" parameterType="com.cachexic.cloud.feign.order.entity.Teacher">
-        update
-        <include refid="table" />
-        <set>
-            version = version+1,
-            <if test="status != null">status = #{status},</if>
-            update_time = now(),
-            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
-            <if test="name != null and name !=''">name = #{name},</if>
-            <if test="idCard != null and idCard !=''">id_card = #{idCard},</if>
-            <if test="birthday != null ">birthday = #{birthday},</if>
-            <if test="birthdayTime != null ">birthday_time = #{birthdayTime},</if>
-            <if test="score != null ">score = #{score},</if>
-            <if test="book != null ">book = #{book},</if>
-            <if test="num != null ">num = #{num},</if>
-            <if test="age != null ">age = #{age},</if>
-            <if test="classMater != null ">class_mater = #{classMater},</if>
-            <if test="account != null ">account = #{account},</if>
-            <if test="supper != null ">supper = #{supper}</if>
-        </set>
-        <where>
-            id = #{id} 
-        </where>
-    </update>
-
-    <!-- 根据id假删除 -->
-    <update id="deleteById">
-        update <include refid="table" />
-        <set>
-            version = version+1,status='deleted',update_time = now(),
-            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
-        </set>
-        <where>
-            id = #{id} 
-        </where>
-    </update>
-
-    <!-- 根据主键批量假删除 -->
-    <update id="deleteByIds">
-        update <include refid="table" />
-        <set>
-            version = version+1,status='deleted',update_time = now(),
-            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
-        </set>
-        <where>
-            in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
-        </where>
-    </update>
-
-    <!-- 根据id彻底删除 -->
-    <delete id="removeById" parameterType="long">
-        delete from <include refid="table" /> where id=#{id}
-    </delete>
-
-    <!-- 根据主键批量彻底删除 -->
-    <delete id="removeByIds" parameterType="java.util.List">
-        delete from <include refid="table" /> where id in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
-    </delete>
-
-    <!--片段list字段查询器-->
-    <sql id="selectorFields">
-        select
-        <if test="fields != null and fields !=''">
-            ${fields}
-        </if>
-        <if test="fields == null or fields == ''">
-            *
-        </if>
-        from  <include refid="table" />
+  <sql id="table">t_teacher</sql>
+  <sql id="columns">
+        id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,name,id_card,birthday,birthday_time,score,book,num,age,class_mater,account,supper
     </sql>
 
-    <!--片段list条件判断 注意:如果用 like查询，建议去掉前面的'%'，不然索引无效-->
-    <sql id="selectorWhere">
-        <where>
-            <if test="status != null"> and status=#{status} </if>
-            <if test="startCreateTime != null"> and create_time <![CDATA[   >=  ]]>#{startCreateTime} </if>
-            <if test="endCreateTime != null"> and  create_time <![CDATA[   <  ]]> #{endCreateTime} </if>
-            <if test="startUpdateTime != null"> and update_time <![CDATA[   >=  ]]>#{startUpdateTime} </if>
-            <if test="endUpdateTime != null"> and  update_time <![CDATA[   <  ]]> #{endUpdateTime} </if>
-            <if test="createUserId != null">and createUserId=#{createUserId} </if>
-            <if test="updateUserId != null">and updateUserId=#{updateUserId} </if>
-            <if test="name != null and name !=''">
-                <if test="nameLike == false"> and name=#{name}</if>
-                <if test="nameLike == true"> and name like  CONCAT('%',#{name},'%')</if>
-            </if>
-            <if test="idCard != null and idCard !=''">
-                <if test="idCardLike == false"> and id_card=#{idCard}</if>
-                <if test="idCardLike == true"> and id_card like  CONCAT('%',#{idCard},'%')</if>
-            </if>
-            <if test="birthday != null "> and birthday=#{birthday}</if>
-            <if test="birthdayTime != null "> and birthday_time=#{birthdayTime}</if>
-            <if test="score != null "> and score=#{score}</if>
-            <if test="book != null "> and book=#{book}</if>
-            <if test="num != null "> and num=#{num}</if>
-            <if test="age != null "> and age=#{age}</if>
-            <if test="classMater != null "> and class_mater=#{classMater}</if>
-            <if test="account != null "> and account=#{account}</if>
-            <if test="supper != null "> and supper=#{supper}</if>
-            <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
-            <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
-            -->
-        </where>
-    </sql>
+  <resultMap id="teacher" type="com.cachexic.cloud.feign.order.entity.Teacher">
+    <result property="id" column="id"/>
+    <result property="version" column="version"/>
+    <result property="createTime" column="create_time"/>
+    <result property="createUserId" column="create_user_id"/>
+    <result property="createUserName" column="create_user_name"/>
+    <result property="updateTime" column="update_time"/>
+    <result property="updateUserId" column="update_user_id"/>
+    <result property="updateUserName" column="update_user_name"/>
+    <result property="status" column="status"/>
+    <result property="name" column="name"/>
+    <result property="idCard" column="id_card"/>
+    <result property="birthday" column="birthday"/>
+    <result property="birthdayTime" column="birthday_time"/>
+    <result property="score" column="score"/>
+    <result property="book" column="book"/>
+    <result property="num" column="num"/>
+    <result property="age" column="age"/>
+    <result property="nameTransient" column="name_transient"/>
+    <result property="classMater" column="class_mater"/>
+    <result property="account" column="account"/>
+    <result property="supper" column="supper"/>
+  </resultMap>
 
-    <!--片段list排序-->
-    <sql id="selectorOrder">
-        <if test="orderFields != null and orderFields.size >0">
-            order by
-            <foreach collection="orderFields" separator="," item="orderField">
-                ${orderField.fieldName} ${orderField.order}
-            </foreach>
-        </if>
-    </sql>
+  <!--单条插入-->
+  <insert id="insert" parameterType="com.cachexic.cloud.feign.order.entity.Teacher" keyProperty="id"
+    useGeneratedKeys="true">
+    insert into
+    <include refid="table"/>
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      create_time,create_user_id,create_user_name,status,
+      <if test="name != null and name !=''">name,</if>
+      <if test="idCard != null and idCard !=''">id_card,</if>
+      <if test="birthday != null ">birthday,</if>
+      <if test="birthdayTime != null ">birthday_time,</if>
+      <if test="score != null ">score,</if>
+      <if test="book != null ">book,</if>
+      <if test="num != null ">num,</if>
+      <if test="age != null ">age,</if>
+      <if test="classMater != null ">class_mater,</if>
+      <if test="account != null ">account,</if>
+      <if test="supper != null ">supper</if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      now(),#{createUserId},#{createUserName},'normal',
+      <if test="name != null and name !=''">#{name},</if>
+      <if test="idCard != null and idCard !=''">#{idCard},</if>
+      <if test="birthday != null ">#{birthday},</if>
+      <if test="birthdayTime != null ">#{birthdayTime},</if>
+      <if test="score != null ">#{score},</if>
+      <if test="book != null ">#{book},</if>
+      <if test="num != null ">#{num},</if>
+      <if test="age != null ">#{age},</if>
+      <if test="classMater != null ">#{classMater},</if>
+      <if test="account != null ">#{account},</if>
+      <if test="supper != null ">#{supper}</if>
+    </trim>
+  </insert>
 
-    <!--片段list分页-->
-    <sql id="selectorLimit">
-        <if test="startRow != null">
-            limit  #{startRow},#{pageSize}
-        </if>
-    </sql>
+  <!-- 根据主键查询 -->
+  <select id="selectById" resultMap="teacher">
+    <include refid="selectorFields"/>
+    where
+    id=#{id}
+  </select>
 
-    <!--查询所有记录-->
-    <select id="selectList" parameterType="com.cachexic.cloud.feign.order.entity.query.TeacherQuery" resultMap="teacher">
-        <include refid="selectorFields" />
-        <include refid="selectorWhere" />
-        <include refid="selectorOrder" />
-    </select>
+  <!-- 根据主键批量查询 -->
+  <select id="selectByIds" resultMap="teacher">
+    <include refid="selectorFields"/>
+    where id in
+    <foreach collection="ids" separator="," item="id" open="(" close=")">
+      #{id}
+    </foreach>
+  </select>
 
-    <!-- 分页 -->
-    <select id="selectListPage" parameterType="com.cachexic.cloud.feign.order.entity.query.TeacherQuery" resultMap="teacher">
-        <include refid="selectorFields" />
-        <include refid="selectorWhere" />
-        <include refid="selectorOrder" />
-        <include refid="selectorLimit" />
-    </select>
+  <!-- 单条更新 -->
+  <update id="update" parameterType="com.cachexic.cloud.feign.order.entity.Teacher">
+    update
+    <include refid="table"/>
+    <set>
+      version = version+1,
+      <if test="status != null">status = #{status},</if>
+      update_time = now(),
+      <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+      <if test="updateUserName != null and updateUserName !=''">update_user_name =
+        #{updateUserName},
+      </if>
+      <if test="name != null and name !=''">name = #{name},</if>
+      <if test="idCard != null and idCard !=''">id_card = #{idCard},</if>
+      <if test="birthday != null ">birthday = #{birthday},</if>
+      <if test="birthdayTime != null ">birthday_time = #{birthdayTime},</if>
+      <if test="score != null ">score = #{score},</if>
+      <if test="book != null ">book = #{book},</if>
+      <if test="num != null ">num = #{num},</if>
+      <if test="age != null ">age = #{age},</if>
+      <if test="classMater != null ">class_mater = #{classMater},</if>
+      <if test="account != null ">account = #{account},</if>
+      <if test="supper != null ">supper = #{supper}</if>
+    </set>
+    <where>
+      id = #{id}
+    </where>
+  </update>
 
-    <!--总条数-->
-    <select id="selectListTotal" parameterType="com.cachexic.cloud.feign.order.entity.query.TeacherQuery" resultType="long">
-        select count(id) from <include refid="table" />
-        <include refid="selectorWhere" />
-    </select>
+  <!-- 根据id假删除 -->
+  <update id="deleteById">
+    update
+    <include refid="table"/>
+    <set>
+      version = version+1,status='deleted',update_time = now(),
+      <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+      <if test="updateUserName != null and updateUserName !=''">update_user_name =
+        #{updateUserName},
+      </if>
+    </set>
+    <where>
+      id = #{id}
+    </where>
+  </update>
 
-    <!--///////////////////////////////自定义/////////////////////////-->
+  <!-- 根据主键批量假删除 -->
+  <update id="deleteByIds">
+    update
+    <include refid="table"/>
+    <set>
+      version = version+1,status='deleted',update_time = now(),
+      <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+      <if test="updateUserName != null and updateUserName !=''">update_user_name =
+        #{updateUserName},
+      </if>
+    </set>
+    <where>
+      in
+      <foreach collection="list" separator="," item="id" open="(" close=")">#{id}</foreach>
+    </where>
+  </update>
+
+  <!-- 根据id彻底删除 -->
+  <delete id="removeById" parameterType="long">
+    delete from
+    <include refid="table"/>
+    where id=#{id}
+  </delete>
+
+  <!-- 根据主键批量彻底删除 -->
+  <delete id="removeByIds" parameterType="java.util.List">
+    delete from
+    <include refid="table"/>
+    where id in
+    <foreach collection="list" separator="," item="id" open="(" close=")">#{id}</foreach>
+  </delete>
+
+  <!--片段list字段查询器-->
+  <sql id="selectorFields">
+    select
+    <if test="fields != null and fields !=''">
+      ${fields}
+    </if>
+    <if test="fields == null or fields == ''">
+      *
+    </if>
+    from
+    <include refid="table"/>
+  </sql>
+
+  <!--片段list条件判断 注意:如果用 like查询，建议去掉前面的'%'，不然索引无效-->
+  <sql id="selectorWhere">
+    <where>
+      <if test="status != null">and status=#{status}</if>
+      <if test="startCreateTime != null">and create_time <![CDATA[   >=  ]]>#{startCreateTime}</if>
+      <if test="endCreateTime != null">and create_time <![CDATA[   <  ]]> #{endCreateTime}</if>
+      <if test="startUpdateTime != null">and update_time <![CDATA[   >=  ]]>#{startUpdateTime}</if>
+      <if test="endUpdateTime != null">and update_time <![CDATA[   <  ]]> #{endUpdateTime}</if>
+      <if test="createUserId != null">and createUserId=#{createUserId}</if>
+      <if test="updateUserId != null">and updateUserId=#{updateUserId}</if>
+      <if test="name != null and name !=''">
+        <if test="nameLike == false">and name=#{name}</if>
+        <if test="nameLike == true">and name like CONCAT('%',#{name},'%')</if>
+      </if>
+      <if test="idCard != null and idCard !=''">
+        <if test="idCardLike == false">and id_card=#{idCard}</if>
+        <if test="idCardLike == true">and id_card like CONCAT('%',#{idCard},'%')</if>
+      </if>
+      <if test="birthday != null ">and birthday=#{birthday}</if>
+      <if test="birthdayTime != null ">and birthday_time=#{birthdayTime}</if>
+      <if test="score != null ">and score=#{score}</if>
+      <if test="book != null ">and book=#{book}</if>
+      <if test="num != null ">and num=#{num}</if>
+      <if test="age != null ">and age=#{age}</if>
+      <if test="classMater != null ">and class_mater=#{classMater}</if>
+      <if test="account != null ">and account=#{account}</if>
+      <if test="supper != null ">and supper=#{supper}</if>
+      <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
+      <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
+      -->
+    </where>
+  </sql>
+
+  <!--片段list排序-->
+  <sql id="selectorOrder">
+    <if test="orderFields != null and orderFields.size >0">
+      order by
+      <foreach collection="orderFields" separator="," item="orderField">
+        ${orderField.fieldName} ${orderField.order}
+      </foreach>
+    </if>
+  </sql>
+
+  <!--片段list分页-->
+  <sql id="selectorLimit">
+    <if test="startRow != null">
+      limit #{startRow},#{pageSize}
+    </if>
+  </sql>
+
+  <!--查询所有记录-->
+  <select id="selectList" parameterType="com.cachexic.cloud.feign.order.entity.query.TeacherQuery"
+    resultMap="teacher">
+    <include refid="selectorFields"/>
+    <include refid="selectorWhere"/>
+    <include refid="selectorOrder"/>
+  </select>
+
+  <!-- 分页 -->
+  <select id="selectListPage"
+    parameterType="com.cachexic.cloud.feign.order.entity.query.TeacherQuery"
+    resultMap="teacher">
+    <include refid="selectorFields"/>
+    <include refid="selectorWhere"/>
+    <include refid="selectorOrder"/>
+    <include refid="selectorLimit"/>
+  </select>
+
+  <!--总条数-->
+  <select id="selectListTotal"
+    parameterType="com.cachexic.cloud.feign.order.entity.query.TeacherQuery"
+    resultType="long">
+    select count(id) from
+    <include refid="table"/>
+    <include refid="selectorWhere"/>
+  </select>
+
+  <!--///////////////////////////////自定义/////////////////////////-->
 </mapper>

@@ -10,21 +10,21 @@ import java.util.List;
  */
 public class IdsUtil {
 
-    public static List<String> listString(String ids) {
-        List<String> idList = Lists.newArrayList();
-        String[] split = ids.split(",");
-        for(String strId:split){
-            idList.add(strId);
-        }
-        return idList;
+  public static List<String> listString(String ids) {
+    List<String> idList = Lists.newArrayList();
+    String[] split = ids.split(",");
+    for (String strId : split) {
+      idList.add(strId);
     }
+    return idList;
+  }
 
-    public static List<Long> listLong(String ids) {
-        List<Long> idList = Lists.newArrayList();
-        String[] split = ids.split(",");
-        for(String strId:split){
-            idList.add(Long.parseLong(strId));
-        }
-        return idList;
+  public static List<Long> listLong(String ids) {
+    List<Long> idList = Lists.newArrayList();
+    String[] split = ids.split(",");
+    for (String strId : split) {
+      idList.add(Long.parseLong(strId));
     }
+    return idList;
+  }
 }

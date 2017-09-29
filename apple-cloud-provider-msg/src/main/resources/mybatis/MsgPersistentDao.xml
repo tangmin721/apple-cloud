@@ -1,276 +1,311 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.cachexic.cloud.provider.msg.dao.MsgPersistentDao">
 
-    <sql id="table"> t_msg_persistent </sql>
-    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,consumer_queue,topic,tag,msg_id,mq_msg_id,msg_class_name,msg_body,msg_send_times,already_dead,msg_status,field_long1,field_long2,field_string1,field_string2 </sql>
-
-    <resultMap id="msgPersistent" type="com.cachexic.cloud.feign.msg.entity.MsgPersistent">
-        <result property="id" column="id" />
-        <result property="version" column="version" />
-        <result property="createTime" column="create_time" />
-        <result property="createUserId" column="create_user_id" />
-        <result property="createUserName" column="create_user_name" />
-        <result property="updateTime" column="update_time" />
-        <result property="updateUserId" column="update_user_id" />
-        <result property="updateUserName" column="update_user_name" />
-        <result property="status" column="status" />
-        <result property="consumerQueue" column="consumer_queue" />
-        <result property="topic" column="topic" />
-        <result property="tag" column="tag" />
-        <result property="msgId" column="msg_id" />
-        <result property="mqMsgId" column="mq_msg_id" />
-        <result property="msgClassName" column="msg_class_name" />
-        <result property="msgBody" column="msg_body" />
-        <result property="msgSendTimes" column="msg_send_times" />
-        <result property="alreadyDead" column="already_dead" />
-        <result property="msgStatus" column="msg_status" />
-        <result property="fieldLong1" column="field_long1" />
-        <result property="fieldLong2" column="field_long2" />
-        <result property="fieldString1" column="field_string1" />
-        <result property="fieldString2" column="field_string2" />
-    </resultMap>
-
-    <!--单条插入-->
-    <insert id="insert" parameterType="com.cachexic.cloud.feign.msg.entity.MsgPersistent" keyProperty="id" useGeneratedKeys="true">
-        insert into
-        <include refid="table" />
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            create_time,create_user_id,create_user_name,status,
-            <if test="consumerQueue != null and consumerQueue !=''">consumer_queue,</if>
-            <if test="topic != null and topic !=''">topic,</if>
-            <if test="tag != null and tag !=''">tag,</if>
-            <if test="msgId != null and msgId !=''">msg_id,</if>
-            <if test="mqMsgId != null and mqMsgId !=''">mq_msg_id,</if>
-            <if test="msgClassName != null and msgClassName !=''">msg_class_name,</if>
-            <if test="msgBody != null and msgBody !=''">msg_body,</if>
-            <if test="msgSendTimes != null ">msg_send_times,</if>
-            <if test="alreadyDead != null ">already_dead,</if>
-            <if test="msgStatus != null ">msg_status,</if>
-            <if test="fieldLong1 != null ">field_long1,</if>
-            <if test="fieldLong2 != null ">field_long2,</if>
-            <if test="fieldString1 != null and fieldString1 !=''">field_string1,</if>
-            <if test="fieldString2 != null and fieldString2 !=''">field_string2</if>
-        </trim>
-        values
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            now(),#{createUserId},#{createUserName},'normal',
-            <if test="consumerQueue != null and consumerQueue !=''">#{consumerQueue},</if>
-            <if test="topic != null and topic !=''">#{topic},</if>
-            <if test="tag != null and tag !=''">#{tag},</if>
-            <if test="msgId != null and msgId !=''">#{msgId},</if>
-            <if test="mqMsgId != null and mqMsgId !=''">#{mqMsgId},</if>
-            <if test="msgClassName != null and msgClassName !=''">#{msgClassName},</if>
-            <if test="msgBody != null and msgBody !=''">#{msgBody},</if>
-            <if test="msgSendTimes != null ">#{msgSendTimes},</if>
-            <if test="alreadyDead != null ">#{alreadyDead},</if>
-            <if test="msgStatus != null ">#{msgStatus},</if>
-            <if test="fieldLong1 != null ">#{fieldLong1},</if>
-            <if test="fieldLong2 != null ">#{fieldLong2},</if>
-            <if test="fieldString1 != null and fieldString1 !=''">#{fieldString1},</if>
-            <if test="fieldString2 != null and fieldString2 !=''">#{fieldString2}</if>
-        </trim>
-    </insert>
-
-    <!--批量插入-->
-    <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true">
-        insert into <include refid="table"/>
-        (<include refid="columns"/>)
-        values
-        <foreach collection="list" item="item" index="index" separator=",">
-            (null,0,now(),#{item.createUserId},#{item.createUserName},null,null,'','normal',#{item.consumerQueue},#{item.topic},#{item.tag},#{item.msgId},#{item.mqMsgId},#{item.msgClassName},#{item.msgBody},#{item.msgSendTimes},#{item.alreadyDead},#{item.msgStatus},#{item.fieldLong1},#{item.fieldLong2},#{item.fieldString1},#{item.fieldString2})
-        </foreach>
-    </insert>
-
-    <!-- 根据主键查询 -->
-    <select id="selectById" resultMap="msgPersistent">
-        <include refid="selectorFields" />
-        where
-        id=#{id}
-    </select>
-
-    <!-- 根据主键批量查询 -->
-    <select id="selectByIds" resultMap="msgPersistent" >
-        <include refid="selectorFields" />
-        where id in
-        <foreach collection="ids" separator="," item="id" open="(" close=")">
-            #{id}
-        </foreach>
-    </select>
-
-    <!-- 单条更新 -->
-    <update id="update" parameterType="com.cachexic.cloud.feign.msg.entity.MsgPersistent">
-        update
-        <include refid="table" />
-        <set>
-            version = version+1,
-            <if test="status != null">status = #{status},</if>
-            update_time = now(),
-            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
-            <if test="consumerQueue != null and consumerQueue !=''">consumer_queue = #{consumerQueue},</if>
-            <if test="topic != null and topic !=''">topic = #{topic},</if>
-            <if test="tag != null and tag !=''">tag = #{tag},</if>
-            <if test="msgId != null and msgId !=''">msg_id = #{msgId},</if>
-            <if test="mqMsgId != null and mqMsgId !=''">mq_msg_id = #{mqMsgId},</if>
-            <if test="msgClassName != null and msgClassName !=''">msg_class_name = #{msgClassName},</if>
-            <if test="msgBody != null and msgBody !=''">msg_body = #{msgBody},</if>
-            <if test="msgSendTimes != null ">msg_send_times = #{msgSendTimes},</if>
-            <if test="alreadyDead != null ">already_dead = #{alreadyDead},</if>
-            <if test="msgStatus != null ">msg_status = #{msgStatus},</if>
-            <if test="fieldLong1 != null ">field_long1 = #{fieldLong1},</if>
-            <if test="fieldLong2 != null ">field_long2 = #{fieldLong2},</if>
-            <if test="fieldString1 != null and fieldString1 !=''">field_string1 = #{fieldString1},</if>
-            <if test="fieldString2 != null and fieldString2 !=''">field_string2 = #{fieldString2}</if>
-        </set>
-        <where>
-            id = #{id} 
-        </where>
-    </update>
-
-    <!-- 根据id假删除 -->
-    <update id="deleteById">
-        update <include refid="table" />
-        <set>
-            version = version+1,status='deleted',update_time = now(),
-            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
-        </set>
-        <where>
-            id = #{id} 
-        </where>
-    </update>
-
-    <!-- 根据主键批量假删除 -->
-    <update id="deleteByIds">
-        update <include refid="table" />
-        <set>
-            version = version+1,status='deleted',update_time = now(),
-            <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
-        </set>
-        <where>
-            in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
-        </where>
-    </update>
-
-    <!-- 根据id彻底删除 -->
-    <delete id="removeById" parameterType="long">
-        delete from <include refid="table" /> where id=#{id}
-    </delete>
-
-    <!-- 根据主键批量彻底删除 -->
-    <delete id="removeByIds" parameterType="java.util.List">
-        delete from <include refid="table" /> where id in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
-    </delete>
-
-    <!--片段list字段查询器-->
-    <sql id="selectorFields">
-        select
-        <if test="fields != null and fields !=''">
-            ${fields}
-        </if>
-        <if test="fields == null or fields == ''">
-            *
-        </if>
-        from  <include refid="table" />
+  <sql id="table">t_msg_persistent</sql>
+  <sql id="columns">
+        id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,consumer_queue,topic,tag,msg_id,mq_msg_id,msg_class_name,msg_body,msg_send_times,already_dead,msg_status,field_long1,field_long2,field_string1,field_string2
     </sql>
 
-    <!--片段list条件判断 注意:如果用 like查询，建议去掉前面的'%'，不然索引无效-->
-    <sql id="selectorWhere">
-        <where>
-            <if test="status != null"> and status=#{status} </if>
-            <if test="startCreateTime != null"> and create_time <![CDATA[   >=  ]]>#{startCreateTime} </if>
-            <if test="endCreateTime != null"> and  create_time <![CDATA[   <  ]]> #{endCreateTime} </if>
-            <if test="startUpdateTime != null"> and update_time <![CDATA[   >=  ]]>#{startUpdateTime} </if>
-            <if test="endUpdateTime != null"> and  update_time <![CDATA[   <  ]]> #{endUpdateTime} </if>
-            <if test="createUserId != null">and createUserId=#{createUserId} </if>
-            <if test="updateUserId != null">and updateUserId=#{updateUserId} </if>
-            <if test="consumerQueue != null and consumerQueue !=''">
-                <if test="consumerQueueLike == false"> and consumer_queue=#{consumerQueue}</if>
-                <if test="consumerQueueLike == true"> and consumer_queue like  CONCAT('%',#{consumerQueue},'%')</if>
-            </if>
-            <if test="topic != null and topic !=''">
-                <if test="topicLike == false"> and topic=#{topic}</if>
-                <if test="topicLike == true"> and topic like  CONCAT('%',#{topic},'%')</if>
-            </if>
-            <if test="tag != null and tag !=''">
-                <if test="tagLike == false"> and tag=#{tag}</if>
-                <if test="tagLike == true"> and tag like  CONCAT('%',#{tag},'%')</if>
-            </if>
-            <if test="msgId != null and msgId !=''">
-                <if test="msgIdLike == false"> and msg_id=#{msgId}</if>
-                <if test="msgIdLike == true"> and msg_id like  CONCAT('%',#{msgId},'%')</if>
-            </if>
-            <if test="mqMsgId != null and mqMsgId !=''">
-                <if test="mqMsgIdLike == false"> and mq_msg_id=#{mqMsgId}</if>
-                <if test="mqMsgIdLike == true"> and mq_msg_id like  CONCAT('%',#{mqMsgId},'%')</if>
-            </if>
-            <if test="msgClassName != null and msgClassName !=''">
-                <if test="msgClassNameLike == false"> and msg_class_name=#{msgClassName}</if>
-                <if test="msgClassNameLike == true"> and msg_class_name like  CONCAT('%',#{msgClassName},'%')</if>
-            </if>
-            <if test="msgBody != null and msgBody !=''">
-                <if test="msgBodyLike == false"> and msg_body=#{msgBody}</if>
-                <if test="msgBodyLike == true"> and msg_body like  CONCAT('%',#{msgBody},'%')</if>
-            </if>
-            <if test="msgSendTimes != null "> and msg_send_times=#{msgSendTimes}</if>
-            <if test="alreadyDead != null "> and already_dead=#{alreadyDead}</if>
-            <if test="msgStatus != null "> and msg_status=#{msgStatus}</if>
-            <if test="fieldLong1 != null "> and field_long1=#{fieldLong1}</if>
-            <if test="fieldLong2 != null "> and field_long2=#{fieldLong2}</if>
-            <if test="fieldString1 != null and fieldString1 !=''">
-                <if test="fieldString1Like == false"> and field_string1=#{fieldString1}</if>
-                <if test="fieldString1Like == true"> and field_string1 like  CONCAT('%',#{fieldString1},'%')</if>
-            </if>
-            <if test="fieldString2 != null and fieldString2 !=''">
-                <if test="fieldString2Like == false"> and field_string2=#{fieldString2}</if>
-                <if test="fieldString2Like == true"> and field_string2 like  CONCAT('%',#{fieldString2},'%')</if>
-            </if>
-            <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
-            <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
-            -->
-        </where>
-    </sql>
+  <resultMap id="msgPersistent" type="com.cachexic.cloud.feign.msg.entity.MsgPersistent">
+    <result property="id" column="id"/>
+    <result property="version" column="version"/>
+    <result property="createTime" column="create_time"/>
+    <result property="createUserId" column="create_user_id"/>
+    <result property="createUserName" column="create_user_name"/>
+    <result property="updateTime" column="update_time"/>
+    <result property="updateUserId" column="update_user_id"/>
+    <result property="updateUserName" column="update_user_name"/>
+    <result property="status" column="status"/>
+    <result property="consumerQueue" column="consumer_queue"/>
+    <result property="topic" column="topic"/>
+    <result property="tag" column="tag"/>
+    <result property="msgId" column="msg_id"/>
+    <result property="mqMsgId" column="mq_msg_id"/>
+    <result property="msgClassName" column="msg_class_name"/>
+    <result property="msgBody" column="msg_body"/>
+    <result property="msgSendTimes" column="msg_send_times"/>
+    <result property="alreadyDead" column="already_dead"/>
+    <result property="msgStatus" column="msg_status"/>
+    <result property="fieldLong1" column="field_long1"/>
+    <result property="fieldLong2" column="field_long2"/>
+    <result property="fieldString1" column="field_string1"/>
+    <result property="fieldString2" column="field_string2"/>
+  </resultMap>
 
-    <!--片段list排序-->
-    <sql id="selectorOrder">
-        <if test="orderFields != null and orderFields.size >0">
-            order by
-            <foreach collection="orderFields" separator="," item="orderField">
-                ${orderField.fieldName} ${orderField.order}
-            </foreach>
+  <!--单条插入-->
+  <insert id="insert" parameterType="com.cachexic.cloud.feign.msg.entity.MsgPersistent"
+    keyProperty="id"
+    useGeneratedKeys="true">
+    insert into
+    <include refid="table"/>
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      create_time,create_user_id,create_user_name,status,
+      <if test="consumerQueue != null and consumerQueue !=''">consumer_queue,</if>
+      <if test="topic != null and topic !=''">topic,</if>
+      <if test="tag != null and tag !=''">tag,</if>
+      <if test="msgId != null and msgId !=''">msg_id,</if>
+      <if test="mqMsgId != null and mqMsgId !=''">mq_msg_id,</if>
+      <if test="msgClassName != null and msgClassName !=''">msg_class_name,</if>
+      <if test="msgBody != null and msgBody !=''">msg_body,</if>
+      <if test="msgSendTimes != null ">msg_send_times,</if>
+      <if test="alreadyDead != null ">already_dead,</if>
+      <if test="msgStatus != null ">msg_status,</if>
+      <if test="fieldLong1 != null ">field_long1,</if>
+      <if test="fieldLong2 != null ">field_long2,</if>
+      <if test="fieldString1 != null and fieldString1 !=''">field_string1,</if>
+      <if test="fieldString2 != null and fieldString2 !=''">field_string2</if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      now(),#{createUserId},#{createUserName},'normal',
+      <if test="consumerQueue != null and consumerQueue !=''">#{consumerQueue},</if>
+      <if test="topic != null and topic !=''">#{topic},</if>
+      <if test="tag != null and tag !=''">#{tag},</if>
+      <if test="msgId != null and msgId !=''">#{msgId},</if>
+      <if test="mqMsgId != null and mqMsgId !=''">#{mqMsgId},</if>
+      <if test="msgClassName != null and msgClassName !=''">#{msgClassName},</if>
+      <if test="msgBody != null and msgBody !=''">#{msgBody},</if>
+      <if test="msgSendTimes != null ">#{msgSendTimes},</if>
+      <if test="alreadyDead != null ">#{alreadyDead},</if>
+      <if test="msgStatus != null ">#{msgStatus},</if>
+      <if test="fieldLong1 != null ">#{fieldLong1},</if>
+      <if test="fieldLong2 != null ">#{fieldLong2},</if>
+      <if test="fieldString1 != null and fieldString1 !=''">#{fieldString1},</if>
+      <if test="fieldString2 != null and fieldString2 !=''">#{fieldString2}</if>
+    </trim>
+  </insert>
+
+  <!--批量插入-->
+  <insert id="insertBatch" parameterType="java.util.List" useGeneratedKeys="true">
+    insert into
+    <include refid="table"/>
+    (<include refid="columns"/>)
+    values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (null,0,now(),#{item.createUserId},#{item.createUserName},null,null,'','normal',#{item.consumerQueue},#{item.topic},#{item.tag},#{item.msgId},#{item.mqMsgId},#{item.msgClassName},#{item.msgBody},#{item.msgSendTimes},#{item.alreadyDead},#{item.msgStatus},#{item.fieldLong1},#{item.fieldLong2},#{item.fieldString1},#{item.fieldString2})
+    </foreach>
+  </insert>
+
+  <!-- 根据主键查询 -->
+  <select id="selectById" resultMap="msgPersistent">
+    <include refid="selectorFields"/>
+    where
+    id=#{id}
+  </select>
+
+  <!-- 根据主键批量查询 -->
+  <select id="selectByIds" resultMap="msgPersistent">
+    <include refid="selectorFields"/>
+    where id in
+    <foreach collection="ids" separator="," item="id" open="(" close=")">
+      #{id}
+    </foreach>
+  </select>
+
+  <!-- 单条更新 -->
+  <update id="update" parameterType="com.cachexic.cloud.feign.msg.entity.MsgPersistent">
+    update
+    <include refid="table"/>
+    <set>
+      version = version+1,
+      <if test="status != null">status = #{status},</if>
+      update_time = now(),
+      <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+      <if test="updateUserName != null and updateUserName !=''">update_user_name =
+        #{updateUserName},
+      </if>
+      <if test="consumerQueue != null and consumerQueue !=''">consumer_queue = #{consumerQueue},
+      </if>
+      <if test="topic != null and topic !=''">topic = #{topic},</if>
+      <if test="tag != null and tag !=''">tag = #{tag},</if>
+      <if test="msgId != null and msgId !=''">msg_id = #{msgId},</if>
+      <if test="mqMsgId != null and mqMsgId !=''">mq_msg_id = #{mqMsgId},</if>
+      <if test="msgClassName != null and msgClassName !=''">msg_class_name = #{msgClassName},</if>
+      <if test="msgBody != null and msgBody !=''">msg_body = #{msgBody},</if>
+      <if test="msgSendTimes != null ">msg_send_times = #{msgSendTimes},</if>
+      <if test="alreadyDead != null ">already_dead = #{alreadyDead},</if>
+      <if test="msgStatus != null ">msg_status = #{msgStatus},</if>
+      <if test="fieldLong1 != null ">field_long1 = #{fieldLong1},</if>
+      <if test="fieldLong2 != null ">field_long2 = #{fieldLong2},</if>
+      <if test="fieldString1 != null and fieldString1 !=''">field_string1 = #{fieldString1},</if>
+      <if test="fieldString2 != null and fieldString2 !=''">field_string2 = #{fieldString2}</if>
+    </set>
+    <where>
+      id = #{id}
+    </where>
+  </update>
+
+  <!-- 根据id假删除 -->
+  <update id="deleteById">
+    update
+    <include refid="table"/>
+    <set>
+      version = version+1,status='deleted',update_time = now(),
+      <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+      <if test="updateUserName != null and updateUserName !=''">update_user_name =
+        #{updateUserName},
+      </if>
+    </set>
+    <where>
+      id = #{id}
+    </where>
+  </update>
+
+  <!-- 根据主键批量假删除 -->
+  <update id="deleteByIds">
+    update
+    <include refid="table"/>
+    <set>
+      version = version+1,status='deleted',update_time = now(),
+      <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
+      <if test="updateUserName != null and updateUserName !=''">update_user_name =
+        #{updateUserName},
+      </if>
+    </set>
+    <where>
+      in
+      <foreach collection="list" separator="," item="id" open="(" close=")">#{id}</foreach>
+    </where>
+  </update>
+
+  <!-- 根据id彻底删除 -->
+  <delete id="removeById" parameterType="long">
+    delete from
+    <include refid="table"/>
+    where id=#{id}
+  </delete>
+
+  <!-- 根据主键批量彻底删除 -->
+  <delete id="removeByIds" parameterType="java.util.List">
+    delete from
+    <include refid="table"/>
+    where id in
+    <foreach collection="list" separator="," item="id" open="(" close=")">#{id}</foreach>
+  </delete>
+
+  <!--片段list字段查询器-->
+  <sql id="selectorFields">
+    select
+    <if test="fields != null and fields !=''">
+      ${fields}
+    </if>
+    <if test="fields == null or fields == ''">
+      *
+    </if>
+    from
+    <include refid="table"/>
+  </sql>
+
+  <!--片段list条件判断 注意:如果用 like查询，建议去掉前面的'%'，不然索引无效-->
+  <sql id="selectorWhere">
+    <where>
+      <if test="status != null">and status=#{status}</if>
+      <if test="startCreateTime != null">and create_time <![CDATA[   >=  ]]>#{startCreateTime}</if>
+      <if test="endCreateTime != null">and create_time <![CDATA[   <  ]]> #{endCreateTime}</if>
+      <if test="startUpdateTime != null">and update_time <![CDATA[   >=  ]]>#{startUpdateTime}</if>
+      <if test="endUpdateTime != null">and update_time <![CDATA[   <  ]]> #{endUpdateTime}</if>
+      <if test="createUserId != null">and createUserId=#{createUserId}</if>
+      <if test="updateUserId != null">and updateUserId=#{updateUserId}</if>
+      <if test="consumerQueue != null and consumerQueue !=''">
+        <if test="consumerQueueLike == false">and consumer_queue=#{consumerQueue}</if>
+        <if test="consumerQueueLike == true">and consumer_queue like
+          CONCAT('%',#{consumerQueue},'%')
         </if>
-    </sql>
-
-    <!--片段list分页-->
-    <sql id="selectorLimit">
-        <if test="startRow != null">
-            limit  #{startRow},#{pageSize}
+      </if>
+      <if test="topic != null and topic !=''">
+        <if test="topicLike == false">and topic=#{topic}</if>
+        <if test="topicLike == true">and topic like CONCAT('%',#{topic},'%')</if>
+      </if>
+      <if test="tag != null and tag !=''">
+        <if test="tagLike == false">and tag=#{tag}</if>
+        <if test="tagLike == true">and tag like CONCAT('%',#{tag},'%')</if>
+      </if>
+      <if test="msgId != null and msgId !=''">
+        <if test="msgIdLike == false">and msg_id=#{msgId}</if>
+        <if test="msgIdLike == true">and msg_id like CONCAT('%',#{msgId},'%')</if>
+      </if>
+      <if test="mqMsgId != null and mqMsgId !=''">
+        <if test="mqMsgIdLike == false">and mq_msg_id=#{mqMsgId}</if>
+        <if test="mqMsgIdLike == true">and mq_msg_id like CONCAT('%',#{mqMsgId},'%')</if>
+      </if>
+      <if test="msgClassName != null and msgClassName !=''">
+        <if test="msgClassNameLike == false">and msg_class_name=#{msgClassName}</if>
+        <if test="msgClassNameLike == true">and msg_class_name like
+          CONCAT('%',#{msgClassName},'%')
         </if>
-    </sql>
+      </if>
+      <if test="msgBody != null and msgBody !=''">
+        <if test="msgBodyLike == false">and msg_body=#{msgBody}</if>
+        <if test="msgBodyLike == true">and msg_body like CONCAT('%',#{msgBody},'%')</if>
+      </if>
+      <if test="msgSendTimes != null ">and msg_send_times=#{msgSendTimes}</if>
+      <if test="alreadyDead != null ">and already_dead=#{alreadyDead}</if>
+      <if test="msgStatus != null ">and msg_status=#{msgStatus}</if>
+      <if test="fieldLong1 != null ">and field_long1=#{fieldLong1}</if>
+      <if test="fieldLong2 != null ">and field_long2=#{fieldLong2}</if>
+      <if test="fieldString1 != null and fieldString1 !=''">
+        <if test="fieldString1Like == false">and field_string1=#{fieldString1}</if>
+        <if test="fieldString1Like == true">and field_string1 like CONCAT('%',#{fieldString1},'%')
+        </if>
+      </if>
+      <if test="fieldString2 != null and fieldString2 !=''">
+        <if test="fieldString2Like == false">and field_string2=#{fieldString2}</if>
+        <if test="fieldString2Like == true">and field_string2 like CONCAT('%',#{fieldString2},'%')
+        </if>
+      </if>
+      <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
+      <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
+      -->
+    </where>
+  </sql>
 
-    <!--查询所有记录-->
-    <select id="selectList" parameterType="com.cachexic.cloud.feign.msg.entity.query.MsgPersistentQuery" resultMap="msgPersistent">
-        <include refid="selectorFields" />
-        <include refid="selectorWhere" />
-        <include refid="selectorOrder" />
-    </select>
+  <!--片段list排序-->
+  <sql id="selectorOrder">
+    <if test="orderFields != null and orderFields.size >0">
+      order by
+      <foreach collection="orderFields" separator="," item="orderField">
+        ${orderField.fieldName} ${orderField.order}
+      </foreach>
+    </if>
+  </sql>
 
-    <!-- 分页 -->
-    <select id="selectListPage" parameterType="com.cachexic.cloud.feign.msg.entity.query.MsgPersistentQuery" resultMap="msgPersistent">
-        <include refid="selectorFields" />
-        <include refid="selectorWhere" />
-        <include refid="selectorOrder" />
-        <include refid="selectorLimit" />
-    </select>
+  <!--片段list分页-->
+  <sql id="selectorLimit">
+    <if test="startRow != null">
+      limit #{startRow},#{pageSize}
+    </if>
+  </sql>
 
-    <!--总条数-->
-    <select id="selectListTotal" parameterType="com.cachexic.cloud.feign.msg.entity.query.MsgPersistentQuery" resultType="long">
-        select count(id) from <include refid="table" />
-        <include refid="selectorWhere" />
-    </select>
+  <!--查询所有记录-->
+  <select id="selectList"
+    parameterType="com.cachexic.cloud.feign.msg.entity.query.MsgPersistentQuery"
+    resultMap="msgPersistent">
+    <include refid="selectorFields"/>
+    <include refid="selectorWhere"/>
+    <include refid="selectorOrder"/>
+  </select>
 
-    <!--///////////////////////////////自定义/////////////////////////-->
+  <!-- 分页 -->
+  <select id="selectListPage"
+    parameterType="com.cachexic.cloud.feign.msg.entity.query.MsgPersistentQuery"
+    resultMap="msgPersistent">
+    <include refid="selectorFields"/>
+    <include refid="selectorWhere"/>
+    <include refid="selectorOrder"/>
+    <include refid="selectorLimit"/>
+  </select>
+
+  <!--总条数-->
+  <select id="selectListTotal"
+    parameterType="com.cachexic.cloud.feign.msg.entity.query.MsgPersistentQuery"
+    resultType="long">
+    select count(id) from
+    <include refid="table"/>
+    <include refid="selectorWhere"/>
+  </select>
+
+  <!--///////////////////////////////自定义/////////////////////////-->
 </mapper>

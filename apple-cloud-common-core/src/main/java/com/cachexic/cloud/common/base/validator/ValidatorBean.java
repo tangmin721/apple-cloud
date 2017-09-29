@@ -9,32 +9,32 @@ import java.io.Serializable;
  */
 public class ValidatorBean implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * 字段名
-     */
-    private String filed;
+  /**
+   * 字段名
+   */
+  private String filed;
 
-    /**
-     * 错误信息
-     */
-    private String errorMsg;
+  /**
+   * 错误信息
+   */
+  private String errorMsg;
 
-    public String getFiled() {
-        return filed;
-    }
+  public String getFiled() {
+    return filed;
+  }
 
-    public void setFiled(String filed) {
-        this.filed = filed;
-    }
+  public void setFiled(String filed) {
+    this.filed = filed;
+  }
 
-    public String getErrorMsg() {
-        return errorMsg;
-    }
+  public String getErrorMsg() {
+    return errorMsg;
+  }
 
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
-    }
+  public void setErrorMsg(String errorMsg) {
+    this.errorMsg = errorMsg;
+  }
 
 }

@@ -8,13 +8,12 @@ package com.cachexic.cloud.generator.tmplate;
  */
 public class MysqlDDLGenerator extends TemplateCodeGenerator {
 
-
-    @Override
-    public String getTemplateFile() {
-        /**
-         * 模板文件
-         */
-        return "/template/mysql_ddl.ftl";
-    }
+  @Override
+  public String getTemplateFile() {
+    /**
+     * 模板文件
+     */
+    return "/template/mysql_ddl.ftl";
+  }
 
 }

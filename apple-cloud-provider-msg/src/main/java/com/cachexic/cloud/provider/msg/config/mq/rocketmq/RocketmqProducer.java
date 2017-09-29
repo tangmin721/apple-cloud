@@ -25,65 +25,62 @@ import org.springframework.stereotype.Service;
 @Service("rocketmqProducer")
 public class RocketmqProducer implements Producer {
 
-    private static final Logger log = LoggerFactory.getLogger(RocketmqProducer.class);
+  private static final Logger log = LoggerFactory.getLogger(RocketmqProducer.class);
 
-    @Autowired
-    private DefaultMQProducer producer;
+  @Autowired
+  private DefaultMQProducer producer;
 
-    /**
-     * 同步发送消息
-     * @param msgPersistent
-     * @return
-     */
-    @Override
-    public String send(MsgPersistent msgPersistent) {
-        String mqMsgId = "";
-        try {
-            Message msg = new Message(msgPersistent.getTopic() /* Topic */,
-                msgPersistent.getTag()/* Tag */,
-                (msgPersistent.getMsgBody()).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
-            );
-            SendResult sendResult = producer.send(msg);
-            log.debug(JsonUtil.toJson(sendResult));
-            if(sendResult.getSendStatus().equals(SendStatus.SEND_OK)){
-                mqMsgId = sendResult.getMsgId();
-            }else {
-                throw new MsgBizException(MsgBizExceptionEnum.SEND_MESSAGE_RESULT_IS_NOTOK);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new MsgBizException(MsgBizExceptionEnum.MQ_CLIENT_EXCEPTION);
-        }
-        return mqMsgId;
+  /**
+   * 同步发送消息
+   */
+  @Override
+  public String send(MsgPersistent msgPersistent) {
+    String mqMsgId = "";
+    try {
+      Message msg = new Message(msgPersistent.getTopic() /* Topic */,
+          msgPersistent.getTag()/* Tag */,
+          (msgPersistent.getMsgBody()).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
+      );
+      SendResult sendResult = producer.send(msg);
+      log.debug(JsonUtil.toJson(sendResult));
+      if (sendResult.getSendStatus().equals(SendStatus.SEND_OK)) {
+        mqMsgId = sendResult.getMsgId();
+      } else {
+        throw new MsgBizException(MsgBizExceptionEnum.SEND_MESSAGE_RESULT_IS_NOTOK);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      throw new MsgBizException(MsgBizExceptionEnum.MQ_CLIENT_EXCEPTION);
     }
+    return mqMsgId;
+  }
 
-    /**
-     * 异步发送消息
-     * @param msgPersistent
-     * @return
-     */
-    public String sendAsync(MsgPersistent msgPersistent) {
-        producer.setRetryTimesWhenSendAsyncFailed(0);
-        try {
-            Message msg = new Message(msgPersistent.getTopic() /* Topic */,
-                msgPersistent.getTag()/* Tag */,
-                (msgPersistent.getMsgBody()).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
-            );
-            producer.send(msg, new SendCallback() {
-                @Override
-                public void onSuccess(SendResult sendResult) {
-                    System.out.println(sendResult.getMsgId());
-                }
-                @Override
-                public void onException(Throwable e) {
-                    e.printStackTrace();
-                }
-            });
-
-        } catch (Exception e) {
-            throw new MsgBizException(MsgBizExceptionEnum.MQ_CLIENT_EXCEPTION);
+  /**
+   * 异步发送消息
+   */
+  public String sendAsync(MsgPersistent msgPersistent) {
+    producer.setRetryTimesWhenSendAsyncFailed(0);
+    try {
+      Message msg = new Message(msgPersistent.getTopic() /* Topic */,
+          msgPersistent.getTag()/* Tag */,
+          (msgPersistent.getMsgBody()).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
+      );
+      producer.send(msg, new SendCallback() {
+        @Override
+        public void onSuccess(SendResult sendResult) {
+          System.out.println(sendResult.getMsgId());
         }
-        return UUIDUtil.get32UUID();
+
+        @Override
+        public void onException(Throwable e) {
+          e.printStackTrace();
+        }
+      });
+
+    } catch (Exception e) {
+      throw new MsgBizException(MsgBizExceptionEnum.MQ_CLIENT_EXCEPTION);
     }
+    return UUIDUtil.get32UUID();
+  }
 
 }

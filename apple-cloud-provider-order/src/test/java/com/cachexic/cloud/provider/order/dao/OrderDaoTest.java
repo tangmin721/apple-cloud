@@ -20,49 +20,48 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("dev")
 public class OrderDaoTest extends TestParent {
 
-    @Value("${eureka.instance.client.serviceUrl.defaultZone}")
-    private String defaultZone;
+  @Value("${eureka.instance.client.serviceUrl.defaultZone}")
+  private String defaultZone;
 
-    @Autowired
-    private OrderDao orderDao;
+  @Autowired
+  private OrderDao orderDao;
 
-    @Autowired
-    private OrderService orderService;
+  @Autowired
+  private OrderService orderService;
 
-    @Autowired
-    private RedisService redisService;
+  @Autowired
+  private RedisService redisService;
 
-    //测试validator
-    private static Validator validator;
+  //测试validator
+  private static Validator validator;
 
-    @Before
-    public void setUpValidator() {
-        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-        validator = factory.getValidator();
+  @Before
+  public void setUpValidator() {
+    ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+    validator = factory.getValidator();
+  }
+
+  @Test
+  public void insert() throws Exception {
+
+    for (long i = 1; i < 11; i++) {
+      Order order = new Order();
+      order.setUserId(i);
+      order.setOrderSn(UUIDUtil.get32UUID());
+      order.setCreateUserId(i);
+      orderDao.insert(order);
     }
+  }
 
-    @Test
-    public void insert() throws Exception {
+  @Test
+  public void defaultZone() throws Exception {
+    System.out.println(defaultZone);
+  }
 
-        for (long i = 1; i < 11; i++) {
-            Order order = new Order();
-            order.setUserId(i);
-            order.setOrderSn(UUIDUtil.get32UUID());
-            order.setCreateUserId(i);
-            orderDao.insert(order);
-        }
-    }
-
-
-    @Test
-    public void defaultZone() throws Exception {
-        System.out.println(defaultZone);
-    }
-
-    @Test
-    public void redisService() throws Exception {
-        //System.out.println(redisService.keys("*"));
-        //orderService.testRedis();
-    }
+  @Test
+  public void redisService() throws Exception {
+    //System.out.println(redisService.keys("*"));
+    //orderService.testRedis();
+  }
 
 }

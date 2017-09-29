@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <!-- ==================================================================== -->
-    <!-- 所有配置的顶级配置，主要定义一些公共的属性，比如eureka，ribbon配置，hystrix配置等的配置文件-->
-    <!-- 属性优先级yml>properties -->
-    <!-- ==================================================================== -->
-    <parent>
-        <artifactId>apple-cloud-all-parent</artifactId>
-        <groupId>com.cachexic</groupId>
-        <version>0.1.0</version>
-        <relativePath>../apple-cloud-all-parent/pom.xml</relativePath>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- ==================================================================== -->
+  <!-- 所有配置的顶级配置，主要定义一些公共的属性，比如eureka，ribbon配置，hystrix配置等的配置文件-->
+  <!-- 属性优先级yml>properties -->
+  <!-- ==================================================================== -->
+  <parent>
+    <artifactId>apple-cloud-all-parent</artifactId>
+    <groupId>com.cachexic</groupId>
+    <version>0.1.0</version>
+    <relativePath>../apple-cloud-all-parent/pom.xml</relativePath>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>apple-cloud-common-config</artifactId>
+  <artifactId>apple-cloud-common-config</artifactId>
 
-    
+
 </project>

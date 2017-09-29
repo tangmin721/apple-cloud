@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 /**
  * 持久化消息管理
+ *
  * @author tangmin
  * @date 2017-09-12 19:01:50
  */
 @Service
-public class MsgPersistentServiceImpl extends BaseServiceImpl<MsgPersistent, MsgPersistentQuery> implements MsgPersistentService {
+public class MsgPersistentServiceImpl extends
+    BaseServiceImpl<MsgPersistent, MsgPersistentQuery> implements MsgPersistentService {
 
 }

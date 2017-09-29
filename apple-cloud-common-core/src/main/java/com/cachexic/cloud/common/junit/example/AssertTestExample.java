@@ -15,29 +15,29 @@ import static org.junit.Assert.*;
  */
 public class AssertTestExample extends TestParent {
 
-    @Test(expected = BizException.class)
-    public void staticImportAssertAndMockito(){
-        assertFalse(false);
-        assertFalse("error reson...",false);
+  @Test(expected = BizException.class)
+  public void staticImportAssertAndMockito() {
+    assertFalse(false);
+    assertFalse("error reson...", false);
 
-        assertTrue(true);
-        assertTrue("error reson...",true);
+    assertTrue(true);
+    assertTrue("error reson...", true);
 
-        assertThat(1, is(1));
-        assertThat("error ..reason",1, is(1));
+    assertThat(1, is(1));
+    assertThat("error ..reason", 1, is(1));
 
-        assertEquals("ABC","ABC");
-        assertNotEquals("abc","ABC");
+    assertEquals("ABC", "ABC");
+    assertNotEquals("abc", "ABC");
 
-        assertNull(null);
-        assertNotNull(new Object());
+    assertNull(null);
+    assertNotNull(new Object());
 
-        Object o = new Object();
-        Object o1 = o;
-        assertSame(o,o1);
-        assertNotSame(new Object(),new Object());
+    Object o = new Object();
+    Object o1 = o;
+    assertSame(o, o1);
+    assertNotSame(new Object(), new Object());
 
-        BizPreconditions.checkState(false);
-        BizPreconditions.checkState(false,"密码错误");
-    }
+    BizPreconditions.checkState(false);
+    BizPreconditions.checkState(false, "密码错误");
+  }
 }

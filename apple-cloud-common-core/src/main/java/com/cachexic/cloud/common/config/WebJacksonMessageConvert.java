@@ -21,25 +21,25 @@ import static org.springframework.http.MediaType.TEXT_HTML;
  */
 @Configuration
 public class WebJacksonMessageConvert {
-    @Autowired
-    private ObjectMapper objectMapper;
 
-    @Bean
-    public ObjectMapper objectMapper(){
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-        return objectMapper;
-    }
+  @Autowired
+  private ObjectMapper objectMapper;
 
+  @Bean
+  public ObjectMapper objectMapper() {
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+    return objectMapper;
+  }
 
-    @Bean
-    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(){
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        converter.setObjectMapper(objectMapper);
-        List<MediaType> supportedMediaTypes = Lists.newArrayList();
-        supportedMediaTypes.add(APPLICATION_JSON_UTF8);
-        supportedMediaTypes.add(TEXT_HTML);
-        converter.setSupportedMediaTypes(supportedMediaTypes);
-        return converter;
-    }
+  @Bean
+  public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+    MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+    converter.setObjectMapper(objectMapper);
+    List<MediaType> supportedMediaTypes = Lists.newArrayList();
+    supportedMediaTypes.add(APPLICATION_JSON_UTF8);
+    supportedMediaTypes.add(TEXT_HTML);
+    converter.setSupportedMediaTypes(supportedMediaTypes);
+    return converter;
+  }
 }

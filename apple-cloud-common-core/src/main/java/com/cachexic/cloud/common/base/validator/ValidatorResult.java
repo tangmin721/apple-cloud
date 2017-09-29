@@ -11,38 +11,38 @@ import java.util.List;
  */
 public class ValidatorResult implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    /**
-     * 校验是否通过标记
-     */
-    private Boolean flag = true;
+  /**
+   * 校验是否通过标记
+   */
+  private Boolean flag = true;
 
-    private List<ValidatorBean> errorObjs = Lists.newArrayList();
+  private List<ValidatorBean> errorObjs = Lists.newArrayList();
 
-    private String errorStr;
+  private String errorStr;
 
-    public Boolean getFlag() {
-        return flag;
-    }
+  public Boolean getFlag() {
+    return flag;
+  }
 
-    public void setFlag(Boolean flag) {
-        this.flag = flag;
-    }
+  public void setFlag(Boolean flag) {
+    this.flag = flag;
+  }
 
-    public List<ValidatorBean> getErrorObjs() {
-        return errorObjs;
-    }
+  public List<ValidatorBean> getErrorObjs() {
+    return errorObjs;
+  }
 
-    public void setErrorObjs(List<ValidatorBean> errorObjs) {
-        this.errorObjs = errorObjs;
-    }
+  public void setErrorObjs(List<ValidatorBean> errorObjs) {
+    this.errorObjs = errorObjs;
+  }
 
-    public String getErrorStr() {
-        return errorStr;
-    }
+  public String getErrorStr() {
+    return errorStr;
+  }
 
-    public void setErrorStr(String errorStr) {
-        this.errorStr = errorStr;
-    }
+  public void setErrorStr(String errorStr) {
+    this.errorStr = errorStr;
+  }
 }

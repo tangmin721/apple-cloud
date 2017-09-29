@@ -11,7 +11,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  * @version V1.0
  * @Title: WebBackstageApplication.java
  * @Package com.cachexic.cloud
- * @Description: 
+ * @Description:
  * @date 2017-09-06 22:29:56
  */
 @SpringBootApplication
@@ -19,7 +19,8 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableEurekaClient
 @EnableCircuitBreaker
 public class WebBackstageApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(WebBackstageApplication.class, args);
-    }
+
+  public static void main(String[] args) {
+    SpringApplication.run(WebBackstageApplication.class, args);
+  }
 }

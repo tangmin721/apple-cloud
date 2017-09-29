@@ -8,13 +8,12 @@ package com.cachexic.cloud.generator.tmplate;
  */
 public class ServiceImplGenerator extends TemplateCodeGenerator {
 
-
-    @Override
-    public String getTemplateFile() {
-        /**
-         * 模板文件
-         */
-        return "/template/serviceImpl.ftl";
-    }
+  @Override
+  public String getTemplateFile() {
+    /**
+     * 模板文件
+     */
+    return "/template/serviceImpl.ftl";
+  }
 
 }

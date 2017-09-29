@@ -7,19 +7,19 @@ import com.cachexic.cloud.common.exceptions.BizException;
  * @Description: 校验信息的异常处理
  * @date 2017-09-14 09:34:14
  */
-public class ValidBizException extends BizException{
-    private static final long serialVersionUID = -4580632478681261355L;
+public class ValidBizException extends BizException {
 
-    /**
-     * 构造方法
-     * @param _enum
-     */
-    public ValidBizException(ValidBizExceptionEnum _enum){
-        super(_enum.getCode(), _enum.getMsg());
-    }
+  private static final long serialVersionUID = -4580632478681261355L;
 
-    public ValidBizException(int code,String msg){
-        super(code,msg);
-    }
+  /**
+   * 构造方法
+   */
+  public ValidBizException(ValidBizExceptionEnum _enum) {
+    super(_enum.getCode(), _enum.getMsg());
+  }
+
+  public ValidBizException(int code, String msg) {
+    super(code, msg);
+  }
 
 }

@@ -12,33 +12,34 @@ import java.util.List;
  */
 public enum StatusEnum {
 
-    invalid("无效"),
-    normal("正常"),
-    deleted("删除"),
-    disabled("禁用"),
-    frozen("冻结");
+  invalid("无效"),
+  normal("正常"),
+  deleted("删除"),
+  disabled("禁用"),
+  frozen("冻结");
 
-    /** 备注信息 */
-    private final String desc;
+  /**
+   * 备注信息
+   */
+  private final String desc;
 
-    StatusEnum(String desc) {
-        this.desc = desc;
+  StatusEnum(String desc) {
+    this.desc = desc;
+  }
+
+  public String getDesc() {
+    return desc;
+  }
+
+  /**
+   * 转换为list
+   */
+  public static List toList() {
+    List list = new ArrayList();
+    for (StatusEnum _enum : StatusEnum.values()) {
+      list.add(new ValueDescVo(_enum.name(), _enum.getDesc()));
     }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    /**
-     * 转换为list
-     * @return
-     */
-    public static List toList() {
-        List list = new ArrayList();
-        for (StatusEnum _enum : StatusEnum.values()) {
-            list.add(new ValueDescVo(_enum.name(),_enum.getDesc()));
-        }
-        return list;
-    }
+    return list;
+  }
 
 }

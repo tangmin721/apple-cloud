@@ -8,23 +8,24 @@ import com.cachexic.cloud.security.core.enums.LoginType;
  * @date 2017-09-28 17:41:24
  */
 public class BrowserProperties {
-    private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
-    private LoginType loginType = LoginType.JSON;
+  private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
 
-    public String getLoginPage() {
-        return loginPage;
-    }
+  private LoginType loginType = LoginType.JSON;
 
-    public void setLoginPage(String loginPage) {
-        this.loginPage = loginPage;
-    }
+  public String getLoginPage() {
+    return loginPage;
+  }
 
-    public LoginType getLoginType() {
-        return loginType;
-    }
+  public void setLoginPage(String loginPage) {
+    this.loginPage = loginPage;
+  }
 
-    public void setLoginType(LoginType loginType) {
-        this.loginType = loginType;
-    }
+  public LoginType getLoginType() {
+    return loginType;
+  }
+
+  public void setLoginType(LoginType loginType) {
+    this.loginType = loginType;
+  }
 }

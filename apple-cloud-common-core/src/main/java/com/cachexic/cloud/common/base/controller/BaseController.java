@@ -6,4 +6,5 @@ package com.cachexic.cloud.common.base.controller;
  * @date 2017-09-11 13:57:28
  */
 public abstract class BaseController {
+
 }

@@ -10,86 +10,87 @@ import java.util.Date;
  * @version V1.0
  */
 public class BaseQuery extends PojoBaseQuery {
-    private static final long serialVersionUID = 1919774516804971541L;
 
-    @ApiModelProperty(value = "状态", position = 800)
-    protected StatusEnum status = StatusEnum.normal;
+  private static final long serialVersionUID = 1919774516804971541L;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @ApiModelProperty(value = "创建开始时间", example = "2018-08-08 09:09:09", position = 801, hidden = true)
-    protected Date startCreateTime;
+  @ApiModelProperty(value = "状态", position = 800)
+  protected StatusEnum status = StatusEnum.normal;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @ApiModelProperty(value = "创建结束时间", example = "2018-08-08 09:09:09", position = 802, hidden = true)
-    protected Date endCreateTime;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+  @ApiModelProperty(value = "创建开始时间", example = "2018-08-08 09:09:09", position = 801, hidden = true)
+  protected Date startCreateTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @ApiModelProperty(value = "修改开始时间", example = "2018-08-08 09:09:09", position = 803, hidden = true)
-    protected Date startUpdateTime;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+  @ApiModelProperty(value = "创建结束时间", example = "2018-08-08 09:09:09", position = 802, hidden = true)
+  protected Date endCreateTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    @ApiModelProperty(value = "修改开始时间", example = "2018-08-08 09:09:09", position = 804, hidden = true)
-    protected Date endUpdateTime;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+  @ApiModelProperty(value = "修改开始时间", example = "2018-08-08 09:09:09", position = 803, hidden = true)
+  protected Date startUpdateTime;
 
-    @ApiModelProperty(value = "创建人id", position = 805)
-    protected Long createUserId;
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+  @ApiModelProperty(value = "修改开始时间", example = "2018-08-08 09:09:09", position = 804, hidden = true)
+  protected Date endUpdateTime;
 
-    @ApiModelProperty(value = "修改人id", position = 806)
-    protected Long updateUserId;
+  @ApiModelProperty(value = "创建人id", position = 805)
+  protected Long createUserId;
 
-    public StatusEnum getStatus() {
-        return status;
-    }
+  @ApiModelProperty(value = "修改人id", position = 806)
+  protected Long updateUserId;
 
-    public void setStatus(StatusEnum status) {
-        this.status = status;
-    }
+  public StatusEnum getStatus() {
+    return status;
+  }
 
-    public Date getStartCreateTime() {
-        return startCreateTime;
-    }
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
 
-    public void setStartCreateTime(Date startCreateTime) {
-        this.startCreateTime = startCreateTime;
-    }
+  public Date getStartCreateTime() {
+    return startCreateTime;
+  }
 
-    public Date getEndCreateTime() {
-        return endCreateTime;
-    }
+  public void setStartCreateTime(Date startCreateTime) {
+    this.startCreateTime = startCreateTime;
+  }
 
-    public void setEndCreateTime(Date endCreateTime) {
-        this.endCreateTime = endCreateTime;
-    }
+  public Date getEndCreateTime() {
+    return endCreateTime;
+  }
 
-    public Date getStartUpdateTime() {
-        return startUpdateTime;
-    }
+  public void setEndCreateTime(Date endCreateTime) {
+    this.endCreateTime = endCreateTime;
+  }
 
-    public void setStartUpdateTime(Date startUpdateTime) {
-        this.startUpdateTime = startUpdateTime;
-    }
+  public Date getStartUpdateTime() {
+    return startUpdateTime;
+  }
 
-    public Date getEndUpdateTime() {
-        return endUpdateTime;
-    }
+  public void setStartUpdateTime(Date startUpdateTime) {
+    this.startUpdateTime = startUpdateTime;
+  }
 
-    public void setEndUpdateTime(Date endUpdateTime) {
-        this.endUpdateTime = endUpdateTime;
-    }
+  public Date getEndUpdateTime() {
+    return endUpdateTime;
+  }
 
-    public Long getCreateUserId() {
-        return createUserId;
-    }
+  public void setEndUpdateTime(Date endUpdateTime) {
+    this.endUpdateTime = endUpdateTime;
+  }
 
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
+  public Long getCreateUserId() {
+    return createUserId;
+  }
 
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
+  public void setCreateUserId(Long createUserId) {
+    this.createUserId = createUserId;
+  }
 
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
+  public Long getUpdateUserId() {
+    return updateUserId;
+  }
+
+  public void setUpdateUserId(Long updateUserId) {
+    this.updateUserId = updateUserId;
+  }
 }

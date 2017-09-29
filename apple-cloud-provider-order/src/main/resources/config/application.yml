@@ -13,5 +13,6 @@ server:
 # security.basic.enabled: false
 
 ## apple cloud security config
-#apple.security.browser.loginPage: /order-login.html
+apple.security.browser.loginPage: /order-login.html #默认登录页
+apple.security.browser.loginType: REDIRECT #登录成功或失败返回信息(JSON)或者跳转到原请求url(REDIRECT)
 

@@ -8,7 +8,8 @@ import org.springframework.core.annotation.Order;
  * 引入xml的配置文件
  */
 @Configuration
-@ImportResource(locations={"classpath:orm/sharding-jdbc.xml"})
+@ImportResource(locations = {"classpath:orm/sharding-jdbc.xml"})
 @Order(3)
 public class SjdbcConfigXML {
+
 }

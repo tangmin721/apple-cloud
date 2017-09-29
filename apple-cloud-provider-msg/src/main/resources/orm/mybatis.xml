@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <!-- 配置mybatis sessionFactory-->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="ds_rocketmq"/>
-        <property name="mapperLocations" value="classpath*:mybatis/**/*Dao.xml"/>
-    </bean>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <!-- 配置mybatis sessionFactory-->
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="ds_rocketmq"/>
+    <property name="mapperLocations" value="classpath*:mybatis/**/*Dao.xml"/>
+  </bean>
 
-    <!-- mybatis scanner -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.cachexic.cloud"/>
-        <property name="annotationClass" value="com.cachexic.cloud.config.mybatis.annotation.MybatisDao"/>
-    </bean>
+  <!-- mybatis scanner -->
+  <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+    <property name="basePackage" value="com.cachexic.cloud"/>
+    <property name="annotationClass"
+      value="com.cachexic.cloud.config.mybatis.annotation.MybatisDao"/>
+  </bean>
 
-    <!-- 配置spring事务 -->
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="ds_rocketmq"/>
-    </bean>
+  <!-- 配置spring事务 -->
+  <bean id="transactionManager"
+    class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref="ds_rocketmq"/>
+  </bean>
 
 </beans>

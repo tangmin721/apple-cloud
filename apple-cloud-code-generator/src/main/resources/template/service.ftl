@@ -5,8 +5,8 @@ import ${entity.fullClassName};
 import ${entity.fullQueryClassName};
 
 /**
- * ${CONFIG.modelName}管理
- * @author tangmin
+ * @Description: ${CONFIG.modelName}管理
+ * @author ${CONFIG.author}
  * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
  */
 public interface ${entity.className}Service extends BaseService<${entity.className}, ${entity.className}Query>{

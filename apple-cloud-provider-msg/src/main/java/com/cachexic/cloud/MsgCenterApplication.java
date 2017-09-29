@@ -16,7 +16,8 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 @EnableEurekaClient
 @EnableCircuitBreaker
 public class MsgCenterApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(MsgCenterApplication.class, args);
-    }
+
+  public static void main(String[] args) {
+    SpringApplication.run(MsgCenterApplication.class, args);
+  }
 }

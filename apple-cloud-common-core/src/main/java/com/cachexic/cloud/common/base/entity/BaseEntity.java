@@ -10,95 +10,96 @@ import java.util.Date;
  * @version V1.0
  */
 public class BaseEntity extends PojoBaseEntity {
-    private static final long serialVersionUID = 4515148147423576935L;
 
-    @ApiModelProperty(value = "版本号", position = -998)
-    private Integer version = 0;
+  private static final long serialVersionUID = 4515148147423576935L;
 
-    @ApiModelProperty(value = "创建时间", hidden = true, position = 993)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date createTime;
+  @ApiModelProperty(value = "版本号", position = -998)
+  private Integer version = 0;
 
-    @ApiModelProperty(value = "创建人Id", hidden = true, position = 994)
-    private Long createUserId;
+  @ApiModelProperty(value = "创建时间", hidden = true, position = 993)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+  private Date createTime;
 
-    @ApiModelProperty(value = "创建人Name", hidden = true, position = 995)
-    private String createUserName;
+  @ApiModelProperty(value = "创建人Id", hidden = true, position = 994)
+  private Long createUserId;
 
-    @ApiModelProperty(value = "最后修改时间", hidden = true, position = 996)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date updateTime;
+  @ApiModelProperty(value = "创建人Name", hidden = true, position = 995)
+  private String createUserName;
 
-    @ApiModelProperty(value = "修改人Id", hidden = true, position = 997)
-    private Long updateUserId;
+  @ApiModelProperty(value = "最后修改时间", hidden = true, position = 996)
+  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+  private Date updateTime;
 
-    @ApiModelProperty(value = "修改人Name", hidden = true, position = 998)
-    private String updateUserName;
+  @ApiModelProperty(value = "修改人Id", hidden = true, position = 997)
+  private Long updateUserId;
 
-    @ApiModelProperty(value = "状态", position = 999)
-    private StatusEnum status;
+  @ApiModelProperty(value = "修改人Name", hidden = true, position = 998)
+  private String updateUserName;
 
-    public Integer getVersion() {
-        return version;
-    }
+  @ApiModelProperty(value = "状态", position = 999)
+  private StatusEnum status;
 
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
+  public Integer getVersion() {
+    return version;
+  }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+  public Date getCreateTime() {
+    return createTime;
+  }
 
-    public Long getCreateUserId() {
-        return createUserId;
-    }
+  public void setCreateTime(Date createTime) {
+    this.createTime = createTime;
+  }
 
-    public void setCreateUserId(Long createUserId) {
-        this.createUserId = createUserId;
-    }
+  public Long getCreateUserId() {
+    return createUserId;
+  }
 
-    public String getCreateUserName() {
-        return createUserName;
-    }
+  public void setCreateUserId(Long createUserId) {
+    this.createUserId = createUserId;
+  }
 
-    public void setCreateUserName(String createUserName) {
-        this.createUserName = createUserName;
-    }
+  public String getCreateUserName() {
+    return createUserName;
+  }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+  public void setCreateUserName(String createUserName) {
+    this.createUserName = createUserName;
+  }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+  public Date getUpdateTime() {
+    return updateTime;
+  }
 
-    public Long getUpdateUserId() {
-        return updateUserId;
-    }
+  public void setUpdateTime(Date updateTime) {
+    this.updateTime = updateTime;
+  }
 
-    public void setUpdateUserId(Long updateUserId) {
-        this.updateUserId = updateUserId;
-    }
+  public Long getUpdateUserId() {
+    return updateUserId;
+  }
 
-    public String getUpdateUserName() {
-        return updateUserName;
-    }
+  public void setUpdateUserId(Long updateUserId) {
+    this.updateUserId = updateUserId;
+  }
 
-    public void setUpdateUserName(String updateUserName) {
-        this.updateUserName = updateUserName;
-    }
+  public String getUpdateUserName() {
+    return updateUserName;
+  }
 
-    public StatusEnum getStatus() {
-        return status;
-    }
+  public void setUpdateUserName(String updateUserName) {
+    this.updateUserName = updateUserName;
+  }
 
-    public void setStatus(StatusEnum status) {
-        this.status = status;
-    }
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
 }

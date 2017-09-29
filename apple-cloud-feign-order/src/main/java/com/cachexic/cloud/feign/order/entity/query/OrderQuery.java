@@ -6,77 +6,80 @@ import java.math.BigDecimal;
 
 /**
  * 订单管理
+ *
  * @author tangmin
  * @date 2017-09-28 12:51:58
  */
-public class OrderQuery extends BaseQuery{
-    private static final long serialVersionUID = 1L;
+public class OrderQuery extends BaseQuery {
 
-    @ApiModelProperty("用户id")
-    private Long userId;
+  private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("订单号")
-    private String orderSn;
-    private Boolean orderSnLike = false;
+  @ApiModelProperty("用户id")
+  private Long userId;
 
-    @ApiModelProperty("备注")
-    private String memo;
-    private Boolean memoLike = false;
+  @ApiModelProperty("订单号")
+  private String orderSn;
+  private Boolean orderSnLike = false;
 
-    @ApiModelProperty("实付总价")
-    private BigDecimal totalActualPrice;
+  @ApiModelProperty("备注")
+  private String memo;
+  private Boolean memoLike = false;
 
-    public Long getUserId() {
-        return userId;
-    }
+  @ApiModelProperty("实付总价")
+  private BigDecimal totalActualPrice;
 
-    public OrderQuery setUserId(Long userId) {
-        this.userId = userId;
-        return this;
-    }
+  public Long getUserId() {
+    return userId;
+  }
 
-    public String getOrderSn() {
-        return orderSn;
-    }
+  public OrderQuery setUserId(Long userId) {
+    this.userId = userId;
+    return this;
+  }
 
-    public OrderQuery setOrderSn(String orderSn) {
-        this.orderSn = orderSn;
-        return this;
-    }
+  public String getOrderSn() {
+    return orderSn;
+  }
 
-    public Boolean getOrderSnLike() {
-        return orderSnLike;
-    }
+  public OrderQuery setOrderSn(String orderSn) {
+    this.orderSn = orderSn;
+    return this;
+  }
 
-    public OrderQuery setOrderSnLike(Boolean orderSnLike) {
-        this.orderSnLike = orderSnLike;
-        return this;
-    }
-    public String getMemo() {
-        return memo;
-    }
+  public Boolean getOrderSnLike() {
+    return orderSnLike;
+  }
 
-    public OrderQuery setMemo(String memo) {
-        this.memo = memo;
-        return this;
-    }
+  public OrderQuery setOrderSnLike(Boolean orderSnLike) {
+    this.orderSnLike = orderSnLike;
+    return this;
+  }
 
-    public Boolean getMemoLike() {
-        return memoLike;
-    }
+  public String getMemo() {
+    return memo;
+  }
 
-    public OrderQuery setMemoLike(Boolean memoLike) {
-        this.memoLike = memoLike;
-        return this;
-    }
-    public BigDecimal getTotalActualPrice() {
-        return totalActualPrice;
-    }
+  public OrderQuery setMemo(String memo) {
+    this.memo = memo;
+    return this;
+  }
 
-    public OrderQuery setTotalActualPrice(BigDecimal totalActualPrice) {
-        this.totalActualPrice = totalActualPrice;
-        return this;
-    }
+  public Boolean getMemoLike() {
+    return memoLike;
+  }
 
+  public OrderQuery setMemoLike(Boolean memoLike) {
+    this.memoLike = memoLike;
+    return this;
+  }
+
+  public BigDecimal getTotalActualPrice() {
+    return totalActualPrice;
+  }
+
+  public OrderQuery setTotalActualPrice(BigDecimal totalActualPrice) {
+    this.totalActualPrice = totalActualPrice;
+    return this;
+  }
 
 }

@@ -1,65 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <!-- ==================================================================== -->
-    <!-- 聚合module，只是为了install方便 -->
-    <!-- ==================================================================== -->
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.cachexic</groupId>
-    <artifactId>apple-cloud</artifactId>
-    <version>0.1.0</version>
-    <packaging>pom</packaging>
-    <name>${project.artifactId}</name>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- ==================================================================== -->
+  <!-- 聚合module，只是为了install方便 -->
+  <!-- ==================================================================== -->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.cachexic</groupId>
+  <artifactId>apple-cloud</artifactId>
+  <version>0.1.0</version>
+  <packaging>pom</packaging>
+  <name>${project.artifactId}</name>
 
-    <modules>
-        <!--包版本管理-->
-        <module>apple-cloud-all-parent</module>
+  <modules>
+    <!--包版本管理-->
+    <module>apple-cloud-all-parent</module>
 
-        <!--所有工程的公共配置,包括管注册中心、服务跟踪等辅助工程-->
-        <module>apple-cloud-common-config</module>
+    <!--所有工程的公共配置,包括管注册中心、服务跟踪等辅助工程-->
+    <module>apple-cloud-common-config</module>
 
-        <!--注册中心、监控、服务跟踪等基础工程-->
-        <module>apple-cloud-center-eureka</module>
-        <module>apple-cloud-center-dashboard</module>
-        <module>apple-cloud-center-zipkin</module>
+    <!--注册中心、监控、服务跟踪等基础工程-->
+    <module>apple-cloud-center-eureka</module>
+    <module>apple-cloud-center-dashboard</module>
+    <module>apple-cloud-center-zipkin</module>
 
-        <!--所有微服务依赖的核心工具类-->
-        <module>apple-cloud-common-core</module>
+    <!--所有微服务依赖的核心工具类-->
+    <module>apple-cloud-common-core</module>
 
-        <!--服务提供方对外暴露的接口层-->
-        <module>apple-cloud-feign-order</module>
-        <module>apple-cloud-feign-msg</module>
+    <!--服务提供方对外暴露的接口层-->
+    <module>apple-cloud-feign-order</module>
+    <module>apple-cloud-feign-msg</module>
 
-        <!--所有微服务依赖的配置，包括服务端和消费端-->
-        <module>apple-cloud-config-micro</module>
-        <!--所有服务端需要依赖底层数据库资源的配置文件，主要指服务提供方-->
-        <module>apple-cloud-config-provider</module>
+    <!--所有微服务依赖的配置，包括服务端和消费端-->
+    <module>apple-cloud-config-micro</module>
+    <!--所有服务端需要依赖底层数据库资源的配置文件，主要指服务提供方-->
+    <module>apple-cloud-config-provider</module>
 
 
-        <!--服务提供方-->
-        <module>apple-cloud-provider-order</module>
-        <module>apple-cloud-provider-msg</module>
+    <!--服务提供方-->
+    <module>apple-cloud-provider-order</module>
+    <module>apple-cloud-provider-msg</module>
 
-        <!--服务消费方(缓存层)-->
-        <module>apple-cloud-cache-eshop</module>
-        <module>apple-cloud-cache-user</module>
+    <!--服务消费方(缓存层)-->
+    <module>apple-cloud-cache-eshop</module>
+    <module>apple-cloud-cache-user</module>
 
-        <!--服务消费方(后台管理)-->
-        <module>apple-cloud-web-backstage</module>
-        <module>apple-cloud-web-app</module>
+    <!--服务消费方(后台管理)-->
+    <module>apple-cloud-web-backstage</module>
+    <module>apple-cloud-web-app</module>
 
-        <!-- 权限框架 -->
-        <module>apple-cloud-security-core</module>
-        <module>apple-cloud-security-app</module>
-        <module>apple-cloud-security-browser</module>
-        <module>apple-cloud-security-demo</module>
+    <!-- 权限框架 -->
+    <module>apple-cloud-security-core</module>
+    <module>apple-cloud-security-app</module>
+    <module>apple-cloud-security-browser</module>
+    <module>apple-cloud-security-demo</module>
 
-        <!--代码生成器-->
-        <module>apple-cloud-code-generator</module>
+    <!--代码生成器-->
+    <module>apple-cloud-code-generator</module>
 
-    </modules>
-
+  </modules>
 
 
 </project>

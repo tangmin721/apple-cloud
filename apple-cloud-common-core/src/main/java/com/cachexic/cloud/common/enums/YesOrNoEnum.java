@@ -15,30 +15,31 @@ import java.util.List;
  */
 public enum YesOrNoEnum {
 
-    yes("是"),
-    no("否");
+  yes("是"),
+  no("否");
 
-    /** 备注信息 */
-    private final String desc;
+  /**
+   * 备注信息
+   */
+  private final String desc;
 
-    YesOrNoEnum(String desc) {
-        this.desc = desc;
+  YesOrNoEnum(String desc) {
+    this.desc = desc;
+  }
+
+  public String getDesc() {
+    return desc;
+  }
+
+  /**
+   * 转换为list
+   */
+  public static List toList() {
+    List list = new ArrayList();
+    for (YesOrNoEnum _enum : YesOrNoEnum.values()) {
+      list.add(new ValueDescVo(_enum.name(), _enum.getDesc()));
     }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    /**
-     * 转换为list
-     * @return
-     */
-    public static List toList() {
-        List list = new ArrayList();
-        for (YesOrNoEnum _enum : YesOrNoEnum.values()) {
-            list.add(new ValueDescVo(_enum.name(),_enum.getDesc()));
-        }
-        return list;
-    }
+    return list;
+  }
 
 }

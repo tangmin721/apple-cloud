@@ -14,75 +14,72 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author tangmin
- * @Description: 自定义的登录请求,用浏览器登录的与app登录的分别处理
+ * @Description: 自定义的登录请求, 用浏览器登录的与app登录的分别处理
  * @date 2017-09-28 17:07:27
  */
-@RestController
+@Controller
 public class BrowserSecurityController {
-    private static final Logger log = LoggerFactory.getLogger(BrowserSecurityController.class);
 
-    private RequestCache requestCache = new HttpSessionRequestCache();
+  private static final Logger log = LoggerFactory.getLogger(BrowserSecurityController.class);
 
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+  private RequestCache requestCache = new HttpSessionRequestCache();
 
-    @Autowired
-    private SecurityProperties securityProperties;
+  private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    /**
-     * 网页请求的拦截
-     * @param request
-     * @param response
-     * @throws IOException
-     */
-    @RequestMapping(value = "/authentication/require",produces = "text/html")
-    //@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-    public void requireAuthenticationHtml(HttpServletRequest request,HttpServletResponse response) throws IOException {
+  @Autowired
+  private SecurityProperties securityProperties;
 
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
+  /**
+   * 网页请求的拦截
+   */
+  @RequestMapping(value = "/authentication/require", produces = "text/html")
+  //@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+  public void requireAuthenticationHtml(HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
 
-        if(savedRequest!=null){
-            String targetUrl = savedRequest.getRedirectUrl();
-            log.info("原始url请求是:"+targetUrl);
+    SavedRequest savedRequest = requestCache.getRequest(request, response);
 
-            Collection<String> names = savedRequest.getHeaderNames();
-            for (String name : names) {
-                System.out.println(name+":"+savedRequest.getHeaderValues(name));
-            }
+    if (savedRequest != null) {
+      String targetUrl = savedRequest.getRedirectUrl();
+      log.info("原始url请求是:" + targetUrl);
 
-            //重定向到网页
-            redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
+      Collection<String> names = savedRequest.getHeaderNames();
+      for (String name : names) {
+        System.out.println(name + ":" + savedRequest.getHeaderValues(name));
+      }
 
-        }
+      //重定向到网页
+      redirectStrategy
+          .sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
+
+    }
+  }
+
+  /**
+   * application/json 请求权限拦截
+   */
+  @RequestMapping("/authentication/require")
+  @ResponseBody
+  //@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
+  public Result requireAuthenticationApp(HttpServletRequest request,
+      HttpServletResponse response) throws IOException {
+
+    SavedRequest savedRequest = requestCache.getRequest(request, response);
+    if (savedRequest != null) {
+      String targetUrl = savedRequest.getRedirectUrl();
+      log.info("原始url请求是:" + targetUrl);
+      Collection<String> names = savedRequest.getHeaderNames();
+      for (String name : names) {
+        System.out.println(name + ":" + savedRequest.getHeaderValues(name));
+      }
     }
 
-    /**
-     * application/json 请求权限拦截
-     * @param request
-     * @param response
-     * @return
-     * @throws IOException
-     */
-    @RequestMapping("/authentication/require")
-    @ResponseBody
-    //@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-    public Result requireAuthenticationApp(HttpServletRequest request,HttpServletResponse response) throws IOException {
-
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
-        if(savedRequest!=null){
-            String targetUrl = savedRequest.getRedirectUrl();
-            log.info("原始url请求是:"+targetUrl);
-            Collection<String> names = savedRequest.getHeaderNames();
-            for (String name : names) {
-                System.out.println(name+":"+savedRequest.getHeaderValues(name));
-            }
-        }
-
-        return Result.UNAUTHORIZED();
-    }
+    return Result.UNAUTHORIZED();
+  }
 }

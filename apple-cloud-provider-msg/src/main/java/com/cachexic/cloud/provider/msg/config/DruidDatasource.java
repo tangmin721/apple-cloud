@@ -20,18 +20,19 @@ import javax.sql.DataSource;
 @Configuration
 @Order(2)
 public class DruidDatasource {
-    @Autowired
-    private DruidDatasourceBase druidDatasourceBase;
 
-    @Bean(name = "ds_rocketmq")
-    @Primary
-    public DataSource ds_rocketmq(
-            @Value("${jdbc.datasource.ds_rocketmq.url}") String url,
-            @Value("${jdbc.datasource.ds_rocketmq.username}") String username,
-            @Value("${jdbc.datasource.ds_rocketmq.password}") String password,
-            @Value("${jdbc.datasource.ds_rocketmq.publickey}") String publickey,
-            @Value("${jdbc.datasource.ds_rocketmq.filters}") String filters) {
-        return druidDatasourceBase.getDruidDataSource(url, username, password, publickey, filters);
-    }
+  @Autowired
+  private DruidDatasourceBase druidDatasourceBase;
+
+  @Bean(name = "ds_rocketmq")
+  @Primary
+  public DataSource ds_rocketmq(
+      @Value("${jdbc.datasource.ds_rocketmq.url}") String url,
+      @Value("${jdbc.datasource.ds_rocketmq.username}") String username,
+      @Value("${jdbc.datasource.ds_rocketmq.password}") String password,
+      @Value("${jdbc.datasource.ds_rocketmq.publickey}") String publickey,
+      @Value("${jdbc.datasource.ds_rocketmq.filters}") String filters) {
+    return druidDatasourceBase.getDruidDataSource(url, username, password, publickey, filters);
+  }
 
 }

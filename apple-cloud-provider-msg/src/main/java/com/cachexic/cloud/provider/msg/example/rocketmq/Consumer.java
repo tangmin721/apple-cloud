@@ -33,48 +33,47 @@ import java.util.List;
  */
 public class Consumer {
 
-    public static void main(String[] args) throws InterruptedException, MQClientException {
+  public static void main(String[] args) throws InterruptedException, MQClientException {
 
+    DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("order_group_1");
+    consumer.setNamesrvAddr("apple01:9876");
 
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("order_group_1");
-        consumer.setNamesrvAddr("apple01:9876");
+    /**
+     * 设置consumer第一次启动是从队列头部开始，还是尾部开始消费
+     * 如果非第一次启动，那么按上次消费的位置继续消费
+     */
+    consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
-        /**
-         * 设置consumer第一次启动是从队列头部开始，还是尾部开始消费
-         * 如果非第一次启动，那么按上次消费的位置继续消费
-         */
-        consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
+    consumer.subscribe("orderTopic", "orderCreateTag");
 
-        consumer.subscribe("orderTopic", "orderCreateTag");
+    //默认是1条，设置push模式一次拉取多少条。
+    consumer.setConsumeMessageBatchMaxSize(10);
 
-        //默认是1条，设置push模式一次拉取多少条。
-        consumer.setConsumeMessageBatchMaxSize(10);
+    //设置监听器
+    consumer.registerMessageListener(new MessageListenerConcurrently() {
 
-        //设置监听器
-        consumer.registerMessageListener(new MessageListenerConcurrently() {
+      @Override
+      public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
+          ConsumeConcurrentlyContext context) {
+        MessageExt msg = msgs.get(0);
+        try {
 
-            @Override
-            public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
-                                                            ConsumeConcurrentlyContext context) {
-                MessageExt msg = msgs.get(0);
-                try {
+          String topic = msg.getTopic();
+          String msgBody = new String(msg.getBody(), "utf-8");
+          String tags = msg.getTags();
+          System.out.println("收到消息：topic:" + topic + ",tags:" + tags + ",msg:" + msgBody);
 
-                    String topic = msg.getTopic();
-                    String msgBody = new String(msg.getBody(), "utf-8");
-                    String tags = msg.getTags();
-                    System.out.println("收到消息：topic:" + topic + ",tags:" + tags + ",msg:" + msgBody);
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return ConsumeConcurrentlyStatus.RECONSUME_LATER;
-                }
-                //返回消费状态
-                //CONSUME_SUCCESS 消费成功
-                //RECONSUME_LATER 消费失败，需要稍后重新消费
-                return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
-            }
-        });
-        consumer.start();
-        System.out.printf("Consumer Started.%n");
-    }
+        } catch (Exception e) {
+          e.printStackTrace();
+          return ConsumeConcurrentlyStatus.RECONSUME_LATER;
+        }
+        //返回消费状态
+        //CONSUME_SUCCESS 消费成功
+        //RECONSUME_LATER 消费失败，需要稍后重新消费
+        return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+      }
+    });
+    consumer.start();
+    System.out.printf("Consumer Started.%n");
+  }
 }

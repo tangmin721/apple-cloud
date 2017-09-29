@@ -7,5 +7,5 @@ package com.cachexic.cloud.feign.msg.constants;
  */
 public class KafkaMsgQueueConts {
 
-    public final static String TEST_TOPIC = "my-topic4";
+  public final static String TEST_TOPIC = "my-topic4";
 }

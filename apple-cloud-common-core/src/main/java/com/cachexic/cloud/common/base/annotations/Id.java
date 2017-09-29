@@ -7,11 +7,11 @@ import java.lang.annotation.Target;
 
 /**
  * @author tangmin
- * @Description: 标识主键id,用于代码生成
+ * @Description: 标识主键id, 用于代码生成
  * @date 2017-08-26 10:50:56
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.FIELD)
 public @interface Id {
-    
+
 }

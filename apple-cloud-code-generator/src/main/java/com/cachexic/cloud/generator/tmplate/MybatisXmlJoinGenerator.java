@@ -8,13 +8,12 @@ package com.cachexic.cloud.generator.tmplate;
  */
 public class MybatisXmlJoinGenerator extends TemplateCodeGenerator {
 
-
-    @Override
-    public String getTemplateFile() {
-        /**
-         * 模板文件
-         */
-        return "/template/mybatis_join_xml.ftl";
-    }
+  @Override
+  public String getTemplateFile() {
+    /**
+     * 模板文件
+     */
+    return "/template/mybatis_join_xml.ftl";
+  }
 
 }

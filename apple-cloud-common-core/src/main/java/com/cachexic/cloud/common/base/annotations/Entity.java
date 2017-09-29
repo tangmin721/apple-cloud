@@ -7,21 +7,20 @@ import java.lang.annotation.Target;
 
 /**
  * @author tangmin
- * @Description: 声明是一个entity类,有对应的mapper文件,用于代码生成
+ * @Description: 声明是一个entity类, 有对应的mapper文件, 用于代码生成
  * @date 2017-08-26 10:16:49
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Entity {
-    /**
-     * 数据库表名tableName
-     * @return
-     */
-    String value() default "";
 
-    /**
-     * id主键类型
-     * @return
-     */
-    Class primaryKeyType() default Long.class;
+  /**
+   * 数据库表名tableName
+   */
+  String value() default "";
+
+  /**
+   * id主键类型
+   */
+  Class primaryKeyType() default Long.class;
 }

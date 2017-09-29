@@ -6,8 +6,8 @@ import ${entity.fullClassName};
 import ${entity.fullQueryClassName};
 
 /**
- * ${CONFIG.modelName}管理
- * @author tangmin
+ * @Description: ${CONFIG.modelName}管理  /${CONFIG.serverName}
+ * @author ${CONFIG.author}
  * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
  */
 @MybatisDao

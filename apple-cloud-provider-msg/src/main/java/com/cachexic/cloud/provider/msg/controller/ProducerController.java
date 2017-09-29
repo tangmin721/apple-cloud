@@ -19,63 +19,61 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/producer")
 public class ProducerController implements MsgFeign {
 
-    @Autowired
-    private ProducerService producerService;
+  @Autowired
+  private ProducerService producerService;
 
+  @Override
+  public Result saveMsgWaitingConfirm(@RequestBody MsgPersistent msgPersistent) {
+    producerService.saveMsgWaitingConfirm(msgPersistent);
+    return Result.OK();
+  }
 
+  @Override
+  public Result confirmAndSendMsg(@PathVariable("msgId") String msgId) {
+    return null;
+  }
 
-    @Override
-    public Result saveMsgWaitingConfirm(@RequestBody MsgPersistent msgPersistent) {
-        producerService.saveMsgWaitingConfirm(msgPersistent);
-        return Result.OK();
+  @Override
+  public Result saveAndSendMsg(@RequestBody MsgPersistent msgPersistent) {
+    return null;
+  }
+
+  @Override
+  public Result directSendMsg(@RequestBody MsgPersistent msgPersistent) {
+    if (StringUtils.isBlank(msgPersistent.getMqMsgId())) {
+      msgPersistent.setMsgId(UUIDUtil.get32UUID());
     }
+    producerService.directSendMsg(msgPersistent);
+    return Result.OK();
+  }
 
-    @Override
-    public Result confirmAndSendMsg(@PathVariable("msgId") String msgId) {
-        return null;
-    }
+  @Override
+  public Result reSendMsg(@RequestBody MsgPersistent msgPersistent) {
+    return null;
+  }
 
-    @Override
-    public Result saveAndSendMsg(@RequestBody MsgPersistent msgPersistent) {
-        return null;
-    }
+  @Override
+  public Result reSendMsgByMsgId(String msgId) {
+    return null;
+  }
 
-    @Override
-    public Result directSendMsg(@RequestBody MsgPersistent msgPersistent) {
-        if(StringUtils.isBlank(msgPersistent.getMqMsgId())){
-            msgPersistent.setMsgId(UUIDUtil.get32UUID());
-        }
-        producerService.directSendMsg(msgPersistent);
-        return Result.OK();
-    }
+  @Override
+  public Result setMsgToDead(String msgId) {
+    return null;
+  }
 
-    @Override
-    public Result reSendMsg(@RequestBody MsgPersistent msgPersistent) {
-        return null;
-    }
+  @Override
+  public Result<MsgPersistent> getMsgByMsgId(String msgId) {
+    return null;
+  }
 
-    @Override
-    public Result reSendMsgByMsgId(String msgId) {
-        return null;
-    }
+  @Override
+  public Result deleteMsgByMsgId(String msgId) {
+    return null;
+  }
 
-    @Override
-    public Result setMsgToDead(String msgId) {
-        return null;
-    }
-
-    @Override
-    public Result<MsgPersistent> getMsgByMsgId(String msgId) {
-        return null;
-    }
-
-    @Override
-    public Result deleteMsgByMsgId(String msgId) {
-        return null;
-    }
-
-    @Override
-    public Result reSendAllDeadMsgByTopic() {
-        return null;
-    }
+  @Override
+  public Result reSendAllDeadMsgByTopic() {
+    return null;
+  }
 }

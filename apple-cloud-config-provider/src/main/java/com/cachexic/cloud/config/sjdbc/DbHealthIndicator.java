@@ -10,11 +10,12 @@ import org.springframework.stereotype.Component;
  * @date 2017-09-07 14:58:57
  */
 @Component
-public class DbHealthIndicator implements HealthIndicator{
-    @Override
-    public Health health() {
-        return Health.up().build();
-    }
+public class DbHealthIndicator implements HealthIndicator {
+
+  @Override
+  public Health health() {
+    return Health.up().build();
+  }
 }
 
 

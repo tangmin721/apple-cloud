@@ -6,4 +6,5 @@ package com.cachexic.cloud.common.base.validator.annotations;
  * @date 2017-09-14 09:45:00
  */
 public interface Insert {
+
 }

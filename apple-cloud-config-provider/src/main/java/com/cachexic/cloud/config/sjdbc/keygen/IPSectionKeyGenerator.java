@@ -25,7 +25,7 @@ import java.net.UnknownHostException;
 
 /**
  * 浏览 {@link IPKeyGenerator} workerId生成的规则后，感觉对服务器IP后10位（特别是IPV6）数值比较约束.
- * 
+ *
  * <p>
  * 有以下优化思路：
  * 因为workerId最大限制是2^10，我们生成的workerId只要满足小于最大workerId即可。
@@ -39,43 +39,45 @@ import java.net.UnknownHostException;
  *
  * 使用这种IP生成workerId的方法,必须保证IP段相加不能重复
  * 192.168.1.102=192.168.2.101 所以会有问题，最终决定用IPKeyGenerator
+ *
  * @author DogFc
  */
 public final class IPSectionKeyGenerator implements KeyGenerator {
-    
-    private final DefaultKeyGenerator defaultKeyGenerator = new DefaultKeyGenerator();
-    
-    static {
-        initWorkerId();
+
+  private final DefaultKeyGenerator defaultKeyGenerator = new DefaultKeyGenerator();
+
+  static {
+    initWorkerId();
+  }
+
+  static void initWorkerId() {
+    InetAddress address;
+    try {
+      address = InetAddress.getLocalHost();
+    } catch (final UnknownHostException e) {
+      throw new IllegalStateException(
+          "Cannot get LocalHost InetAddress, please check your network!");
     }
-    
-    static void initWorkerId() {
-        InetAddress address;
-        try {
-            address = InetAddress.getLocalHost();
-        } catch (final UnknownHostException e) {
-            throw new IllegalStateException("Cannot get LocalHost InetAddress, please check your network!");
-        }
-        byte[] ipAddressByteArray = address.getAddress();
-        long workerId = 0L;
-        //IPV4
-        if (ipAddressByteArray.length == 4) {
-            for (byte byteNum : ipAddressByteArray) {
-                workerId += byteNum & 0xFF;
-            }
-            //IPV6
-        } else if (ipAddressByteArray.length == 16) {
-            for (byte byteNum : ipAddressByteArray) {
-                workerId += byteNum & 0B111111;
-            }
-        } else {
-            throw new IllegalStateException("Bad LocalHost InetAddress, please check your network!");
-        }
-        DefaultKeyGenerator.setWorkerId(workerId);
+    byte[] ipAddressByteArray = address.getAddress();
+    long workerId = 0L;
+    //IPV4
+    if (ipAddressByteArray.length == 4) {
+      for (byte byteNum : ipAddressByteArray) {
+        workerId += byteNum & 0xFF;
+      }
+      //IPV6
+    } else if (ipAddressByteArray.length == 16) {
+      for (byte byteNum : ipAddressByteArray) {
+        workerId += byteNum & 0B111111;
+      }
+    } else {
+      throw new IllegalStateException("Bad LocalHost InetAddress, please check your network!");
     }
-    
-    @Override
-    public Number generateKey() {
-        return defaultKeyGenerator.generateKey();
-    }
+    DefaultKeyGenerator.setWorkerId(workerId);
+  }
+
+  @Override
+  public Number generateKey() {
+    return defaultKeyGenerator.generateKey();
+  }
 }

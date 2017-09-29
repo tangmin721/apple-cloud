@@ -28,55 +28,56 @@ import org.springframework.web.context.request.async.DeferredResult;
 @RestController
 @RequestMapping("/asyncTeacher")
 public class AsyncTeacherController {
-    private static final Logger log = LoggerFactory.getLogger(AsyncTeacherController.class);
 
-    @Autowired
-    private TeacherService teacherService;
+  private static final Logger log = LoggerFactory.getLogger(AsyncTeacherController.class);
 
-    /** 发送消息到消息队列 */
-    @Autowired
-    private MockQueue mockQueue;
+  @Autowired
+  private TeacherService teacherService;
 
-    /** 通过key 把new一个结果放进去,然后另一个线程去完成它,返回 */
-    @Autowired
-    private DeferredResultHolder deferredResultHolder;
+  /**
+   * 发送消息到消息队列
+   */
+  @Autowired
+  private MockQueue mockQueue;
 
+  /**
+   * 通过key 把new一个结果放进去,然后另一个线程去完成它,返回
+   */
+  @Autowired
+  private DeferredResultHolder deferredResultHolder;
 
-    @ApiOperation(value = "getById:根据主键查询",notes = "方式1:Callable简单的异步接口")
-    @GetMapping("id/{id}")
-    public Callable<Result<Teacher>> getById(@PathVariable("id") Long id){
-        log.info("*********主线程开始*********");
-        Callable<Result<Teacher>> resultCallable = () -> {
-            log.info("*********callable线程开始*********");
-            Result result = Result.OK().setData(teacherService.selectById(id));
-            Thread.sleep(200);
-            log.info("*********callable线程返回*********");
-            return result;
-        };
-        log.info("*********主线程返回*********");
+  @ApiOperation(value = "getById:根据主键查询", notes = "方式1:Callable简单的异步接口")
+  @GetMapping("id/{id}")
+  public Callable<Result<Teacher>> getById(@PathVariable("id") Long id) {
+    log.info("*********主线程开始*********");
+    Callable<Result<Teacher>> resultCallable = () -> {
+      log.info("*********callable线程开始*********");
+      Result result = Result.OK().setData(teacherService.selectById(id));
+      Thread.sleep(200);
+      log.info("*********callable线程返回*********");
+      return result;
+    };
+    log.info("*********主线程返回*********");
 
-        return resultCallable;
-    }
+    return resultCallable;
+  }
 
+  @ApiOperation(value = "getByIds:根据主键ids查询", notes = "逗号分隔.方式2:通过消息队列异步消费(模拟一下)")
+  @GetMapping("ids/{ids}")
+  public DeferredResult<Result<List<Teacher>>> getByIds(@PathVariable("ids") String ids) {
+    log.info("*********主线程开始*********");
 
-    @ApiOperation(value = "getByIds:根据主键ids查询",notes = "逗号分隔.方式2:通过消息队列异步消费(模拟一下)")
-    @GetMapping("ids/{ids}")
-    public DeferredResult<Result<List<Teacher>>> getByIds(@PathVariable("ids") String ids){
-        log.info("*********主线程开始*********");
+    //假设生成一个随机订单号(唯一)
+    String orderNum = RandomStringUtils.randomNumeric(8);
+    //mockQueue.setPlaceOrder(orderNum);
+    mockQueue.setPlaceOrder(ids);//用ids模拟一下返回结果差别
 
-        //假设生成一个随机订单号(唯一)
-        String orderNum = RandomStringUtils.randomNumeric(8);
-        //mockQueue.setPlaceOrder(orderNum);
-        mockQueue.setPlaceOrder(ids);//用ids模拟一下返回结果差别
+    DeferredResult<Result<List<Teacher>>> deferredResult = new DeferredResult<>();
+    //deferredResultHolder.getMap().put(orderNum,deferredResult);
+    deferredResultHolder.getMap().put(ids, deferredResult);
 
-        DeferredResult<Result<List<Teacher>>> deferredResult = new DeferredResult<>();
-        //deferredResultHolder.getMap().put(orderNum,deferredResult);
-        deferredResultHolder.getMap().put(ids,deferredResult);
-
-        log.info("*********主线程返回*********");
-        return deferredResult;
-    }
-
-
+    log.info("*********主线程返回*********");
+    return deferredResult;
+  }
 
 }

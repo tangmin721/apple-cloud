@@ -8,12 +8,12 @@ package com.cachexic.cloud.generator.tmplate;
  */
 public class ConsumerControllerGenerator extends TemplateCodeGenerator {
 
-    @Override
-    public String getTemplateFile() {
-        /**
-         * 模板文件
-         */
-        return "/template/consumerController.ftl";
-    }
+  @Override
+  public String getTemplateFile() {
+    /**
+     * 模板文件
+     */
+    return "/template/consumerController.ftl";
+  }
 
 }

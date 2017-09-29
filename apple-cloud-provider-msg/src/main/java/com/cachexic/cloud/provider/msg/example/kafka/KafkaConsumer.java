@@ -15,18 +15,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaConsumer {
 
-    @Autowired
-    private OrderFeign orderFeign;
+  @Autowired
+  private OrderFeign orderFeign;
 
-    @KafkaListener(topics = KafkaMsgQueueConts.TEST_TOPIC)
-    public void processMessage(String message) {
-        MsgPersistent persistent = JsonUtil.toEntity(message, MsgPersistent.class);
-        System.out.println("====>topic:"+ KafkaMsgQueueConts.TEST_TOPIC);
-        System.out.println("====>order feign pagination:"+JsonUtil.toJson(orderFeign.pagination(new OrderQuery())));
-        System.out.println("====>KafkaConsumer:"+message);
-        System.out.println("====>getConsumerQueue:"+persistent.getConsumerQueue());
-        System.out.println("====>getMsgBody:"+persistent.getMsgBody());
-        System.out.println("====>getMsgId:"+persistent.getMsgId());
-    }
+  @KafkaListener(topics = KafkaMsgQueueConts.TEST_TOPIC)
+  public void processMessage(String message) {
+    MsgPersistent persistent = JsonUtil.toEntity(message, MsgPersistent.class);
+    System.out.println("====>topic:" + KafkaMsgQueueConts.TEST_TOPIC);
+    System.out.println(
+        "====>order feign pagination:" + JsonUtil.toJson(orderFeign.pagination(new OrderQuery())));
+    System.out.println("====>KafkaConsumer:" + message);
+    System.out.println("====>getConsumerQueue:" + persistent.getConsumerQueue());
+    System.out.println("====>getMsgBody:" + persistent.getMsgBody());
+    System.out.println("====>getMsgId:" + persistent.getMsgId());
+  }
 
 }
