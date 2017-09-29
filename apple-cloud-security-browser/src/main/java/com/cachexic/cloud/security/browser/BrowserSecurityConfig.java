@@ -35,14 +35,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /** 配置密码加密规则.也可以自己实现这个接口,用自己的加密规则 */
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-
     /**
      * 重载默认的HttpSecurity
-     *
      * @param http
      * @throws Exception
      */
@@ -68,6 +66,6 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             .csrf().disable() //暂时禁用掉跨站伪造防护
-            ;
+        ;
     }
 }

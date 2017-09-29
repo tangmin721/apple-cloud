@@ -16,11 +16,12 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author tangmin
- * @Description: 自定义实现登录验证成功返回结果,再配置SecurityConfig
+ * @Description: 自定义实现登录验证成功返回结果, 再配置SecurityConfig
  * @date 2017-09-29 10:56:00
  */
 @Component("browserAuthenticationSuccessHandler")
-public class BrowserAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+public class BrowserAuthenticationSuccessHandler extends
+    SavedRequestAwareAuthenticationSuccessHandler {
 
     private static final Logger log = LoggerFactory.getLogger(BrowserAuthenticationSuccessHandler.class);
 
