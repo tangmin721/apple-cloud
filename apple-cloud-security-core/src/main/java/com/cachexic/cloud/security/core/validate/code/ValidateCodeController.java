@@ -1,5 +1,6 @@
 package com.cachexic.cloud.security.core.validate.code;
 
+import com.cachexic.cloud.security.core.properties.SecurityProperties;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -9,8 +10,10 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -25,22 +28,27 @@ public class ValidateCodeController {
 
   public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
 
+  @Autowired
+  private SecurityProperties securityProperties;
+
   private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
   @GetMapping("/code/image")
   public void codeImage(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
     //1.创建图片验证码对象
-    ImageCode imageCode = createCodeImage(request);
+    ImageCode imageCode = generate(new ServletWebRequest(request));
     //2.向session中存放图片验证码对象,指定key
     sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, imageCode);
     //3.把图片写到响应中
     ImageIO.write(imageCode.getImage(), "JPEG", response.getOutputStream());
   }
 
-  private ImageCode createCodeImage(HttpServletRequest request) {
-    int width = 67;
-    int height = 23;
+  private ImageCode generate(ServletWebRequest request) {
+    int width = ServletRequestUtils.getIntParameter(request.getRequest(),"width",
+        securityProperties.getCode().getImage().getWidth());
+    int height = ServletRequestUtils.getIntParameter(request.getRequest(),"height",
+        securityProperties.getCode().getImage().getHeight());
     BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
     Graphics g = image.getGraphics();
@@ -60,7 +68,7 @@ public class ValidateCodeController {
     }
 
     String sRand = "";
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < securityProperties.getCode().getImage().getLength(); i++) {
       String rand = String.valueOf(random.nextInt(10));
       sRand += rand;
       g.setColor(
@@ -69,7 +77,7 @@ public class ValidateCodeController {
     }
     g.dispose();
 
-    return new ImageCode(image, sRand, 60);
+    return new ImageCode(image, sRand, securityProperties.getCode().getImage().getExpireIn());
   }
 
   /**
