@@ -7,7 +7,7 @@ import com.cachexic.cloud.provider.${CONFIG.serverName}.service.${entity.classNa
 import org.springframework.stereotype.Service;
 
 /**
- * @Description: ${CONFIG.modelName}管理  /${CONFIG.serverName}
+ * @Description: ${CONFIG.modelName}管理
  * @author ${CONFIG.author}
  * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
  */

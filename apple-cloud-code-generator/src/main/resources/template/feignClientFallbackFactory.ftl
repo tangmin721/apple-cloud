@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @Description: ${CONFIG.modelName}管理  /${CONFIG.serverName}
+ * @Description: ${CONFIG.modelName}管理
  * @author ${CONFIG.author}
  * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
  */

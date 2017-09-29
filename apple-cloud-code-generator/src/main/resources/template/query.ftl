@@ -3,7 +3,7 @@ package com.cachexic.cloud.feign.${CONFIG.serverName}.entity;
 import com.cachexic.cloud.common.base.entity.query.<#if CONFIG.extendBaseEntity=="false">Pojo</#if>BaseQuery;
 
 /**
- * @Description: ${CONFIG.modelName}管理  /${CONFIG.serverName}
+ * @Description: ${CONFIG.modelName}管理
  * @author ${CONFIG.author}
  * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
  */

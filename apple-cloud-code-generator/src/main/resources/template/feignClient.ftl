@@ -8,7 +8,7 @@ import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @Description: ${CONFIG.modelName}管理  /${CONFIG.serverName}
+ * @Description: ${CONFIG.modelName}管理
  * @author ${CONFIG.author}
  * @date ${.now?string("yyyy-MM-dd HH:mm:ss")}
  */
