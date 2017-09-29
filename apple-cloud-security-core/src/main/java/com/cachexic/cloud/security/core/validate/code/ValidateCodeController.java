@@ -23,7 +23,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 @RestController
 public class ValidateCodeController {
 
-  private static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
+  public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
 
   private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 

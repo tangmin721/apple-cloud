@@ -51,4 +51,12 @@ public class ImageCode {
   public void setExpireTime(LocalDateTime expireTime) {
     this.expireTime = expireTime;
   }
+
+  /**
+   * 校验是否过期
+   * @return
+   */
+  public boolean isExpried() {
+    return LocalDateTime.now().isAfter(expireTime);
+  }
 }

@@ -4,7 +4,9 @@
 package com.cachexic.cloud.security.core.properties;
 
 /**
+ * @Description: 常量
  * @author tangmin
+ * @date 2017-09-29 15:34:59
  */
 public interface SecurityConstants {
 

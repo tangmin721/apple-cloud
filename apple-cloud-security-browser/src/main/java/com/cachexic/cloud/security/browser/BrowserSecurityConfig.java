@@ -2,6 +2,7 @@ package com.cachexic.cloud.security.browser;
 
 import com.cachexic.cloud.security.core.properties.SecurityConstants;
 import com.cachexic.cloud.security.core.properties.SecurityProperties;
+import com.cachexic.cloud.security.core.validate.code.ValidateCodeFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author tangmin
@@ -47,8 +49,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     log.info("====>>override WebSecurityConfigurerAdapter...");
+
+    ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+    validateCodeFilter.setAuthenticationFailureHandler(browserAuthenticationFailureHandler);
+
     //http.httpBasic()// 弹框默认的方式登录
-    http.formLogin()  //表单登录
+    http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+        .formLogin()  //表单登录
         .loginPage("/authentication/require") //当请求需要身份认证时，默认跳转的url
         .loginProcessingUrl("/authentication/form") //默认的用户名密码登录请求处理url
         .successHandler(browserAuthenticationSuccessHandler) //配置自定义的登录成功返回结果信息
