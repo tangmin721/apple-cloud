@@ -117,25 +117,20 @@ public class HttpAspect {
   @Around(value = "log()")
   public Object doAroundMethodController(ProceedingJoinPoint point) throws Throwable {
     Object result = null;
-    try {
-      log.info(
-          "****************************************[ request start ]****************************************");
-      //if(){ 判断权限
-      long start = System.nanoTime();
-      //拦截的实体类
-      Object target = point.getTarget();
-      //拦截的方法名称
-      String methodName = point.getSignature().getName();
 
-      result = point.proceed();
-      log.info("====>Class:" + target.getClass() + ",Method: " + methodName + "====>执行耗时 : 【"
-          + (System.nanoTime() - start) / (1000 * 1000) + " 毫秒】 ");
-      //}
+    log.info(
+        "****************************************[ request start ]****************************************");
+    long start = System.nanoTime();
+    //拦截的实体类
+    Object target = point.getTarget();
+    //拦截的方法名称
+    String methodName = point.getSignature().getName();
 
-      return result;
-    } catch (Throwable throwable) {
-      throwable.printStackTrace();
-    }
+    result = point.proceed();
+    log.info("====>Class:" + target.getClass() + ",Method: " + methodName + "====>执行耗时 : 【"
+        + (System.nanoTime() - start) / (1000 * 1000) + " 毫秒】 ");
+
     return result;
+
   }
 }
