@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.bo;
+package com.cachexic.cloud.security.core.config.bo;
 
 /**
  * @Description: 权限精确拦截url和method

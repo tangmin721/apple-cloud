@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.validate.code;
+package com.cachexic.cloud.security.core.validate.code.entity;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;

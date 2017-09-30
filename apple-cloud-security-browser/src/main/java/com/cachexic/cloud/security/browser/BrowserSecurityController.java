@@ -1,7 +1,7 @@
 package com.cachexic.cloud.security.browser;
 
 import com.cachexic.cloud.common.base.Result;
-import com.cachexic.cloud.security.core.properties.SecurityProperties;
+import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import java.io.IOException;
 import java.util.Collection;
 import javax.servlet.http.HttpServletRequest;

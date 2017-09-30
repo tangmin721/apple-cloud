@@ -1,8 +1,8 @@
 package com.cachexic.cloud.security.browser.authentication;
 
 import com.cachexic.cloud.common.utils.json.JsonUtil;
-import com.cachexic.cloud.security.core.enums.LoginType;
-import com.cachexic.cloud.security.core.properties.SecurityProperties;
+import com.cachexic.cloud.security.core.config.enums.LoginType;
+import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

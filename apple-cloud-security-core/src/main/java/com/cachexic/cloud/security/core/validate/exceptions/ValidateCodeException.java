@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.validate.code;
+package com.cachexic.cloud.security.core.validate.exceptions;
 
 import org.springframework.security.core.AuthenticationException;
 

@@ -1,6 +1,7 @@
-package com.cachexic.cloud.security.core.properties;
+package com.cachexic.cloud.security.core.config.properties;
 
-import com.cachexic.cloud.security.core.enums.LoginType;
+import com.cachexic.cloud.security.core.config.contants.SecurityConstants;
+import com.cachexic.cloud.security.core.config.enums.LoginType;
 
 /**
  * @author tangmin

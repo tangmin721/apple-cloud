@@ -1,8 +1,8 @@
 package com.cachexic.cloud.security.browser;
 
-import com.cachexic.cloud.security.core.properties.SecurityConstants;
-import com.cachexic.cloud.security.core.properties.SecurityProperties;
-import com.cachexic.cloud.security.core.validate.code.ValidateCodeFilter;
+import com.cachexic.cloud.security.core.config.contants.SecurityConstants;
+import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
+import com.cachexic.cloud.security.core.validate.web.ValidateCodeFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

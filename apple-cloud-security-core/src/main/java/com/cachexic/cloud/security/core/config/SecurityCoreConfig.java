@@ -1,6 +1,6 @@
-package com.cachexic.cloud.security.core;
+package com.cachexic.cloud.security.core.config;
 
-import com.cachexic.cloud.security.core.properties.SecurityProperties;
+import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

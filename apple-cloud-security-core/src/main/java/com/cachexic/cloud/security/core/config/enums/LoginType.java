@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.enums;
+package com.cachexic.cloud.security.core.config.enums;
 
 /**
  * @author tangmin
