@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.validate.code.impl;
+package com.cachexic.cloud.security.core.validate.code.image;
 
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import com.cachexic.cloud.security.core.validate.code.ValidateCodeGenerator;

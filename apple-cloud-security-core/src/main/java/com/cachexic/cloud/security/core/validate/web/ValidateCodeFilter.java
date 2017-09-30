@@ -2,6 +2,7 @@ package com.cachexic.cloud.security.core.validate.web;
 
 import com.cachexic.cloud.security.core.config.bo.UrlAndMethod;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
+import com.cachexic.cloud.security.core.validate.code.ValidateCodeProcessor;
 import com.cachexic.cloud.security.core.validate.code.entity.ImageCode;
 import com.cachexic.cloud.security.core.validate.exceptions.ValidateCodeException;
 import java.io.IOException;
@@ -25,9 +26,9 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * @author tangmin
  * @Description: 在user password之前加一个图验证码的校验,在securityconfig里addFilter
  * 实现InitializingBean是为了在其他参数组装完毕后,组装urlAndMethods
+ * @author tangmin
  * @date 2017-09-29 15:47:05
  */
 public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
@@ -120,7 +121,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
   private void validate(ServletWebRequest request) throws ServletRequestBindingException {
     ImageCode codeInSession = (ImageCode) sessionStrategy
-        .getAttribute(request, ValidateCodeController.SESSION_KEY);
+        .getAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX);
 
     String codeInRequest = ServletRequestUtils
         .getStringParameter(request.getRequest(), "imageCode");
@@ -134,7 +135,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     }
 
     if (codeInSession.isExpried()) {
-      sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);
+      sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX);
       throw new ValidateCodeException("验证码已过期");
     }
 
@@ -142,7 +143,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
       throw new ValidateCodeException("验证码不匹配");
     }
 
-    sessionStrategy.removeAttribute(request, ValidateCodeController.SESSION_KEY);
+    sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX);
   }
 
 

@@ -63,11 +63,13 @@ public class ExceptionHandle {
     } else if (e instanceof org.springframework.http.converter.HttpMessageNotReadableException) {
       log.warn(logStr, e.getClass().getName(), BizExceptionEnum.PARAMETER_ERROR.getCode(),
           e.getMessage());
-      return Result.FAIL(BizExceptionEnum.PARAMETER_ERROR.getCode(),
-          BizExceptionEnum.PARAMETER_ERROR.getMsg()
-              //线上环境注释掉 message信息
-              + ":" + e.getMessage()
-      );
+
+      String errorMsg = BizExceptionEnum.PARAMETER_ERROR.getMsg();
+      if(log.isDebugEnabled()){
+        errorMsg += ":" + e.getMessage();
+      }
+
+      return Result.FAIL(BizExceptionEnum.PARAMETER_ERROR.getCode(),errorMsg);
       //valid异常
     } else if (e instanceof ValidBizException) {
       ValidBizException ex = (ValidBizException) e;
@@ -82,9 +84,15 @@ public class ExceptionHandle {
       return Result.FAIL(ex.getCode(), ex.getMessage());
     } else {
       log.error(logStr, e.getClass().getName(), BizExceptionEnum.SYS_EXCEPTION.getCode(),
-          e.getClass() + "==>" + e.getMessage());//长异常信息 e
-      return Result.FAIL(BizExceptionEnum.SYS_EXCEPTION.getCode(),
-          BizExceptionEnum.SYS_EXCEPTION.getMsg() + ":" + e.getClass() + "==>" + e.getMessage());
+          e.getClass() + "==>" + e.getMessage());
+
+      String errorMsg = BizExceptionEnum.SYS_EXCEPTION.getMsg();
+      if(log.isDebugEnabled()){
+        errorMsg += ":" + e.getClass() + "==>" + e.getMessage();
+        e.printStackTrace();
+      }
+
+      return Result.FAIL(BizExceptionEnum.SYS_EXCEPTION.getCode(),errorMsg);
     }
   }
 }
