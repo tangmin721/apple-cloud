@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.browser;
+package com.cachexic.cloud.security.browser.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
+ * @Description: 浏览器的UserDetailsService自定义实现.
  * @author tangmin
+ * @date 2017-09-30 10:09:53
  */
 @Component
 public class BrowserUserDetailsService implements UserDetailsService {

@@ -1,6 +1,6 @@
 -- DROP TABLE IF EXISTS `${entity.tableName}`;
 
-CREATE TABLE `${entity.tableName}` (
+CREATE TABLE IF NOT EXISTS `${entity.tableName}` (
   `id` bigint AUTO_INCREMENT,
 <#list entity.myfieldListNotTransient as e>  ${e.mysqlFieldStr},
   </#list>

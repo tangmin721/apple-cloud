@@ -3,6 +3,7 @@ package com.cachexic.cloud.security.browser;
 import com.cachexic.cloud.security.core.config.contants.SecurityConstants;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import com.cachexic.cloud.security.core.validate.web.ValidateCodeFilter;
+import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +11,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 /**
  * @author tangmin
@@ -35,12 +39,31 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
   @Autowired
   private AuthenticationFailureHandler browserAuthenticationFailureHandler;
 
+  @Autowired
+  private DataSource dataSource;
+
+  @Autowired
+  private UserDetailsService userDetailsService;
+
   /**
    * 配置密码加密规则.也可以自己实现这个接口,用自己的加密规则
    */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
+  }
+
+
+  /**
+   * 记住我功能
+   * @return
+   */
+  @Bean
+  public PersistentTokenRepository persistentTokenRepository(){
+    JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+    tokenRepository.setDataSource(dataSource);
+    //tokenRepository.setCreateTableOnStartup(true);
+    return tokenRepository;
   }
 
   /**
@@ -59,12 +82,17 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     //http.httpBasic()// 弹框默认的方式登录
     http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
         .formLogin()  //表单登录
-        .loginPage("/authentication/require") //当请求需要身份认证时，默认跳转的url
-        .loginProcessingUrl("/authentication/form") //默认的用户名密码登录请求处理url
-        .successHandler(browserAuthenticationSuccessHandler) //配置自定义的登录成功返回结果信息
-        .failureHandler(browserAuthenticationFailureHandler) //配置自定义的登录失败返回结果信息
-        .and()
+          .loginPage("/authentication/require") //当请求需要身份认证时，默认跳转的url
+          .loginProcessingUrl("/authentication/form") //默认的用户名密码登录请求处理url
+          .successHandler(browserAuthenticationSuccessHandler) //配置自定义的登录成功返回结果信息
+          .failureHandler(browserAuthenticationFailureHandler) //配置自定义的登录失败返回结果信息
+          .and()
+        .rememberMe() //配置记住我功能
+          .tokenRepository(persistentTokenRepository())
+          .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
+          .userDetailsService(userDetailsService )
 
+          .and()
         .authorizeRequests() //对请求做授权
         .antMatchers(
             SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,

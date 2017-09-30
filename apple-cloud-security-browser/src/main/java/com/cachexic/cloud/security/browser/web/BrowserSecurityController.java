@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.browser;
+package com.cachexic.cloud.security.browser.web;
 
 import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;

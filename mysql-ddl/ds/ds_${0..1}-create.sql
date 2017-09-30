@@ -7,7 +7,7 @@ CREATE DATABASE ds_1 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE ds_1;
 
 -- ----------------------------------分表分割线------------------------------------------------------
-CREATE TABLE `t_order_0` (
+CREATE TABLE IF NOT EXISTS `t_order_0` (
   `id` bigint AUTO_INCREMENT,
   `user_id` bigint  COMMENT '用户id',
   `order_sn` varchar(255) DEFAULT '' COMMENT '订单号',
@@ -27,7 +27,7 @@ CREATE TABLE `t_order_0` (
 ALTER TABLE `t_order_0` ADD INDEX(`user_id`) COMMENT 'for select by user_id';
 ALTER TABLE `t_order_0` ADD INDEX(`order_sn`) COMMENT 'for select by order_sn';
 
-CREATE TABLE `t_order_1` (
+CREATE TABLE IF NOT EXISTS `t_order_1` (
   `id` bigint AUTO_INCREMENT,
   `user_id` bigint  COMMENT '用户id',
   `order_sn` varchar(255) DEFAULT '' COMMENT '订单号',
@@ -51,7 +51,7 @@ ALTER TABLE `t_order_1` ADD INDEX(`order_sn`) COMMENT 'for select by order_sn';
 -- -----------------------------------单表分割线--------------------------------------------------
 -- DROP TABLE IF EXISTS `t_teacher`;
 
-CREATE TABLE `t_teacher` (
+CREATE TABLE IF NOT EXISTS `t_teacher` (
   `id` bigint AUTO_INCREMENT,
   `name` varchar(20) NOT NULL DEFAULT 'hehe' COMMENT '姓名',
   `id_card` varchar(18) DEFAULT '' COMMENT '身份证',

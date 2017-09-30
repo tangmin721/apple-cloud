@@ -3,6 +3,7 @@ spring:
     name: provider-order
   session:
     store-type: none
+
 server:
   tomcat:
     max-connections: 2000
@@ -10,11 +11,15 @@ server:
     accept-count: 600
     uri-encoding: UTF-8
 
+
 # security.basic.enabled: false
 
 ## apple cloud security config
 apple.security.browser.loginPage: /order-login.html #默认登录页
 apple.security.browser.loginType: JSON #登录成功或失败返回信息(JSON)或者跳转到原请求url(REDIRECT)
+apple.security.browser.rememberMeSeconds: 604800 #3600*24*7 = 604800 默认的记住7天
+## rememberMe功能建表语句
+# create table IF NOT EXISTS persistent_logins ( username varchar(64) not null, series varchar(64) primary key, token varchar(64) not null, last_used timestamp not null)
 
 ## 验证码的配置
 apple.security.code.image.width: 67 #验证码图形宽度
@@ -22,3 +27,5 @@ apple.security.code.image.height: 23 #验证码图形高度
 apple.security.code.image.length: 6 #验证码长度
 apple.security.code.image.expireIn: 60 #过期时间,单:秒
 apple.security.code.image.urlAndMethods: /order/*,/teacher:put #需要验证码的请求url+method
+
+

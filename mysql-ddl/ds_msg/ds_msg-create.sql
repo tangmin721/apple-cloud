@@ -5,7 +5,7 @@ CREATE DATABASE ds_msg DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE ds_msg;
 -- DROP TABLE IF EXISTS `t_msg_persistent`;
 
-CREATE TABLE `t_msg_persistent` (
+CREATE TABLE IF NOT EXISTS `t_msg_persistent` (
   `id` bigint AUTO_INCREMENT,
   `consumer_queue` varchar(255) NOT NULL DEFAULT '' COMMENT '消费对应的队列',
   `topic` varchar(255) NOT NULL DEFAULT '' COMMENT '消息topic',
