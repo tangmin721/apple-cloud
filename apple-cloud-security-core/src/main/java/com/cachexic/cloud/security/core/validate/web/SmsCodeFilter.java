@@ -3,7 +3,7 @@ package com.cachexic.cloud.security.core.validate.web;
 import com.cachexic.cloud.security.core.config.bo.UrlAndMethod;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import com.cachexic.cloud.security.core.validate.code.ValidateCodeProcessor;
-import com.cachexic.cloud.security.core.validate.code.entity.ImageCode;
+import com.cachexic.cloud.security.core.validate.code.entity.ValidateCode;
 import com.cachexic.cloud.security.core.validate.exceptions.ValidateCodeException;
 import java.io.IOException;
 import java.util.HashSet;
@@ -27,11 +27,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
  * @author tangmin
- * @Description: 在user password之前加一个图验证码的校验,在securityconfig里addFilter
- * 实现InitializingBean是为了在其他参数组装完毕后,组装urlAndMethods
+ * @Description: 在user password之前加一个短信的校验,在securityconfig里addFilter 实现InitializingBean是为了在其他参数组装完毕后,组装urlAndMethods
  * @date 2017-09-29 15:47:05
  */
-public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
+public class SmsCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
   private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
@@ -52,9 +51,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
   public void afterPropertiesSet() throws ServletException {
     super.afterPropertiesSet();
     try {
-      if (StringUtils.isNotBlank(securityProperties.getCode().getImage().getUrlAndMethods())) {
+      if (StringUtils.isNotBlank(securityProperties.getCode().getSms().getUrlAndMethods())) {
         String[] configUrls = StringUtils.splitByWholeSeparatorPreserveAllTokens(
-            securityProperties.getCode().getImage().getUrlAndMethods(), ",");
+            securityProperties.getCode().getSms().getUrlAndMethods(), ",");
         for (String configUrl : configUrls) {
           urlAndMethods.add(configUrl);
         }
@@ -68,7 +67,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         }
       }
 
-      urlAndMethodList.add(new UrlAndMethod("/authentication/form", "post"));
+      urlAndMethodList.add(new UrlAndMethod("/authentication/mobile", "post"));
     } catch (Exception e) {
       throw new ValidateCodeException(
           "====>ValidateCodeFilter afterPropertiesSet() throw exception:" + e.getMessage());
@@ -122,28 +121,28 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
   }
 
   private void validate(ServletWebRequest request) throws ServletRequestBindingException {
-    String sessionKey = ValidateCodeProcessor.SESSION_KEY_PREFIX + "IMAGE";
-    ImageCode codeInSession = (ImageCode) sessionStrategy
+    String sessionKey = ValidateCodeProcessor.SESSION_KEY_PREFIX + "SMS";
+    ValidateCode codeInSession = (ValidateCode) sessionStrategy
         .getAttribute(request, sessionKey);
 
     String codeInRequest = ServletRequestUtils
-        .getStringParameter(request.getRequest(), "imageCode");
+        .getStringParameter(request.getRequest(), "smsCode");
 
     if (StringUtils.isBlank(codeInRequest)) {
-      throw new ValidateCodeException("验证码的值不能为空");
+      throw new ValidateCodeException("短信验证码的值不能为空");
     }
 
     if (codeInSession == null) {
-      throw new ValidateCodeException("验证码不存在");
+      throw new ValidateCodeException("短信验证码不存在");
     }
 
     if (codeInSession.isExpried()) {
       sessionStrategy.removeAttribute(request, sessionKey);
-      throw new ValidateCodeException("验证码已过期");
+      throw new ValidateCodeException("短信验证码已过期");
     }
 
     if (!StringUtils.equals(codeInSession.getCode(), codeInRequest)) {
-      throw new ValidateCodeException("验证码不匹配");
+      throw new ValidateCodeException("短信验证码不匹配");
     }
 
     sessionStrategy.removeAttribute(request, sessionKey);

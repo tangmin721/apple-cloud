@@ -1,7 +1,6 @@
 package com.cachexic.cloud.security.core.validate.web;
 
 import com.cachexic.cloud.security.core.validate.code.ValidateCodeProcessor;
-import java.io.IOException;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +22,11 @@ public class ValidateCodeController {
   private Map<String,ValidateCodeProcessor> validateCodeProcessors;
 
   /**
-   * 图片验证码
+   * 创建图片 短信 验证码
+   * 根据验证码类型不同，调用不同的 {@link ValidateCodeProcessor}接口实现
    * @param request
    * @param response
-   * @throws IOException
+   * @throws Exception
    */
   @GetMapping("/code/{type}")
   public void createCode(@PathVariable String type, HttpServletRequest request, HttpServletResponse response)

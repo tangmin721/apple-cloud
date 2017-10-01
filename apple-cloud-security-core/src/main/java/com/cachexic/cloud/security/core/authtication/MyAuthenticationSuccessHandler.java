@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.browser.authentication;
+package com.cachexic.cloud.security.core.authtication;
 
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.security.core.config.enums.LoginType;
@@ -19,12 +19,12 @@ import org.springframework.stereotype.Component;
  * @Description: 自定义实现登录验证成功返回结果, 再配置SecurityConfig
  * @date 2017-09-29 10:56:00
  */
-@Component("browserAuthenticationSuccessHandler")
-public class BrowserAuthenticationSuccessHandler extends
+@Component("myAuthenticationSuccessHandler")
+public class MyAuthenticationSuccessHandler extends
     SavedRequestAwareAuthenticationSuccessHandler {
 
   private static final Logger log = LoggerFactory
-      .getLogger(BrowserAuthenticationSuccessHandler.class);
+      .getLogger(MyAuthenticationSuccessHandler.class);
 
   @Autowired
   private SecurityProperties securityProperties;
