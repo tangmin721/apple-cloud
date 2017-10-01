@@ -33,7 +33,7 @@ public interface ${entity.className}Feign{
    * 根据主键查询
    * @param id
    */
-  @GetMapping("id/{id}")
+  @GetMapping("{id:\\d+}")
   Result<${entity.className}> getById(@PathVariable("id") Long id);
 
   /**
@@ -61,7 +61,7 @@ public interface ${entity.className}Feign{
    * 根据Id删除
    * @param id
    */
-  @DeleteMapping("id/{id}")
+  @DeleteMapping("{id:\\d+}")
   Result deleteById(@PathVariable("id") Long id);
 
   /**

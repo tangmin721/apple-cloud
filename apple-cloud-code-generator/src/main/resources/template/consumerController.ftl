@@ -37,7 +37,7 @@ public class ${entity.className}WebController{
   }
 
   @ApiOperation("getById:根据主键查询")
-  @GetMapping("id/{id}")
+  @GetMapping("{id:\\d+}")
   public Result<${entity.className}> getById(@PathVariable("id") Long id){
     return ${entity.firstLowName}Feign.getById(id);
   }
@@ -61,7 +61,7 @@ public class ${entity.className}WebController{
   }
 
   @ApiOperation("deleteById:根据Id删除")
-  @DeleteMapping("id/{id}")
+  @DeleteMapping("{id:\\d+}")
   public Result deleteById(@PathVariable("id") Long id){
     return ${entity.firstLowName}Feign.deleteById(id);
   }

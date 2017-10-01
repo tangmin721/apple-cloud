@@ -38,7 +38,7 @@ public interface TeacherFeign {
   /**
    * 根据主键查询
    */
-  @GetMapping("id/{id}")
+  @GetMapping("{id:\\d+}")
   Result<Teacher> getById(@PathVariable("id") Long id);
 
   /**
@@ -62,7 +62,7 @@ public interface TeacherFeign {
   /**
    * 根据Id删除
    */
-  @DeleteMapping("id/{id}")
+  @DeleteMapping("{id:\\d+}")
   Result deleteById(@PathVariable("id") Long id);
 
   /**
