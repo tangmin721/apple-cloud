@@ -24,7 +24,7 @@ apple.security.browser.rememberMeSeconds: 604800 #3600*24*7 = 604800 默认的�
 ## 验证码的配置
 apple.security.code.image.width: 67 #验证码图形宽度
 apple.security.code.image.height: 23 #验证码图形高度
-apple.security.code.image.length: 6 #验证码长度
+apple.security.code.image.length: 4 #验证码长度
 apple.security.code.image.expireIn: 60 #过期时间,单:秒
 apple.security.code.image.urlAndMethods: /order/*,/teacher:put #需要验证码的请求url+method
 

@@ -26,9 +26,9 @@ import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
+ * @author tangmin
  * @Description: 在user password之前加一个图验证码的校验,在securityconfig里addFilter
  * 实现InitializingBean是为了在其他参数组装完毕后,组装urlAndMethods
- * @author tangmin
  * @date 2017-09-29 15:47:05
  */
 public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
@@ -98,8 +98,8 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     boolean action = false;
     for (UrlAndMethod urlAndMethod : urlAndMethodList) {
       String requestURI = request.getRequestURI();
-      if(requestURI.endsWith("/")){
-        requestURI = requestURI.substring(0,requestURI.length()-1);
+      if (requestURI.endsWith("/")) {
+        requestURI = requestURI.substring(0, requestURI.length() - 1);
       }
 
       if (StringUtils.isBlank(urlAndMethod.getMethod())) {
@@ -121,7 +121,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
   private void validate(ServletWebRequest request) throws ServletRequestBindingException {
     ImageCode codeInSession = (ImageCode) sessionStrategy
-        .getAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX);
+        .getAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX + "IMAGE");
 
     String codeInRequest = ServletRequestUtils
         .getStringParameter(request.getRequest(), "imageCode");
@@ -135,7 +135,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     }
 
     if (codeInSession.isExpried()) {
-      sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX);
+      sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX + "IMAGE");
       throw new ValidateCodeException("验证码已过期");
     }
 
@@ -143,7 +143,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
       throw new ValidateCodeException("验证码不匹配");
     }
 
-    sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX);
+    sessionStrategy.removeAttribute(request, ValidateCodeProcessor.SESSION_KEY_PREFIX + "IMAGE");
   }
 
 
