@@ -53,23 +53,11 @@ public class ExceptionHandle {
     String logStr = requestInfo + exceptionInfo;
     //传入参数异常
     if (e instanceof org.springframework.web.bind.MissingPathVariableException) {
-      log.warn(logStr, e.getClass().getName(), BizExceptionEnum.REQUEST_PATH_BING_ERROR.getCode(),
-          e.getMessage());
-      return Result.FAIL(BizExceptionEnum.REQUEST_PATH_BING_ERROR);
+      return getFailResult(e,BizExceptionEnum.REQUEST_PATH_BING_ERROR, logStr);
     } else if (e instanceof org.springframework.web.HttpRequestMethodNotSupportedException) {
-      log.warn(logStr, e.getClass().getName(), BizExceptionEnum.REQUEST_METHOD_ERROR.getCode(),
-          e.getMessage());
-      return Result.FAIL(BizExceptionEnum.REQUEST_METHOD_ERROR);
+      return getFailResult(e,BizExceptionEnum.REQUEST_METHOD_ERROR, logStr);
     } else if (e instanceof org.springframework.http.converter.HttpMessageNotReadableException) {
-      log.warn(logStr, e.getClass().getName(), BizExceptionEnum.PARAMETER_ERROR.getCode(),
-          e.getMessage());
-
-      String errorMsg = BizExceptionEnum.PARAMETER_ERROR.getMsg();
-      if(log.isDebugEnabled()){
-        errorMsg += ":" + e.getMessage();
-      }
-
-      return Result.FAIL(BizExceptionEnum.PARAMETER_ERROR.getCode(),errorMsg);
+      return getFailResult(e,BizExceptionEnum.PARAMETER_ERROR, logStr);
       //valid异常
     } else if (e instanceof ValidBizException) {
       ValidBizException ex = (ValidBizException) e;
@@ -83,16 +71,16 @@ public class ExceptionHandle {
       log.warn(logStr, e.getClass().getName(), ex.getCode(), e.getMessage());
       return Result.FAIL(ex.getCode(), ex.getMessage());
     } else {
-      log.error(logStr, e.getClass().getName(), BizExceptionEnum.SYS_EXCEPTION.getCode(),
-          e.getClass() + "==>" + e.getMessage());
-
-      String errorMsg = BizExceptionEnum.SYS_EXCEPTION.getMsg();
-      if(log.isDebugEnabled()){
-        errorMsg += ":" + e.getClass() + "==>" + e.getMessage();
-        e.printStackTrace();
-      }
-
-      return Result.FAIL(BizExceptionEnum.SYS_EXCEPTION.getCode(),errorMsg);
+      return getFailResult(e,BizExceptionEnum.SYS_EXCEPTION, logStr);
     }
+  }
+
+  private Result getFailResult(Exception e, BizExceptionEnum bizExceptionEnum, String logStr) {
+    String errorMsg = BizExceptionEnum.PARAMETER_ERROR.getMsg();
+    if(log.isDebugEnabled()){
+      errorMsg += ":" + e.getMessage();
+    }
+    log.warn(logStr, e.getClass().getName(), bizExceptionEnum.getCode(), errorMsg);
+    return Result.FAIL(bizExceptionEnum);
   }
 }
