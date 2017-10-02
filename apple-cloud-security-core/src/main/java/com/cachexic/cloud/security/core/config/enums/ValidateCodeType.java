@@ -15,7 +15,7 @@ public enum ValidateCodeType {
   /**
    * 短信验证码
    */
-  SMS {
+  SMS("短信") {
     @Override
     public String getParamNameOnValidate() {
       return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_SMS;
@@ -24,12 +24,23 @@ public enum ValidateCodeType {
   /**
    * 图片验证码
    */
-  IMAGE {
+  IMAGE("图片") {
     @Override
     public String getParamNameOnValidate() {
       return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_IMAGE;
     }
   };
+
+  /**
+   * 备注信息
+   */
+  private final String desc;
+  ValidateCodeType(String desc){
+    this.desc = desc;
+  }
+  public String getDesc() {
+    return desc;
+  }
 
   /**
    * 校验时从请求中获取的参数的名字
