@@ -19,10 +19,9 @@ public class SmsCodeProperties {
 
   /**
    * 可配置的指定哪个url的请求需要做验证码拦截格式
-   * 格式要求: url必填,method选填,以:隔开,不同url以逗号隔开
-   * /usr/*:post,/usr2/list
+   * /usr/*,/usr2/list
    */
-  private String urlAndMethods;
+  private String url;
 
   public int getLength() {
     return length;
@@ -40,11 +39,11 @@ public class SmsCodeProperties {
     this.expireIn = expireIn;
   }
 
-  public String getUrlAndMethods() {
-    return urlAndMethods;
+  public String getUrl() {
+    return url;
   }
 
-  public void setUrlAndMethods(String urlAndMethods) {
-    this.urlAndMethods = urlAndMethods;
+  public void setUrl(String url) {
+    this.url = url;
   }
 }

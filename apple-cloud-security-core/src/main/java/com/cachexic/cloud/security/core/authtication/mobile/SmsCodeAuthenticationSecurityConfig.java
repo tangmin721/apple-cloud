@@ -48,8 +48,6 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
         .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .formLogin();
 
-
-
     super.configure(http);
   }
 }

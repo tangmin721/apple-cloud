@@ -11,6 +11,7 @@ import com.cachexic.cloud.security.core.config.enums.LoginType;
 public class BrowserProperties {
 
   private String loginPage = SecurityConstants.DEFAULT_LOGIN_PAGE_URL;
+  private String logoutPage = SecurityConstants.DEFAULT_LOGOUT_PAGE_URL;
 
   private LoginType loginType = LoginType.JSON;
 
@@ -41,5 +42,13 @@ public class BrowserProperties {
 
   public void setRememberMeSeconds(int rememberMeSeconds) {
     this.rememberMeSeconds = rememberMeSeconds;
+  }
+
+  public String getLogoutPage() {
+    return logoutPage;
+  }
+
+  public void setLogoutPage(String logoutPage) {
+    this.logoutPage = logoutPage;
   }
 }

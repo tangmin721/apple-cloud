@@ -2,7 +2,7 @@ package com.cachexic.cloud.security.core.config;
 
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import com.cachexic.cloud.security.core.validate.code.ValidateCodeGenerator;
-import com.cachexic.cloud.security.core.validate.code.image.DefaultImageCodeGenerator;
+import com.cachexic.cloud.security.core.validate.code.image.ImageCodeGenerator;
 import com.cachexic.cloud.security.core.validate.code.sms.DefaultSmsCodeSender;
 import com.cachexic.cloud.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,9 @@ public class ValidateCodeBeanConfig {
    * @return
    */
   @Bean
-  @ConditionalOnMissingBean(name = "imageCodeGenerator")
-  public ValidateCodeGenerator imageCodeGenerator() {
-    DefaultImageCodeGenerator codeGenerator = new DefaultImageCodeGenerator();
+  @ConditionalOnMissingBean(name = "imageValidateCodeGenerator")
+  public ValidateCodeGenerator imageValidateCodeGenerator() {
+    ImageCodeGenerator codeGenerator = new ImageCodeGenerator();
     codeGenerator.setSecurityProperties(securityProperties);
     return codeGenerator;
   }

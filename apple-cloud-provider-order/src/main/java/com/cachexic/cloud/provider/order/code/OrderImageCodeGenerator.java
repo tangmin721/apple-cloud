@@ -11,7 +11,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @author tangmin
  * @date 2017-09-30 09:55:21
  */
-//@Component("imageCodeGenerator")
+//@Component("imageValidateCodeGenerator")
 public class OrderImageCodeGenerator implements ValidateCodeGenerator{
 
   private static final Logger log = LoggerFactory.getLogger(OrderImageCodeGenerator.class);

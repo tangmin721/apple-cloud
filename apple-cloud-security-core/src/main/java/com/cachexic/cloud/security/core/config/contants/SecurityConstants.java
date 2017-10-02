@@ -16,6 +16,11 @@ public interface SecurityConstants {
   String DEFAULT_LOGIN_PAGE_URL = "/apple-login.html";
 
   /**
+   * 默认退出页面
+   */
+  String DEFAULT_LOGOUT_PAGE_URL = "/apple-logout.html";
+
+  /**
    * 当请求需要身份认证时，默认跳转的url，引导用户到登录页
    */
   String DEFAULT_UNAUTHENTICATION_URL = "/authentication/require";

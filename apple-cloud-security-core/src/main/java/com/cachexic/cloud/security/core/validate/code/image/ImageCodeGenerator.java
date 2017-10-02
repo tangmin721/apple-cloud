@@ -16,7 +16,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @author tangmin
  * @date 2017-09-30 09:32:39
  */
-public class DefaultImageCodeGenerator implements ValidateCodeGenerator {
+public class ImageCodeGenerator implements ValidateCodeGenerator {
 
   private SecurityProperties securityProperties;
 

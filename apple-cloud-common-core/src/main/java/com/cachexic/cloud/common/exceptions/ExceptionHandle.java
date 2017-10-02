@@ -79,6 +79,7 @@ public class ExceptionHandle {
     String errorMsg = BizExceptionEnum.PARAMETER_ERROR.getMsg();
     if(log.isDebugEnabled()){
       errorMsg += ":" + e.getMessage();
+      e.printStackTrace();
     }
     log.warn(logStr, e.getClass().getName(), bizExceptionEnum.getCode(), errorMsg);
     return Result.FAIL(bizExceptionEnum);

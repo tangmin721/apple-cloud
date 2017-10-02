@@ -7,13 +7,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
- * 图片验证码处理器
- * 
- * @author zhailiang
- *
+ * @Description: 图片验证码处理器
+ * @author tangmin
+ * @date 2017-10-02 11:58:58
  */
 @Component("imageValidateCodeProcessor")
-public class ImageValidateCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> {
+public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> {
 
 	/**
 	 * 发送图形验证码，将其写到响应中
