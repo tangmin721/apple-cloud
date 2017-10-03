@@ -73,7 +73,9 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
    * 保存校验码
    */
   private void save(ServletWebRequest request, C validateCode) {
-    sessionStrategy.setAttribute(request, getSessionKey(request), validateCode);
+    ValidateCode code = new ValidateCode(validateCode.getCode(),
+        validateCode.getExpireTime());//处理图片验证码不能序列化到redis里，所以这里转换一下，只存code和过期时间
+    sessionStrategy.setAttribute(request, getSessionKey(request), code);
   }
 
   /**

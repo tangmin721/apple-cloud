@@ -24,6 +24,16 @@ public class ValidateCode {
     this.expireTime = LocalDateTime.now().plusSeconds(expireIn);
   }
 
+  /**
+   * 存储到session
+   * @param code
+   * @param expireTime
+   */
+  public ValidateCode(String code, LocalDateTime expireTime) {
+    this.code = code;
+    this.expireTime = expireTime;
+  }
+
   public String getCode() {
     return code;
   }
