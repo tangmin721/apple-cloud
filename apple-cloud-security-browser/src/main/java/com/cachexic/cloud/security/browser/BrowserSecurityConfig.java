@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
  * @author tangmin
@@ -42,6 +43,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
   @Autowired
   private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
+  @Autowired
+  private SpringSocialConfigurer mySocialSecurityConfig;
 
   /**
    * 配置密码加密规则.也可以自己实现这个接口,用自己的加密规则
@@ -73,9 +77,11 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     //http.httpBasic()// 弹框默认的方式登录
     http.apply(validateCodeSecurityConfig) //验证码的配置通过apply直接可以加入到这
-        .and()
+          .and()
         .apply(smsCodeAuthenticationSecurityConfig)
-        .and()
+          .and()
+        .apply(mySocialSecurityConfig)
+          .and()
         .rememberMe() //配置记住我功能(浏览器)
           .tokenRepository(persistentTokenRepository())
           .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())

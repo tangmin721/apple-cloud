@@ -28,4 +28,9 @@ apple.security.code.image.length: 4 #验证码长度
 apple.security.code.image.expireIn: 60 #过期时间,单:秒
 apple.security.code.image.urlAndMethods: /order/*,/teacher:put #需要验证码的请求url+method
 
+## 第三方登录social的配置
+apple.security.social.filterProcessesUrl: /qqLogin
+apple.security.social.qq.providerId: qq.callback
+apple.security.social.qq.app-id: 1106384767
+apple.security.social.qq.app-secret: xL1neJQ7EcW9BGmn
 

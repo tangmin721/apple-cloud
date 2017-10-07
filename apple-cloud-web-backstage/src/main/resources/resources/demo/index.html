@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .box {
+      width: 100px;
+      height: 100px;
+      background: red;
+      transition: 1s;
+      -webkit-transition: 1s;
+      -moz-transition: 1s;
+      -o-transition: 1s;
+    }
+
+    .box:hover {
+      width: 200px;
+      height: 200px;
+      background: blue;
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      width: 150px;
+      border-right: 1px solid #000;
+      float: left;
+    }
+
+    .list li:last-of-type {
+      border: none;
+    }
+
+    .list a {
+      float: left;
+      width: 40px;
+      margin: 0 5px;
+      font: 12px/30px "宋体";
+    }
+
+    .list li a:nth-of-type(3n+1) {
+      font-weight: bold;
+    }
+
+    .list li:nth-child(3) a:nth-child(2) {
+      color: red;
+    }
+
+    h1 {
+      text-shadow: 0 0 20px #fefcc9, 10px -10px 30px #feec85, -20px -20px 40px #ffae34, 20px -40px 50px #ec760c, -20px -60px 60px #cd4606, 0 -80px 70px #973716, 10px -90px 80px #451b0e;
+      font-family: Verdana, Geneva, sans-serif;
+      font-size: 100px;
+      font-weight: bold;
+      color: white;
+    }
+    h2 {
+      color:white; font-size:100px; text-shadow:0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #ff00de, 0 0 70px #ff00de, 0 0 80px #ff00de, 0 0 100px #ff00de, 0 0 150px #ff00de;
+
+    }
+  </style>
+</head>
+<body>
+<div class="box">
+
+</div>
+<ul class="list">
+  <li>
+    <a href="#">111</a>
+    <a href="#">222</a>
+    <a href="#">333</a>
+    <a href="#">444</a>
+    <a href="#">555</a>
+    <a href="#">666</a>
+    <a href="#">777</a>
+    <a href="#">888</a>
+    <a href="#">999</a>
+  </li>
+  <li>
+    <a href="#">111</a>
+    <a href="#">222</a>
+    <a href="#">333</a>
+    <a href="#">444</a>
+    <a href="#">555</a>
+    <a href="#">666</a>
+    <a href="#">777</a>
+    <a href="#">888</a>
+    <a href="#">999</a>
+  </li>
+  <li>
+    <a href="#">111</a>
+    <a href="#">222</a>
+    <a href="#">333</a>
+    <a href="#">444</a>
+    <a href="#">555</a>
+    <a href="#">666</a>
+    <a href="#">777</a>
+    <a href="#">888</a>
+    <a href="#">999</a>
+  </li>
+  <h1>火焰文字</h1>
+  <h2>光晕</h2>
+</ul>
+</body>
+</html>

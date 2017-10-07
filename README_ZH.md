@@ -2,7 +2,7 @@
 
 # 概述
 
-Apple-cloud基于Spring cloud,利用当前流行的技术构建高可用、高并发、高性能的企业级微服务框架。
+Apple-cloud基于Spring cloud,利用当前流行的技术构建高可用、高并发、高性能的企业级微服务框架。Apple是我家小狗的名字。
 
 # 集成的技术
 
