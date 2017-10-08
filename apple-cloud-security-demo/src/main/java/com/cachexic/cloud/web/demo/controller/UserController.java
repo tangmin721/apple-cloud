@@ -47,7 +47,7 @@ public class UserController {
     return user;
   }
 
-  @PutMapping("/{id:\\d+}")
+  @PutMapping("/{id}")
   public User update(@Valid @RequestBody User user, BindingResult errors) {
     print(user);
     return user;
@@ -62,7 +62,7 @@ public class UserController {
     user.setId("1");
   }
 
-  @DeleteMapping("/{id:\\d+}")
+  @DeleteMapping("/{id}")
   public void delete(@PathVariable String id) {
     System.out.println(id);
   }
@@ -86,7 +86,7 @@ public class UserController {
     return users;
   }
 
-  @GetMapping("/{id:\\d+}")
+  @GetMapping("/{id}")
   @JsonView(User.UserDetailView.class)
   public User getInfo(@ApiParam("用户id") @PathVariable String id) {
 //		throw new RuntimeException("user not exist");

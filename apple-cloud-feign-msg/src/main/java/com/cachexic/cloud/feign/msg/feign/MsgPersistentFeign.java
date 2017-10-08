@@ -38,7 +38,7 @@ public interface MsgPersistentFeign {
   /**
    * 根据主键查询
    */
-  @GetMapping("{id:\\d+}")
+  @GetMapping("{id}")
   Result<MsgPersistent> getById(@PathVariable("id") Long id);
 
   /**
@@ -62,7 +62,7 @@ public interface MsgPersistentFeign {
   /**
    * 根据Id删除
    */
-  @DeleteMapping("{id:\\d+}")
+  @DeleteMapping("{id}")
   Result deleteById(@PathVariable("id") Long id);
 
   /**

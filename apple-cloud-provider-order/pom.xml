@@ -38,6 +38,7 @@
       <artifactId>spring-kafka</artifactId>
     </dependency>
 
+    <!--security-->
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>apple-cloud-security-browser</artifactId>

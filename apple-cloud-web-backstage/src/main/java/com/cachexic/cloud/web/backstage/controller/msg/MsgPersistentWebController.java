@@ -45,7 +45,7 @@ public class MsgPersistentWebController {
   }
 
   @ApiOperation("getById:根据主键查询")
-  @GetMapping("{id:\\d+}")
+  @GetMapping("{id}")
   public Result<MsgPersistent> getById(@PathVariable("id") Long id) {
     return msgPersistentFeign.getById(id);
   }
@@ -69,7 +69,7 @@ public class MsgPersistentWebController {
   }
 
   @ApiOperation("deleteById:根据Id删除")
-  @DeleteMapping("{id:\\d+}")
+  @DeleteMapping("{id}")
   public Result deleteById(@PathVariable("id") Long id) {
     return msgPersistentFeign.deleteById(id);
   }

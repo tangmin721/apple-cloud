@@ -47,7 +47,7 @@ public class AsyncTeacherController {
   private DeferredResultHolder deferredResultHolder;
 
   @ApiOperation(value = "getById:根据主键查询", notes = "方式1:Callable简单的异步接口")
-  @GetMapping("{id:\\d+}")
+  @GetMapping("{id}")
   public Callable<Result<Teacher>> getById(@PathVariable("id") Long id) {
     log.info("*********主线程开始*********");
     Callable<Result<Teacher>> resultCallable = () -> {

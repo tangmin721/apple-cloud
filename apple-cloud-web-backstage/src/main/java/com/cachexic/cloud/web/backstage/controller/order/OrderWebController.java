@@ -45,7 +45,7 @@ public class OrderWebController {
   }
 
   @ApiOperation("getById:根据主键查询")
-  @GetMapping("{id:\\d+}")
+  @GetMapping("{id}")
   public Result<Order> getById(@PathVariable("id") Long id) {
     return orderFeign.getById(id);
   }
@@ -69,7 +69,7 @@ public class OrderWebController {
   }
 
   @ApiOperation("deleteById:根据Id删除")
-  @DeleteMapping("{id:\\d+}")
+  @DeleteMapping("{id}")
   public Result deleteById(@PathVariable("id") Long id) {
     return orderFeign.deleteById(id);
   }
