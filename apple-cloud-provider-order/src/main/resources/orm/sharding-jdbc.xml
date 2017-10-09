@@ -9,8 +9,7 @@
                         http://www.springframework.org/schema/context/spring-context.xsd
                         http://www.dangdang.com/schema/ddframe/rdb 
                         http://www.dangdang.com/schema/ddframe/rdb/rdb.xsd">
-  <context:component-scan base-package="com.cachexic.cloud"/>
-  <context:property-placeholder ignore-unresolvable="true"/>
+  <context:property-placeholder  ignore-unresolvable="true"/>
 
   <!--基于类的方式-->
   <!-- <rdb:strategy id="databaseShardingStrategy" sharding-columns="user_id" algorithm-class="com.cachexic.sjdbc.common.config.sjdbc.algorithm.SingleKeyModuloDatabaseShardingAlgorithm"/>
