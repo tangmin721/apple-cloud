@@ -4,7 +4,7 @@ jdbc:
     ds_rocketmq:
       name: master
       filters: stat
-      url: jdbc:mysql://localhost:3306/ds_rocketmq?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      url: jdbc:mysql://localhost:3306/ds_msg?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
       password: root1234
       publickey: null

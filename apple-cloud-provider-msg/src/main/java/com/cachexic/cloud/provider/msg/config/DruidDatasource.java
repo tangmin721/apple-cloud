@@ -24,7 +24,10 @@ public class DruidDatasource {
   @Autowired
   private DruidDatasourceBase druidDatasourceBase;
 
-  @Bean(name = "ds_rocketmq")
+  /**
+   * 单库 名字需要定义为dataSource
+   */
+  @Bean(name = "dataSource")
   @Primary
   public DataSource ds_rocketmq(
       @Value("${jdbc.datasource.ds_rocketmq.url}") String url,
