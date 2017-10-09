@@ -3,7 +3,8 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <!-- ==================================================================== -->
-  <!-- 所有微服务运行（provider和consumer）需要的jar包顶级配置-->
+  <!-- 所有微服务运行（provider和consumer）需要的jar包顶级配置.
+        主要为了避免基础组件比如eureka，zipkin不加入多余的包-->
   <!-- ==================================================================== -->
   <parent>
     <artifactId>apple-cloud-all-parent</artifactId>

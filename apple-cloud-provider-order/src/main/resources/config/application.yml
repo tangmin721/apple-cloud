@@ -2,7 +2,7 @@ spring:
   application:
     name: provider-order
   session:
-    store-type: none
+    store-type: redis
 
 server:
   tomcat:

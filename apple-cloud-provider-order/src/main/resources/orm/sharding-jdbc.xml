@@ -31,7 +31,7 @@
   <rdb:master-slave-data-source id="other_ds_0" master-data-source-ref="other_ds_0_master" slave-data-sources-ref="other_ds_0_slave_0,other_ds_0_slave_1" />-->
   <!--<rdb:master-slave-data-source id="other_ds_0" master-data-source-ref="other_ds_0_master" slave-data-sources-ref="other_ds_0_slave_0" />-->
 
-  <rdb:data-source id="dataSource">
+<rdb:data-source id="dataSource">
     <!-- default-data-source默认数据源名称，未配置分片规则的表将通过默认数据源定位 -->
     <!-- key-generator-class配置全局生成器 -->
     <rdb:sharding-rule data-sources="ds_0,ds_1" default-data-source="ds_0"
