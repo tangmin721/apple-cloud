@@ -1,7 +1,7 @@
 package com.cachexic.cloud.security.core.authtication;
 
 import com.cachexic.cloud.common.utils.json.JsonUtil;
-import com.cachexic.cloud.security.core.config.enums.LoginType;
+import com.cachexic.cloud.security.core.config.enums.LoginResponseType;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -35,7 +35,7 @@ public class MyAuthenticationSuccessHandler extends
 
     log.info("====>登录成功");
 
-    if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
+    if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getSignInResponseType())) {
       response.setContentType("application/json;charset=UTF-8");
       response.getWriter().write(JsonUtil.toJson(authentication));
     } else {

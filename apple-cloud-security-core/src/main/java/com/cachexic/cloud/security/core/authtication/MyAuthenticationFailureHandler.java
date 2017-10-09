@@ -2,7 +2,7 @@ package com.cachexic.cloud.security.core.authtication;
 
 import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
-import com.cachexic.cloud.security.core.config.enums.LoginType;
+import com.cachexic.cloud.security.core.config.enums.LoginResponseType;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -33,7 +33,7 @@ public class MyAuthenticationFailureHandler extends SimpleUrlAuthenticationFailu
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
       AuthenticationException exception) throws IOException, ServletException {
     log.info("====>登录失败");
-    if (LoginType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
+    if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getSignInResponseType())) {
       //response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
       response.setContentType("application/json;charset=UTF-8");
       response.getWriter().write(JsonUtil.toJson(Result.FAIL(exception.getMessage())));

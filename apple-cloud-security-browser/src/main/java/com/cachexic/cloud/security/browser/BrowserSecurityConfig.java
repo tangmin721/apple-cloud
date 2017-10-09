@@ -17,6 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.security.web.session.InvalidSessionStrategy;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 /**
@@ -46,6 +48,12 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
   @Autowired
   private SpringSocialConfigurer mySocialSecurityConfig;
+
+  @Autowired
+  private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
+
+  @Autowired
+  private InvalidSessionStrategy invalidSessionStrategy;
 
   /**
    * 配置密码加密规则.也可以自己实现这个接口,用自己的加密规则
@@ -87,13 +95,23 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
           .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())
           .userDetailsService(userDetailsService )
           .and()
+
+        .sessionManagement()//配置session过期跳转到的url
+          .invalidSessionStrategy(invalidSessionStrategy)
+          .invalidSessionUrl(SecurityConstants.DEFAULT_SESSION_INVALID_URL)
+          .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions()) //如果配置最大session数量为1,则后面登录的会把之前登录的踢掉
+          .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin()) //在达到最大登录数量后,阻止其他设备登录(另一种策略)
+          .expiredSessionStrategy(sessionInformationExpiredStrategy) //并发登录导致session超时的策略
+          .and()
+          .and()
         .authorizeRequests() //对请求做授权
 
         .antMatchers(//排除的url
             SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-            securityProperties.getBrowser().getLoginPage(),
+            securityProperties.getBrowser().getSignInPage(),
             SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
-            securityProperties.getBrowser().getRegisterPage()
+            securityProperties.getBrowser().getSignUpUrl(),
+            securityProperties.getBrowser().getSession().getSessionInvalidUrl()
         ).permitAll() //排除页的身份验证
         .anyRequest()  //对所有请求
         .authenticated() //都是要身份认证

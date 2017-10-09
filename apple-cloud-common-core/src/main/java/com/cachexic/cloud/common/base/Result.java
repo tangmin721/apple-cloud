@@ -125,6 +125,18 @@ public class Result<T> implements Serializable {
     return result;
   }
 
+  /**
+   * 自定义没有授权的登录消息
+   * @param msg
+   * @return
+   */
+  public static Result UNAUTHORIZED(String msg) {
+    Result result = new Result();
+    result.setStatus(UNAUTHORIZED_CODE);
+    result.setMessage(msg);
+    return result;
+  }
+
   public static Result FALLBACK(Throwable cause) {
     String message = cause.getMessage();
     if (StringUtils.isBlank(message)) {
