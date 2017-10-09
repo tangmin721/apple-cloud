@@ -1,5 +1,6 @@
 package com.cachexic.cloud.security.browser;
 
+import com.cachexic.cloud.security.browser.logout.AppleLogoutSuccessHandler;
 import com.cachexic.cloud.security.browser.session.AppleExpiredSessionStrategy;
 import com.cachexic.cloud.security.browser.session.AppleInvalidSessionStrategy;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
@@ -39,5 +41,15 @@ public class BrowserSecurityBeanConfig {
     return new AppleExpiredSessionStrategy(securityProperties);
   }
 
+  /**
+   * 退出时的处理策略配置
+   *
+   * @return
+   */
+  @Bean
+  @ConditionalOnMissingBean(LogoutSuccessHandler.class)
+  public LogoutSuccessHandler logoutSuccessHandler(){
+    return new AppleLogoutSuccessHandler(securityProperties.getBrowser().getSignOutUrl());
+  }
 
 }

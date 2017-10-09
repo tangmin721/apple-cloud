@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -54,6 +55,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
   @Autowired
   private InvalidSessionStrategy invalidSessionStrategy;
+
+  @Autowired
+  private LogoutSuccessHandler logoutSuccessHandler;
 
   /**
    * 配置密码加密规则.也可以自己实现这个接口,用自己的加密规则
@@ -104,6 +108,11 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
           .expiredSessionStrategy(sessionInformationExpiredStrategy) //并发登录导致session超时的策略
           .and()
           .and()
+        .logout()
+          .logoutUrl("/signOut")  //替换默认的/logout为/signOut
+          .logoutSuccessHandler(logoutSuccessHandler) // 自定义退出成功后的处理操作
+          .deleteCookies("JSESSIONID") //清除cook
+          .and()
         .authorizeRequests() //对请求做授权
 
         .antMatchers(//排除的url
@@ -112,6 +121,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
             SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
             securityProperties.getBrowser().getSignUpUrl(),
             securityProperties.getBrowser().getSession().getSessionInvalidUrl()
+           // securityProperties.getBrowser().getSignOutUrl()
         ).permitAll() //排除页的身份验证
         .anyRequest()  //对所有请求
         .authenticated() //都是要身份认证
@@ -120,5 +130,6 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
         .csrf().disable() //暂时禁用掉跨站伪造防护
 
         .apply(smsCodeAuthenticationSecurityConfig);
+
   }
 }
