@@ -1,6 +1,7 @@
 package com.cachexic.cloud.provider.eshop.service.impl;
 
 import com.cachexic.cloud.common.junit.TestParent;
+import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.eshop.entity.Eshop;
 import com.cachexic.cloud.provider.eshop.service.EshopService;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class EshopServiceImplTest extends TestParent {
 
   @Test
   public void insertBatch() throws Exception {
-
+    System.out.println(JsonUtil.toJson(eshopService.selectById(1l)));
   }
 
   @Test

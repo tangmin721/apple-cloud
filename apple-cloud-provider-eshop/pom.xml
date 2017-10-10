@@ -24,12 +24,12 @@
       <version>${project.parent.version}</version>
     </dependency>
 
-    <!--security
+    <!--security-->
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>apple-cloud-security-app</artifactId>
       <version>${project.parent.version}</version>
-    </dependency>-->
+    </dependency>
   </dependencies>
 
 
