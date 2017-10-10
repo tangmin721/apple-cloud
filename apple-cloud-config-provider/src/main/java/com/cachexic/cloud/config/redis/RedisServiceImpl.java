@@ -83,8 +83,6 @@ public class RedisServiceImpl implements RedisService {
    *
    * @param key 缓存KEY
    * @param expireTime 失效时间(秒)
-   * @author FangJun
-   * @date 2016年8月14日
    */
   public void expire(String key, long expireTime) {
     if (expireTime > 0) {

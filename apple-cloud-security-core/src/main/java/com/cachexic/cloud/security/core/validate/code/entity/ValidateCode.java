@@ -1,5 +1,6 @@
 package com.cachexic.cloud.security.core.validate.code.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -7,8 +8,9 @@ import java.time.LocalDateTime;
  * @author tangmin
  * @date 2017-09-30 12:01:44
  */
-public class ValidateCode {
+public class ValidateCode implements Serializable{
 
+  private static final long serialVersionUID = 2562392569646589147L;
   private String code;
 
   /**

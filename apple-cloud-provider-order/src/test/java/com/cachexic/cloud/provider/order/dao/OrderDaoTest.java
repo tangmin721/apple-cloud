@@ -11,7 +11,6 @@ import javax.validation.ValidatorFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ActiveProfiles;
 
 /**
@@ -20,8 +19,8 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("dev")
 public class OrderDaoTest extends TestParent {
 
-  @Value("${eureka.instance.client.serviceUrl.defaultZone}")
-  private String defaultZone;
+//  @Value("${eureka.instance.client.serviceUrl.defaultZone}")
+//  private String defaultZone;
 
   @Autowired
   private OrderDao orderDao;
@@ -55,7 +54,7 @@ public class OrderDaoTest extends TestParent {
 
   @Test
   public void defaultZone() throws Exception {
-    System.out.println(defaultZone);
+    //System.out.println(defaultZone);
   }
 
   @Test
