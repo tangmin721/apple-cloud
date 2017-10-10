@@ -1,7 +1,7 @@
 
 jdbc:
   datasource:
-    ds_rocketmq:
+    ds_msg:
       name: master
       filters: stat
       url: jdbc:mysql://localhost:3306/ds_msg?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true

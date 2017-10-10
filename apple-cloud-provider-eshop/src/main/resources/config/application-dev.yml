@@ -1,0 +1,17 @@
+
+jdbc:
+  datasource:
+    ds_eshop:
+      name: master
+      filters: stat
+      url: jdbc:mysql://localhost:3306/ds_eshop?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root1234
+      publickey:
+
+spring:
+  redis:
+    host: apple01
+    port: 6379
+    #cluster:
+      #nodes: 10.16.70.230:8000,10.16.70.231:8000,10.16.70.232:8000,10.16.70.230:9000,10.16.70.231:9000,10.16.70.232:9000

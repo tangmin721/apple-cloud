@@ -1,6 +1,7 @@
-package com.cachexic.cloud.provider.msg.config;
+package com.cachexic.cloud.provider.eshop.config;
 
 import com.cachexic.cloud.config.sjdbc.DruidDatasourceBase;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -8,8 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
-import javax.sql.DataSource;
 
 /**
  * @author tangmin
@@ -29,13 +28,12 @@ public class DruidDatasource {
    */
   @Bean(name = "dataSource")
   @Primary
-  public DataSource ds_msg(
-      @Value("${jdbc.datasource.ds_msg.url}") String url,
-      @Value("${jdbc.datasource.ds_msg.username}") String username,
-      @Value("${jdbc.datasource.ds_msg.password}") String password,
-      @Value("${jdbc.datasource.ds_msg.publickey}") String publickey,
-      @Value("${jdbc.datasource.ds_msg.filters}") String filters) {
+  public DataSource ds_eshop(
+      @Value("${jdbc.datasource.ds_eshop.url}") String url,
+      @Value("${jdbc.datasource.ds_eshop.username}") String username,
+      @Value("${jdbc.datasource.ds_eshop.password}") String password,
+      @Value("${jdbc.datasource.ds_eshop.publickey}") String publickey,
+      @Value("${jdbc.datasource.ds_eshop.filters}") String filters) {
     return druidDatasourceBase.getDruidDataSource(url, username, password, publickey, filters);
   }
-
 }

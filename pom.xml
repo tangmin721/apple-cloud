@@ -57,6 +57,8 @@
 
     <!--代码生成器-->
     <module>apple-cloud-code-generator</module>
+    <module>apple-cloud-feign-eshop</module>
+    <module>apple-cloud-provider-eshop</module>
 
   </modules>
 
