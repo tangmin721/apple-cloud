@@ -3,13 +3,12 @@ package com.cachexic.cloud.security.core.validate.code.impl;
 import com.cachexic.cloud.security.core.config.enums.ValidateCodeType;
 import com.cachexic.cloud.security.core.validate.code.ValidateCodeGenerator;
 import com.cachexic.cloud.security.core.validate.code.ValidateCodeProcessor;
+import com.cachexic.cloud.security.core.validate.code.ValidateCodeRepository;
 import com.cachexic.cloud.security.core.validate.code.entity.ValidateCode;
 import com.cachexic.cloud.security.core.validate.exceptions.ValidateCodeException;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.connect.web.HttpSessionSessionStrategy;
-import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -23,9 +22,11 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     ValidateCodeProcessor {
 
   /**
-   * 操作session的工具类
+   * 操作session的工具类,或操作redis
    */
-  private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+  @Autowired
+  private ValidateCodeRepository validateCodeRepository;
+
   /**
    * 收集系统中所有的 {@link ValidateCodeGenerator} 接口的实现。
    */
@@ -75,14 +76,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
   private void save(ServletWebRequest request, C validateCode) {
     ValidateCode code = new ValidateCode(validateCode.getCode(),
         validateCode.getExpireTime());//处理图片验证码不能序列化到redis里，所以这里转换一下，只存code和过期时间
-    sessionStrategy.setAttribute(request, getSessionKey(request), code);
-  }
-
-  /**
-   * 构建验证码放入session时的key
-   */
-  private String getSessionKey(ServletWebRequest request) {
-    return SESSION_KEY_PREFIX + getValidateCodeType(request).toString().toUpperCase();
+    validateCodeRepository.save(request,code, getValidateCodeType(request));
   }
 
 
@@ -90,37 +84,36 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
   @Override
   public void validate(ServletWebRequest request) {
 
-    ValidateCodeType processorType = getValidateCodeType(request);
-    String sessionKey = getSessionKey(request);
+    ValidateCodeType codeType = getValidateCodeType(request);
 
-    C codeInSession = (C) sessionStrategy.getAttribute(request, sessionKey);
+    C codeInSession = (C) validateCodeRepository.get(request, codeType);
 
     String codeInRequest;
     try {
       codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(),
-          processorType.getParamNameOnValidate());
+          codeType.getParamNameOnValidate());
     } catch (ServletRequestBindingException e) {
       throw new ValidateCodeException("获取验证码的值失败");
     }
 
     if (StringUtils.isBlank(codeInRequest)) {
-      throw new ValidateCodeException(processorType.getDesc() + "验证码的值不能为空");
+      throw new ValidateCodeException(codeType.getDesc() + "验证码的值不能为空");
     }
 
     if (codeInSession == null) {
-      throw new ValidateCodeException(processorType.getDesc() + "验证码不存在");
+      throw new ValidateCodeException(codeType.getDesc() + "验证码不存在");
     }
 
     if (codeInSession.isExpried()) {
-      sessionStrategy.removeAttribute(request, sessionKey);
-      throw new ValidateCodeException(processorType.getDesc() + "验证码已过期");
+      validateCodeRepository.remove(request, codeType);
+      throw new ValidateCodeException(codeType.getDesc() + "验证码已过期");
     }
 
     if (!StringUtils.equals(codeInSession.getCode(), codeInRequest)) {
-      throw new ValidateCodeException(processorType.getDesc() + "验证码不匹配");
+      throw new ValidateCodeException(codeType.getDesc() + "验证码不匹配");
     }
 
-    sessionStrategy.removeAttribute(request, sessionKey);
+    validateCodeRepository.remove(request, codeType);
   }
 
 

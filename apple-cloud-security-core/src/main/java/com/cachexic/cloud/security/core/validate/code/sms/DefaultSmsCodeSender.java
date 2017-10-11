@@ -1,5 +1,6 @@
 package com.cachexic.cloud.security.core.validate.code.sms;
 
+import com.cachexic.cloud.common.base.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +14,8 @@ public class DefaultSmsCodeSender implements SmsCodeSender {
   private static final Logger log = LoggerFactory.getLogger(DefaultSmsCodeSender.class);
 
   @Override
-  public void send(String mobile, String code) {
+  public Result send(String mobile, String code) {
     log.debug("向手机:[" + mobile + "[发送短信验证码:[" + code + "]");
+    return Result.OK();
   }
 }

@@ -48,8 +48,8 @@ public class AppleResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     //http.httpBasic()// 弹框默认的方式登录
     http
-//        .apply(validateCodeSecurityConfig) //验证码的配置通过apply直接可以加入到这
-//        .and()
+        .apply(validateCodeSecurityConfig) //验证码的配置通过apply直接可以加入到这
+        .and()
         .apply(smsCodeAuthenticationSecurityConfig)
         .and()
         .apply(mySocialSecurityConfig)

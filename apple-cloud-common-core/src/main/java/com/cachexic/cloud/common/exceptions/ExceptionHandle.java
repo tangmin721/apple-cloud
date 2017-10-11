@@ -76,12 +76,12 @@ public class ExceptionHandle {
   }
 
   private Result getFailResult(Exception e, BizExceptionEnum bizExceptionEnum, String logStr) {
-    String errorMsg = BizExceptionEnum.PARAMETER_ERROR.getMsg();
+    String errorMsg = bizExceptionEnum.getMsg();
     if(log.isDebugEnabled()){
       errorMsg += ":" + e.getMessage();
       e.printStackTrace();
     }
     log.warn(logStr, e.getClass().getName(), bizExceptionEnum.getCode(), errorMsg);
-    return Result.FAIL(bizExceptionEnum);
+    return Result.FAIL(bizExceptionEnum.getCode(),errorMsg);
   }
 }

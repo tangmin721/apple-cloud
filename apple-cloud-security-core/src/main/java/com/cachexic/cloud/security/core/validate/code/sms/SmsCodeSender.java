@@ -1,5 +1,7 @@
 package com.cachexic.cloud.security.core.validate.code.sms;
 
+import com.cachexic.cloud.common.base.Result;
+
 /**
  * @Description: 短信验证码发送接口
  * @author tangmin
@@ -7,5 +9,5 @@ package com.cachexic.cloud.security.core.validate.code.sms;
  */
 public interface SmsCodeSender {
 
-  void send(String mobile, String code);
+  Result send(String mobile, String code);
 }

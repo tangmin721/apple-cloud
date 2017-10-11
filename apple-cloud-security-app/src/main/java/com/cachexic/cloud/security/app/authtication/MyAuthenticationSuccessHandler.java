@@ -1,5 +1,6 @@
 package com.cachexic.cloud.security.app.authtication;
 
+import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import java.io.IOException;
@@ -81,7 +82,7 @@ public class MyAuthenticationSuccessHandler extends
     OAuth2AccessToken token = authorizationServerTokenServices.createAccessToken(oAuth2Authentication);
 
     response.setContentType("application/json;charset=UTF-8");
-    response.getWriter().write(JsonUtil.toJson(token));
+    response.getWriter().write(JsonUtil.toJson(Result.OK().setData(token)));
 
   }
 
