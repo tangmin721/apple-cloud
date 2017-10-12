@@ -31,8 +31,11 @@ apple.security.social.qq.app-id: 1106384767
 apple.security.social.qq.app-secret: xL1neJQ7EcW9BGmn
 
 #认证服务器注册的第三方应用配置项，参见OAuth2ClientProperties
-security.oauth2.client.clientId: apple
-security.oauth2.client.clientSecret: applesecret
-#imooc.security.oauth2.clients[0].accessTokenValidateSeconds: 3600
-#imooc.security.oauth2.clients[1].clientId: test
-#imooc.security.oauth2.clients[1].clientSecret: testsecret
+apple.security.oauth2.tokenStore: redis
+
+apple.security.oauth2.clients[0].clientId: apple
+apple.security.oauth2.clients[0].clientSecret: appleSecret
+apple.security.oauth2.clients[0].accessTokenValidateSeconds: 3600
+
+apple.security.oauth2.clients[1].clientId: test
+apple.security.oauth2.clients[1].clientSecret: testsecret
