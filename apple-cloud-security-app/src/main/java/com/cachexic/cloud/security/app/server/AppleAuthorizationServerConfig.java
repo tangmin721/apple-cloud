@@ -2,6 +2,8 @@ package com.cachexic.cloud.security.app.server;
 
 import com.cachexic.cloud.security.core.config.properties.OAuth2ClientProperties;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +15,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 /**
  * @Description: 认证服务器配置
@@ -40,6 +45,15 @@ public class AppleAuthorizationServerConfig extends AuthorizationServerConfigure
   private TokenStore tokenStore;
 
   /**
+   * required = false如果有的时候才生效
+   */
+  @Autowired(required = false)
+  private JwtAccessTokenConverter jwtAccessTokenConverter;
+
+  @Autowired(required = false)
+  private TokenEnhancer jwtTokenEnhancer;
+
+  /**
    * {@link TokenEndpoint}
    * 默认的取token入口点
    * @param endpoints
@@ -51,6 +65,18 @@ public class AppleAuthorizationServerConfig extends AuthorizationServerConfigure
         .tokenStore(tokenStore)//token存储介质
         .authenticationManager(authenticationManager)
         .userDetailsService(userDetailsService);
+
+    if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
+      TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+      List<TokenEnhancer> enhancers = new ArrayList<>();
+      enhancers.add(jwtTokenEnhancer);//自包含增强
+      enhancers.add(jwtAccessTokenConverter);//密签
+      enhancerChain.setTokenEnhancers(enhancers);
+
+      endpoints
+          .tokenEnhancer(enhancerChain)
+          .accessTokenConverter(jwtAccessTokenConverter);
+    }
   }
 
   /**

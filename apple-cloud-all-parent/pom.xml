@@ -53,6 +53,8 @@
 
     <rocketmq.version>4.1.0-incubating</rocketmq.version>
 
+    <jjwt.version>0.7.0</jjwt.version>
+
   </properties>
 
   <dependencyManagement>
@@ -123,6 +125,12 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${guava.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>io.jsonwebtoken</groupId>
+        <artifactId>jjwt</artifactId>
+        <version>${jjwt.version}</version>
       </dependency>
 
       <!--swagger文档生成-->
