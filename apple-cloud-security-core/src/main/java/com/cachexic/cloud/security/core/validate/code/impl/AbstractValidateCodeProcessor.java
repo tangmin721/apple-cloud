@@ -75,7 +75,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
    */
   private void save(ServletWebRequest request, C validateCode) {
     ValidateCode code = new ValidateCode(validateCode.getCode(),
-        validateCode.getExpireTime());//处理图片验证码不能序列化到redis里，所以这里转换一下，只存code和过期时间
+        validateCode.getExpireTime(),validateCode.getCheckTimes());//处理图片验证码不能序列化到redis里，所以这里转换一下，只存code和过期时间
     validateCodeRepository.save(request,code, getValidateCodeType(request));
   }
 
@@ -109,7 +109,15 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
       throw new ValidateCodeException(codeType.getDesc() + "验证码已过期");
     }
 
+    if (codeInSession.isOverTimes()) {
+      validateCodeRepository.remove(request, codeType);
+      throw new ValidateCodeException(codeType.getDesc() + "验证码输入错误次数过多,请重新获取验证码");
+    }
+
     if (!StringUtils.equals(codeInSession.getCode(), codeInRequest)) {
+      //校验几次失败后删除,防止暴力破解
+      codeInSession.setCheckTimes(codeInSession.getCheckTimes()+1);
+      this.save(request,codeInSession);
       throw new ValidateCodeException(codeType.getDesc() + "验证码不匹配");
     }
 

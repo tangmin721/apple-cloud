@@ -19,6 +19,11 @@ public class ValidateCode implements Serializable{
   private LocalDateTime expireTime;
 
   /**
+   * 本校验码校验次数,防暴力破解
+   */
+  private int checkTimes;
+
+  /**
    * 注意:传入一个expireIn:多少秒过期
    */
   public ValidateCode(String code, int expireIn) {
@@ -31,9 +36,10 @@ public class ValidateCode implements Serializable{
    * @param code
    * @param expireTime
    */
-  public ValidateCode(String code, LocalDateTime expireTime) {
+  public ValidateCode(String code, LocalDateTime expireTime, int checkTimes) {
     this.code = code;
     this.expireTime = expireTime;
+    this.checkTimes = checkTimes;
   }
 
   public String getCode() {
@@ -52,11 +58,27 @@ public class ValidateCode implements Serializable{
     this.expireTime = expireTime;
   }
 
+  public int getCheckTimes() {
+    return checkTimes;
+  }
+
+  public void setCheckTimes(int checkTimes) {
+    this.checkTimes = checkTimes;
+  }
+
   /**
    * 校验是否过期
    * @return
    */
   public boolean isExpried() {
     return LocalDateTime.now().isAfter(expireTime);
+  }
+
+  /**
+   * 校验是否操作次数限制 最多3次输错机会
+   * @return
+   */
+  public boolean isOverTimes() {
+    return checkTimes>2;
   }
 }
