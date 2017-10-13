@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.authtication.mobile;
+package com.cachexic.cloud.security.core.authentication.mobile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

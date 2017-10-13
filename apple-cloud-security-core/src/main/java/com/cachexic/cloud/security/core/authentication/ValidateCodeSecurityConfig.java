@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.authtication;
+package com.cachexic.cloud.security.core.authentication;
 
 import javax.servlet.Filter;
 import org.springframework.beans.factory.annotation.Autowired;

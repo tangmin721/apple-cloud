@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.authtication.mobile;
+package com.cachexic.cloud.security.core.authentication.mobile;
 
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;

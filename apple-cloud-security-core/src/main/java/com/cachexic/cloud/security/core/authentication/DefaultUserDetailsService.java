@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.cachexic.cloud.security.core.authtication;
+package com.cachexic.cloud.security.core.authentication;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

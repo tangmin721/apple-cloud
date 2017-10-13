@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.app.authtication;
+package com.cachexic.cloud.security.app.authentication;
 
 import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.common.utils.json.JsonUtil;

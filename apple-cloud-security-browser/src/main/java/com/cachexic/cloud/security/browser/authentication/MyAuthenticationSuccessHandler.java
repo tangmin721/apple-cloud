@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.browser.authtication;
+package com.cachexic.cloud.security.browser.authentication;
 
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.security.core.config.enums.LoginResponseType;

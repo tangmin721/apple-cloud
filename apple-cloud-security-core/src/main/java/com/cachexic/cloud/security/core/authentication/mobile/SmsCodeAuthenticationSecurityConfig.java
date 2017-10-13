@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.authtication.mobile;
+package com.cachexic.cloud.security.core.authentication.mobile;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

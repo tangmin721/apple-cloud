@@ -1,8 +1,9 @@
 package com.cachexic.cloud.security.browser;
 
-import com.cachexic.cloud.security.core.authtication.AbstractChannelSecurityConfig;
-import com.cachexic.cloud.security.core.authtication.ValidateCodeSecurityConfig;
-import com.cachexic.cloud.security.core.authtication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.cachexic.cloud.security.core.authentication.AbstractChannelSecurityConfig;
+import com.cachexic.cloud.security.core.authentication.ValidateCodeSecurityConfig;
+import com.cachexic.cloud.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.cachexic.cloud.security.core.authorize.AuthorizeConfigManager;
 import com.cachexic.cloud.security.core.config.contants.SecurityConstants;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import javax.sql.DataSource;
@@ -57,6 +58,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
   @Autowired
   private LogoutSuccessHandler logoutSuccessHandler;
 
+  @Autowired
+  private AuthorizeConfigManager authorizeConfigManager;
   /**
    * 记住我功能
    */
@@ -103,23 +106,10 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
           .logoutSuccessHandler(logoutSuccessHandler) // 自定义退出成功后的处理操作
           .deleteCookies("JSESSIONID") //清除cook
           .and()
-        .authorizeRequests() //对请求做授权
+        .csrf().disable(); //暂时禁用掉跨站伪造防护
 
-        .antMatchers(//排除的url
-            SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-            securityProperties.getBrowser().getSignInPage(),
-            SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
-            securityProperties.getBrowser().getSignUpUrl(),
-            securityProperties.getBrowser().getSession().getSessionInvalidUrl()
-           // securityProperties.getBrowser().getSignOutUrl()
-        ).permitAll() //排除页的身份验证
-        .anyRequest()  //对所有请求
-        .authenticated() //都是要身份认证
-
-        .and()
-        .csrf().disable() //暂时禁用掉跨站伪造防护
-
-        .apply(smsCodeAuthenticationSecurityConfig);
+        //把自定义配置设置到通用的config里
+        authorizeConfigManager.config(http.authorizeRequests());
 
   }
 }

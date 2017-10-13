@@ -1,9 +1,9 @@
 package com.cachexic.cloud.security.app.server;
 
-import com.cachexic.cloud.security.core.authtication.FormAuthenticationConfig;
-import com.cachexic.cloud.security.core.authtication.ValidateCodeSecurityConfig;
-import com.cachexic.cloud.security.core.authtication.mobile.SmsCodeAuthenticationSecurityConfig;
-import com.cachexic.cloud.security.core.config.contants.SecurityConstants;
+import com.cachexic.cloud.security.core.authentication.FormAuthenticationConfig;
+import com.cachexic.cloud.security.core.authentication.ValidateCodeSecurityConfig;
+import com.cachexic.cloud.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.cachexic.cloud.security.core.authorize.AuthorizeConfigManager;
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +40,9 @@ public class AppleResourceServerConfig extends ResourceServerConfigurerAdapter {
   @Autowired
   private FormAuthenticationConfig formAuthenticationConfig;
 
+  @Autowired
+  private AuthorizeConfigManager authorizeConfigManager;
+
   @Override
   public void configure(HttpSecurity http) throws Exception {
     log.info("====>>override WebSecurityConfigurerAdapter...");
@@ -54,23 +57,10 @@ public class AppleResourceServerConfig extends ResourceServerConfigurerAdapter {
         .and()
         .apply(mySocialSecurityConfig)
         .and()
-        .authorizeRequests() //对请求做授权
+        .csrf().disable(); //暂时禁用掉跨站伪造防护
 
-        .antMatchers(//排除的url
-            SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-            securityProperties.getBrowser().getSignInPage(),
-            SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-            securityProperties.getBrowser().getSignUpUrl(),
-            securityProperties.getBrowser().getSession().getSessionInvalidUrl()
-            // securityProperties.getBrowser().getSignOutUrl()
-        ).permitAll() //排除页的身份验证
-        .anyRequest()  //对所有请求
-        .authenticated() //都是要身份认证
-
-        .and()
-        .csrf().disable() //暂时禁用掉跨站伪造防护
-
-        .apply(smsCodeAuthenticationSecurityConfig);
+    //把自定义配置设置到通用的config里
+    authorizeConfigManager.config(http.authorizeRequests());
 
   }
 

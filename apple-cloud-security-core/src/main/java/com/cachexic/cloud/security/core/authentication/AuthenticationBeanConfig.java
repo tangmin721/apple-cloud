@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.authtication;
+package com.cachexic.cloud.security.core.authentication;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

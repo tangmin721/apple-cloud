@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.core.authtication;
+package com.cachexic.cloud.security.core.authentication;
 
 import com.cachexic.cloud.security.core.config.contants.SecurityConstants;
 import org.springframework.beans.factory.annotation.Autowired;
