@@ -47,7 +47,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
   private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
   @Autowired
-  private SpringSocialConfigurer mySocialSecurityConfig;
+  private SpringSocialConfigurer appleSocialSecurityConfig;
 
   @Autowired
   private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
@@ -85,7 +85,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
           .and()
         .apply(smsCodeAuthenticationSecurityConfig)
           .and()
-        .apply(mySocialSecurityConfig)
+        .apply(appleSocialSecurityConfig)
           .and()
         .rememberMe() //配置记住我功能(浏览器)
           .tokenRepository(persistentTokenRepository())

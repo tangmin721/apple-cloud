@@ -15,7 +15,7 @@ public class OrderAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
   @Override
   public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
-    config.antMatchers("/teacher/regist").permitAll();
+    config.antMatchers("/teacher/regist","/qqLogin/winxin").permitAll();
     config.antMatchers("/demo.html").hasRole("ADMIN");
 
     return false;

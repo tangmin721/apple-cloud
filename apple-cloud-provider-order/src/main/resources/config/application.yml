@@ -37,7 +37,14 @@ apple.security.code.image.urlAndMethods: /order/*,/teacher:put #需要验证码�
 
 ## 第三方登录social的配置  http://www.applecloud.com/qq.callback
 apple.security.social.filterProcessesUrl: /qqLogin
+
+## qq配置
 apple.security.social.qq.providerId: qq.callback
 apple.security.social.qq.app-id: 1106384767
 apple.security.social.qq.app-secret: xL1neJQ7EcW9BGmn
+
+#微信登录配置，参见WeixinProperties
+apple.security.social.weixin.app-id: wxd99431bbff8305a0
+apple.security.social.weixin.app-secret: 60f78681d063590a469f1b297feff3c4
+apple.security.social.weixin.providerId: weixin
 
