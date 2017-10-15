@@ -29,7 +29,7 @@ public class BrowserProperties {
   /**
    * 社交登录，如果需要用户注册，跳转的页面
    */
-  private String signUpUrl = "/apple-signUp.html";
+  private String signUpUrl = SecurityConstants.DEFAULT_SIGN_UP_PAGE_URL;
   /**
    * 登录响应的方式，默认是json
    */

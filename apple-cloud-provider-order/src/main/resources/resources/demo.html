@@ -3,8 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+
+    .clearfix:after {
+      content: " ";
+      display: block;
+      clear: both;
+      height: 0;
+    }
+    .clearfix {
+      zoom: 1;
+    }
+
+    /*在此定义相应的类选择器，并根据要求设置相关CSS属性*/
+    .nav {
+      width: 960px;
+      margin: 0 auto;
+    }
+
+    .nav .left{
+      height: 100px;
+      width: 740px;
+      background: #C9F;
+      float: left;
+    }
+
+    .nav .right{
+      height: 100px;
+      width: 210px;
+      background: #FCF;
+      float: right;
+    }
+    </style>
 </head>
 <body>
-  demo
+<!--在此添加相应的div标签-->
+<div class="nav clearfix" >
+  <div class="left"></div>
+  <div class="right"></div>
+</div>
 </body>
 </html>

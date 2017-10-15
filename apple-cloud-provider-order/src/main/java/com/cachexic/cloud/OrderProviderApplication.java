@@ -13,7 +13,6 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
  */
 @SpringBootApplication
 @EnableFeignClients
-//@EnableEurekaClient
 @EnableDiscoveryClient
 @EnableCircuitBreaker
 public class OrderProviderApplication {

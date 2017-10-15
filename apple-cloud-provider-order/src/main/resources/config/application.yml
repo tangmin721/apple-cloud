@@ -20,8 +20,8 @@ server:
 apple.security.browser.signInPage: /order-login.html #默认登录页
 apple.security.browser.signInResponseType: JSON #登录成功或失败返回信息(JSON)或者跳转到原请求url(REDIRECT)
 apple.security.browser.rememberMeSeconds: 604800 #3600*24*7 = 604800 默认的记住7天
-#apple.security.browser.signOutUrl: /apple-logout.html
-#apple.security.browser.signUpUrl: /order-signUp.html
+apple.security.browser.signOutUrl: /apple-logout.html
+apple.security.browser.signUpUrl: /order-signUp.html
 
 ## session管理相关配置，参见SessionProperties
 apple.security.browser.session.maximumSessions: 1

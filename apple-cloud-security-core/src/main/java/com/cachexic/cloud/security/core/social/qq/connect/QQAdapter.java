@@ -37,6 +37,11 @@ public class QQAdapter implements ApiAdapter<QQ>{
     values.setProviderUserId(userInfo.getOpenId());//用户的ID，与QQ号码一一对应。可通过调用https://graph.qq.com/oauth2.0/me?access_token=YOUR_ACCESS_TOKEN 来获取。
   }
 
+  /**
+   * 绑定解绑时用到
+   * @param api
+   * @return
+   */
   @Override
   public UserProfile fetchUserProfile(QQ api) {
     return null;
