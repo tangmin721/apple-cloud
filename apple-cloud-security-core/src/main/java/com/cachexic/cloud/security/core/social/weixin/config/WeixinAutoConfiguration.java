@@ -14,9 +14,9 @@ import org.springframework.social.connect.ConnectionFactory;
 import org.springframework.web.servlet.View;
 
 /**
- * 微信登录配置
- *
- * @author zhailiang
+ * @Description: 微信登录配置.如果配置了apple.security.social.weixin.app-id,才生效
+ * @author tangmin
+ * @date 2017-10-16 10:49:25
  */
 @Configuration
 @ConditionalOnProperty(prefix = "apple.security.social.weixin", name = "app-id")

@@ -22,10 +22,14 @@ public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter 
 
   protected void applyPasswordAuthenticationConfig(HttpSecurity http) throws Exception {
     http.formLogin()
-        .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)  //当请求需要身份认证时，默认跳转的url
-        .loginProcessingUrl(SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_FORM)  //默认的用户名密码登录请求处理url
-        .successHandler(myAuthenticationSuccessHandler) //配置自定义的登录成功返回结果信息
-        .failureHandler(myAuthenticationFailureHandler); //配置自定义的登录失败返回结果信息
+        //当请求需要身份认证时，默认跳转的url
+        .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
+        //默认的用户名密码登录请求处理url
+        .loginProcessingUrl(SecurityConstants.DEFAULT_SIGN_IN_PROCESSING_URL_FORM)
+        //配置自定义的登录成功返回结果信息
+        .successHandler(myAuthenticationSuccessHandler)
+        //配置自定义的登录失败返回结果信息
+        .failureHandler(myAuthenticationFailureHandler);
   }
 
 }

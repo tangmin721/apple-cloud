@@ -47,7 +47,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
   private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
   @Autowired
-  private SpringSocialConfigurer appleSocialSecurityConfig;
+  private SpringSocialConfigurer appleSpringSocialConfigurer;
 
   @Autowired
   private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
@@ -58,6 +58,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
   @Autowired
   private LogoutSuccessHandler logoutSuccessHandler;
 
+  /**
+   * 加载通用配置+各项目自定义配置
+   */
   @Autowired
   private AuthorizeConfigManager authorizeConfigManager;
   /**
@@ -67,7 +70,6 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
   public PersistentTokenRepository persistentTokenRepository(){
     JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
     tokenRepository.setDataSource(dataSource);
-    //tokenRepository.setCreateTableOnStartup(true);
     return tokenRepository;
   }
 
@@ -81,11 +83,14 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     super.applyPasswordAuthenticationConfig(http);
 
     //http.httpBasic()// 弹框默认的方式登录
-    http.apply(validateCodeSecurityConfig) //验证码的配置通过apply直接可以加入到这
+
+    http
+        //验证码的配置通过apply直接可以加入到这
+        .apply(validateCodeSecurityConfig)
           .and()
         .apply(smsCodeAuthenticationSecurityConfig)
           .and()
-        .apply(appleSocialSecurityConfig)
+        .apply(appleSpringSocialConfigurer)
           .and()
         .rememberMe() //配置记住我功能(浏览器)
           .tokenRepository(persistentTokenRepository())
@@ -93,22 +98,30 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
           .userDetailsService(userDetailsService )
           .and()
 
-        .sessionManagement()//配置session过期跳转到的url
+        //配置session过期跳转到的url
+        .sessionManagement()
           .invalidSessionStrategy(invalidSessionStrategy)
           .invalidSessionUrl(SecurityConstants.DEFAULT_SESSION_INVALID_URL)
-          .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions()) //如果配置最大session数量为1,则后面登录的会把之前登录的踢掉
-          .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin()) //在达到最大登录数量后,阻止其他设备登录(另一种策略)
-          .expiredSessionStrategy(sessionInformationExpiredStrategy) //并发登录导致session超时的策略
+          //如果配置最大session数量为1,则后面登录的会把之前登录的踢掉
+          .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+          //在达到最大登录数量后,阻止其他设备登录(另一种策略)
+          .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
+        //并发登录导致session超时的策略
+          .expiredSessionStrategy(sessionInformationExpiredStrategy)
           .and()
           .and()
         .logout()
-          .logoutUrl("/signOut")  //替换默认的/logout为/signOut
-          .logoutSuccessHandler(logoutSuccessHandler) // 自定义退出成功后的处理操作
-          .deleteCookies("JSESSIONID") //清除cook
+          //替换默认的/logout为/signOut
+          .logoutUrl("/signOut")
+          // 自定义退出成功后的处理操作
+          .logoutSuccessHandler(logoutSuccessHandler)
+          //清除cook
+          .deleteCookies("JSESSIONID")
           .and()
-        .csrf().disable(); //暂时禁用掉跨站伪造防护
+        //暂时禁用掉跨站伪造防护
+        .csrf().disable();
 
-        //把自定义配置设置到通用的config里
+        //加载通用配置+各项目自定义配置
         authorizeConfigManager.config(http.authorizeRequests());
 
   }

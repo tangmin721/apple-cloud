@@ -55,7 +55,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
    refreshToken varchar(512),
    expireTime bigint,
    primary key (userId, providerId, providerUserId));
-   create unique index UserConnectionRank on UserConnection(userId, providerId, rank);
+   create unique index UserConnectionRank on sys_UserConnection(userId, providerId, rank);
 
    * 服务提供商Id，比如qq,weixin providerUserId：也就是对应的openId://用户的ID，与QQ号码一一对应。可通过调用https://graph.qq.com/oauth2.0/me?access_token=YOUR_ACCESS_TOKEN
    * 来获取。 primary key (userId, providerId, providerUserId)作为唯一主键。意思就是服务商与本身系统的user系统建立的对应关系
@@ -87,7 +87,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
    * @Description: 社交登录配置类，供浏览器或app模块引入设计登录配置用。
    */
   @Bean
-  public SpringSocialConfigurer appleSocialSecurityConfig() {
+  public SpringSocialConfigurer appleSpringSocialConfigurer() {
     String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
     AppleSpringSocialConfigurer configurer = new AppleSpringSocialConfigurer(filterProcessesUrl);
     configurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());

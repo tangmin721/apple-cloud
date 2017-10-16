@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,12 +14,12 @@ import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description: UserDetailsService自定义实现.
  * @author tangmin
+ * @Description: UserDetailsService自定义实现.
  * @date 2017-09-30 10:09:53
  */
-@Component
-public class OrderUserDetailsService implements UserDetailsService,SocialUserDetailsService {
+@Component("userDetailsService")
+public class OrderUserDetailsService implements UserDetailsService, SocialUserDetailsService {
 
   private static final Logger log = LoggerFactory.getLogger(OrderUserDetailsService.class);
 
@@ -38,28 +37,33 @@ public class OrderUserDetailsService implements UserDetailsService,SocialUserDet
    */
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    log.info("===>登录用户名:" + username);
-    String encode = passwordEncoder.encode("123456");
-    log.info("====>数据库密码是:" + encode);
-    return new User(username, encode,
-        true, true, true, true,
-        AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
+  /*  logger.info("表单登录用户名:" + username);
+  Admin admin = adminRepository.findByUsername(username);
+  admin.getUrls();
+  return admin;*/
+    return buildUser(username);
   }
 
   /**
    * 第三方登录，根据userId获取登入人信息
+   *
    * @param userId 把唯一用户名作为userid也是可以的
-   * @return
-   * @throws UsernameNotFoundException
    */
   @Override
   public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
 
     //@todo 暂时用登录用户名作为userId，等有自己的用户表的时候，改为用户表的id
-    log.info("===>登录用户名:" + userId);
-    String encode = passwordEncoder.encode("123456");
-    log.info("====>数据库密码是:" + encode);
-    return new SocialUser(userId, encode,
+    log.info("设计登录用户Id:" + userId);
+    return buildUser(userId);
+  }
+
+  private SocialUserDetails buildUser(String userId) {
+    // 根据用户名查找用户信息
+    //根据查找到的用户信息判断用户是否被冻结
+    String password = passwordEncoder.encode("123456");
+    log.info("数据库密码是:" + password);
+
+    return new SocialUser(userId, password,
         true, true, true, true,
         AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));
   }

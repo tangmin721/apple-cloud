@@ -46,7 +46,7 @@ public class TeacherController implements TeacherFeign {
   public void regist(Teacher user, HttpServletRequest request) {
 
     //不管是注册用户还是绑定用户，都会拿到一个用户唯一标识。
-    String userId = user.getName();
+    String userId = user.getUsername();
     providerSignInUtils.doPostSignUp(userId, new ServletWebRequest(request));
 //		appSingUpUtils.doPostSignUp(new ServletWebRequest(request), userId);
   }

@@ -57,11 +57,6 @@ public class BrowserSecurityController extends SocialController {
     if (savedRequest != null) {
       String targetUrl = savedRequest.getRedirectUrl();
       log.debug("引发跳转的请求是:" + targetUrl);
-    /*  Collection<String> names = savedRequest.getHeaderNames();
-      for (String name : names) {
-        log.debug(name + ":" + savedRequest.getHeaderValues(name));
-      }*/
-
       if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
         redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getSignInPage());
       }
@@ -72,7 +67,7 @@ public class BrowserSecurityController extends SocialController {
 
   /**
    * 用户第一次社交登录时，会引导用户进行用户注册或绑定，此服务用于在注册或绑定页面获取社交网站用户信息
-   *
+   * 可以把头像信息,昵称信息放到注册页去
    * @param request
    * @return
    */

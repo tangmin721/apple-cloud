@@ -74,7 +74,7 @@ public class HttpAspect {
       }
 
       //设置参数，以便在异常处理的时候日志里打印
-      request.setAttribute(SystemConst.REQUEST_ARGS, JsonUtil.toJson(joinpoint.getArgs()));
+//      request.setAttribute(SystemConst.REQUEST_ARGS, JsonUtil.toJson(joinpoint.getArgs()));
 
       log.info(
           "====> url=[{}],method={},ip={},class_method={},requestId={},requestHead={},requestArgs={}",

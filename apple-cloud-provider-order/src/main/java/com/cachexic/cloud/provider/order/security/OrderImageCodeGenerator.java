@@ -1,4 +1,4 @@
-package com.cachexic.cloud.provider.order.code;
+package com.cachexic.cloud.provider.order.security;
 
 import com.cachexic.cloud.security.core.validate.code.ValidateCodeGenerator;
 import com.cachexic.cloud.security.core.validate.code.entity.ImageCode;

@@ -1,10 +1,19 @@
 # Apple-cloud
 
-# Overview
+# 概述
 
-Apple-cloud is base on Spring cloud, use current advanced technology to resolve enterprise high availability,high concurrency,high-performance and resolve big data Features.
+Apple-cloud基于Spring cloud,利用当前流行的技术构建高可用、高并发、高性能的企业级微服务框架。Apple是我家小狗的名字。
 
-# Integration Technology
+# 开发规范
+
+### 1) 统一代码格式
+安装intellij-java-google-style.xml
+### 2) 开发规约插件
+https://github.com/alibaba/p3c
+### 3) 熟读开发规范文档
+https://github.com/alibaba/p3c/blob/master/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C%EF%BC%88%E7%BB%88%E6%9E%81%E7%89%88%EF%BC%89.pdf
+
+# 集成的技术
 
 - [x] Spring cloud
     - [x] Apollo:携程开源配置中心组件，而不是选用spring cloud config

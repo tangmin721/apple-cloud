@@ -36,6 +36,7 @@ public class WeixinConnectionFactory extends OAuth2ConnectionFactory<Weixin> {
     return null;
   }
 
+  @Override
   public Connection<Weixin> createConnection(AccessGrant accessGrant) {
     return new OAuth2Connection<Weixin>(getProviderId(), extractProviderUserId(accessGrant),
         accessGrant.getAccessToken(),
@@ -43,7 +44,7 @@ public class WeixinConnectionFactory extends OAuth2ConnectionFactory<Weixin> {
         getApiAdapter(extractProviderUserId(accessGrant)));
   }
 
-
+  @Override
   public Connection<Weixin> createConnection(ConnectionData data) {
     return new OAuth2Connection<Weixin>(data, getOAuth2ServiceProvider(),
         getApiAdapter(data.getProviderUserId()));

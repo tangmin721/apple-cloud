@@ -30,6 +30,8 @@ public class Teacher extends BaseEntity {
   @ApiModelProperty(value = "姓名", example = "hehe", required = true)
   private String name = "hehe";
 
+  private String username;
+
   @Length(message = "身份证件号最大长度不能超过18位", max = 18, groups = {Insert.class, Update.class})
   @ApiModelProperty(value = "身份证", required = true)
   private String idCard;
@@ -167,6 +169,14 @@ public class Teacher extends BaseEntity {
 
   public void setSupper(Boolean supper) {
     this.supper = supper;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   /**

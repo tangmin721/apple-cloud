@@ -1,6 +1,6 @@
 package com.cachexic.cloud.security.core.authorize;
 
-import java.util.Set;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class AppleAuthorizeConfigManager implements AuthorizeConfigManager {
 
   @Autowired
-  private Set<AuthorizeConfigProvider> authorizeConfigProviders;
+  private List<AuthorizeConfigProvider> authorizeConfigProviders;
 
   /**
    * 配置授权路径,请求method
@@ -24,14 +24,25 @@ public class AppleAuthorizeConfigManager implements AuthorizeConfigManager {
   public void config(
       ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
 
-    for (AuthorizeConfigProvider authorizeConfigProvider : authorizeConfigProviders) {
-      authorizeConfigProvider.config(config);
+    boolean existAnyRequestConfig = false;
+    String existAnyRequestConfigName = null;
 
+    for (AuthorizeConfigProvider authorizeConfigProvider : authorizeConfigProviders) {
+      //按照order顺序加载AppleAuthorizeConfigProvider里配置的一些通用配置 和 各项目自定义的配置
+      boolean currentIsAnyRequestConfig = authorizeConfigProvider.config(config);
+      if (existAnyRequestConfig && currentIsAnyRequestConfig) {
+        throw new RuntimeException("重复的anyRequest配置:" + existAnyRequestConfigName + ","
+            + authorizeConfigProvider.getClass().getSimpleName());
+      } else if (currentIsAnyRequestConfig) {
+        existAnyRequestConfig = true;
+        existAnyRequestConfigName = authorizeConfigProvider.getClass().getSimpleName();
+      }
     }
-    //所有请求都需要身份认证才能访问
-    config
-        .anyRequest() //对所有请求
-        .authenticated();//都是要身份认证
+
+    if(!existAnyRequestConfig){
+      //所有请求都需要身份认证才能访问
+      config.anyRequest().authenticated();
+    }
   }
 
 }
