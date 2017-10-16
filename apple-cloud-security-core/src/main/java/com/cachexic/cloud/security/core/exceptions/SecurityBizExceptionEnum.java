@@ -6,7 +6,8 @@ package com.cachexic.cloud.security.core.exceptions;
  * @date 2017-10-15 17:06:35
  */
 public enum SecurityBizExceptionEnum {
-  GET_QQ_INFO(-1, "获取QQ用户信息失败");
+  GET_QQ_INFO(-1, "获取QQ用户信息失败"),
+  SOCIAL_CHACHE_INFO_NOT_FOUND(-1, "无法找到缓存的用户社交账号信息");
 
   private int code;
   private String msg;
