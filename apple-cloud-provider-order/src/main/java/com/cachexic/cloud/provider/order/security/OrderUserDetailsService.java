@@ -53,7 +53,7 @@ public class OrderUserDetailsService implements UserDetailsService, SocialUserDe
   public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
 
     //@todo 暂时用登录用户名作为userId，等有自己的用户表的时候，改为用户表的id
-    log.info("设计登录用户Id:" + userId);
+    log.info("社交登录用户Id:" + userId);
     return buildUser(userId);
   }
 

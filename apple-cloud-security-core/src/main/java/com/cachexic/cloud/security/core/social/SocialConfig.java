@@ -84,15 +84,33 @@ public class SocialConfig extends SocialConfigurerAdapter {
   }
 
   /**
-   * @Description: 社交登录配置类，供浏览器或app模块引入设计登录配置用。
+   * @Description: 社交登录配置类，供浏览器或app模块引入设计登录配置用。过滤器链
+   * 注意：bean的名字
    */
   @Bean
-  public SpringSocialConfigurer appleSpringSocialConfigurer() {
+  public SpringSocialConfigurer appleSocialSecurityConfig() {
     String filterProcessesUrl = securityProperties.getSocial().getFilterProcessesUrl();
     AppleSpringSocialConfigurer configurer = new AppleSpringSocialConfigurer(filterProcessesUrl);
     configurer.signupUrl(securityProperties.getBrowser().getSignUpUrl());
     configurer.setSocialAuthenticationFilterPostProcessor(socialAuthenticationFilterPostProcessor);
     return configurer;
+  }
+
+
+  @Bean
+  public UsersConnectionRepository jdbcUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator){
+    JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(
+        dataSource, connectionFactoryLocator, Encryptors.noOpText());
+
+    //可以配置表的前缀，但是不能修改表名
+    repository.setTablePrefix("sys_");
+
+    //如果有自定义注册
+    if(connectionSignUp != null) {
+      repository.setConnectionSignUp(connectionSignUp);
+    }
+
+    return repository;
   }
 
   /**
