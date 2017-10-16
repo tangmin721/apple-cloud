@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @Description: UserDetailsService自定义实现.
  * @date 2017-09-30 10:09:53
  */
-@Component("userDetailsService")
+@Component
 public class OrderUserDetailsService implements UserDetailsService, SocialUserDetailsService {
 
   private static final Logger log = LoggerFactory.getLogger(OrderUserDetailsService.class);

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.cachexic.cloud.security.browser.session;
 
 import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
@@ -10,10 +7,9 @@ import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 /**
- * 并发登录导致session失效时，默认的处理策略
- * 
- * @author zhailiang
- *
+ * @Description: 并发登录导致session失效时，默认的处理策略
+ * @author tangmin
+ * @date 2017-10-16 18:53:09
  */
 public class AppleExpiredSessionStrategy extends AbstractSessionStrategy implements SessionInformationExpiredStrategy {
 
