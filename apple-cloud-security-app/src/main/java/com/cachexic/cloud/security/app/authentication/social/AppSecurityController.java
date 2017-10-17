@@ -1,6 +1,5 @@
-package com.cachexic.cloud.security.app;
+package com.cachexic.cloud.security.app.authentication.social;
 
-import com.cachexic.cloud.security.app.authentication.social.AppSignUpUtils;
 import com.cachexic.cloud.security.core.config.contants.SecurityConstants;
 import com.cachexic.cloud.security.core.social.SocialController;
 import com.cachexic.cloud.security.core.social.support.SocialUserInfo;
@@ -17,7 +16,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 /**
  * @author tangmin
  * @Description:
- * @date 2017-10-17 10:38:38
+ * @date 2017-10-17 13:41:29
  */
 @RestController
 public class AppSecurityController extends SocialController {
@@ -36,6 +35,7 @@ public class AppSecurityController extends SocialController {
   public SocialUserInfo getSocialUserInfo(HttpServletRequest request) {
     Connection<?> connection = providerSignInUtils
         .getConnectionFromSession(new ServletWebRequest(request));
+    //存储到redis
     appSignUpUtils.saveConnectionData(new ServletWebRequest(request), connection.createData());
     return buildSocialUserInfo(connection);
   }

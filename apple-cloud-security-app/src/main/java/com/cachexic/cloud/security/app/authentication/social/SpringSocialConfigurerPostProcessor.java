@@ -8,16 +8,13 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description: app环境 注册
+ * @Description: app环境 注册  spring容器的所有bean在初始化之前和初始化之后都要经过这两个方法
  * @author tangmin
  * @date 2017-10-17 12:28:32
  */
 @Component
 public class SpringSocialConfigurerPostProcessor implements BeanPostProcessor {
 
-  /* (non-Javadoc)
-   * @see org.springframework.beans.factory.config.BeanPostProcessor#postProcessBeforeInitialization(java.lang.Object, java.lang.String)
-   */
   @Override
   public Object postProcessBeforeInitialization(Object bean, String beanName)
       throws BeansException {

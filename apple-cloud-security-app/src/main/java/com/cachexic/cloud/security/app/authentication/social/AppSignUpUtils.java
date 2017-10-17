@@ -21,7 +21,7 @@ import org.springframework.web.context.request.WebRequest;
  * @date 2017-10-17 10:09:26
  */
 @Component
-public class AppSingUpUtils {
+public class AppSignUpUtils {
 
   @Autowired
   private RedisTemplate<Object, Object> redisTemplate;
