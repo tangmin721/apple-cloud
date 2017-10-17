@@ -1,10 +1,10 @@
 package com.cachexic.cloud.security.app.server;
 
+import com.cachexic.cloud.security.app.authentication.social.openid.OpenIdAuthenticationSecurityConfig;
 import com.cachexic.cloud.security.core.authentication.FormAuthenticationConfig;
 import com.cachexic.cloud.security.core.authentication.ValidateCodeSecurityConfig;
 import com.cachexic.cloud.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.cachexic.cloud.security.core.authorize.AuthorizeConfigManager;
-import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +26,13 @@ public class AppleResourceServerConfig extends ResourceServerConfigurerAdapter {
   private static final Logger log = LoggerFactory.getLogger(AppleResourceServerConfig.class);
 
   @Autowired
-  private SecurityProperties securityProperties;
-
-  @Autowired
   private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
   @Autowired
   private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
+  @Autowired
+  private OpenIdAuthenticationSecurityConfig openIdAuthenticationSecurityConfig;
 
   @Autowired
   private SpringSocialConfigurer mySocialSecurityConfig;
@@ -40,26 +40,34 @@ public class AppleResourceServerConfig extends ResourceServerConfigurerAdapter {
   @Autowired
   private FormAuthenticationConfig formAuthenticationConfig;
 
+  /**
+   * 加载通用配置+各项目自定义配置
+   */
   @Autowired
   private AuthorizeConfigManager authorizeConfigManager;
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    log.info("====>>override WebSecurityConfigurerAdapter...");
+    log.info("====>AppleResourceServerConfig: override WebSecurityConfigurerAdapter...");
 
     formAuthenticationConfig.configure(http);
 
     //http.httpBasic()// 弹框默认的方式登录
     http
-        .apply(validateCodeSecurityConfig) //验证码的配置通过apply直接可以加入到这
+        //验证码的配置通过apply直接可以加入到这
+        .apply(validateCodeSecurityConfig)
         .and()
         .apply(smsCodeAuthenticationSecurityConfig)
         .and()
         .apply(mySocialSecurityConfig)
         .and()
-        .csrf().disable(); //暂时禁用掉跨站伪造防护
+        //openIdToken
+        .apply(openIdAuthenticationSecurityConfig)
+        .and()
+        //暂时禁用掉跨站伪造防护
+        .csrf().disable();
 
-    //把自定义配置设置到通用的config里
+    //加载通用配置+各项目自定义配置
     authorizeConfigManager.config(http.authorizeRequests());
 
   }

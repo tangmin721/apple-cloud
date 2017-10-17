@@ -26,6 +26,7 @@ public class AppleSpringSocialConfigurer extends SpringSocialConfigurer {
   protected <T> T postProcess(T object) {
     SocialAuthenticationFilter filter = (SocialAuthenticationFilter) super.postProcess(object);
     filter.setFilterProcessesUrl(filterProcessesUrl);
+    // 解决第三方登录在app环境下错误处理器返回token
     if (socialAuthenticationFilterPostProcessor != null) {
       socialAuthenticationFilterPostProcessor.process(filter);
     }

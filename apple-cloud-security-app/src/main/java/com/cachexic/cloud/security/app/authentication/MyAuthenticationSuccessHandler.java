@@ -2,7 +2,6 @@ package com.cachexic.cloud.security.app.authentication;
 
 import com.cachexic.cloud.common.base.Result;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
-import com.cachexic.cloud.security.core.config.properties.SecurityProperties;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -37,9 +36,6 @@ public class MyAuthenticationSuccessHandler extends
 
   private static final Logger log = LoggerFactory
       .getLogger(MyAuthenticationSuccessHandler.class);
-
-  @Autowired
-  private SecurityProperties securityProperties;
 
   @Autowired
   private ClientDetailsService clientDetailsService;

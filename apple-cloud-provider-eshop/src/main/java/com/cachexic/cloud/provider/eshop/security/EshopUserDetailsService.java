@@ -46,7 +46,7 @@ public class EshopUserDetailsService implements UserDetailsService,SocialUserDet
 
   @Override
   public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-    log.info("设计登录用户Id:" + userId);
+    log.info("社交登录用户Id:" + userId);
     return buildUser(userId);
   }
 

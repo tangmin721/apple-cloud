@@ -1,4 +1,4 @@
-package com.cachexic.cloud.security.app.validate;
+package com.cachexic.cloud.security.app.authentication.validate;
 
 
 import com.cachexic.cloud.security.core.config.contants.SecurityConstants;

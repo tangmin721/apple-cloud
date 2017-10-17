@@ -78,12 +78,11 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
    */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    log.info("====>>override WebSecurityConfigurerAdapter...");
+    log.info("====>BrowserSecurityConfig: override WebSecurityConfigurerAdapter...");
 
     super.applyPasswordAuthenticationConfig(http);
 
     //http.httpBasic()// 弹框默认的方式登录
-
     http
         //验证码的配置通过apply直接可以加入到这
         .apply(validateCodeSecurityConfig)

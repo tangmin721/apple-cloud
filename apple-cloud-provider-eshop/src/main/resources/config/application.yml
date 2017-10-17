@@ -1,12 +1,14 @@
 spring:
   application:
     name: provider-eshop
+  session:
+    store-type: none  # redis
 
 
 # security.basic.enabled: false
 
 ## apple cloud security config
-apple.security.browser.signInPage: /order-login.html #默认登录页
+#apple.security.browser.signInPage: /order-login.html #默认登录页
 apple.security.browser.signInResponseType: JSON #登录成功或失败返回信息(JSON)或者跳转到原请求url(REDIRECT)
 apple.security.browser.rememberMeSeconds: 604800 #3600*24*7 = 604800 默认的记住7天
 #apple.security.browser.signOutUrl: /apple-logout.html
@@ -26,9 +28,17 @@ apple.security.code.image.urlAndMethods: /order/*,/teacher:put #需要验证码�
 
 ## 第三方登录social的配置  http://www.applecloud.com/qq.callback
 apple.security.social.filterProcessesUrl: /qqLogin
-apple.security.social.qq.providerId: qq.callback
-apple.security.social.qq.app-id: 1106384767
-apple.security.social.qq.app-secret: xL1neJQ7EcW9BGmn
+
+## qq配置
+apple.security.social.qq.providerId: callback.do
+apple.security.social.qq.app-id: 100550231
+apple.security.social.qq.app-secret: 69b6ab57b22f3c2fe6a6149274e3295e
+
+#微信登录配置，参见WeixinProperties
+apple.security.social.weixin.app-id: wxd99431bbff8305a0
+apple.security.social.weixin.app-secret: 60f78681d063590a469f1b297feff3c4
+apple.security.social.weixin.providerId: weixin
+
 
 #认证服务器注册的第三方应用配置项，参见OAuth2ClientProperties
 apple.security.oauth2.clients[0].clientId: apple

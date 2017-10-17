@@ -22,7 +22,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 
 /**
  * @Description: 认证服务器配置
- * http://localhost:8002/oauth/authorize?response_type=code&client_id=9f420a0f-b419-4e26-9e51-4b4837f7bedc&redirect_uri=http://example.com&scope=all
+ * http://localhost:8002/oauth/authorize?response_type=code&client_id=apple&redirect_uri=http://example.com&scope=all
  *
  * 继承adater实现自定义token
  * @author tangmin
@@ -62,15 +62,18 @@ public class AppleAuthorizationServerConfig extends AuthorizationServerConfigure
   @Override
   public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
     endpoints
-        .tokenStore(tokenStore)//token存储介质
+        //token存储介质
+        .tokenStore(tokenStore)
         .authenticationManager(authenticationManager)
         .userDetailsService(userDetailsService);
 
     if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
       TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
       List<TokenEnhancer> enhancers = new ArrayList<>();
-      enhancers.add(jwtTokenEnhancer);//自包含增强
-      enhancers.add(jwtAccessTokenConverter);//密签
+      //自包含增强
+      enhancers.add(jwtTokenEnhancer);
+      //密签
+      enhancers.add(jwtAccessTokenConverter);
       enhancerChain.setTokenEnhancers(enhancers);
 
       endpoints
@@ -93,8 +96,10 @@ public class AppleAuthorizationServerConfig extends AuthorizationServerConfigure
         builder.withClient(client.getClientId())
             .secret(client.getClientSecret())
             .authorizedGrantTypes("refresh_token", "authorization_code", "password")
-            .accessTokenValiditySeconds(client.getAccessTokenValidateSeconds())//token有效期 2592000
-            .refreshTokenValiditySeconds(2592000) //刷新token
+            //token有效期
+            .accessTokenValiditySeconds(client.getAccessTokenValidateSeconds())
+            //刷新token
+            .refreshTokenValiditySeconds(2592000)
             .scopes("all");
       }
     }
