@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.config.annotation.EnableSocial;
 import org.springframework.social.config.annotation.SocialConfigurerAdapter;
@@ -25,6 +26,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
  */
 @Configuration
 @EnableSocial
+@Order(10)
 public class SocialConfig extends SocialConfigurerAdapter {
 
   @Autowired
@@ -96,22 +98,6 @@ public class SocialConfig extends SocialConfigurerAdapter {
     return configurer;
   }
 
-
-  @Bean
-  public UsersConnectionRepository jdbcUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator){
-    JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(
-        dataSource, connectionFactoryLocator, Encryptors.noOpText());
-
-    //可以配置表的前缀，但是不能修改表名
-    repository.setTablePrefix("sys_");
-
-    //如果有自定义注册
-    if(connectionSignUp != null) {
-      repository.setConnectionSignUp(connectionSignUp);
-    }
-
-    return repository;
-  }
 
   /**
    * 用来处理注册流程的工具类

@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.cachexic.cloud.security.core.social.support;
 
 import org.springframework.social.security.SocialAuthenticationFilter;
