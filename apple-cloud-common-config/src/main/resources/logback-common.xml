@@ -28,11 +28,11 @@
   </root>
 
   <springProfile name="dev,test">
-    <logger name="com.springframework.web" level="debug"/>
+    <logger name="org.springframework" level="info"/>
     <logger name="com.cachexic.cloud" level="debug"/>
   </springProfile>
   <springProfile name="prep,prod">
-    <logger name="com.springframework.web" level="info"/>
+    <logger name="org.springframework" level="error"/>
     <logger name="com.cachexic.cloud" level="info"/>
   </springProfile>
 </included>
