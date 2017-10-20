@@ -4,7 +4,7 @@ import UserForm from 'components/view/system/user/userForm'
 import UserPage from 'components/view/system/user/userPage'
 import UserOther from 'components/view/system/user/userOther'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   routes: [

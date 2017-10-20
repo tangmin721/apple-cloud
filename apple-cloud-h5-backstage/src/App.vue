@@ -10,7 +10,7 @@
   import VMain from 'components/layout/v-main'
   import axios from 'axios'
 
-  const SUCCESS = 0;
+  const SUCCESS = 0
 
   export default{
     data() {
@@ -21,10 +21,10 @@
     created() {
       axios.get('http://localhost:9051/test/2222')
       .then((res) => {
-        res = res.data;
+        res = res.data
         if (res.status === SUCCESS) {
-          alert(1);
-          this.user = res.data;
+          alert(1)
+          this.user = res.data
           console.log(this.user)
         }
       }).catch((error) => console.log(error))

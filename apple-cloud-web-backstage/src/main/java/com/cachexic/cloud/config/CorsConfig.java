@@ -1,4 +1,4 @@
-package com.cachexic.cloud.web.backstage.controller.test;
+package com.cachexic.cloud.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
