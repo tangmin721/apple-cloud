@@ -1,9 +1,9 @@
 <template>
-  <div class="v-header" :class="{isHide}">
-    <div class="icon">{{user.id}}</div>
+  <div class="v-header" :class="{ hideBar: isHide }">
+    <div class="icon">{{ user.id }}</div>
     <div class="left">
-      <i class="el-icon-more" @click="isHide = !isHide"></i>
-      {{user.name}}
+      <i class="el-icon-tickets" :class="{ changeZ: isHide }" @click="isHide = !isHide"></i>
+      {{ user.name }}
       <img :src="user.avatar" alt="用户头像">
     </div>
   </div>
@@ -41,9 +41,8 @@
       flex 0 0 180px
       width 180px;
       background rgba(55, 05, 49, 0.5)
-      transition all .2s
+      transition all .3s
     .left
-      line-height inherit
       flex 1
       background rgba(155, 105, 49, 0.5)
       img
@@ -51,11 +50,14 @@
         width 50px
         height 50px
         border-radius 50%
+      .changeZ
+        transform rotateZ(90deg)
+        transition all .3s
       i
         display inline-block
-        vertical-align top
-        margin-top 6px
-        width 30px
-        height 32px
-        margin-right 9px
+        font-size 30px
+        line-height 50px
+        padding 0 10px
+        transform rotateZ(0deg)
+        transition all .3s
 </style>

@@ -27,7 +27,12 @@
           this.user = res.data
           console.log(this.user)
         }
-      }).catch((error) => console.log(error))
+      }).catch((error) => {
+        this.$message.error({
+          message: `api调用异常：${error}`,
+          showClose: true
+        })
+      })
     },
     components: {
       VHeader,
