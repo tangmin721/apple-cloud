@@ -1,22 +1,40 @@
 <template>
   <div id="app">
-    <layout></layout>
+    <v-header :user="user"></v-header>
+    <v-main></v-main>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import Layout from 'components/layout/layout'
+  import VHeader from 'components/layout/v-header'
+  import VMain from 'components/layout/v-main'
+  import axios from 'axios'
+
+  const SUCCESS = 0;
 
   export default{
+    data() {
+      return {
+        user: {}
+      }
+    },
+    created() {
+      axios.get('http://localhost:9051/test/2222')
+      .then((res) => {
+        res = res.data;
+        if (res.status === SUCCESS) {
+          alert(1);
+          this.user = res.data;
+          console.log(this.user)
+        }
+      }).catch((error) => console.log(error))
+    },
     components: {
-      Layout
+      VHeader,
+      VMain
     }
   }
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  @import "~common/stylus/variable"
-
-  #app
-    color: $color-theme
 </style>
