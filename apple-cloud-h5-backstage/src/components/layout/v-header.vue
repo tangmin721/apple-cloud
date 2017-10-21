@@ -4,12 +4,15 @@
     <div class="left">
       <i class="el-icon-tickets" :class="{ changeZ: isHide }" @click="isHide = !isHide"></i>
       {{ user.name }}
+      <i class="el-icon-rank screenfull" :class="{ changeZ: isFullscreen }" @click="_screenfull"></i>
       <img :src="user.avatar" alt="用户头像">
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import screenfull from 'screenfull'
+
   export default {
     props: {
       user: {
@@ -18,7 +21,20 @@
     },
     data() {
       return {
+        isFullscreen: false,
         isHide: false
+      }
+    },
+    methods: {
+      _screenfull() {
+        if (!screenfull.enabled) {
+          this.$message({
+            message: 'you browser can not work',
+            type: 'warning'
+          })
+          return false
+        }
+        screenfull.toggle()
       }
     }
   }
@@ -45,19 +61,27 @@
     .left
       flex 1
       background rgba(155, 105, 49, 0.5)
+      i,.screenfull
+        display inline-block
+        font-size 30px
+        line-height 50px
+        padding 0 10px
       img
         float right
         width 50px
         height 50px
         border-radius 50%
+        transition all .3s
+        &:hover
+          transform rotateZ(45deg)
+          transition all .3s
       .changeZ
         transform rotateZ(90deg)
         transition all .3s
+      .screenfull:hover
+        transform scale(1.5) rotateZ(180deg)
+        transition all .3s
       i
-        display inline-block
-        font-size 30px
-        line-height 50px
-        padding 0 10px
         transform rotateZ(0deg)
         transition all .3s
 </style>

@@ -8,16 +8,6 @@ body, html
   background: $color-background
   color: $color-text
 
-.clearfix
-  display: inline-block
-  &:after
-    display: block
-    content: "."
-    height: 0
-    line-height: 0
-    clear: both
-    visibility: hidden
-
 @media (-webkit-min-device-pixel-ratio: 1.5),(min-device-pixel-ratio: 1.5)
   .border-1px
     &::after
@@ -30,3 +20,22 @@ body, html
       -webkit-transform scaleY(0.5)
       transform scaleY(0.5)
 
+.clearfix
+display inline-block
+  &:after
+    display block
+    content "."
+    height 0
+    line-height 0
+    clear both
+    visibility hidden
+
+  //自定义动画slide
+.slide-enter-active
+  transition: all 0.3s
+
+//.slide-leave-active
+  //transition: all .1s cubic-bezier(1.0, 0.5, 0.8, 1.0)
+
+.slide-enter, .slide-leave-to
+  transform: translate3d(100%, 0, 0)

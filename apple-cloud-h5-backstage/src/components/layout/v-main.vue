@@ -3,9 +3,9 @@
     <div class="menu-wrapper">menu</div>
     <div class="content-wrapper">
       <tab></tab>
-      <transition name="slide-fade">
+      <transition name="slide">
         <keep-alive>
-          <router-view></router-view>
+          <router-view ></router-view>
         </keep-alive>
       </transition>
     </div>
@@ -39,12 +39,6 @@
     .content-wrapper
       flex 1
       background #ce5fff
-  .slide-fade-enter-active
-    transition: all .3s ease
-  .slide-fade-leave-active
-    transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0)
-  .slide-fade-enter, .slide-fade-leave-to
-    transform: translateX(10px)
-    opacity: 0
+
 
 </style>

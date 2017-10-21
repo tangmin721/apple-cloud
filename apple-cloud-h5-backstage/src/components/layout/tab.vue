@@ -1,12 +1,12 @@
 <template>
   <div class="tab">
-    <router-link tag="div" to="/userPage" class="tab-item">
+    <router-link tag="div" to="/index/userPage" class="tab-item">
       <span class="tab-link">列表</span>
     </router-link>
-    <router-link tag="div" to="/userForm" class="tab-item">
+    <router-link tag="div" to="/index/userForm" class="tab-item">
       <span class="tab-link">form</span>
     </router-link>
-    <router-link tag="div" to="/userOther" class="tab-item">
+    <router-link tag="div" to="/index/userOther" class="tab-item">
       <span class="tab-link">other</span>
     </router-link>
   </div>

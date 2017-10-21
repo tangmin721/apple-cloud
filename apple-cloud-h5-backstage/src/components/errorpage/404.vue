@@ -1,5 +1,5 @@
 <template>
-  <div error-page>
+  <div>
     404,找不到页面
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div error-page>
+  <div>
     401,身份认证已过期,请重新登录
   </div>
 </template>
