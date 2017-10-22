@@ -9,7 +9,7 @@
         <h4>或者你可以去:</h4>
         <ul class="list-unstyled">
           <li class="link-type">
-            <router-link to="/index">回首页</router-link>
+            <router-link to="/index/dashboard">回首页</router-link>
           </li>
           <li><a @click.prevent="dialogVisible=true" href="#">点我看图</a></li>
         </ul>
