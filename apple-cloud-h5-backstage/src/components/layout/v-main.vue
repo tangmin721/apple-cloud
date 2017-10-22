@@ -1,22 +1,24 @@
 <template>
-  <div class="v-main">
-    <div class="menu-wrapper">menu</div>
-    <div class="content-wrapper">
-      <tab></tab>
-      <transition name="slide">
-        <keep-alive>
-          <router-view ></router-view>
-        </keep-alive>
-      </transition>
-    </div>
+  <div class="v-main" :class="{ hideBar: hideLeftBar }">
+    <v-menu class="menu-wrapper"></v-menu>
+    <v-content class="content-wrapper"></v-content>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-  import Tab from 'components/layout/tab'
+  import VMenu from 'components/layout/v-menu'
+  import VContent from 'components/layout/v-content'
+  import {mapGetters} from 'vuex'
+
   export default {
+    computed: {
+      ...mapGetters([
+        'hideLeftBar'
+      ])
+    },
     components: {
-      Tab
+      VMenu,
+      VContent
     }
   }
 </script>
@@ -28,17 +30,20 @@
     display flex
     position absolute
     top 50px
-    bottom 46px
+    bottom 0
     width 100%
-    background rgba(125, 215, 49, 0.5)
     overflow hidden
+    &.hideBar
+      .menu-wrapper
+        flex 0 0 36px
+        width 36px
+        background #ff5c4f
     .menu-wrapper
       flex 0 0 180px
       width 180px
       background #ff5c4f
+      transition all .3s
     .content-wrapper
       flex 1
-      background #ce5fff
-
 
 </style>

@@ -1,19 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Login from 'components/view/system/login'
-import Layout from 'components/layout/layout'
-
-import UserForm from 'components/view/system/user/userForm'
-import UserPage from 'components/view/system/user/userPage'
-import UserOther from 'components/view/system/user/userOther'
-
 Vue.use(Router)
+
+// 登录页
+const Login = () => import('components/view/system/login')
+// 系统首页
+const Dashboard = () => import('components/view/system/dashboard')
+const Layout = () => import('components/layout/layout')
+const FourZeroOne = () => import('components/error/401')
+const FourZeroFour = () => import('components/error/404')
+
+const UserForm = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userForm')
+const UserPage = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userPage')
+const UserOther = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userOther')
 
 export default new Router({
   routes: [
-    // { path: '/', redirect: '/index'},
     {
+      path: '/',
+      redirect: '/index/dashboard'
+    }, {
       path: '/login',
       component: Login
     }, {
@@ -21,6 +28,9 @@ export default new Router({
       component: Layout,
       children: [
         {
+          path: 'dashboard',
+          component: Dashboard
+        }, {
           path: 'userPage',
           component: UserPage
         }, {
@@ -29,8 +39,18 @@ export default new Router({
         }, {
           path: 'userOther',
           component: UserOther
+        }, {
+          path: '401',
+          component: FourZeroOne
+        }, {
+          path: '404',
+          component: FourZeroFour
         }
       ]
+    },
+    {
+      path: '*',
+      redirect: '/index/404'
     }
   ]
 })

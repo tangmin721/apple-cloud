@@ -28,11 +28,15 @@
     .tab-item
       flex 1
       text-align center
+      background #a6c7cc
       .tab-link
         padding-bottom 5px
-        color $color-text-l
+        color #000
       &.router-link-active
+        &.tab-item
+          background #0385cc
         .tab-link
-          color $color-theme
+          color orange
           border-bottom 2px solid $color-theme
+
 </style>

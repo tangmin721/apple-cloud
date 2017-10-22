@@ -10,8 +10,15 @@ public class User {
   private Long id;
   private String name;
 
-  private String age;
+  private Integer age;
   private String avatar;
+
+  public User(Long id, String name, Integer age, String avatar) {
+    this.id = id;
+    this.name = name;
+    this.age = age;
+    this.avatar = avatar;
+  }
 
   public Long getId() {
     return id;
@@ -29,11 +36,11 @@ public class User {
     this.name = name;
   }
 
-  public String getAge() {
+  public Integer getAge() {
     return age;
   }
 
-  public void setAge(String age) {
+  public void setAge(Integer age) {
     this.age = age;
   }
 
@@ -43,5 +50,15 @@ public class User {
 
   public void setAvatar(String avatar) {
     this.avatar = avatar;
+  }
+
+  @Override
+  public String toString() {
+    return "User{" +
+        "id=" + id +
+        ", name='" + name + '\'' +
+        ", age=" + age +
+        ", avatar='" + avatar + '\'' +
+        '}';
   }
 }

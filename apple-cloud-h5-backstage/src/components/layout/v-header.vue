@@ -1,17 +1,36 @@
 <template>
-  <div class="v-header" :class="{ hideBar: isHide }">
-    <div class="icon">{{ user.id }}</div>
+  <div class="v-header" :class="{ hideBar: hideLeftBar }">
+    <div class="log">
+      <router-link to="/index/dashboard">
+        <span>首页</span>
+      </router-link>
+    </div>
     <div class="left">
-      <i class="el-icon-tickets" :class="{ changeZ: isHide }" @click="isHide = !isHide"></i>
+      <i class="el-icon-tickets" :class="{ changeZ: hideLeftBar }" @click="_setHideLeftBar"></i>
       {{ user.name }}
       <i class="el-icon-rank screenfull" :class="{ changeZ: isFullscreen }" @click="_screenfull"></i>
-      <img :src="user.avatar" alt="用户头像">
+      <div class="search"></div>
+      <div class="favorite">
+        <div class="message">消息</div>
+        <div>待办</div>
+        <div>支持</div>
+        <div>帮助</div>
+      </div>
+      <div class="avatar-wrapper">
+        <div class="avatar">
+          <img :src="user.avatar" @click="logout" alt="用户头像">
+          <span class="username"></span>
+          <i class="el-icon-caret-bottom"></i>
+        </div>
+        <div class="dropdown"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import screenfull from 'screenfull'
+  import {mapMutations, mapGetters} from 'vuex'
 
   export default {
     props: {
@@ -21,9 +40,16 @@
     },
     data() {
       return {
-        isFullscreen: false,
-        isHide: false
+        isFullscreen: false
       }
+    },
+    computed: {
+      ...mapGetters([
+        'hideLeftBar'
+      ])
+    },
+    created() {
+      console.log(this.hideLeftBar)
     },
     methods: {
       _screenfull() {
@@ -35,7 +61,35 @@
           return false
         }
         screenfull.toggle()
-      }
+      },
+      logout() {
+        this.$confirm('确定要退出系统?', '提示信息', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/login')
+          this.$message({
+            type: 'success',
+            message: '退出成功!'
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消退出登录'
+          })
+        })
+      },
+      _setHideLeftBar() {
+        if (this.hideLeftBar) {
+          this.setHideLeftBar(false)
+        } else {
+          this.setHideLeftBar(true)
+        }
+      },
+      ...mapMutations({
+        setHideLeftBar: 'SET_HIDE_LEFT_BAR'
+      })
     }
   }
 </script>
@@ -47,16 +101,15 @@
     position relative
     height 50px;
     color $color-theme
-    background rgba(255, 205, 49, 0.5)
     display flex
     &.hideBar
-      .icon
-        flex 0 0 36px
-        width 36px
-    .icon
+      .log
+        flex 0 0 130px
+        width 130px
+    .log
       flex 0 0 180px
-      width 180px;
-      background rgba(55, 05, 49, 0.5)
+      width 180px
+      height 50px
       transition all .3s
     .left
       flex 1
