@@ -6,23 +6,36 @@
       </router-link>
     </div>
     <div class="left">
-      <i class="el-icon-tickets" :class="{ changeZ: hideLeftBar }" @click="_setHideLeftBar"></i>
-      {{ user.name }}
-      <i class="el-icon-rank screenfull" :class="{ changeZ: isFullscreen }" @click="_screenfull"></i>
-      <div class="search"></div>
-      <div class="favorite">
-        <div class="message">消息</div>
-        <div>待办</div>
-        <div>支持</div>
-        <div>帮助</div>
+      <div class="hide-left-bar-btn">
+        <i class="el-icon-tickets" :class="{ changeZ: hideLeftBar }" @click="_setHideLeftBar"></i>
       </div>
-      <div class="avatar-wrapper">
-        <div class="avatar">
-          <img :src="user.avatar" @click="logout" alt="用户头像">
-          <span class="username"></span>
-          <i class="el-icon-caret-bottom"></i>
+      <ul class="sso">
+        <li>中台管理</li>
+        <li>商家后台</li>
+        <li>进销存</li>
+        <li>CSM内容管理</li>
+        <li>系统监控</li>
+      </ul>
+      <div class="search">搜索</div>
+      <div class="other">
+        <div class="favorite">
+          <div class="message">消息</div>
+          <div>待办</div>
+          <div>支持</div>
+          <div>帮助</div>
         </div>
-        <div class="dropdown"></div>
+        <div class="avatar-wrapper">
+          <div class="avatar">
+            <img :src="user.avatar" @click="logout" alt="用户头像">
+            <span class="username"></span>
+            <i class="el-icon-caret-bottom"></i>
+          </div>
+          <div class="dropdown">
+          </div>
+        </div>
+      </div>
+      <div class="screen-full">
+        <i class="el-icon-rank screenfull" :class="{ changeZ: isFullscreen }" @click="_screenfull"></i>
       </div>
     </div>
   </div>
@@ -112,8 +125,23 @@
       height 50px
       transition all .3s
     .left
+      display flex
       flex 1
       background rgba(155, 105, 49, 0.5)
+      .hide-left-bar-btn
+        width 50px
+        height 50px
+      .sso
+        width 80px
+        height 50px
+        background #13ff00
+      .search
+        flex 1
+        background #cc8602
+      .other
+        width 200px
+        height 200px
+        background #00edff
       i,.screenfull
         display inline-block
         font-size 30px
@@ -137,4 +165,6 @@
       i
         transform rotateZ(0deg)
         transition all .3s
+      .sso
+        display: inline-block
 </style>

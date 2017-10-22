@@ -35,14 +35,14 @@
     overflow hidden
     &.hideBar
       .menu-wrapper
-        flex 0 0 36px
-        width 36px
-        background #ff5c4f
+        flex 0 0 64px
+        width 64px
+        background #2c2c2c
+        transition all .3s
     .menu-wrapper
       flex 0 0 180px
       width 180px
-      background #ff5c4f
-      transition all .3s
+      background #2c2c2c
     .content-wrapper
       flex 1
 
