@@ -194,7 +194,7 @@
         height 30px
         box-sizing border-box
         border-radius 50%
-        border 1px solid yellow
+        border 1px solid rgba(255,255,255,0.1)
         vertical-align middle
       span
         font-size 16px
@@ -212,7 +212,7 @@
       border-radius 3px
       padding 10px
       background #fff
-      transition all cubic-bezier(.22,.58,.12,.98) .5s;
+      transition all cubic-bezier(.22,.58,.12,.98) .3s;
       transform-origin 50% 0
       .arrow_top
         border 6px solid transparent
