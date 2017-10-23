@@ -3,6 +3,7 @@
     <el-menu
       background-color="#2c2c2c"
       text-color="#d0d0d0"
+      style="border:none"
       active-text-color="#ff6600"
       default-active="1-4-1"
       class="{el-menu--collapse:hideLeftBar}"
@@ -15,7 +16,7 @@
           <span slot="title">系统管理</span>
         </template>
         <el-menu-item-group>
-          <span slot="title">分组一</span>
+          <span  slot="title">分组一</span>
           <el-menu-item index="1-1">选项1</el-menu-item>
           <el-menu-item index="1-2">选项2</el-menu-item>
         </el-menu-item-group>
@@ -81,11 +82,9 @@
     },
     methods: {
       handleOpen(key, keyPath) {
-        alert('open')
         console.log(key, keyPath)
       },
       handleClose(key, keyPath) {
-        alert('close')
         console.log(key, keyPath)
       }
     }

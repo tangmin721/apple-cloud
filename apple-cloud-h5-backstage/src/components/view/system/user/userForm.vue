@@ -758,7 +758,5 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .content
-    height 100%
-    background #1F2941
+
 </style>

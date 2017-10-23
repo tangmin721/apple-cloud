@@ -1,11 +1,9 @@
 <template>
   <div>
     <v-tab></v-tab>
-    <transition name="slide">
-      <keep-alive>
-        <router-view class="content"></router-view>
-      </keep-alive>
-    </transition>
+    <keep-alive>
+      <router-view class="content"></router-view>
+    </keep-alive>
   </div>
 </template>
 
@@ -20,5 +18,8 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .content
-    height 100%
+    position absolute
+    top 40px
+    bottom 0
+    overflow auto
 </style>
