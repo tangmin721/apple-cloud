@@ -3,7 +3,7 @@
     <div class="header_bg">
     </div>
     <div class="content">
-    <div class="log">
+    <div class="logo">
       <router-link to="/index/dashboard">
         <span>首页</span>
       </router-link>
@@ -126,7 +126,7 @@
       top: 0
       width: 420px
       height: 50px
-      background: url(../../common/image/left_bg.jpg) no-repeat
+      background: url(left_bg.jpg) no-repeat
   .header_bg:after
       content ''
       position absolute
@@ -134,9 +134,9 @@
       top 0
       width 420px
       height: 50px
-      background url(../../common/image/right_bg.jpg) no-repeat
+      background url(right_bg.jpg) no-repeat
   .content
-    
+
   .v-header
     position relative
     height 50px;
@@ -149,7 +149,7 @@
       .log
         flex 0 0 130px
         width 130px
-    .log
+    .logo
       flex 0 0 180px
       width 180px
       height 50px

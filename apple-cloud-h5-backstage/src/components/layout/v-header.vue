@@ -4,7 +4,7 @@
       <img src="./logo.png" alt="" class="logo"/>
       <ul class="list">
         <li>首页</li>
-        <li>直播</li>
+        <li>SSO</li>
         <li>分类</li>
       </ul>
       <div
@@ -22,7 +22,7 @@
       </div>
       <div class="user">
         <div class="user_content">
-          <img src="./log.png" alt=""/>
+          <img src="../../common/image/steward-avatar.png" alt=""/>
           <span>12345</span>
         </div>
         <div class="user_dropdown">
@@ -133,7 +133,7 @@
     top: 0
     width: 420px
     height: 100%
-    background: url(../../common/image/left_bg.jpg) no-repeat
+    background: url(left_bg.jpg) no-repeat
   .v-header:after
     content ''
     position absolute
@@ -141,7 +141,7 @@
     top 0
     width 420px
     height: 100%
-    background url(../../common/image/right_bg.jpg) no-repeat
+    background url(right_bg.jpg) no-repeat
   .list
     overflow hidden
     height 100%
@@ -188,7 +188,6 @@
     width 160px
     height 30px
     margin-top 10px
-  // background red
     .user_content
       img
         width 30px

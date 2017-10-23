@@ -4,9 +4,9 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 // 登录页
-const Login = () => import('components/view/system/login')
+const Login = () => import('components/view/system/login/login')
 // 系统首页
-const Dashboard = () => import('components/view/system/dashboard')
+const Dashboard = () => import('components/view/system/dashboard/dashboard')
 const Layout = () => import('components/layout/layout')
 const FourZeroOne = () => import('components/error/401')
 const FourZeroFour = () => import('components/error/404')
