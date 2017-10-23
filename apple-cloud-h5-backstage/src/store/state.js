@@ -1,4 +1,5 @@
 const state = {
+  user: {},
   hideLeftBar: false
 }
 

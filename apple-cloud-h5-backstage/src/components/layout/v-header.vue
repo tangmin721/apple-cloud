@@ -22,12 +22,15 @@
       </div>
       <div class="user">
         <div class="user_content">
-          <img src="../../common/image/steward-avatar.png" alt=""/>
+          <img class="user_content_img" src="../../common/image/steward-avatar.png" alt=""/>
           <span>12345</span>
+          <i class="el-icon-caret-bottom"></i>
         </div>
         <div class="user_dropdown">
           <b class="arrow_top"></b>
-          213435678
+          <div>
+            <el-button type="danger" icon="el-icon-search" size="mini" @click="logout" round>退出登录</el-button>
+          </div>
         </div>
       </div>
 
@@ -190,15 +193,19 @@
     margin-top 10px
     .user_content
       img
+        transform scale(1)
+        transition all 300ms
         width 30px
         height 30px
         box-sizing border-box
         border-radius 50%
         border 1px solid rgba(255,255,255,0.1)
         vertical-align middle
-      span
-        font-size 16px
-        color #ccc
+      span,i
+        font-size 14px
+        color #d0d0d0
+      i
+        transition all 300ms
     .user_dropdown
       height 0
       transform scale(0)
@@ -224,8 +231,14 @@
         height 0
   .user:hover .user_dropdown
     transform scale(1)
+  .user:hover .el-icon-caret-bottom
+    transform rotateZ(180deg)
+    transition all 300ms
+  .user:hover .user_content_img
+    transform scale(1.2)
+    transition all 300ms
   .screen-full
-    right 10px
+    right 30px
     color #d0d0d0
     font-size 20px
     line-height 50px
