@@ -30,6 +30,7 @@
   <springProfile name="dev,test">
     <logger name="org.springframework" level="info"/>
     <logger name="com.cachexic.cloud" level="debug"/>
+    <logger name="com.dangdang.ddframe" level="debug"/>
   </springProfile>
   <springProfile name="prep,prod">
     <logger name="org.springframework" level="error"/>

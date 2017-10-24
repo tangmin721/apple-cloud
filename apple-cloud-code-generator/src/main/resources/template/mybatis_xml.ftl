@@ -50,7 +50,7 @@
         <include refid="table" />
         <set>
         <#if CONFIG.extendBaseEntity=="true">
-            version = <#if CONFIG.openVersion=="true">${r"#{"}${"version"}${r"}"}</#if><#if CONFIG.openVersion=="false">version</#if>+1,
+            version = version+1,
             <if test="status != null">status = ${r"#{"}${"status"}${r"}"},</if>
             update_time = now(),
             <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
@@ -68,12 +68,12 @@
     <update id="deleteById">
         update <include refid="table" />
         <set>
-            version = <#if CONFIG.openVersion=="true">${r"#{"}${"version"}${r"}"}</#if><#if CONFIG.openVersion=="false">version</#if>+1,status='deleted',update_time = now(),
+            version = version+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
             <if test="updateUserName != null and updateUserName !=''">update_user_name = ${r"#{"}${"updateUserName"}${r"}"},</if>
         </set>
         <where>
-            id = ${r"#{"}${"id"}${r"}"} <#if CONFIG.openVersion=="true">and version = ${r"#{"}${"version"}${r"}"}</#if>
+            id = ${r"#{"}${"id"}${r"}"}
         </where>
     </update>
 
@@ -83,10 +83,10 @@
         <set>
             version = version+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = ${r"#{"}${"updateUserId"}${r"}"},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_name = ${r"#{"}${"updateUserName"}${r"}"},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_name = ${r"#{"}${"updateUserName"}${r"}"}</if>
         </set>
         <where>
-            in <foreach collection="list" separator="," item="id" open="(" close=")"> ${r"#{"}${"id"}${r"}"} </foreach>
+            in <foreach collection="ids" separator="," item="id" open="(" close=")"> ${r"#{"}${"id"}${r"}"} </foreach>
         </where>
     </update>
 
@@ -97,7 +97,7 @@
 
     <!-- 根据主键批量彻底删除 -->
     <delete id="removeByIds" parameterType="java.util.List">
-        delete from <include refid="table" /> where id in <foreach collection="list" separator="," item="id" open="(" close=")"> ${r"#{"}${"id"}${r"}"} </foreach>
+        delete from <include refid="table" /> where id in <foreach collection="ids" separator="," item="id" open="(" close=")"> ${r"#{"}${"id"}${r"}"} </foreach>
     </delete>
 
     <!--片段list字段查询器-->

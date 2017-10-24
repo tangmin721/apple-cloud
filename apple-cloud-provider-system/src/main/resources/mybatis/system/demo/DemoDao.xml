@@ -71,7 +71,7 @@
         update
         <include refid="table" />
         <set>
-            version = #{version}+1,
+            version = version+1,
             <if test="status != null">status = #{status},</if>
             update_time = now(),
             <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
@@ -92,12 +92,12 @@
     <update id="deleteById">
         update <include refid="table" />
         <set>
-            version = #{version}+1,status='deleted',update_time = now(),
+            version = version+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
             <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
         </set>
         <where>
-            id = #{id} and version = #{version}
+            id = #{id}
         </where>
     </update>
 
@@ -107,10 +107,10 @@
         <set>
             version = version+1,status='deleted',update_time = now(),
             <if test="updateUserId != null">update_user_id = #{updateUserId},</if>
-            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName},</if>
+            <if test="updateUserName != null and updateUserName !=''">update_user_name = #{updateUserName}</if>
         </set>
         <where>
-            in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
+            in <foreach collection="ids" separator="," item="id" open="(" close=")"> #{id} </foreach>
         </where>
     </update>
 
@@ -121,7 +121,7 @@
 
     <!-- 根据主键批量彻底删除 -->
     <delete id="removeByIds" parameterType="java.util.List">
-        delete from <include refid="table" /> where id in <foreach collection="list" separator="," item="id" open="(" close=")"> #{id} </foreach>
+        delete from <include refid="table" /> where id in <foreach collection="ids" separator="," item="id" open="(" close=")"> #{id} </foreach>
     </delete>
 
     <!--片段list字段查询器-->
@@ -166,7 +166,7 @@
         <if test="orderFields != null and orderFields.size >0">
             order by
             <foreach collection="orderFields" separator="," item="orderField">
-                ${orderField.fieldName} ${orderField.order}
+                ${orderField.orderField} ${orderField.orderSort}
             </foreach>
         </if>
     </sql>

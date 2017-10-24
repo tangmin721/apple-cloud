@@ -29,7 +29,7 @@ public class Demo extends BaseEntity {
   @ApiModelProperty(value = "姓名", example = "张三", required = true)
   private String name;
 
-  @NotNull(message = "出生日期", groups = {Insert.class, Update.class})
+  @NotNull(message = "出生日期", groups = {Insert.class})
   @JsonFormat(pattern = "yyyy-MM-dd")
   @Past(message = "出生日期只能为过去的时间", groups = {Insert.class, Update.class})
   @ApiModelProperty(value = "出生日期", example = "2018-08-08")
