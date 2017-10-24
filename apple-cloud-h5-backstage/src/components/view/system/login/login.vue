@@ -51,7 +51,7 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            this.$router.push('/index')
+            this.$router.push('/')
             this.$message({
               type: 'success',
               message: '登录成功!'

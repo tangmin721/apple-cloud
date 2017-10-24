@@ -1,0 +1,40 @@
+server.port: 80
+
+jdbc:
+  datasource:
+    ds_0:
+      name: master
+      filters: stat
+      url: jdbc:mysql://localhost:3306/ds_0?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root1234
+      publickey:
+    ds_1:
+      name: master
+      filters: stat
+      url: jdbc:mysql://localhost:3306/ds_1?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: root1234
+      publickey:
+
+rocketmq:
+  namesrv: apple01:9876 # name-server1-ip:9876;name-server2-ip:9876 注意是分号分割
+  consumer:
+    group-id:
+      order: ${spring.application.name} #多实例只有一个消费者
+      #shopUpdateLocalCache: ${random.uuid} #为了每个实例都更新缓存，订阅模式
+
+spring:
+  redis:
+    #host: apple01
+    #port: 6379
+    cluster:
+      nodes: 10.16.70.193:9000,10.16.70.194:9000,10.16.70.195:9000,10.16.70.193:10000,10.16.70.194:10000,10.16.70.195:10000
+  kafka:
+    bootstrap-servers: kafka01:9092
+    consumer:
+      group-id:
+        fixedGroup: ${spring.application.name} #多实例只有一个消费者
+        randomGroup: ${random.uuid} #随机消费组，如果不想要随机，只需要在@KafkaListener上写死group就可以了
+
+

@@ -9,64 +9,36 @@
       class="{el-menu--collapse:hideLeftBar}"
       @open="handleOpen"
       @close="handleClose"
-      :collapse="hideLeftBar">
+      :default-active="$route.path"
+      :collapse="hideLeftBar" router>
       <el-submenu index="1">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span slot="title">系统管理</span>
         </template>
-        <el-menu-item-group>
-          <span  slot="title">分组一</span>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
+        <el-menu-item index="1-1">选项1</el-menu-item>
+        <el-menu-item index="1-2">选项2</el-menu-item>
         <el-submenu index="1-4">
           <span slot="title">选项4</span>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-          <el-menu-item index="1-4-3">选项3</el-menu-item>
-          <el-menu-item index="1-4-4">选项4</el-menu-item>
-          <el-menu-item index="1-4-5">选项5</el-menu-item>
-          <el-menu-item index="1-4-6">选项6</el-menu-item>
-          <el-menu-item index="1-4-7">选项7</el-menu-item>
-          <el-menu-item index="1-4-8">选项8</el-menu-item>
+          <el-menu-item index="/index/userPage">用户首页</el-menu-item>
+          <el-menu-item index="/index/userForm">userForm</el-menu-item>
+          <el-menu-item index="/index/dashboard">dashboard</el-menu-item>
         </el-submenu>
       </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="3">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
+      <el-submenu>
+        <template slot="title">
+          <i class="icon-music"></i>
+          <span slot="title">错误页</span>
+        </template>
+        <el-menu-item index="1-1">选项1</el-menu-item>
+        <el-menu-item index="1-2">选项2</el-menu-item>
+        <el-submenu index="1-4">
+          <span slot="title">选项4</span>
+          <el-menu-item index="/index/userPage">用户首页</el-menu-item>
+          <el-menu-item index="/index/userForm">userForm</el-menu-item>
+          <el-menu-item index="/index/dashboard">dashboard</el-menu-item>
+        </el-submenu>
+      </el-submenu>
     </el-menu>
   </div>
 </template>

@@ -20,7 +20,7 @@ public class OrderServiceTest extends TestParent {
 
   @Test
   public void insert() {
-    for (long i = 1; i < 10; i++) {
+    for (long i = 11; i < 100; i++) {
       Order order = new Order();
       order.setUserId(i);
       orderService.insert(order);

@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: provider-order
+  session:
+    store-type: none  # redis
+
+server:
+  tomcat:
+    max-connections: 2000
+    max-threads: 1000
+    accept-count: 600
+    uri-encoding: UTF-8
+  session: # session 过期时间 tomcat session timeout 至少1分钟60s
+    timeout: 600
+
+
+# security.basic.enabled: false
+
+## apple cloud security config
+apple.security.browser.signInPage: /order-login.html #默认登录页
+apple.security.browser.signInResponseType: JSON #登录成功或失败返回信息(JSON)或者跳转到原请求url(REDIRECT)
+apple.security.browser.rememberMeSeconds: 604800 #3600*24*7 = 604800 默认的记住7天
+apple.security.browser.signOutUrl: /apple-logout.html
+apple.security.browser.signUpUrl: /order-signUp.html  #可以自动注册(打开自动注册的扫描OrderConnectionSignUp)
+
+## session管理相关配置，参见SessionProperties
+apple.security.browser.session.maximumSessions: 1
+#apple.security.browser.session.maxSessionsPreventsLogin: true
+apple.security.browser.session.sessionInvalidUrl: /apple-session-invalid.html
+
+## 验证码的配置
+apple.security.code.image.width: 67 #验证码图形宽度
+apple.security.code.image.height: 23 #验证码图形高度
+apple.security.code.image.length: 4 #验证码长度
+apple.security.code.image.expireIn: 60 #过期时间,单:秒
+apple.security.code.image.urlAndMethods: /order/*,/teacher:put #需要验证码的请求url+method
+
+## 第三方登录social的配置  http://www.applecloud.com/qq.callback
+apple.security.social.filterProcessesUrl: /qqLogin
+
+## qq配置
+apple.security.social.qq.providerId: callback.do
+apple.security.social.qq.app-id: 100550231
+apple.security.social.qq.app-secret: 69b6ab57b22f3c2fe6a6149274e3295e
+
+#微信登录配置，参见WeixinProperties
+apple.security.social.weixin.app-id: wxd99431bbff8305a0
+apple.security.social.weixin.app-secret: 60f78681d063590a469f1b297feff3c4
+apple.security.social.weixin.providerId: weixin
+

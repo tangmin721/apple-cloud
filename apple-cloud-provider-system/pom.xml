@@ -2,11 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-  <!-- ==================================================================== -->
-  <!-- 后台管理系统，对外提供后台管理接口服务 -->
-  <!-- ==================================================================== -->
-
   <parent>
     <artifactId>apple-cloud-all-parent</artifactId>
     <groupId>com.cachexic</groupId>
@@ -15,27 +10,12 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>apple-cloud-web-backstage</artifactId>
+  <artifactId>apple-cloud-provider-system</artifactId>
 
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>apple-cloud-config-micro</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>apple-cloud-feign-order</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>apple-cloud-feign-msg</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>apple-cloud-feign-eshop</artifactId>
+      <artifactId>apple-cloud-config-provider</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
     <dependency>
@@ -43,21 +23,25 @@
       <artifactId>apple-cloud-feign-system</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
-    <!--wiremock-->
-    <dependency>
-      <groupId>com.github.tomakehurst</groupId>
-      <artifactId>wiremock</artifactId>
-    </dependency>
   </dependencies>
 
   <build>
+    <!--如果不加finalName,jar包会带上版本号-->
     <finalName>${project.name}</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
-          <mainClass>com.cachexic.cloud.WebBackstageApplication</mainClass>
+          <mainClass>com.cachexic.cloud.SystemProviderApplication</mainClass>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
         </configuration>
       </plugin>
 

@@ -59,6 +59,8 @@
     <module>apple-cloud-code-generator</module>
     <module>apple-cloud-feign-eshop</module>
     <module>apple-cloud-provider-eshop</module>
+    <module>apple-cloud-feign-system</module>
+    <module>apple-cloud-provider-system</module>
 
   </modules>
 

@@ -40,7 +40,6 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .errPage-container
     background #f0f2f5
-    margin-top -20px
     .wscn-http404
       position relative
       width 1200px

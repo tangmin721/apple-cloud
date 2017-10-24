@@ -2,8 +2,8 @@ defaultDataSourceName: ds_0
 keyGeneratorClass: com.cachexic.cloud.config.sjdbc.keygen.IPKeyGenerator
 
 tables:
-  t_order:  #逻辑表名
-    actualTables: ds_${0..1}.t_order_${0..1}
+  t_demo:  #逻辑表名
+    actualTables: ds_${0..1}.t_demo_${0..1}
     generateKeyColumns:
       - columnName: id
     databaseStrategy:
@@ -11,20 +11,8 @@ tables:
       algorithmExpression: ds_${Math.floorMod(id.toString().hashCode(),2L)}
     tableStrategy:
       shardingColumns: id
-      algorithmExpression: t_order_${Math.floorMod(Math.floorDiv(id.toString().hashCode(),2L),2L)}
-        
-  t_order_item:
-    actualTables: ds_${0..1}.t_order_item_${0..1}
-    databaseStrategy:
-      shardingColumns: order_id
-      algorithmExpression: ds_${Math.floorMod(order_id.toString().hashCode(),2L)}
-    tableStrategy:
-      shardingColumns: order_id
-      algorithmExpression: t_order_item_${Math.floorMod(Math.floorDiv(order_id.toString().hashCode(),2L),2L)}
+      algorithmExpression: t_demo_${Math.floorMod(Math.floorDiv(id.toString().hashCode(),2L),2L)}
 
-bindingTables:
-  - tableNames: t_order,t_order_item
-  
 #默认数据库分片策略
 defaultDatabaseStrategy:
   shardingColumns: none

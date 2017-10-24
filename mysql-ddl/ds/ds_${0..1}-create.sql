@@ -47,6 +47,49 @@ CREATE TABLE IF NOT EXISTS `t_order_1` (
 ALTER TABLE `t_order_1` ADD INDEX(`user_id`) COMMENT 'for select by user_id';
 ALTER TABLE `t_order_1` ADD INDEX(`order_sn`) COMMENT 'for select by order_sn';
 
+-- DROP TABLE IF EXISTS `t_demo_0`;
+
+CREATE TABLE IF NOT EXISTS `t_demo_0` (
+  `id` bigint AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '姓名',
+  `birthday` date NOT NULL COMMENT '出生日期',
+  `age` int NOT NULL DEFAULT '18' COMMENT '年龄',
+  `class_mater` enum('yes','no') DEFAULT 'no' COMMENT '是否班主任',
+  `supper` bit(1) DEFAULT b'1' COMMENT '是否是特级教师',
+  `account` decimal(20,2) NOT NULL DEFAULT '0.00'  COMMENT '账户金额',
+  `version` int DEFAULT 0 COMMENT '乐观锁版本号',
+  `create_time` datetime COMMENT '创建时间',
+  `create_user_id` bigint COMMENT '创建人id',
+  `create_user_name` varchar(32) DEFAULT '' COMMENT '创建人name',
+  `update_time` datetime COMMENT '最后修改时间',
+  `update_user_id` bigint COMMENT '修改人id',
+  `update_user_name` varchar(32) DEFAULT '' COMMENT '修改人name',
+  `status` enum ('invalid','normal','deleted','disabled','frozen') DEFAULT 'invalid' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci COMMENT='DEMO';
+
+-- DROP TABLE IF EXISTS `t_demo_1`;
+
+CREATE TABLE IF NOT EXISTS `t_demo_1` (
+  `id` bigint AUTO_INCREMENT,
+  `name` varchar(20) NOT NULL DEFAULT '' COMMENT '姓名',
+  `birthday` date NOT NULL COMMENT '出生日期',
+  `age` int NOT NULL DEFAULT '18' COMMENT '年龄',
+  `class_mater` enum('yes','no') DEFAULT 'no' COMMENT '是否班主任',
+  `supper` bit(1) DEFAULT b'1' COMMENT '是否是特级教师',
+  `account` decimal(20,2) NOT NULL DEFAULT '0.00'  COMMENT '账户金额',
+  `version` int DEFAULT 0 COMMENT '乐观锁版本号',
+  `create_time` datetime COMMENT '创建时间',
+  `create_user_id` bigint COMMENT '创建人id',
+  `create_user_name` varchar(32) DEFAULT '' COMMENT '创建人name',
+  `update_time` datetime COMMENT '最后修改时间',
+  `update_user_id` bigint COMMENT '修改人id',
+  `update_user_name` varchar(32) DEFAULT '' COMMENT '修改人name',
+  `status` enum ('invalid','normal','deleted','disabled','frozen') DEFAULT 'invalid' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci COMMENT='DEMO';
+
+
 
 -- -----------------------------------单表分割线--------------------------------------------------
 -- DROP TABLE IF EXISTS `t_teacher`;
