@@ -40,17 +40,17 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .errPage-container
     background #f0f2f5
+    margin 0 auto
     .wscn-http404
       position relative
-      width 1200px
-      margin 20px auto 60px
-      padding 0 100px
+      width 900px
+      margin 0 auto
+      padding 100px
       overflow hidden
       .pic-404
         position relative
         float left
-        width 600px
-        padding 150px 0
+        width 500px
         overflow hidden
         &__parent
           width 100%
@@ -141,7 +141,6 @@
       position relative
       float left
       width 300px
-      padding 150px 0
       overflow hidden
       &__oops
         font-size 32px

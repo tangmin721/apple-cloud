@@ -47,7 +47,7 @@ public class DemoServiceImplTest extends TestParent {
   @Test
   public void insertBatch() throws Exception {
     int count = 0;
-    for (int i = 1; i < 101; i++) {
+    for (int i = 101; i < 201; i++) {
       Demo demo = new Demo();
       demo.setName("何雨柱" + i);
       demo.setNameTransient("傻柱");

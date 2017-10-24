@@ -16,28 +16,24 @@
           <i class="el-icon-location"></i>
           <span slot="title">系统管理</span>
         </template>
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="/index/userPage">用户首页</el-menu-item>
-          <el-menu-item index="/index/userForm">userForm</el-menu-item>
-          <el-menu-item index="/index/dashboard">dashboard</el-menu-item>
+        <el-menu-item index="/admin/dashboard"><i class="el-icon-location"></i><span slot="title">系统首页</span></el-menu-item>
+        <el-menu-item index="/admin/userPage"><i class="el-icon-location"></i><span slot="title">用户管理</span></el-menu-item>
+        <el-menu-item index="/admin/userForm"><i class="el-icon-location"></i><span slot="title">用户表单</span></el-menu-item>
+        <el-submenu>
+          <template slot="title">
+            <i class="el-icon-location"></i>
+            <span slot="title">二级菜单</span>
+          </template>
+          <el-menu-item index="/admin/system/demo"><i class="icon-music"></i><span slot="title">demo模块</span></el-menu-item>
         </el-submenu>
       </el-submenu>
-      <el-submenu>
+      <el-submenu index="2">
         <template slot="title">
-          <i class="icon-music"></i>
+          <i class="el-icon-info"></i>
           <span slot="title">错误页</span>
         </template>
-        <el-menu-item index="1-1">选项1</el-menu-item>
-        <el-menu-item index="1-2">选项2</el-menu-item>
-        <el-submenu index="1-4">
-          <span slot="title">选项4</span>
-          <el-menu-item index="/index/userPage">用户首页</el-menu-item>
-          <el-menu-item index="/index/userForm">userForm</el-menu-item>
-          <el-menu-item index="/index/dashboard">dashboard</el-menu-item>
-        </el-submenu>
+        <el-menu-item index="/admin/401"><i class="el-icon-error"></i><span slot="title">401</span></el-menu-item>
+        <el-menu-item index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
       </el-submenu>
     </el-menu>
   </div>

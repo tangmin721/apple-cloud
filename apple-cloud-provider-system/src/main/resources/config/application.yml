@@ -1,6 +1,6 @@
 spring:
   application:
-    name: provider-order
+    name: provider-system
   session:
     store-type: none  # redis
 

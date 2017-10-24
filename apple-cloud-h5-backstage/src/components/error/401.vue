@@ -49,8 +49,8 @@
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .errPage-container
-    width 800px
-    margin 100px auto
+    width 700px
+    margin 50px auto
     .pan-back-btn
       background #008489
       color #fff

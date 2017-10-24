@@ -11,6 +11,8 @@ const Layout = () => import('components/layout/layout')
 const FourZeroOne = () => import('components/error/401')
 const FourZeroFour = () => import('components/error/404')
 
+const Demo = () => import('components/view/system/demo/demo')
+
 const UserForm = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userForm')
 const UserPage = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userPage')
 const UserOther = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userOther')
@@ -19,17 +21,20 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index/dashboard'
+      redirect: '/admin/dashboard'
     }, {
       path: '/login',
       component: Login
     }, {
-      path: '/index',
+      path: '/admin',
       component: Layout,
       children: [
         {
           path: 'dashboard',
           component: Dashboard
+        }, {
+          path: 'system/demo',
+          component: Demo
         }, {
           path: 'userPage',
           component: UserPage
@@ -47,10 +52,9 @@ export default new Router({
           component: FourZeroFour
         }
       ]
-    },
-    {
+    }, {
       path: '*',
-      redirect: '/index/404'
+      redirect: '/admin/404'
     }
   ]
 })

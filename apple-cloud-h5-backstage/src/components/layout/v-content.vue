@@ -22,4 +22,6 @@
     top 40px
     bottom 0
     overflow auto
+    left 180px
+    right 0
 </style>
