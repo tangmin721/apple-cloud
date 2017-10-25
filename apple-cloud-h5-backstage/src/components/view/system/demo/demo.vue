@@ -56,9 +56,9 @@
           <!--</el-form-item>-->
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button icon="el-icon-success" type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+          <el-button icon="icon-add" @click="resetForm('ruleForm')">重置</el-button>
+          <el-button icon="icon-music" @click="dialogFormVisible = false">取 消</el-button>
         </div>
       </el-dialog>
     </el-header>
@@ -369,9 +369,7 @@
     padding 0
     text-align: center;
 
-  .
-  my-dialog > > >
-  .el-dialog
+  .my-dialog >>> .el-dialog
     .el-dialog__header
       border-bottom 1px solid #DFE4ED
       padding-bottom 0

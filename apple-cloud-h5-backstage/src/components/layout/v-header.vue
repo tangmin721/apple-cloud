@@ -121,7 +121,7 @@
   .header_box
     position relative
     top 0
-    z-index 2
+    z-index 10
   .logo
     margin-top 8px
     position absolute
@@ -207,6 +207,7 @@
       i
         transition all 300ms
     .user_dropdown
+      clear float
       height 0
       transform scale(0)
       position absolute
