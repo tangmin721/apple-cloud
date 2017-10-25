@@ -27,6 +27,7 @@ module.exports = {
       'base':resolve('src/base'),
       'common':resolve('src/common'),
       'components':resolve('src/components'),
+      'directive':resolve('src/directive'),
       'router':resolve('src/router'),
       'store':resolve('src/store'),
       'views':resolve('src/views')
