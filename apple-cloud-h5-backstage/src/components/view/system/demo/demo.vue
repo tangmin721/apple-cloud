@@ -51,7 +51,7 @@
             <el-input type="textarea" v-model="ruleForm.desc"></el-input>
           </el-form-item>
         </el-form>
-        <div slot="footer" class="dialog-footer" style="border-top: 1px solid #DFE4ED">
+        <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
           <el-button @click="resetForm('ruleForm')">重置</el-button>
           <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -353,11 +353,14 @@
     padding 0
     text-align: center;
 
-  .my-dialog >>> .el-dialog .el-dialog__header
-    border-bottom 1px solid #878D99
-    padding-bottom 0
-    .el-dialog__title
-      font-weight 600
-
+  .my-dialog >>> .el-dialog
+    .el-dialog__header
+      border-bottom 1px solid #DFE4ED
+      padding-bottom 0
+      .el-dialog__title
+        font-weight 600
+    .el-dialog__footer
+      border-top 1px solid #DFE4ED
+      padding 0 10px
 
 </style>
