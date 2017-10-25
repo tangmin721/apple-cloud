@@ -3,7 +3,7 @@
     <el-header>
       <el-button-group>
         <el-button type="primary" icon="el-icon-circle-plus" @click="handleCreate">新增</el-button>
-        <el-button type="primary" v-waves icon="el-icon-edit">修改</el-button>
+        <el-button type="primary" v-waves icon="el-icon-edit" @click="handleUpdate">修改</el-button>
         <el-button type="primary" icon="el-icon-delete">删除</el-button>
       </el-button-group>
       <el-dialog :title="textMap[dialogStatus]"
@@ -11,45 +11,49 @@
                  class="my-dialog"
                  scope="scope"
                  :visible.sync="dialogFormVisible">
-        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px"
+        <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" align="left"
                  class="demo-ruleForm" center>
-          <el-form-item label="活动名称" prop="name">
-            <el-input v-model="ruleForm.name"></el-input>
+          <el-form-item label="姓名" prop="name">
+            <el-input prefix-icon="el-icon-service" style="width: 200px"
+                      v-model="ruleForm.name"></el-input>
           </el-form-item>
-          <el-form-item label="活动区域" prop="region">
-            <el-select :span="24" v-model="ruleForm.region" placeholder="请选择活动区域">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+          <el-form-item label="年龄" prop="age">
+            <el-input-number v-model="ruleForm.age" :min="18" :max="60"
+                             style="width: 100px"></el-input-number>
+          </el-form-item>
+          <el-form-item label="状态" prop="status">
+            <el-select v-model="ruleForm.status" placeholder="请选择状态" style="width: 200px">
+              <el-option label="无效" value="invalid"></el-option>
+              <el-option label="正常" value="normal"></el-option>
+              <el-option label="删除" value="deleted"></el-option>
+              <el-option label="禁用" value="disabled"></el-option>
+              <el-option label="冻结" value="frozen"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="活动时间" required>
-            <el-col :span="24">
-              <el-form-item prop="date1">
-                <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.date1"
-                                style="width: 100%;"></el-date-picker>
-              </el-form-item>
-            </el-col>
+          <el-form-item label="生日" prop="birthday">
+            <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.birthday"
+                            style="width: 200px"></el-date-picker>
           </el-form-item>
-          <el-form-item label="即时配送" prop="delivery">
-            <el-switch on-text="" off-text="" v-model="ruleForm.delivery"></el-switch>
+          <el-form-item label="特级教师" prop="supper">
+            <el-switch on-text="" off-text="" v-model="ruleForm.supper"></el-switch>
           </el-form-item>
-          <el-form-item label="活动性质" prop="type">
-            <el-checkbox-group v-model="ruleForm.type">
-              <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-              <el-checkbox label="地推活动" name="type"></el-checkbox>
-              <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-              <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
+          <el-form-item label="兴趣爱好" prop="interests">
+            <el-checkbox-group v-model="ruleForm.interests">
+              <el-checkbox label="唱歌" name="type"></el-checkbox>
+              <el-checkbox label="跳舞" name="type"></el-checkbox>
+              <el-checkbox label="打豆豆" name="type"></el-checkbox>
+              <el-checkbox label="王者农药" name="type"></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
-          <el-form-item label="特殊资源" prop="resource">
-            <el-radio-group v-model="ruleForm.resource">
-              <el-radio label="线上品牌商赞助"></el-radio>
-              <el-radio label="线下场地免费"></el-radio>
+          <el-form-item label="班主任" prop="classMater">
+            <el-radio-group v-model="ruleForm.classMater">
+              <el-radio label="yes"></el-radio>
+              <el-radio label="no"></el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item label="活动形式" prop="desc">
-            <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-          </el-form-item>
+          <!--<el-form-item label="备注" prop="memo">-->
+            <!--<el-input type="textarea" v-model="ruleForm.memo"></el-input>-->
+          <!--</el-form-item>-->
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="submitForm('ruleForm')">确 定</el-button>
@@ -76,22 +80,22 @@
         <el-table-column type="index" width="50"/>
         <el-table-column prop="id" sortable="custom" label="Id" width="180px"/>
         <el-table-column prop="version" label="版本" width="60px"/>
-        <el-table-column prop="createTime" label="创建时间" width="180px"/>
+        <el-table-column prop="createTime" label="创建时间" width="160px"/>
         <el-table-column prop="status" label="状态"/>
         <el-table-column prop="name" label="姓名"/>
-        <el-table-column prop="birthday" label="生日">
+        <el-table-column prop="birthday" label="生日" min-width="120px">
           <template slot-scope="scope">
             <i class="el-icon-time" style="color:red"></i>
             <span style="margin-left: 2px">{{ scope.row.birthday }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="age" label="年龄"/>
+        <el-table-column prop="age" label="年龄" width="60px"/>
         <el-table-column prop="classMater" label="是否班主任"/>
         <el-table-column prop="account" label="账户余额"/>
         <el-table-column label="操作" width="160px" fixed="right">
           <template slot-scope="scope">
             <el-button-group>
-              <el-button @click="handleClick(scope.row)" type="primary" icon="el-icon-edit">
+              <el-button @click="handleUpdate(scope.row)" type="primary" icon="el-icon-edit">
               </el-button>
               <el-button type="success" icon="el-icon-share"></el-button>
               <el-button type="danger" icon="el-icon-delete"></el-button>
@@ -141,14 +145,14 @@
         },
         dialogFormVisible: false,
         ruleForm: {
+          id: '',
           name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+          age: 18,
+          birthday: '',
+          classMater: 'yes',
+          status: '',
+          supper: false,
+          account: ''
         },
         textMap: {
           update: '编辑',
@@ -159,26 +163,17 @@
         maxHeight: '560',
         rules: {
           name: [
-            {required: true, message: '请输入活动名称', trigger: 'blur'},
+            {required: true, message: '请输入姓名', trigger: 'blur'},
             {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
           ],
-          region: [
-            {required: true, message: '请选择活动区域', trigger: 'change'}
-          ],
-          date1: [
+          birthday: [
             {type: 'date', required: true, message: '请选择日期', trigger: 'change'}
           ],
-          date2: [
-            {type: 'date', required: true, message: '请选择时间', trigger: 'change'}
+          status: [
+            {required: true, message: '请选择状态', trigger: 'change'}
           ],
-          type: [
-            {type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change'}
-          ],
-          resource: [
-            {required: true, message: '请选择活动资源', trigger: 'change'}
-          ],
-          desc: [
-            {required: true, message: '请填写活动形式', trigger: 'blur'}
+          memo: [
+            {required: true, message: '请填写备注', trigger: 'blur'}
           ]
         }
       }
@@ -224,12 +219,15 @@
         this.getList()
       },
       handleCreate() {
-        this.resetTemp()
+        this.resetRuleForm()
         this.dialogStatus = 'create'
         this.dialogFormVisible = true
       },
       handleUpdate(row) {
-        this.temp = Object.assign({}, row)
+        console.log(this.ruleForm)
+        console.log(this.row)
+        this.ruleForm = Object.assign({}, row)
+        console.log(this.ruleForm)
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
       },
@@ -244,16 +242,31 @@
         this.list.splice(index, 1)
       },
       create() {
-        this.temp.id = parseInt(Math.random() * 100) + 1024
-        this.temp.timestamp = +new Date()
-        this.temp.author = '原创作者'
-        this.list.unshift(this.temp)
-        this.dialogFormVisible = false
-        this.$notify({
-          title: '成功',
-          message: '创建成功',
-          type: 'success',
-          duration: 2000
+        console.log('xxxx', this.ruleForm)
+        axios.post('http://localhost:9051/demo', this.ruleForm)
+        .then((res) => {
+          res = res.data
+          if (res.status === RES_OK) {
+            console.log(this.list)
+            this.list.unshift(this.ruleForm)
+            this.dialogFormVisible = false
+            this.$notify({
+              title: '成功',
+              message: '创建成功',
+              type: 'success',
+              duration: 2000
+            })
+          } else {
+            this.$message.error({
+              message: `api调用异常：${res.message}`,
+              showClose: true
+            })
+          }
+        }).catch((error) => {
+          this.$message.error({
+            message: `api调用异常：${error}`,
+            showClose: true
+          })
         })
       },
       update() {
@@ -273,15 +286,16 @@
           duration: 2000
         })
       },
-      resetTemp() {
-        this.temp = {
-          id: undefined,
-          importance: 0,
-          remark: '',
-          timestamp: 0,
-          title: '',
-          status: 'published',
-          type: ''
+      resetRuleForm() {
+        this.ruleForm = {
+          id: '',
+          name: '',
+          age: 18,
+          birthday: '',
+          classMater: 'yes',
+          status: 'normal',
+          supper: false,
+          account: ''
         }
       },
       toggleSelection(rows) {
@@ -297,9 +311,11 @@
         this.multipleSelection = val
       },
       submitForm(formName) {
+        console.log('submitForm:', formName)
         this.$refs[formName].validate((valid) => {
+          console.log('formName:', valid)
           if (valid) {
-            alert('submit!')
+            this.create()
           } else {
             console.log('error submit!!')
             return false
@@ -353,7 +369,9 @@
     padding 0
     text-align: center;
 
-  .my-dialog >>> .el-dialog
+  .
+  my-dialog > > >
+  .el-dialog
     .el-dialog__header
       border-bottom 1px solid #DFE4ED
       padding-bottom 0
