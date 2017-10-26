@@ -4,6 +4,7 @@ import com.cachexic.cloud.common.base.service.impl.BaseServiceImpl;
 import com.cachexic.cloud.feign.system.entity.Demo;
 import com.cachexic.cloud.feign.system.entity.query.DemoQuery;
 import com.cachexic.cloud.provider.system.service.DemoService;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,4 +25,10 @@ public class DemoServiceImpl extends BaseServiceImpl<Demo, DemoQuery> implements
       return super.update(entity);
     }
   }*/
+
+  @Override
+  public int deleteByIds(List<Long> ids) {
+    ids.forEach(id -> this.deleteById(id));
+    return ids.size();
+  }
 }

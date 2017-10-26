@@ -3,8 +3,7 @@
     <el-header>
       <el-button-group>
         <el-button type="primary" icon="el-icon-circle-plus" @click="handleCreate">新增</el-button>
-        <el-button type="primary" v-waves icon="el-icon-edit" @click="handleUpdate">修改</el-button>
-        <el-button type="primary" icon="el-icon-delete">删除</el-button>
+        <el-button type="primary" icon="el-icon-delete" @click="handleBatchDelete">删除</el-button>
       </el-button-group>
       <el-dialog :title="textMap[dialogStatus]"
                  top="10vh"
@@ -22,7 +21,7 @@
                              style="width: 100px"></el-input-number>
           </el-form-item>
           <el-form-item label="状态" prop="status">
-            <el-select v-model="ruleForm.status" placeholder="请选择状态" style="width: 200px">
+            <el-select v-model="ruleForm.status" disabled placeholder="请选择状态" style="width: 200px">
               <el-option label="无效" value="invalid"></el-option>
               <el-option label="正常" value="normal"></el-option>
               <el-option label="删除" value="deleted"></el-option>
@@ -71,7 +70,8 @@
       <el-table
         ref="multipleTable"
         :data="list"
-        element-loading-text="给我一点时间"
+        v-loading="loading"
+        element-loading-text="拼命加载中"
         empty-text="暂无数据"
         highlight-current-row
         stripe
@@ -81,8 +81,8 @@
         :height="maxHeight"
         style="width:100%;"
       >
-        <el-table-column type="selection" width="40"></el-table-column>
-        <el-table-column type="index" width="50"/>
+        <el-table-column type="selection" width="40" fixed></el-table-column>
+        <el-table-column type="index" width="50" fixed/>
         <el-table-column prop="id" sortable="custom" label="Id" width="180px"/>
         <el-table-column prop="version" label="版本" width="60px"/>
         <el-table-column prop="createTime" sortable="custom" label="创建时间" width="160px"/>
@@ -97,7 +97,8 @@
         <el-table-column prop="age" sortable="custom" label="年龄" width="60px"/>
         <el-table-column prop="supper" sortable="custom" label="特级教师">
           <template slot-scope="scope">
-            <span style="margin-left: 2px">{{ scope.row.supper }}</span>
+            <el-tag v-if="scope.row.supper" type="success">是</el-tag>
+            <el-tag v-if="!scope.row.supper" type="danger">否</el-tag>
           </template>
         </el-table-column>
         <el-table-column prop="type" label="活动性质"/>
@@ -142,6 +143,7 @@
     },
     data() {
       return {
+        loading: true,
         list: [],
         currentPage: 1,
         pageSize: 10,
@@ -170,6 +172,7 @@
           update: '编辑',
           create: '创建'
         },
+        selectedRowIds: '',
         dialogStatus: 'update',
         formLabelWidth: '80px',
         maxHeight: '560',
@@ -204,6 +207,8 @@
     },
     methods: {
       getList() {
+        this.loading = true
+       // setTimeout(() => {
         axios.post('http://localhost:9051/demo/pagination', {
           currentPage: this.query.currentPage,
           pageSize: this.query.pageSize,
@@ -214,23 +219,24 @@
           res = res.data
           if (res.status === RES_OK) {
             this.list = res.data.list
-            this.total = res.data.total
-            console.log(this.list)
+            this.total = Number(res.data.total)
           } else if (res.status === RES_EMPTY) {
             this.list = []
-            this.total = 0
           } else {
             this.$message.error({
               message: `api调用异常：${res.message}`,
               showClose: true
             })
           }
+          this.loading = false
         }).catch((error) => {
+          this.loading = false
           this.$message.error({
             message: `api调用异常：${error}`,
             showClose: true
           })
         })
+       // }, 3000)
       },
       handleSizeChange(pageSize) {
         this.query.pageSize = pageSize
@@ -248,13 +254,15 @@
       handleUpdate(row) {
         this.resetRuleForm()
         Object.assign(this.ruleForm, row)
-        this.ruleForm.types = this.ruleForm.type.split(',')
-        console.log(this.ruleForm.types)
+        if (this.ruleForm.type) {
+          this.ruleForm.types = this.ruleForm.type.split(',')
+          console.log(this.ruleForm.types)
+        }
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
       },
       handleDelete(id) {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        this.$confirm('此操作将删除记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -266,6 +274,24 @@
             message: '已取消删除'
           })
         })
+      },
+      handleBatchDelete() {
+        if (this.multipleSelection) {
+          var ids = this.multipleSelection.map((row) => row.id)
+          this.selectedRowIds = ids.join(',')
+          this.$confirm('此操作将删除记录, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            this.deleteIds(this.selectedRowIds)
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消删除'
+            })
+          })
+        }
       },
       create() {
         axios.post('http://localhost:9051/demo', this.ruleForm)
@@ -322,6 +348,31 @@
       },
       delete(id) {
         axios.delete(`http://localhost:9051/demo/${id}`)
+        .then((res) => {
+          res = res.data
+          if (res.status === RES_OK) {
+            this.getList()
+            this.$notify({
+              title: '成功',
+              message: '删除成功',
+              type: 'success',
+              duration: 2000
+            })
+          } else {
+            this.$message.error({
+              message: `api调用异常：${res.message}`,
+              showClose: true
+            })
+          }
+        }).catch((error) => {
+          this.$message.error({
+            message: `api调用异常：${error}`,
+            showClose: true
+          })
+        })
+      },
+      deleteIds(id) {
+        axios.delete(`http://localhost:9051/demo/ids/${id}`)
         .then((res) => {
           res = res.data
           if (res.status === RES_OK) {

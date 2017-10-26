@@ -16,6 +16,8 @@ import com.cachexic.cloud.provider.system.service.DemoService;
 import com.google.common.collect.Lists;
 import java.math.BigDecimal;
 import java.util.List;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +49,10 @@ public class DemoServiceImplTest extends TestParent {
   @Test
   public void insertBatch() throws Exception {
     int count = 0;
-    for (int i = 101; i < 201; i++) {
+    for (int i = 1; i < 10001; i++) {
       Demo demo = new Demo();
-      demo.setName("何雨柱" + i);
-      demo.setNameTransient("傻柱");
-      demo.setAge(i);
+      demo.setName(RandomStringUtils.randomAlphabetic(6,10));
+      demo.setAge(RandomUtils.nextInt(18,60));
       demo.setAccount(new BigDecimal("32000.88").add(new BigDecimal(i)));
       demo.setBirthday(DateUtil.parseDate("1987-08-07"));
       demo.setClassMater(i % 2 == 0 ? YesOrNoEnum.yes : YesOrNoEnum.no);
@@ -61,7 +62,7 @@ public class DemoServiceImplTest extends TestParent {
       assertTrue(insert.longValue() > 0);
       count++;
     }
-    assertTrue(count == 100);
+    assertTrue(count == 10000);
   }
 
   @Test
