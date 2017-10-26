@@ -32,17 +32,18 @@
           </el-form-item>
           <el-form-item label="生日" prop="birthday">
             <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.birthday"
+                            format="yyyy-MM-dd" value-format="yyyy-MM-dd"
                             style="width: 200px"></el-date-picker>
           </el-form-item>
           <el-form-item label="特级教师" prop="supper">
             <el-switch on-text="" off-text="" v-model="ruleForm.supper"></el-switch>
           </el-form-item>
-          <el-form-item label="兴趣爱好" prop="interests">
-            <el-checkbox-group v-model="ruleForm.interests">
-              <el-checkbox label="唱歌" name="type"></el-checkbox>
-              <el-checkbox label="跳舞" name="type"></el-checkbox>
-              <el-checkbox label="打豆豆" name="type"></el-checkbox>
-              <el-checkbox label="王者农药" name="type"></el-checkbox>
+          <el-form-item label="活动性质" prop="type">
+            <el-checkbox-group v-model="ruleForm.type">
+              <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
+              <el-checkbox label="地推活动" name="type"></el-checkbox>
+              <el-checkbox label="线下主题活动" name="type"></el-checkbox>
+              <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
           <el-form-item label="班主任" prop="classMater">
@@ -51,14 +52,14 @@
               <el-radio label="no"></el-radio>
             </el-radio-group>
           </el-form-item>
-          <!--<el-form-item label="备注" prop="memo">-->
-            <!--<el-input type="textarea" v-model="ruleForm.memo"></el-input>-->
-          <!--</el-form-item>-->
+          <el-form-item label="备注" prop="memo">
+            <el-input type="textarea" v-model="ruleForm.memo"></el-input>
+          </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button icon="el-icon-success" type="primary" @click="submitForm('ruleForm')">确 定</el-button>
-          <el-button icon="icon-add" @click="resetForm('ruleForm')">重置</el-button>
-          <el-button icon="icon-music" @click="dialogFormVisible = false">取 消</el-button>
+          <el-button icon="icon-add" @click="resetForm('ruleForm')"> 重 置</el-button>
+          <el-button icon="icon-music" @click="dialogFormVisible = false"> 取 消</el-button>
         </div>
       </el-dialog>
     </el-header>
@@ -150,6 +151,7 @@
           age: 18,
           birthday: '',
           classMater: 'yes',
+          type: [],
           status: '',
           supper: false,
           account: ''
@@ -164,13 +166,16 @@
         rules: {
           name: [
             {required: true, message: '请输入姓名', trigger: 'blur'},
-            {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
+            {min: 2, max: 32, message: '长度在 2 到 32 个字符', trigger: 'blur'}
           ],
           birthday: [
-            {type: 'date', required: true, message: '请选择日期', trigger: 'change'}
+            {required: true, message: '请选择日期', trigger: 'change'}
           ],
           status: [
             {required: true, message: '请选择状态', trigger: 'change'}
+          ],
+          type: [
+            {type: 'array', required: true, message: '请至少选择一个', trigger: 'change'}
           ],
           memo: [
             {required: true, message: '请填写备注', trigger: 'blur'}
@@ -224,10 +229,8 @@
         this.dialogFormVisible = true
       },
       handleUpdate(row) {
-        console.log(this.ruleForm)
-        console.log(this.row)
-        this.ruleForm = Object.assign({}, row)
-        console.log(this.ruleForm)
+        this.resetRuleForm()
+        Object.assign(this.ruleForm, row)
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
       },
@@ -242,13 +245,12 @@
         this.list.splice(index, 1)
       },
       create() {
-        console.log('xxxx', this.ruleForm)
         axios.post('http://localhost:9051/demo', this.ruleForm)
         .then((res) => {
           res = res.data
           if (res.status === RES_OK) {
             console.log(this.list)
-            this.list.unshift(this.ruleForm)
+            this.getList()
             this.dialogFormVisible = false
             this.$notify({
               title: '成功',
@@ -270,20 +272,29 @@
         })
       },
       update() {
-        this.temp.timestamp = +this.temp.timestamp
-        for (const v of this.list) {
-          if (v.id === this.temp.id) {
-            const index = this.list.indexOf(v)
-            this.list.splice(index, 1, this.temp)
-            break
+        axios.put('http://localhost:9051/demo', this.ruleForm)
+        .then((res) => {
+          res = res.data
+          if (res.status === RES_OK) {
+            this.getList()
+            this.dialogFormVisible = false
+            this.$notify({
+              title: '成功',
+              message: '更新成功',
+              type: 'success',
+              duration: 2000
+            })
+          } else {
+            this.$message.error({
+              message: `api调用异常：${res.message}`,
+              showClose: true
+            })
           }
-        }
-        this.dialogFormVisible = false
-        this.$notify({
-          title: '成功',
-          message: '更新成功',
-          type: 'success',
-          duration: 2000
+        }).catch((error) => {
+          this.$message.error({
+            message: `api调用异常：${error}`,
+            showClose: true
+          })
         })
       },
       resetRuleForm() {
@@ -293,9 +304,11 @@
           age: 18,
           birthday: '',
           classMater: 'yes',
+          type: [],
           status: 'normal',
           supper: false,
-          account: ''
+          account: '',
+          memo: ''
         }
       },
       toggleSelection(rows) {
@@ -311,11 +324,15 @@
         this.multipleSelection = val
       },
       submitForm(formName) {
-        console.log('submitForm:', formName)
         this.$refs[formName].validate((valid) => {
-          console.log('formName:', valid)
           if (valid) {
-            this.create()
+            if (this.ruleForm.id) {
+              console.log('update')
+              this.update()
+            } else {
+              console.log('create')
+              this.create()
+            }
           } else {
             console.log('error submit!!')
             return false

@@ -86,8 +86,8 @@ public class DemoServiceImplTest extends TestParent {
   @Test
   public void update() throws Exception {
     Demo demo = new Demo();
-    demo.setId(129562574409990144L);
-    demo.setName("何雨柱" + "update");
+    demo.setId(130262083641311232L);
+    demo.setName("何雨柱" + "update2");
     demo.setVersion(1);
     int update = demoService.update(demo);
     System.out.println(update);
@@ -97,7 +97,7 @@ public class DemoServiceImplTest extends TestParent {
   @Test
   public void updateVersion() throws Exception {
 
-    Demo demo = demoService.selectById(129562574409990144L);
+    Demo demo = demoService.selectById(130262083641311232L);
     demo.setName("何雨柱" + "updateVersion");
     // 如果有乐观锁,需要获取version
     int update = demoService.update(demo);

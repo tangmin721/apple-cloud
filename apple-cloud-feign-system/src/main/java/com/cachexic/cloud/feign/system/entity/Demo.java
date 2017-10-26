@@ -7,6 +7,7 @@ import com.cachexic.cloud.common.base.validator.annotations.Insert;
 import com.cachexic.cloud.common.base.validator.annotations.Update;
 import com.cachexic.cloud.common.enums.YesOrNoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -21,6 +22,7 @@ import org.hibernate.validator.constraints.NotBlank;
  * @date 2017-10-24 10:08:08
  */
 @Entity("t_demo")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Demo extends BaseEntity {
 
   private static final long serialVersionUID = -3199106197692249762L;

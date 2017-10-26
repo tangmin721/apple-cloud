@@ -14,4 +14,14 @@ import org.springframework.stereotype.Service;
 @Service("demoService")
 public class DemoServiceImpl extends BaseServiceImpl<Demo, DemoQuery> implements DemoService{
 
+  /*@Override
+  public int update(Demo entity) {
+    try (HintManager hintManager = HintManager.getInstance()){
+      //添加数据源分片键值(指定分库设置的shardingColumn，value:与他的id在同一个库)
+      hintManager.addDatabaseShardingValue("t_demo", "id", entity.getId());
+      //来添加表分片键值(指定分表设置的shardingColumn，value:与他的id在同一个表)
+      hintManager.addTableShardingValue("t_demo", "id", entity.getId());
+      return super.update(entity);
+    }
+  }*/
 }

@@ -1,18 +1,19 @@
 package com.cachexic.cloud.common.config;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
+import static org.springframework.http.MediaType.TEXT_HTML;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.google.common.collect.Lists;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-
-import java.util.List;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
-import static org.springframework.http.MediaType.TEXT_HTML;
 
 /**
  * @author tangmin
@@ -27,7 +28,16 @@ public class WebJacksonMessageConvert {
 
   @Bean
   public ObjectMapper objectMapper() {
+
     ObjectMapper objectMapper = new ObjectMapper();
+
+    //解决java的long类型转为json格式后,js中精度丢失问题
+    SimpleModule simpleModule = new SimpleModule();
+    simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
+    simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+    objectMapper.registerModule(simpleModule);
+
+    //配置json的返回策略
     objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
     return objectMapper;
   }

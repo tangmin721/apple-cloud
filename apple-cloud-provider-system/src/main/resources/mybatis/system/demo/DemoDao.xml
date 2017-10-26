@@ -84,7 +84,8 @@
             <if test="account != null ">account = #{account}</if>
         </set>
         <where>
-            id = #{id} and version = #{version}
+            id = #{id}
+            <!--and version = #{version}-->
         </where>
     </update>
 
