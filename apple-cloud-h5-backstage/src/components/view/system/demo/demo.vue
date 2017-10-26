@@ -3,7 +3,8 @@
     <el-header>
       <el-button-group>
         <el-button type="primary" icon="el-icon-circle-plus" @click="handleCreate">新增</el-button>
-        <el-button type="primary" icon="el-icon-delete" @click="handleBatchDelete">删除</el-button>
+        <el-button v-waves type="success" icon="el-icon-edit" @click="handleTopUpdate">修改</el-button>
+        <el-button v-waves type="danger" icon="el-icon-delete" @click="handleBatchDelete">删除</el-button>
       </el-button-group>
       <el-dialog :title="textMap[dialogStatus]"
                  top="10vh"
@@ -81,12 +82,31 @@
         :height="maxHeight"
         style="width:100%;"
       >
-        <el-table-column type="selection" width="40" fixed></el-table-column>
-        <el-table-column type="index" width="50" fixed/>
-        <el-table-column prop="id" sortable="custom" label="Id" width="180px"/>
-        <el-table-column prop="version" label="版本" width="60px"/>
+        <el-table-column type="selection" width="40" fixed/>
+        </el-table-column>
+        <el-table-column width="40" fixed type="expand">
+          <template slot-scope="scope">
+            <el-form label-position="left" inline class="demo-table-expand">
+              <el-form-item label="id" sortable="custom" >
+                <span>{{ scope.row.id }}</span>
+              </el-form-item>
+              <el-form-item label="版本号" width="200px">
+                <span>{{ scope.row.version }}</span>
+              </el-form-item>
+              <el-form-item label="活动性质">
+                <span>{{ scope.row.type }}</span>
+              </el-form-item>
+              <el-form-item label="账户余额">
+                <span>{{ scope.row.account }}</span>
+              </el-form-item>
+              <el-form-item label="备注">
+                <span>{{ scope.row.memo }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column type="index" width="50"/>
         <el-table-column prop="createTime" sortable="custom" label="创建时间" width="160px"/>
-        <el-table-column prop="status" sortable="custom" label="状态"/>
         <el-table-column prop="name" sortable="custom" label="姓名"/>
         <el-table-column prop="birthday" sortable="custom" label="生日" min-width="120px">
           <template slot-scope="scope">
@@ -94,17 +114,15 @@
             <span style="margin-left: 2px">{{ scope.row.birthday }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="age" sortable="custom" label="年龄" width="60px"/>
+        <el-table-column prop="age" sortable="custom" label="年龄" width="80px"/>
         <el-table-column prop="supper" sortable="custom" label="特级教师">
           <template slot-scope="scope">
             <el-tag v-if="scope.row.supper" type="success">是</el-tag>
             <el-tag v-if="!scope.row.supper" type="danger">否</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="type" label="活动性质"/>
         <el-table-column prop="classMater" sortable="custom" label="是否班主任"/>
-        <el-table-column prop="account" sortable="custom" label="账户余额"/>
-        <el-table-column prop="memo" sortable="memo" label="备注"/>
+        <el-table-column prop="status" label="状态"/>
         <el-table-column label="操作" width="120px" fixed="right">
           <template slot-scope="scope">
             <el-button-group>
@@ -261,6 +279,34 @@
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
       },
+      handleTopUpdate() {
+        if (this.multipleSelection) {
+          console.log('handleTopUpdate1', this.multipleSelection)
+          if (this.multipleSelection.length === 1) {
+            console.log('handleTopUpdate2', this.multipleSelection)
+            this.handleUpdate(this.multipleSelection[0])
+          } else if (this.multipleSelection.length === 0) {
+            console.log('handleTopUpdate3', this.multipleSelection)
+            this.$message({
+              type: 'warning',
+              duration: 1000,
+              message: '请勾选需要编辑的记录'
+            })
+          } else {
+            this.$message({
+              type: 'warning',
+              duration: 1000,
+              message: '只能同时编辑一行'
+            })
+          }
+        } else {
+          this.$message({
+            type: 'warning',
+            duration: 1000,
+            message: '请勾选需要编辑的记录'
+          })
+        }
+      },
       handleDelete(id) {
         this.$confirm('此操作将删除记录, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -276,8 +322,9 @@
         })
       },
       handleBatchDelete() {
-        if (this.multipleSelection) {
-          var ids = this.multipleSelection.map((row) => row.id)
+        if (this.multipleSelection && this.multipleSelection.length > 0) {
+          const ids = this.multipleSelection.map((row) => row.id)
+          console.log('ids', ids)
           this.selectedRowIds = ids.join(',')
           this.$confirm('此操作将删除记录, 是否继续?', '提示', {
             confirmButtonText: '确定',
@@ -290,6 +337,12 @@
               type: 'info',
               message: '已取消删除'
             })
+          })
+        } else {
+          this.$message({
+            type: 'warning',
+            duration: 1000,
+            message: '请勾选需要删除的记录'
           })
         }
       },
@@ -503,6 +556,16 @@
     margin 0 auto
     padding 0
     text-align: center;
+
+  .demo-table-expand
+      font-size: 0;
+  .demo-table-expand >>> label
+    width: 90px;
+    color: #99a9bf;
+  .demo-table-expand >>> .el-form-item
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 50%;
 
   .my-dialog >>> .el-dialog
     .el-dialog__header
