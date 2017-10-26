@@ -38,12 +38,12 @@
           <el-form-item label="特级教师" prop="supper">
             <el-switch on-text="" off-text="" v-model="ruleForm.supper"></el-switch>
           </el-form-item>
-          <el-form-item label="活动性质" prop="type">
-            <el-checkbox-group v-model="ruleForm.type">
-              <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-              <el-checkbox label="地推活动" name="type"></el-checkbox>
-              <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-              <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
+          <el-form-item label="活动性质" prop="types">
+            <el-checkbox-group v-model="ruleForm.types" @change="handleTypeChange">
+              <el-checkbox label="美食线上活动" name="types"></el-checkbox>
+              <el-checkbox label="地推活动" name="types"></el-checkbox>
+              <el-checkbox label="线下主题活动" name="types"></el-checkbox>
+              <el-checkbox label="单纯品牌曝光" name="types"></el-checkbox>
             </el-checkbox-group>
           </el-form-item>
           <el-form-item label="班主任" prop="classMater">
@@ -51,6 +51,10 @@
               <el-radio label="yes">是</el-radio>
               <el-radio label="no">否</el-radio>
             </el-radio-group>
+          </el-form-item>
+          <el-form-item label="账户余额" prop="account">
+            <el-input prefix-icon="el-icon-service" style="width: 200px"
+                      v-model.number="ruleForm.account"></el-input>
           </el-form-item>
           <el-form-item label="备注" prop="memo">
             <el-input type="textarea" v-model="ruleForm.memo"></el-input>
@@ -96,8 +100,10 @@
             <span style="margin-left: 2px">{{ scope.row.supper }}</span>
           </template>
         </el-table-column>
+        <el-table-column prop="type" label="活动性质"/>
         <el-table-column prop="classMater" sortable="custom" label="是否班主任"/>
         <el-table-column prop="account" sortable="custom" label="账户余额"/>
+        <el-table-column prop="memo" sortable="memo" label="备注"/>
         <el-table-column label="操作" width="120px" fixed="right">
           <template slot-scope="scope">
             <el-button-group>
@@ -126,7 +132,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {RES_OK} from 'api/config'
+  import {RES_OK, RES_EMPTY} from 'api/config'
   import axios from 'axios'
   import waves from 'directive/waves.js'// 水波纹指令
 
@@ -154,10 +160,11 @@
           age: 18,
           birthday: '',
           classMater: 'yes',
-          type: [],
+          type: '',
+          types: [],
           status: '',
           supper: false,
-          account: ''
+          account: 0
         },
         textMap: {
           update: '编辑',
@@ -177,8 +184,12 @@
           status: [
             {required: true, message: '请选择状态', trigger: 'change'}
           ],
-          type: [
+          types: [
             {type: 'array', required: true, message: '请至少选择一个', trigger: 'change'}
+          ],
+          account: [
+            {required: true, message: '请输入账户余额'},
+            {type: 'number', message: '余额必须为数字'}
           ],
           memo: [
             {required: true, message: '请填写备注', trigger: 'blur'}
@@ -205,6 +216,9 @@
             this.list = res.data.list
             this.total = res.data.total
             console.log(this.list)
+          } else if (res.status === RES_EMPTY) {
+            this.list = []
+            this.total = 0
           } else {
             this.$message.error({
               message: `api调用异常：${res.message}`,
@@ -234,6 +248,8 @@
       handleUpdate(row) {
         this.resetRuleForm()
         Object.assign(this.ruleForm, row)
+        this.ruleForm.types = this.ruleForm.type.split(',')
+        console.log(this.ruleForm.types)
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
       },
@@ -336,10 +352,11 @@
           age: 18,
           birthday: '',
           classMater: 'yes',
-          type: [],
+          type: '',
+          types: [],
           status: 'normal',
           supper: false,
-          account: '',
+          account: 0,
           memo: ''
         }
       },
@@ -355,18 +372,18 @@
       handleSelectionChange(val) {
         this.multipleSelection = val
       },
+      handleTypeChange() {
+        this.ruleForm.type = this.ruleForm.types.join(',')
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
             if (this.ruleForm.id) {
-              console.log('update')
               this.update()
             } else {
-              console.log('create')
               this.create()
             }
           } else {
-            console.log('error submit!!')
             return false
           }
         })
@@ -399,6 +416,13 @@
           this.query.orderSort = ''
         }
         this.getList()
+      }
+    },
+    watch: {
+      // 如果 `question` 发生改变，这个函数就会运行
+      conactType() {
+        this.answer = 'Waiting for you to stop typing...'
+        this.getAnswer()
       }
     }
   }
