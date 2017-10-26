@@ -126,7 +126,7 @@
         <el-table-column label="操作" width="120px" fixed="right">
           <template slot-scope="scope">
             <el-button-group>
-              <el-button @click="handleUpdate(scope.row)" type="primary" icon="el-icon-edit"/>
+              <el-button @click="handleUpdate(scope.row)" type="success" icon="el-icon-edit"/>
               <el-button type="danger" icon="el-icon-delete" @click="handleDelete(scope.row.id)"/>
             </el-button-group>
           </template>
@@ -287,21 +287,18 @@
             this.handleUpdate(this.multipleSelection[0])
           } else if (this.multipleSelection.length === 0) {
             console.log('handleTopUpdate3', this.multipleSelection)
-            this.$message({
-              type: 'warning',
+            this.$message.warning({
               duration: 1000,
               message: '请勾选需要编辑的记录'
             })
           } else {
-            this.$message({
-              type: 'warning',
+            this.$message.warning({
               duration: 1000,
               message: '只能同时编辑一行'
             })
           }
         } else {
-          this.$message({
-            type: 'warning',
+          this.$message.warning({
             duration: 1000,
             message: '请勾选需要编辑的记录'
           })
@@ -315,8 +312,8 @@
         }).then(() => {
           this.delete(id)
         }).catch(() => {
-          this.$message({
-            type: 'info',
+          this.$message.info({
+            duration: 1000,
             message: '已取消删除'
           })
         })
@@ -333,14 +330,13 @@
           }).then(() => {
             this.deleteIds(this.selectedRowIds)
           }).catch(() => {
-            this.$message({
-              type: 'info',
+            this.$message.info({
+              duration: 1000,
               message: '已取消删除'
             })
           })
         } else {
-          this.$message({
-            type: 'warning',
+          this.$message.warning({
             duration: 1000,
             message: '请勾选需要删除的记录'
           })
@@ -520,13 +516,6 @@
           this.query.orderSort = ''
         }
         this.getList()
-      }
-    },
-    watch: {
-      // 如果 `question` 发生改变，这个函数就会运行
-      conactType() {
-        this.answer = 'Waiting for you to stop typing...'
-        this.getAnswer()
       }
     }
   }
