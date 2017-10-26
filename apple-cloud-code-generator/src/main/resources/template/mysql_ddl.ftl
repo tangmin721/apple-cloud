@@ -2,10 +2,10 @@
 
 CREATE TABLE IF NOT EXISTS `${entity.tableName}` (
   `id` bigint AUTO_INCREMENT,
+  `version` int DEFAULT 0 COMMENT '乐观锁版本号',
 <#list entity.myfieldListNotTransient as e>  ${e.mysqlFieldStr},
   </#list>
-  <#if CONFIG.extendBaseEntity=="true">`version` int DEFAULT 0 COMMENT '乐观锁版本号',
-  `create_time` datetime COMMENT '创建时间',
+  <#if CONFIG.extendBaseEntity=="true">`create_time` datetime COMMENT '创建时间',
   `create_user_id` bigint COMMENT '创建人id',
   `create_user_name` varchar(32) DEFAULT '' COMMENT '创建人name',
   `update_time` datetime COMMENT '最后修改时间',

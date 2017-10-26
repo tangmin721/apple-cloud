@@ -25,7 +25,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Demo extends BaseEntity {
 
-  private static final long serialVersionUID = -3199106197692249762L;
+  private static final long serialVersionUID = -913677919966274293L;
   @NotBlank(message = "姓名不能为空", groups = {Insert.class, Update.class})
   @Size(max = 20, message = "姓名长度不能超过20", groups = {Insert.class, Update.class})
   @ApiModelProperty(value = "姓名", example = "张三", required = true)
@@ -39,7 +39,7 @@ public class Demo extends BaseEntity {
 
   @NotNull
   @ApiModelProperty("年龄")
-  private Integer age = 18;
+  private Integer age;
 
   @ApiModelProperty(value = "不映射数据库,insert方法没有", readOnly = true)
   @Transient
@@ -53,6 +53,13 @@ public class Demo extends BaseEntity {
 
   @ApiModelProperty("账户金额")
   private BigDecimal account;
+
+  @ApiModelProperty("类型")
+  private String type;
+
+  @ApiModelProperty("备注")
+  @Size(max = 400, message = "备注长度不能超过400", groups = {Insert.class, Update.class})
+  private String memo;
 
   public String getName() {
     return name;
@@ -108,6 +115,22 @@ public class Demo extends BaseEntity {
 
   public void setAccount(BigDecimal account) {
     this.account = account;
+  }
+
+  public String getType() {
+    return type;
+  }
+
+  public void setType(String type) {
+    this.type = type;
+  }
+
+  public String getMemo() {
+    return memo;
+  }
+
+  public void setMemo(String memo) {
+    this.memo = memo;
   }
 
   @Override

@@ -4,7 +4,7 @@
 <mapper namespace="com.cachexic.cloud.provider.system.dao.DemoDao">
 
     <sql id="table"> t_demo </sql>
-    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,name,birthday,age,class_mater,supper,account </sql>
+    <sql id="columns"> id,version,create_time,create_user_id,create_user_name,update_time,update_user_id,update_user_name,status,name,birthday,age,class_mater,supper,account,type,memo </sql>
 
     <resultMap id="demo" type="com.cachexic.cloud.feign.system.entity.Demo">
         <result property="id" column="id" />
@@ -23,6 +23,8 @@
         <result property="classMater" column="class_mater" />
         <result property="supper" column="supper" />
         <result property="account" column="account" />
+        <result property="type" column="type" />
+        <result property="memo" column="memo" />
     </resultMap>
 
     <!--单条插入-->
@@ -36,7 +38,9 @@
             <if test="age != null ">age,</if>
             <if test="classMater != null ">class_mater,</if>
             <if test="supper != null ">supper,</if>
-            <if test="account != null ">account</if>
+            <if test="account != null ">account,</if>
+            <if test="type != null and type !=''">type,</if>
+            <if test="memo != null and memo !=''">memo</if>
         </trim>
         values
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -46,7 +50,9 @@
             <if test="age != null ">#{age},</if>
             <if test="classMater != null ">#{classMater},</if>
             <if test="supper != null ">#{supper},</if>
-            <if test="account != null ">#{account}</if>
+            <if test="account != null ">#{account},</if>
+            <if test="type != null and type !=''">#{type},</if>
+            <if test="memo != null and memo !=''">#{memo}</if>
         </trim>
     </insert>
 
@@ -81,7 +87,9 @@
             <if test="age != null ">age = #{age},</if>
             <if test="classMater != null ">class_mater = #{classMater},</if>
             <if test="supper != null ">supper = #{supper},</if>
-            <if test="account != null ">account = #{account}</if>
+            <if test="account != null ">account = #{account},</if>
+            <if test="type != null and type !=''">type = #{type},</if>
+            <if test="memo != null and memo !=''">memo = #{memo}</if>
         </set>
         <where>
             id = #{id} and version = #{version}
@@ -155,6 +163,14 @@
             <if test="classMater != null "> and class_mater=#{classMater}</if>
             <if test="supper != null "> and supper=#{supper}</if>
             <if test="account != null "> and account=#{account}</if>
+            <if test="type != null and type !=''">
+                <if test="typeLike == false"> and type=#{type}</if>
+                <if test="typeLike == true"> and type like  CONCAT('%',#{type},'%')</if>
+            </if>
+            <if test="memo != null and memo !=''">
+                <if test="memoLike == false"> and memo=#{memo}</if>
+                <if test="memoLike == true"> and memo like  CONCAT('%',#{memo},'%')</if>
+            </if>
             <!--<if test="startTime != null"> and birthday <![CDATA[   >=  ]]>#{startTime} </if>
             <if test="endTime != null"> and  birthday <![CDATA[   <  ]]> #{endTime}</if>
             -->

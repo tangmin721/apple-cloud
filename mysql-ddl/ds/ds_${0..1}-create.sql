@@ -51,13 +51,15 @@ ALTER TABLE `t_order_1` ADD INDEX(`order_sn`) COMMENT 'for select by order_sn';
 
 CREATE TABLE IF NOT EXISTS `t_demo_0` (
   `id` bigint AUTO_INCREMENT,
+  `version` int DEFAULT 0 COMMENT '乐观锁版本号',
   `name` varchar(20) NOT NULL DEFAULT '' COMMENT '姓名',
   `birthday` date NOT NULL COMMENT '出生日期',
   `age` int NOT NULL DEFAULT '18' COMMENT '年龄',
   `class_mater` enum('yes','no') DEFAULT 'no' COMMENT '是否班主任',
   `supper` bit(1) DEFAULT b'1' COMMENT '是否是特级教师',
   `account` decimal(20,2) NOT NULL DEFAULT '0.00'  COMMENT '账户金额',
-  `version` int DEFAULT 0 COMMENT '乐观锁版本号',
+  `type` varchar(255) DEFAULT '' COMMENT '类型',
+  `memo` varchar(400) DEFAULT '' COMMENT '备注',
   `create_time` datetime COMMENT '创建时间',
   `create_user_id` bigint COMMENT '创建人id',
   `create_user_name` varchar(32) DEFAULT '' COMMENT '创建人name',
@@ -72,13 +74,15 @@ CREATE TABLE IF NOT EXISTS `t_demo_0` (
 
 CREATE TABLE IF NOT EXISTS `t_demo_1` (
   `id` bigint AUTO_INCREMENT,
+  `version` int DEFAULT 0 COMMENT '乐观锁版本号',
   `name` varchar(20) NOT NULL DEFAULT '' COMMENT '姓名',
   `birthday` date NOT NULL COMMENT '出生日期',
   `age` int NOT NULL DEFAULT '18' COMMENT '年龄',
   `class_mater` enum('yes','no') DEFAULT 'no' COMMENT '是否班主任',
   `supper` bit(1) DEFAULT b'1' COMMENT '是否是特级教师',
   `account` decimal(20,2) NOT NULL DEFAULT '0.00'  COMMENT '账户金额',
-  `version` int DEFAULT 0 COMMENT '乐观锁版本号',
+  `type` varchar(255) DEFAULT '' COMMENT '类型',
+  `memo` varchar(400) DEFAULT '' COMMENT '备注',
   `create_time` datetime COMMENT '创建时间',
   `create_user_id` bigint COMMENT '创建人id',
   `create_user_name` varchar(32) DEFAULT '' COMMENT '创建人name',

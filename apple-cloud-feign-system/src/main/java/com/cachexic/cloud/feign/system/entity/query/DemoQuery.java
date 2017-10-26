@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * @Description: DEMO管理
  * @author tangmin
- * @date 2017-10-24 10:32:30
+ * @date 2017-10-26 15:17:49
  */
 public class DemoQuery extends BaseQuery{
   private static final long serialVersionUID = 1L;
@@ -34,6 +34,14 @@ public class DemoQuery extends BaseQuery{
 
   @ApiModelProperty("账户金额")
   private BigDecimal account;
+
+  @ApiModelProperty("类型")
+  private String type;
+  private Boolean typeLike = false;
+
+  @ApiModelProperty("备注")
+  private String memo;
+  private Boolean memoLike = false;
 
   public String getName() {
     return name;
@@ -97,4 +105,38 @@ public class DemoQuery extends BaseQuery{
     return this;
   }
 
+  public String getType() {
+    return type;
+  }
+
+  public DemoQuery setType(String type) {
+    this.type = type;
+    return this;
+  }
+
+  public Boolean getTypeLike() {
+    return typeLike;
+  }
+
+  public DemoQuery setTypeLike(Boolean typeLike) {
+    this.typeLike = typeLike;
+    return this;
+  }
+  public String getMemo() {
+    return memo;
+  }
+
+  public DemoQuery setMemo(String memo) {
+    this.memo = memo;
+    return this;
+  }
+
+  public Boolean getMemoLike() {
+    return memoLike;
+  }
+
+  public DemoQuery setMemoLike(Boolean memoLike) {
+    this.memoLike = memoLike;
+    return this;
+  }
 }
