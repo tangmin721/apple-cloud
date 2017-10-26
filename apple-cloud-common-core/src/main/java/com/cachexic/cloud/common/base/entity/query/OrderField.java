@@ -1,5 +1,6 @@
 package com.cachexic.cloud.common.base.entity.query;
 
+import com.cachexic.cloud.common.utils.camel.AppStringUtils;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
@@ -19,7 +20,7 @@ public class OrderField implements Serializable {
   protected String orderField;
 
   @ApiModelProperty("升序或降序")
-  protected String orderSort = "asc";
+  protected String orderSort;
 
   public OrderField() {
     super();
@@ -27,7 +28,8 @@ public class OrderField implements Serializable {
 
   public OrderField(String orderField, String orderSort) {
     super();
-    this.orderField = orderField.toLowerCase();
+    orderField = AppStringUtils.camelToUnderline(orderField);
+    this.orderField = orderField;
     this.orderSort = orderSort;
   }
 
@@ -36,6 +38,7 @@ public class OrderField implements Serializable {
   }
 
   public OrderField setOrderField(String orderField) {
+    orderField = AppStringUtils.camelToUnderline(orderField);
     this.orderField = orderField;
     return this;
   }

@@ -138,7 +138,7 @@
         <if test="orderFields != null and orderFields.size >0">
             order by
             <foreach collection="orderFields" separator="," item="orderField">
-                ${r"${"}${"orderField.fieldName"}${r"}"} ${r"${"}${"orderField.order"}${r"}"}
+                ${r"${"}${"orderField.orderField"}${r"}"} ${r"${"}${"orderField.orderSort"}${r"}"}
             </foreach>
         </if>
     </sql>

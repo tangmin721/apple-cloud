@@ -48,8 +48,8 @@
           </el-form-item>
           <el-form-item label="班主任" prop="classMater">
             <el-radio-group v-model="ruleForm.classMater">
-              <el-radio label="yes"></el-radio>
-              <el-radio label="no"></el-radio>
+              <el-radio label="yes">是</el-radio>
+              <el-radio label="no">否</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="备注" prop="memo">
@@ -81,25 +81,28 @@
         <el-table-column type="index" width="50"/>
         <el-table-column prop="id" sortable="custom" label="Id" width="180px"/>
         <el-table-column prop="version" label="版本" width="60px"/>
-        <el-table-column prop="createTime" label="创建时间" width="160px"/>
-        <el-table-column prop="status" label="状态"/>
-        <el-table-column prop="name" label="姓名"/>
-        <el-table-column prop="birthday" label="生日" min-width="120px">
+        <el-table-column prop="createTime" sortable="custom" label="创建时间" width="160px"/>
+        <el-table-column prop="status" sortable="custom" label="状态"/>
+        <el-table-column prop="name" sortable="custom" label="姓名"/>
+        <el-table-column prop="birthday" sortable="custom" label="生日" min-width="120px">
           <template slot-scope="scope">
             <i class="el-icon-time" style="color:red"></i>
             <span style="margin-left: 2px">{{ scope.row.birthday }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="age" label="年龄" width="60px"/>
-        <el-table-column prop="classMater" label="是否班主任"/>
-        <el-table-column prop="account" label="账户余额"/>
-        <el-table-column label="操作" width="160px" fixed="right">
+        <el-table-column prop="age" sortable="custom" label="年龄" width="60px"/>
+        <el-table-column prop="supper" sortable="custom" label="特级教师">
+          <template slot-scope="scope">
+            <span style="margin-left: 2px">{{ scope.row.supper }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="classMater" sortable="custom" label="是否班主任"/>
+        <el-table-column prop="account" sortable="custom" label="账户余额"/>
+        <el-table-column label="操作" width="120px" fixed="right">
           <template slot-scope="scope">
             <el-button-group>
-              <el-button @click="handleUpdate(scope.row)" type="primary" icon="el-icon-edit">
-              </el-button>
-              <el-button type="success" icon="el-icon-share"></el-button>
-              <el-button type="danger" icon="el-icon-delete"></el-button>
+              <el-button @click="handleUpdate(scope.row)" type="primary" icon="el-icon-edit"/>
+              <el-button type="danger" icon="el-icon-delete" @click="handleDelete(scope.row.id)"/>
             </el-button-group>
           </template>
         </el-table-column>
@@ -193,8 +196,8 @@
         axios.post('http://localhost:9051/demo/pagination', {
           currentPage: this.query.currentPage,
           pageSize: this.query.pageSize,
-          orderField: 'age',
-          orderSort: 'asc'
+          orderField: this.query.orderField,
+          orderSort: this.query.orderSort
         })
         .then((res) => {
           res = res.data
@@ -234,15 +237,19 @@
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
       },
-      handleDelete(row) {
-        this.$notify({
-          title: '成功',
-          message: '删除成功',
-          type: 'success',
-          duration: 2000
+      handleDelete(id) {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.delete(id)
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          })
         })
-        const index = this.list.indexOf(row)
-        this.list.splice(index, 1)
       },
       create() {
         axios.post('http://localhost:9051/demo', this.ruleForm)
@@ -281,6 +288,31 @@
             this.$notify({
               title: '成功',
               message: '更新成功',
+              type: 'success',
+              duration: 2000
+            })
+          } else {
+            this.$message.error({
+              message: `api调用异常：${res.message}`,
+              showClose: true
+            })
+          }
+        }).catch((error) => {
+          this.$message.error({
+            message: `api调用异常：${error}`,
+            showClose: true
+          })
+        })
+      },
+      delete(id) {
+        axios.delete(`http://localhost:9051/demo/${id}`)
+        .then((res) => {
+          res = res.data
+          if (res.status === RES_OK) {
+            this.getList()
+            this.$notify({
+              title: '成功',
+              message: '删除成功',
               type: 'success',
               duration: 2000
             })
@@ -356,6 +388,17 @@
       },
       sortChange(column) {
         console.log(column)
+        if (column && column.order === 'descending') {
+          this.query.orderField = column.prop
+          this.query.orderSort = 'desc'
+        } else if (column && column.order === 'ascending') {
+          this.query.orderField = column.prop
+          this.query.orderSort = 'asc'
+        } else {
+          this.query.orderField = ''
+          this.query.orderSort = ''
+        }
+        this.getList()
       }
     }
   }

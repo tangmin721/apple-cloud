@@ -36,7 +36,7 @@ public class PojoBaseQuery implements Serializable {
   protected String orderField;
 
   @ApiModelProperty(value = "单字段升序或降序", position = 905)
-  protected String orderSort = "asc";
+  protected String orderSort;
 
   @ApiModelProperty(value = "多字段排序", notes = "多字段排序,OrderField对象list", position = 906)
   private List<OrderField> orderFields = Lists.newArrayList();

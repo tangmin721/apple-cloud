@@ -1,4 +1,4 @@
-package com.cachexic.cloud.generator.bean;
+package com.cachexic.cloud.common.utils.camel;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * 驼峰式 转 下划线
  *
  * @author tangmin
- * @date 2016年3月2日
+ * @date 2017年3月2日
  */
 public class AppStringUtils {
 
@@ -88,6 +88,8 @@ public class AppStringUtils {
   public static void main(String[] args) {
     String name = "dictCatlogController";
     System.out.println(camelToUnderline(name));
+    String name33 = "dict_catlog_controller";
+    System.out.println(camelToUnderline(name33));
 
     String name2 = "dict_catlog_controller";
     System.out.println(underlineToCamel(name2));

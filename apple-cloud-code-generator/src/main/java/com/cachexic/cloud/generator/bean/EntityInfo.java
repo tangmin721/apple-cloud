@@ -1,6 +1,7 @@
 package com.cachexic.cloud.generator.bean;
 
 import com.cachexic.cloud.common.base.annotations.Transient;
+import com.cachexic.cloud.common.utils.camel.AppStringUtils;
 import com.cachexic.cloud.common.utils.json.JsonUtil;
 import com.cachexic.cloud.feign.order.entity.Teacher;
 import com.fasterxml.jackson.annotation.JsonFormat;
