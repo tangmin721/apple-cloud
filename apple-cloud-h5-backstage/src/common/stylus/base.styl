@@ -42,3 +42,27 @@ body, html
 
 *
   font-size 10px
+
+@keyframes barWidthHide
+  0%
+    width $leftbar-width
+  100%
+    width $leftbar-collapse-width
+
+@keyframes barWidthOpen
+  0%
+    width $leftbar-collapse-width
+  100%
+    width $leftbar-width
+
+@keyframes barLeftHide
+  0%
+    left $leftbar-width
+  100%
+    left $leftbar-collapse-width
+
+@keyframes barLeftOpen
+  0%
+    left $leftbar-collapse-width
+  100%
+    left $leftbar-width
