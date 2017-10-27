@@ -273,19 +273,15 @@
         Object.assign(this.ruleForm, row)
         if (this.ruleForm.type) {
           this.ruleForm.types = this.ruleForm.type.split(',')
-          console.log(this.ruleForm.types)
         }
         this.dialogStatus = 'update'
         this.dialogFormVisible = true
       },
       handleTopUpdate() {
         if (this.multipleSelection) {
-          console.log('handleTopUpdate1', this.multipleSelection)
           if (this.multipleSelection.length === 1) {
-            console.log('handleTopUpdate2', this.multipleSelection)
             this.handleUpdate(this.multipleSelection[0])
           } else if (this.multipleSelection.length === 0) {
-            console.log('handleTopUpdate3', this.multipleSelection)
             this.$message.warning({
               duration: 1000,
               message: '请勾选需要编辑的记录'
@@ -493,14 +489,12 @@
       windowResize() {
         window.onresize = () => {
           this.countTableHeight()
-          console.log('cccc')
         }
       },
       // 计算table的高度
       countTableHeight() {
         var winHeight = document.querySelector('html').clientHeight - 192
         this.maxHeight = winHeight
-        console.log(winHeight)
       },
       sortChange(column) {
         console.log(column)
