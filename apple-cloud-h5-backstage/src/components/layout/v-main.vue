@@ -35,14 +35,15 @@
     overflow hidden
     &.hideBar
       .menu-wrapper
-        flex 0 0 64px
-        width 64px
+        flex 0 0 $leftbar-collapse-width
+        width $leftbar-collapse-width
         background #2c2c2c
         transition all .3s
     .menu-wrapper
-      flex 0 0 180px
-      width 180px
+      flex 0 0 $leftbar-width
+      width $leftbar-width
       background #2c2c2c
+      transition all .3s
     .content-wrapper
       flex 1
 

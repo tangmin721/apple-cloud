@@ -1,7 +1,10 @@
 <template>
   <div class="v-header">
-    <div class="header_box">
+    <div class="header_box" :class="{ hideBar: hideLeftBar }">
       <img src="./logo.png" alt="" class="logo"/>
+      <div class="hide-left-bar-btn">
+        <i class="el-icon-tickets" :class="{ changeZ: hideLeftBar }" @click="_setHideLeftBar"></i>
+      </div>
       <ul class="list">
         <li>首页</li>
         <li>SSO</li>
@@ -113,6 +116,8 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  @import "~common/stylus/variable"
+
   .v-header
     background #373237
     position absolute
@@ -122,13 +127,41 @@
     position relative
     top 0
     z-index 10
-  .logo
-    margin-top 8px
-    position absolute
-    width 87px
-    height 35px
-    left 0
-    top 0
+    .logo
+      margin-top 8px
+      position absolute
+      width 87px
+      height 35px
+      left $leftbar-width - 87 - 42
+      top 0
+      transition all .3s
+    .hide-left-bar-btn
+      width 50px
+      height 50px
+      font-size 5px
+      line-height 50px
+      float: left
+      margin-left $leftbar-width
+      transition all .3s
+      i
+        font-size 25px
+        line-height 50px
+        color #d0d0d0
+        transition all .3s
+    &.hideBar
+      .logo
+        left $leftbar-width - 87 - 42 - 25
+        transition all .3s
+      .hide-left-bar-btn
+        margin-left $leftbar-width - 50
+        transition all .3s
+        i
+          transform rotateZ(90deg)
+          color #ff6600
+          transition all .3s
+      .list
+        margin-left $leftbar-width
+        transition all .3s
   .v-header:before
     content: ''
     position: absolute
@@ -148,7 +181,8 @@
   .list
     overflow hidden
     height 100%
-    margin-left 180px
+    margin-left $leftbar-width + 50px
+    transition all .3s
   .list li
     color #d0d0d0
     font-size 20px
