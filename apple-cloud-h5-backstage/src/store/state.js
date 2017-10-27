@@ -1,6 +1,7 @@
 const state = {
   user: {},
-  hideLeftBar: false
+  hideLeftBar: false,
+  tabViews: {}
 }
 
 export default state

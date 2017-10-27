@@ -19,6 +19,7 @@
         <el-menu-item v-waves index="/admin/dashboard"><i class="el-icon-location"></i><span slot="title">系统首页</span></el-menu-item>
         <el-menu-item v-waves index="/admin/userPage"><i class="el-icon-location"></i><span slot="title">用户管理</span></el-menu-item>
         <el-menu-item v-waves index="/admin/userForm"><i class="el-icon-location"></i><span slot="title">用户表单</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/userOther"><i class="el-icon-location"></i><span slot="title">other</span></el-menu-item>
         <el-submenu index="1-2">
           <template slot="title">
             <i class="el-icon-location"></i>

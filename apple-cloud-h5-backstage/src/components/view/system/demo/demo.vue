@@ -83,7 +83,6 @@
         style="width:100%;"
       >
         <el-table-column type="selection" width="40" fixed/>
-        </el-table-column>
         <el-table-column width="40" fixed type="expand">
           <template slot-scope="scope">
             <el-form label-position="left" inline class="demo-table-expand">
@@ -547,14 +546,14 @@
     text-align: center;
 
   .demo-table-expand
-      font-size: 0;
+    font-size: 0;
   .demo-table-expand >>> label
     width: 90px;
     color: #99a9bf;
   .demo-table-expand >>> .el-form-item
     margin-right: 0;
     margin-bottom: 0;
-    width: 50%;
+    width: 33.3%;
 
   .my-dialog >>> .el-dialog
     .el-dialog__header
