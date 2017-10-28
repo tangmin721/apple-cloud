@@ -25,8 +25,9 @@
       </div>
       <div class="user">
         <div class="user_content">
-          <img class="user_content_img" src="../../common/image/steward-avatar.png" alt=""/>
-          <span>12345</span>
+          <!--<img class="user_content_img" src="../../common/image/steward-avatar.png" alt=""/>-->
+          <img class="user_content_img" :src="user.avatar" alt=""/>
+          <span>{{ user.name }}</span>
           <i class="el-icon-caret-bottom"></i>
         </div>
         <div class="user_dropdown">
