@@ -2,9 +2,9 @@
   <div class="v-header">
     <div class="header_box" :class="{ hideBar: hideLeftBar }">
       <img src="./logo.png" alt="" class="logo"/>
-      <div class="hide-left-bar-btn">
+      <!--<div class="hide-left-bar-btn">
         <i class="el-icon-tickets" :class="{ changeZ: hideLeftBar }" @click="_setHideLeftBar"></i>
-      </div>
+      </div>-->
       <ul class="list">
         <li>首页</li>
         <li>SSO</li>

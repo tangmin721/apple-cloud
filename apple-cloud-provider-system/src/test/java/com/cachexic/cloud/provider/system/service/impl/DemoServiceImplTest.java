@@ -56,6 +56,8 @@ public class DemoServiceImplTest extends TestParent {
       demo.setAccount(new BigDecimal("32000.88").add(new BigDecimal(i)));
       demo.setBirthday(DateUtil.parseDate("1987-08-07"));
       demo.setClassMater(i % 2 == 0 ? YesOrNoEnum.yes : YesOrNoEnum.no);
+      demo.setMemo(RandomStringUtils.randomAlphabetic(20,100));
+      demo.setType("地推活动,单纯匹配曝光");
       demo.setSupper(i % 2 == 0 ? true : false);
       Long insert = demoService.insert(demo);
 
