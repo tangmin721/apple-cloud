@@ -14,7 +14,7 @@ public class BaseQuery extends PojoBaseQuery {
   private static final long serialVersionUID = 1919774516804971541L;
 
   @ApiModelProperty(value = "状态", position = 800)
-  protected StatusEnum status = StatusEnum.normal;
+  protected String status = StatusEnum.normal.name();
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
   @ApiModelProperty(value = "创建开始时间", example = "2018-08-08 09:09:09", position = 801, hidden = true)
@@ -38,11 +38,11 @@ public class BaseQuery extends PojoBaseQuery {
   @ApiModelProperty(value = "修改人id", position = 806)
   protected Long updateUserId;
 
-  public StatusEnum getStatus() {
+  public String getStatus() {
     return status;
   }
 
-  public void setStatus(StatusEnum status) {
+  public void setStatus(String status) {
     this.status = status;
   }
 

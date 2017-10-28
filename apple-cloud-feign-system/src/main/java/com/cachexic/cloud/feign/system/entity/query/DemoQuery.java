@@ -17,7 +17,7 @@ public class DemoQuery extends BaseQuery{
 
   @ApiModelProperty("姓名")
   private String name;
-  private Boolean nameLike = false;
+  private Boolean nameLike = true;
 
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
   @ApiModelProperty(value = "出生日期", example = "2018-08-08 09:09:09")  

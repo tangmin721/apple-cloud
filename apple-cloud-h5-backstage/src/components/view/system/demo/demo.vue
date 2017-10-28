@@ -1,11 +1,41 @@
 <template>
   <el-container>
-    <el-header>
-      <el-button-group>
-        <el-button type="primary" icon="el-icon-circle-plus" @click="handleCreate">新增</el-button>
-        <el-button v-waves type="success" icon="el-icon-edit" @click="handleTopUpdate">修改</el-button>
-        <el-button v-waves type="danger" icon="el-icon-delete" @click="handleBatchDelete">删除</el-button>
-      </el-button-group>
+    <el-header header-align="left">
+      <div class="header-wrap">
+        <div class="btn-group">
+          <el-button-group>
+            <el-button type="primary" icon="el-icon-circle-plus" @click="handleCreate">新增</el-button>
+            <el-button v-waves type="success" icon="el-icon-edit" @click="handleTopUpdate">修改</el-button>
+            <el-button v-waves type="danger" icon="el-icon-delete" @click="handleBatchDelete">删除</el-button>
+          </el-button-group>
+        </div>
+        <div class="search-form">
+          <el-form :inline="true" :model="searchForm" class="demo-form-inline" align="left">
+            <el-form-item label="姓名">
+              <el-input v-model.trim="searchForm.name" placeholder="姓名" :required="true" style="width: 100px"></el-input>
+            </el-form-item>
+            <el-form-item label="年龄">
+              <el-input v-model.number="searchForm.age" placeholder="年龄" required="number" style="width: 100px"></el-input>
+            </el-form-item>
+            <el-form-item label="状态">
+              <el-select v-model="searchForm.status" placeholder="状态" style="width: 120px">
+                <el-option label="无效" value="invalid"></el-option>
+                <el-option label="正常" value="normal"></el-option>
+                <el-option label="删除" value="deleted"></el-option>
+                <el-option label="禁用" value="disabled"></el-option>
+                <el-option label="冻结" value="frozen"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-button-group>
+                <el-button v-waves type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+                <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
+              </el-button-group>
+            </el-form-item>
+          </el-form>
+        </div>
+      </div>
+
       <el-dialog :title="textMap[dialogStatus]"
                  top="10vh"
                  class="my-dialog"
@@ -15,7 +45,7 @@
                  class="demo-ruleForm" center>
           <el-form-item label="姓名" prop="name">
             <el-input prefix-icon="el-icon-service" style="width: 200px"
-                      v-model="ruleForm.name"></el-input>
+                      v-model.trim="ruleForm.name"></el-input>
           </el-form-item>
           <el-form-item label="年龄" prop="age">
             <el-input-number v-model="ruleForm.age" :min="18" :max="60"
@@ -82,8 +112,8 @@
         :height="maxHeight"
         style="width:100%;"
       >
-        <el-table-column type="selection" width="40" fixed/>
-        <el-table-column width="40" fixed type="expand">
+        <el-table-column type="selection" width="14px"/>
+        <el-table-column width="20px" align="center" type="expand">
           <template slot-scope="scope">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="id" sortable="custom" >
@@ -122,7 +152,7 @@
         </el-table-column>
         <el-table-column prop="classMater" sortable="custom" label="是否班主任"/>
         <el-table-column prop="status" label="状态"/>
-        <el-table-column label="操作" width="120px" fixed="right">
+        <el-table-column label="操作" fixed="right" width="120px">
           <template slot-scope="scope">
             <el-button-group>
               <el-button @click="handleUpdate(scope.row)" type="success" icon="el-icon-edit"/>
@@ -173,6 +203,18 @@
           orderSort: ''
         },
         dialogFormVisible: false,
+        searchForm: {
+          id: '',
+          name: '',
+          age: '',
+          birthday: '',
+          classMater: 'yes',
+          type: '',
+          types: [],
+          status: '',
+          supper: false,
+          account: 0
+        },
         ruleForm: {
           id: '',
           name: '',
@@ -227,6 +269,9 @@
         this.loading = true
        // setTimeout(() => {
         axios.post('http://localhost:9051/demo/pagination', {
+          name: this.searchForm.name,
+          age: this.searchForm.age,
+          status: this.searchForm.status,
           currentPage: this.query.currentPage,
           pageSize: this.query.pageSize,
           orderField: this.query.orderField,
@@ -464,6 +509,23 @@
           this.$refs.multipleTable.clearSelection()
         }
       },
+      handleSearch() {
+        this.getList()
+      },
+      handleClearSearch() {
+        this.searchForm = {
+          id: '',
+          name: '',
+          age: '',
+          birthday: '',
+          classMater: 'yes',
+          type: '',
+          types: [],
+          status: '',
+          supper: false,
+          account: 0
+        }
+      },
       handleSelectionChange(val) {
         this.multipleSelection = val
       },
@@ -515,8 +577,24 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+  .header-wrap
+    display flex
+    .btn-group
+      width 300px
+    .search-form
+      flex 1
+      height 60px
+      line-height 60px
+    .search-form >>> .el-form
+      .el-form-item.el-form-item--mini
+        height 44px
+        padding 16px 0 0 0
+        margin 0
+        .el-form-item__label
+          height 28px
+          vertical-align top
   .el-header
-    background-color: #B3C0D1;
+    background-color: #E9EEF3;
     color: #333;
     text-align: center;
     line-height: 60px;
