@@ -1,5 +1,5 @@
 <template>
-  <div class="tab">
+  <div class="tab tabdiv">
     <!--<router-link class="tabs-view" v-for="tag in Array.from(visitedViews)" :to="tag.path" :key="tag.path">
       <el-tag :closable="true" :type="isActive(tag.path)?'primary':''" @close='closeViewTabs(tag,$event)'>
         {{tag.name}}
@@ -15,7 +15,7 @@
     </div>
     <div class="width-wrap">
       <div class="ul-wrap">
-        <ul class="nav_ul">
+        <ul class="nav_ul" :style="{ marginLeft: navUlMarginLeft + 'px',width: navUlWidth + 'px'}">
           <router-link tag="li" to="/admin/userPage" class="tab-item">
             <span class="tab-link">列表</span>
             <i class="el-icon-circle-close-outline"></i>
@@ -65,17 +65,24 @@
   export default {
     data() {
       return {
-        marginLeft: 0,
-        navUlWidth: 0
+        navUlMarginLeft: 96,
+        navUlWidth: (400 + 36 + 1) * 6
       }
     },
     methods: {
       handlePrev() {
-        this.$message('handlePrev')
+        var clientWidth = document.querySelector('.tabdiv').clientWidth
+        console.log('clientWidth', clientWidth)
+        this.navUlMarginLeft = this.navUlMarginLeft - 437
+        console.log(-(this.navUlMarginLeft + 96))
       },
       handleNext() {
-        this.$message('handleNext')
-        this.marginLeft = '100px'
+        this.navUlMarginLeft = this.navUlMarginLeft + 437
+        console.log('handleNext', this.navUlMarginLeft)
+        if (this.navUlMarginLeft > 96) {
+          this.navUlMarginLeft = 96
+        }
+        console.log('handleNext', this.navUlMarginLeft)
       },
       handleCommand(command) {
         this.$message('click on item ' + command)
@@ -130,8 +137,6 @@
         .nav_ul
           float left
           height 38px
-          width 3500px
-          margin-left -100px
           .tab-item
             width 400px
             float left
