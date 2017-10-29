@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style type="text/css">
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .wrap{
+      width: 100px;
+      border: 5px solid red;
+    }
+
+    .wrap ul {
+      width: 900px;
+      border: 5px solid blue;
+      overflow-y: hidden;
+      overflow-x: scroll;
+    }
+
+    .wrap ul li {
+      display: inline-block;
+      width: 100px;
+      border: 5px solid green;
+    }
+
+    .wrap ul li div{
+      display: inline-block;
+      width: 100px;
+      border: 5px solid #00edff;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <ul>
+      <li>li1</li>
+      <li>li2</li>
+      <li>li3</li>
+      <li>li4</li>
+      <li>li5</li>
+      <li>li6</li>
+      <li>
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+      </li>
+      <li>li8</li>
+      <li>li9</li>
+      <li>li10</li>
+    </ul>
+  </div>
+</body>
+</html>

@@ -92,8 +92,8 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
           <el-button icon="el-icon-success" type="primary" @click="submitForm('ruleForm')">确 定</el-button>
-          <el-button icon="icon-add" @click="resetForm('ruleForm')"> 重 置</el-button>
-          <el-button icon="icon-music" @click="dialogFormVisible = false"> 取 消</el-button>
+          <el-button icon="el-icon-refresh" @click="resetForm('ruleForm')">重 置</el-button>
+          <el-button icon="el-icon-circle-close" @click="dialogFormVisible = false">取 消</el-button>
         </div>
       </el-dialog>
     </el-header>

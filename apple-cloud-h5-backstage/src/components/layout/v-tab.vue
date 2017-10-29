@@ -8,33 +8,39 @@
     <div class="prevBtn" @click="handlePrev">
       <i class="el-icon-caret-left"></i>
     </div>
-    <router-link tag="div" to="/admin/dashboard" class="tab-item">
-      <span class="tab-link">首页</span>
-    </router-link>
-    <router-link tag="div" to="/admin/userPage" class="tab-item">
-      <span class="tab-link">列表</span>
-      <i class="el-icon-circle-close-outline"></i>
-    </router-link>
-    <router-link tag="div" to="/admin/userForm" class="tab-item">
-      <span class="tab-link">form</span>
-      <i class="el-icon-circle-close-outline"></i>
-    </router-link>
-    <router-link tag="div" to="/admin/userOther" class="tab-item">
-      <span class="tab-link">other</span>
-      <i class="el-icon-circle-close-outline"></i>
-    </router-link>
-    <router-link tag="div" to="/admin/system/demo" class="tab-item">
-      <span class="tab-link"><i class="icon-music"></i>demo 模块</span>
-      <i class="el-icon-circle-close-outline"></i>
-    </router-link>
-    <router-link tag="div" to="/admin/401" class="tab-item">
-      <span class="tab-link"><i class="el-icon-error"></i>401</span>
-      <i class="el-icon-circle-close-outline"></i>
-    </router-link>
-    <router-link tag="div" to="/admin/404" class="tab-item">
-      <span class="tab-link"><i class="el-icon-warning"></i>404</span>
-      <i class="el-icon-circle-close-outline"></i>
-    </router-link>
+    <div class="dashboard">
+      <router-link tag="div" to="/admin/dashboard" class="tab-item-dashboard">
+        <span class="tab-link"><i class="el-icon-date"></i>首页</span>
+      </router-link>
+    </div>
+    <div class="tabViews">
+      <ul class="nav_ul">
+        <router-link tag="li" to="/admin/userPage" class="tab-item">
+          <span class="tab-link">列表</span>
+          <i class="el-icon-circle-close-outline"></i>
+        </router-link>
+        <router-link tag="li" to="/admin/userForm" class="tab-item">
+          <span class="tab-link">form</span>
+          <i class="el-icon-circle-close-outline"></i>
+        </router-link>
+        <router-link tag="li" to="/admin/userOther" class="tab-item">
+          <span class="tab-link">other</span>
+          <i class="el-icon-circle-close-outline"></i>
+        </router-link>
+        <router-link tag="li" to="/admin/system/demo" class="tab-item">
+          <span class="tab-link"><i class="icon-music"></i>demo 模块</span>
+          <i class="el-icon-circle-close-outline"></i>
+        </router-link>
+        <router-link tag="li" to="/admin/401" class="tab-item">
+          <span class="tab-link"><i class="el-icon-error"></i>401</span>
+          <i class="el-icon-circle-close-outline"></i>
+        </router-link>
+        <router-link tag="li" to="/admin/404" class="tab-item">
+          <span class="tab-link"><i class="el-icon-warning"></i>404</span>
+          <i class="el-icon-circle-close-outline"></i>
+        </router-link>
+      </ul>
+    </div>
     <div class="nextBtn" @click="handleNext">
       <i class="el-icon-caret-right"></i>
     </div>
@@ -89,34 +95,52 @@
       border-left 1px solid #e7eaec
       font-size:16px
       cursor: pointer
-    .tab-item
-      position relative
+    .dashboard
+      width 80px
+    .tabViews
       flex 1
-      text-align center
-      background #fafafa
-      border-left 1px solid #e7eaec
-      .el-icon-circle-close-outline
-        position absolute
-        top 2px
-        right 2px
-        transition all .5s
-      .tab-link
-        padding-bottom 5px
-      &.router-link-active
-        &.tab-item
-          background #2c2c2c
-        .tab-link
-          color #ff6600
-          border-bottom 2px solid #ff6600
-      &.router-link-active:hover
-        background #232323
-        .tab-link
-          font-weight 600
-    .tab-item:hover
-      background #f2f2f2
-      color #777
-      .el-icon-circle-close-outline
-        color #ff6600
+      overflow: hidden
+      .nav_ul
+        width 1000px
+        overflow-x: scroll;
+        overflow-y: hidden;
+        position relative
+        .tab-item
+          display inline-block
+          position relative
+          width 300px
+          text-align center
+          background #fafafa
+          border-left 1px solid #e7eaec
+          .el-icon-circle-close-outline
+            display none
+            position absolute
+            font-size 16px
+            top 2px
+            right 2px
+            transition all .5s
+          .tab-link
+            padding-bottom 5px
+          &.router-link-active
+            &.tab-item
+              background #2c2c2c
+            .tab-link
+              color #ff6600
+              border-bottom 2px solid #ff6600
+          &.router-link-active:hover
+            background #232323
+            .tab-link
+              font-weight 550
+            .el-icon-circle-close-outline
+              color #ff6600
+        .tab-item:hover
+          background #f2f2f2
+          color #777
+          .el-icon-circle-close-outline
+            display block
+            color #2c2c2c
+          .tab-link
+            font-weight 550
 
     .el-icon-circle-close-outline:hover
       transform rotateZ(180deg)
@@ -128,5 +152,27 @@
         cursor: pointer;
       .el-icon-arrow-down
         font-size: 12px;
+
+  .tab-item-dashboard
+    text-align center
+    background #fafafa
+    border-left 1px solid #e7eaec
+    .tab-link
+      padding-bottom 5px
+    &.router-link-active
+      &.tab-item-dashboard
+        background #2c2c2c
+      .tab-link
+        color #ff6600
+        border-bottom 2px solid #ff6600
+    &.router-link-active:hover
+      background #232323
+      .tab-link
+        font-weight 550
+  .tab-item-dashboard:hover
+    background #f2f2f2
+    color #777
+    .tab-link
+      font-weight 550
 
 </style>
