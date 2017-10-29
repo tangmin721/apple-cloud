@@ -13,7 +13,7 @@
         <span class="tab-link"><i class="el-icon-date"></i>首页</span>
       </router-link>
     </div>
-    <div class="tabViews">
+    <div class="width-wrap">
       <ul class="nav_ul">
         <router-link tag="li" to="/admin/userPage" class="tab-item">
           <span class="tab-link">列表</span>
@@ -79,7 +79,7 @@
   @import "~common/stylus/variable"
 
   .tab
-    display flex
+    position relative
     width 100%
     height 38px
     line-height 38px
@@ -87,67 +87,79 @@
     font-size $font-size-medium
     color #999999
     .prevBtn
+      float left
       width:16px;
       font-size:16px
       cursor: pointer
+      &:hover
+        color: #232323
+    .dashboard
+      float left
+      width 80px
     .nextBtn
+      position absolute
+      top 0
+      right 85px
       width:16px;
       border-left 1px solid #e7eaec
       font-size:16px
       cursor: pointer
-    .dashboard
-      width 80px
-    .tabViews
-      flex 1
-      overflow: hidden
-      .nav_ul
-        width 1000px
-        overflow-x: scroll;
-        overflow-y: hidden;
-        position relative
-        .tab-item
-          display inline-block
-          position relative
-          width 300px
-          text-align center
-          background #fafafa
-          border-left 1px solid #e7eaec
-          .el-icon-circle-close-outline
-            display none
-            position absolute
-            font-size 16px
-            top 2px
-            right 2px
-            transition all .5s
-          .tab-link
-            padding-bottom 5px
-          &.router-link-active
-            &.tab-item
-              background #2c2c2c
-            .tab-link
-              color #ff6600
-              border-bottom 2px solid #ff6600
-          &.router-link-active:hover
-            background #232323
-            .tab-link
-              font-weight 550
-            .el-icon-circle-close-outline
-              color #ff6600
-        .tab-item:hover
-          background #f2f2f2
-          color #777
-          .el-icon-circle-close-outline
-            display block
-            color #2c2c2c
-          .tab-link
-            font-weight 550
+      background #fafafa
+      &:hover
+        color: #232323
+    .width-wrap
+      width 0
+    .nav_ul
+      width 10000px
+      height 38px
+    .tab-item
+      width 400px
+      float left
+      position relative
+      text-align center
+      padding 0 18px
+      background #fafafa
+      border-right 1px solid #e7eaec
+      .el-icon-circle-close-outline
+        display none
+        position absolute
+        font-size 12px
+        top 2px
+        right 2px
+        transition all .3s
+      .tab-link
+        padding-bottom 5px
+      &.router-link-active
+        &.tab-item
+          background #2c2c2c
+        .tab-link
+          color #ff6600
+          border-bottom 2px solid #ff6600
+      &.router-link-active:hover
+        background #232323
+        .el-icon-circle-close-outline
+          color #ff6600
+    .tab-item:hover
+      background #f2f2f2
+      color #777
+      .el-icon-circle-close-outline
+        display block
+        color #2c2c2c
+
 
     .el-icon-circle-close-outline:hover
       transform rotateZ(180deg)
-      transition all .5s
+      transition all .3s
     .closeDropDown
+      position absolute
+      z-index: 9
+      right 0
+      top 0
       width 85px
       border-left 1px solid #e7eaec
+      background #fafafa
+      &:hover
+        background #f2f2f2
       .el-dropdown-link
         cursor: pointer;
       .el-icon-arrow-down
@@ -157,6 +169,7 @@
     text-align center
     background #fafafa
     border-left 1px solid #e7eaec
+    border-right 1px solid #e7eaec
     .tab-link
       padding-bottom 5px
     &.router-link-active
@@ -167,12 +180,7 @@
         border-bottom 2px solid #ff6600
     &.router-link-active:hover
       background #232323
-      .tab-link
-        font-weight 550
   .tab-item-dashboard:hover
     background #f2f2f2
     color #777
-    .tab-link
-      font-weight 550
-
 </style>

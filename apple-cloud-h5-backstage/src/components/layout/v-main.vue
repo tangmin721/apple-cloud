@@ -44,6 +44,9 @@
       width $leftbar-width
       background #2c2c2c
       transition all .3s
+      overflow-y: auto;
+      &::-webkit-scrollbar
+        display:none
     .content-wrapper
       flex 1
 

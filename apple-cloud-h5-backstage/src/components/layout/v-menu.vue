@@ -35,6 +35,18 @@
         </template>
         <el-menu-item v-waves index="/admin/401"><i class="el-icon-error"></i><span slot="title">401</span></el-menu-item>
         <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item v-waves index="/admin/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
       </el-submenu>
     </el-menu>
   </div>
@@ -65,6 +77,7 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+
   .el-menu-vertical-demo:not(.el-menu--collapse)
     width: 200px;
     min-height: 400px;
