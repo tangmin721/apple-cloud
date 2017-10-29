@@ -40,6 +40,7 @@
         background #2c2c2c
         transition all .3s
     .menu-wrapper
+      z-index 5
       flex 0 0 $leftbar-width
       width $leftbar-width
       background #2c2c2c

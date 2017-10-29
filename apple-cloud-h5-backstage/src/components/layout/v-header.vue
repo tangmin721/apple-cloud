@@ -127,7 +127,7 @@
   .header_box
     position relative
     top 0
-    z-index 10
+    z-index 1001
     .logo
       margin-top 8px
       position absolute

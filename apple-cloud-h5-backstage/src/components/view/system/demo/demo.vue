@@ -37,7 +37,7 @@
       </div>
 
       <el-dialog :title="textMap[dialogStatus]"
-                 top="10vh"
+                 top="91px"
                  class="my-dialog"
                  scope="scope"
                  :visible.sync="dialogFormVisible">
