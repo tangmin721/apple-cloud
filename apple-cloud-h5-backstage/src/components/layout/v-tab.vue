@@ -1,10 +1,5 @@
 <template>
   <div class="tab tabdiv">
-    <!--<router-link class="tabs-view" v-for="tag in Array.from(visitedViews)" :to="tag.path" :key="tag.path">
-      <el-tag :closable="true" :type="isActive(tag.path)?'primary':''" @close='closeViewTabs(tag,$event)'>
-        {{tag.name}}
-      </el-tag>
-    </router-link>-->
     <div class="prevBtn" @click="handlePrev">
       <i class="el-icon-caret-left"></i>
     </div>
@@ -16,30 +11,9 @@
     <div class="width-wrap">
       <div class="ul-wrap">
         <ul class="nav_ul" ref="navUl" :style="{ marginLeft: navUlMarginLeft + 'px'}">
-          <router-link tag="li" to="/system/userPage" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
-            <span class="tab-link">列表</span>
-            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
-          </router-link>
-          <router-link tag="li" to="/system/userForm" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
-            <span class="tab-link">form</span>
-            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
-          </router-link>
-          <router-link tag="li" to="/system/userOther" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
-            <span class="tab-link">other</span>
-            <i class="el-icon-circle-close-outline" @click="handleCloseTab" @contextmenu.native.prevent="handleRight($event)"></i>
-          </router-link>
-          <router-link tag="li" to="/system/demo" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
-            <span class="tab-link"><i class="icon-music"></i>demo 模块</span>
-            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
-          </router-link>
-          <router-link tag="li" to="/system/401" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
-            <span class="tab-link"><i class="el-icon-error"></i>401</span>
-            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
-          </router-link>
-          <router-link tag="li" to="/system/404" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
-          <!--<router-link tag="li" to="/system/404" class="tab-item" @contextmenu.native.prevent="handleRight($event)" v-for="n in 50">-->
-            <span class="tab-link"><i class="el-icon-warning"></i>404</span>
-            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
+          <router-link tag="li" v-for="item in tabViewList" :to="item.path" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
+            <span class="tab-link">{{ item.name }}</span>
+            <i class="el-icon-circle-close-outline" @click.stop="handleCloseTab($event)"></i>
           </router-link>
         </ul>
       </div>
@@ -53,9 +27,9 @@
         关闭操作<i class="el-icon-caret-bottom el-icon--right"></i>
       </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="a">定位当前选项卡</el-dropdown-item>
-          <el-dropdown-item command="b" divided>关闭全部选项卡</el-dropdown-item>
-          <el-dropdown-item command="c">关闭全部选项卡</el-dropdown-item>
+          <el-dropdown-item command="toCurrent">定位当前选项卡</el-dropdown-item>
+          <el-dropdown-item command="closeOther" divided>关闭<span style="color: red">其他</span>选项卡</el-dropdown-item>
+          <el-dropdown-item command="closeAll">关闭<span style="color: red">全部</span>选项卡</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -64,6 +38,8 @@
 
 <script type="text/ecmascript-6">
   import {mapMutations, mapGetters} from 'vuex'
+
+  const INDEX_NAME = '首页'
   // 上一步,首页的固定宽度
   const fixedLeftWidth = 96
 
@@ -112,27 +88,56 @@
         }
       },
       handleCommand(command) {
-        this.$message('click on item ' + command)
+        // 定位当前
+        if (command === 'toCurrent') {
+
+        // 关闭其他
+        } else if (command === 'closeOther') {
+          this.$message('click on item ' + command)
+          var result = this.tabViewList.filter((item) => item.name === this.$route.name)
+          this.setTabViewList(result)
+        // 关闭全部
+        } else {
+          this.$message('click on item ' + command)
+          this.setTabViewList([])
+          this.$router.push('/system/index')
+        }
       },
       handleRight($event) {
         console.log($event)
         this.$message('tab页右键菜单')
       },
-      handleCloseTab() {
-        this.$message('关闭tab按钮')
-        console.log(this.$route)
+      handleCloseTab($event) {
+        const routerName = $event.target.parentNode.childNodes[0].innerText
+        var result = this.tabViewList.filter((item) => item.name !== routerName)
+        this.setTabViewList(result)
+        if (this.isActive(routerName)) {
+          this.$router.go(-1)
+        }
       },
       addViewTabs() {
         const visterRout = {
-          name: 'AAA',
-          path: 'BBB'
+          name: this.$route.name,
+          path: this.$route.path
         }
-        console.log('this tableViewList', visterRout)
-     //   this.tabViewList.push(visterRout)
-        let tempList = [visterRout, ...this.tabViewList]
-        console.log(tempList)
-//        this.setTabViewList(this.unique(tempList))
-//        console.log('this tableViewList', this.tabViewList)
+        if (this.$route.name !== INDEX_NAME) {
+          let flag = true
+          for (let item of this.tabViewList) {
+            if (item.name === visterRout.name && item.path === visterRout.path) {
+              flag = false
+              break
+            }
+          }
+          let result = []
+          if (flag) {
+            result = this.tabViewList.concat(visterRout)
+            this.setTabViewList(result)
+          }
+        }
+      },
+      // 是否是当前激活的 注意是$route  不是$router
+      isActive(name) {
+        return name === this.$route.name
       },
       ...mapMutations({
         setTabViewList: 'SET_TAB_VIEW_LIST'
@@ -201,11 +206,12 @@
             cursor: pointer
             border-right 1px solid #e7eaec
             .el-icon-circle-close-outline
+              padding 4px
               display none
               position absolute
               font-size 12px
-              top 2px
-              right 2px
+              top 0px
+              right 0px
               cursor: pointer
               transition all .3s
             .tab-link

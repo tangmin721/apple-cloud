@@ -49,7 +49,7 @@ export default new Router({
       ]
     }, {
       path: '*',
-      redirect: '/admin/404'
+      redirect: '/system/404'
     }
   ]
 })
