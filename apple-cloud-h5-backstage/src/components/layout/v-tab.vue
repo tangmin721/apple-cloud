@@ -36,8 +36,8 @@
             <span class="tab-link"><i class="el-icon-error"></i>401</span>
             <i class="el-icon-circle-close-outline"></i>
           </router-link>
-          <router-link tag="li" to="/admin/404" class="tab-item">
-            <span class="tab-link"><i class="el-icon-warning"></i>404</span>
+          <router-link tag="li" to="/admin/404" class="tab-item" v-for="n in 50">
+            <span class="tab-link"><i class="el-icon-warning"></i>{{ n }}</span>
             <i class="el-icon-circle-close-outline"></i>
           </router-link>
         </ul>
@@ -76,22 +76,39 @@
     },
     methods: {
       handlePrev() {
-        var clientWidth = document.querySelector('.tabdiv').clientWidth
+        // tabdiv 总宽
+        let clientWidth = document.querySelector('.tabdiv').clientWidth
         console.log('clientWidth', clientWidth)
-        var minMarginWidth = clientWidth - fixedRightWidth - this.$refs.navUl.clientWidth
-        console.log('minMarginWidth', minMarginWidth)
-        this.navUlMarginLeft = this.navUlMarginLeft - 437
-        if (this.navUlMarginLeft < minMarginWidth) {
-          this.navUlMarginLeft = minMarginWidth
-        }
-      },
-      handleNext() {
-        this.navUlMarginLeft = this.navUlMarginLeft + 437
+
+        // tabViews视宽
+        let tabViewsWidth = clientWidth - fixedLeftWidth - fixedRightWidth
+
+        this.navUlMarginLeft = this.navUlMarginLeft + tabViewsWidth
         console.log('handleNext', this.navUlMarginLeft)
         if (this.navUlMarginLeft > fixedLeftWidth) {
           this.navUlMarginLeft = fixedLeftWidth
         }
         console.log('handleNext', this.navUlMarginLeft)
+      },
+      handleNext() {
+        // tabdiv 总宽
+        let clientWidth = document.querySelector('.tabdiv').clientWidth
+        console.log('clientWidth', clientWidth)
+
+        // tabViews视宽
+        let tabViewsWidth = clientWidth - fixedLeftWidth - fixedRightWidth
+
+        // ul的总宽度
+        let navUlTotalWidth = this.$refs.navUl.clientWidth
+
+        if (tabViewsWidth < navUlTotalWidth) {
+          // 最小左浮动宽
+          var minMarginWidth = clientWidth - fixedRightWidth - navUlTotalWidth
+          console.log('minMarginWidth', minMarginWidth)
+          if (this.navUlMarginLeft > minMarginWidth) {
+            this.navUlMarginLeft = this.navUlMarginLeft - tabViewsWidth
+          }
+        }
       },
       handleCommand(command) {
         this.$message('click on item ' + command)
