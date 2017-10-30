@@ -36,8 +36,9 @@
             <span class="tab-link"><i class="el-icon-error"></i>401</span>
             <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
           </router-link>
-          <router-link tag="li" to="/system/404" class="tab-item" @contextmenu.native.prevent="handleRight($event)" v-for="n in 50">
-            <span class="tab-link"><i class="el-icon-warning"></i>{{ n }}</span>
+          <router-link tag="li" to="/system/404" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
+          <!--<router-link tag="li" to="/system/404" class="tab-item" @contextmenu.native.prevent="handleRight($event)" v-for="n in 50">-->
+            <span class="tab-link"><i class="el-icon-warning"></i>404</span>
             <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
           </router-link>
         </ul>
@@ -121,17 +122,17 @@
         this.$message('关闭tab按钮')
         console.log(this.$route)
       },
-      generateRoute() {
-        console.log(this.$route)
-//        if (this.$route.matched[this.$route.matched.length - 1].name) {
-//          return this.$route.matched[this.$route.matched.length - 1]
-//        }
-//        this.$route.matched[0].path = '/'
-//        return this.$route.matched[0]
-      },
       addViewTabs() {
-        // this.setTabViewList(this.generateRoute())
-        console.log(this.generateRoute())
+        const visterRout = {
+          name: 'AAA',
+          path: 'BBB'
+        }
+        console.log('this tableViewList', visterRout)
+     //   this.tabViewList.push(visterRout)
+        let tempList = [visterRout, ...this.tabViewList]
+        console.log(tempList)
+//        this.setTabViewList(this.unique(tempList))
+//        console.log('this tableViewList', this.tabViewList)
       },
       ...mapMutations({
         setTabViewList: 'SET_TAB_VIEW_LIST'
@@ -139,7 +140,6 @@
     },
     watch: {
       $route() {
-        console.log('tab watch')
         this.addViewTabs()
       }
     }
