@@ -15,7 +15,7 @@
     </div>
     <div class="width-wrap">
       <div class="ul-wrap">
-        <ul class="nav_ul" :style="{ marginLeft: navUlMarginLeft + 'px',width: navUlWidth + 'px'}">
+        <ul class="nav_ul" ref="navUl" :style="{ marginLeft: navUlMarginLeft + 'px'}">
           <router-link tag="li" to="/admin/userPage" class="tab-item">
             <span class="tab-link">列表</span>
             <i class="el-icon-circle-close-outline"></i>
@@ -62,25 +62,34 @@
 </template>
 
 <script type="text/ecmascript-6">
+  // 上一步,首页的固定宽度
+  const fixedLeftWidth = 96
+
+  // 上一步,首页的固定宽度
+  const fixedRightWidth = 101
+
   export default {
     data() {
       return {
-        navUlMarginLeft: 96,
-        navUlWidth: (400 + 36 + 1) * 6
+        navUlMarginLeft: fixedLeftWidth
       }
     },
     methods: {
       handlePrev() {
         var clientWidth = document.querySelector('.tabdiv').clientWidth
         console.log('clientWidth', clientWidth)
+        var minMarginWidth = clientWidth - fixedRightWidth - this.$refs.navUl.clientWidth
+        console.log('minMarginWidth', minMarginWidth)
         this.navUlMarginLeft = this.navUlMarginLeft - 437
-        console.log(-(this.navUlMarginLeft + 96))
+        if (this.navUlMarginLeft < minMarginWidth) {
+          this.navUlMarginLeft = minMarginWidth
+        }
       },
       handleNext() {
         this.navUlMarginLeft = this.navUlMarginLeft + 437
         console.log('handleNext', this.navUlMarginLeft)
-        if (this.navUlMarginLeft > 96) {
-          this.navUlMarginLeft = 96
+        if (this.navUlMarginLeft > fixedLeftWidth) {
+          this.navUlMarginLeft = fixedLeftWidth
         }
         console.log('handleNext', this.navUlMarginLeft)
       },
@@ -138,7 +147,6 @@
           float left
           height 38px
           .tab-item
-            width 400px
             float left
             position relative
             text-align center
