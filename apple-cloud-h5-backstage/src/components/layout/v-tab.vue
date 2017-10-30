@@ -40,6 +40,7 @@
   import {mapMutations, mapGetters} from 'vuex'
 
   const INDEX_NAME = '首页'
+  const INDEX_PATH = '/system/index'
   // 上一步,首页的固定宽度
   const fixedLeftWidth = 96
 
@@ -100,7 +101,7 @@
         } else {
           this.$message('click on item ' + command)
           this.setTabViewList([])
-          this.$router.push('/system/index')
+          this.$router.push(INDEX_PATH)
         }
       },
       handleRight($event) {
@@ -112,7 +113,12 @@
         var result = this.tabViewList.filter((item) => item.name !== routerName)
         this.setTabViewList(result)
         if (this.isActive(routerName)) {
-          this.$router.go(-1)
+          const latestView = result.slice(-1)[0]
+          if (latestView) {
+            this.$router.push(latestView.path)
+          } else {
+            this.$router.push(INDEX_PATH)
+          }
         }
       },
       addViewTabs() {
