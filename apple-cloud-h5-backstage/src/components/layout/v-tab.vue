@@ -9,36 +9,36 @@
       <i class="el-icon-caret-left"></i>
     </div>
     <div class="dashboard">
-      <router-link tag="div" to="/admin/dashboard" class="tab-item-dashboard">
+      <router-link tag="div" to="/system/index" class="tab-item-dashboard">
         <span class="tab-link"><i class="el-icon-date"></i>首页</span>
       </router-link>
     </div>
     <div class="width-wrap">
       <div class="ul-wrap">
         <ul class="nav_ul" ref="navUl" :style="{ marginLeft: navUlMarginLeft + 'px'}">
-          <router-link tag="li" to="/admin/userPage" class="tab-item">
+          <router-link tag="li" to="/system/userPage" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
             <span class="tab-link">列表</span>
-            <i class="el-icon-circle-close-outline"></i>
+            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
           </router-link>
-          <router-link tag="li" to="/admin/userForm" class="tab-item">
+          <router-link tag="li" to="/system/userForm" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
             <span class="tab-link">form</span>
-            <i class="el-icon-circle-close-outline"></i>
+            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
           </router-link>
-          <router-link tag="li" to="/admin/userOther" class="tab-item">
+          <router-link tag="li" to="/system/userOther" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
             <span class="tab-link">other</span>
-            <i class="el-icon-circle-close-outline"></i>
+            <i class="el-icon-circle-close-outline" @click="handleCloseTab" @contextmenu.native.prevent="handleRight($event)"></i>
           </router-link>
-          <router-link tag="li" to="/admin/system/demo" class="tab-item">
+          <router-link tag="li" to="/system/demo" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
             <span class="tab-link"><i class="icon-music"></i>demo 模块</span>
-            <i class="el-icon-circle-close-outline"></i>
+            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
           </router-link>
-          <router-link tag="li" to="/admin/401" class="tab-item">
+          <router-link tag="li" to="/system/401" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
             <span class="tab-link"><i class="el-icon-error"></i>401</span>
-            <i class="el-icon-circle-close-outline"></i>
+            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
           </router-link>
-          <router-link tag="li" to="/admin/404" class="tab-item" v-for="n in 50">
+          <router-link tag="li" to="/system/404" class="tab-item" @contextmenu.native.prevent="handleRight($event)" v-for="n in 50">
             <span class="tab-link"><i class="el-icon-warning"></i>{{ n }}</span>
-            <i class="el-icon-circle-close-outline"></i>
+            <i class="el-icon-circle-close-outline" @click="handleCloseTab"></i>
           </router-link>
         </ul>
       </div>
@@ -62,6 +62,7 @@
 </template>
 
 <script type="text/ecmascript-6">
+  import {mapMutations, mapGetters} from 'vuex'
   // 上一步,首页的固定宽度
   const fixedLeftWidth = 96
 
@@ -74,12 +75,15 @@
         navUlMarginLeft: fixedLeftWidth
       }
     },
+    computed: {
+      ...mapGetters([
+        'tabViewList'
+      ])
+    },
     methods: {
       handlePrev() {
         // tabdiv 总宽
         let clientWidth = document.querySelector('.tabdiv').clientWidth
-        console.log('clientWidth', clientWidth)
-
         // tabViews视宽
         let tabViewsWidth = clientWidth - fixedLeftWidth - fixedRightWidth
 
@@ -88,13 +92,10 @@
         if (this.navUlMarginLeft > fixedLeftWidth) {
           this.navUlMarginLeft = fixedLeftWidth
         }
-        console.log('handleNext', this.navUlMarginLeft)
       },
       handleNext() {
         // tabdiv 总宽
         let clientWidth = document.querySelector('.tabdiv').clientWidth
-        console.log('clientWidth', clientWidth)
-
         // tabViews视宽
         let tabViewsWidth = clientWidth - fixedLeftWidth - fixedRightWidth
 
@@ -104,7 +105,6 @@
         if (tabViewsWidth < navUlTotalWidth) {
           // 最小左浮动宽
           var minMarginWidth = clientWidth - fixedRightWidth - navUlTotalWidth
-          console.log('minMarginWidth', minMarginWidth)
           if (this.navUlMarginLeft > minMarginWidth) {
             this.navUlMarginLeft = this.navUlMarginLeft - tabViewsWidth
           }
@@ -112,6 +112,35 @@
       },
       handleCommand(command) {
         this.$message('click on item ' + command)
+      },
+      handleRight($event) {
+        console.log($event)
+        this.$message('tab页右键菜单')
+      },
+      handleCloseTab() {
+        this.$message('关闭tab按钮')
+        console.log(this.$route)
+      },
+      generateRoute() {
+        console.log(this.$route)
+//        if (this.$route.matched[this.$route.matched.length - 1].name) {
+//          return this.$route.matched[this.$route.matched.length - 1]
+//        }
+//        this.$route.matched[0].path = '/'
+//        return this.$route.matched[0]
+      },
+      addViewTabs() {
+        // this.setTabViewList(this.generateRoute())
+        console.log(this.generateRoute())
+      },
+      ...mapMutations({
+        setTabViewList: 'SET_TAB_VIEW_LIST'
+      })
+    },
+    watch: {
+      $route() {
+        console.log('tab watch')
+        this.addViewTabs()
       }
     }
   }
@@ -169,6 +198,7 @@
             text-align center
             padding 0 18px
             background #fafafa
+            cursor: pointer
             border-right 1px solid #e7eaec
             .el-icon-circle-close-outline
               display none
@@ -176,6 +206,7 @@
               font-size 12px
               top 2px
               right 2px
+              cursor: pointer
               transition all .3s
             .tab-link
               padding-bottom 5px
@@ -220,6 +251,7 @@
     background #fafafa
     border-left 1px solid #e7eaec
     border-right 1px solid #e7eaec
+    cursor: pointer
     .tab-link
       padding-bottom 5px
     &.router-link-active

@@ -21,36 +21,31 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/admin/dashboard'
+      redirect: '/system/index'
     }, {
       path: '/login',
       component: Login
     }, {
-      path: '/admin',
+      path: '/system',
+      component: Layout,
+      redirect: '/system/index',
+      children: [
+        {name: '首页', path: 'index', component: Dashboard},
+        {name: 'demo模块', path: 'demo', component: Demo},
+        {name: '用户page', path: 'userPage', component: UserPage},
+        {name: '用户form', path: 'userForm', component: UserForm},
+        {name: '用户Other', path: 'userOther', component: UserOther},
+        {name: '401错误页', path: '401', component: FourZeroOne},
+        {name: '404错误页', path: '404', component: FourZeroFour}
+      ]
+    }, {
+      path: '/eshop',
+      redirect: '/eshop/index',
       component: Layout,
       children: [
-        {
-          path: 'dashboard',
-          component: Dashboard
-        }, {
-          path: 'system/demo',
-          component: Demo
-        }, {
-          path: 'userPage',
-          component: UserPage
-        }, {
-          path: 'userForm',
-          component: UserForm
-        }, {
-          path: 'userOther',
-          component: UserOther
-        }, {
-          path: '401',
-          component: FourZeroOne
-        }, {
-          path: '404',
-          component: FourZeroFour
-        }
+        {name: 'e店', path: 'index', component: Dashboard},
+        {name: 'spu', path: 'demo', component: Demo},
+        {name: 'sku', path: 'demo', component: Demo}
       ]
     }, {
       path: '*',
