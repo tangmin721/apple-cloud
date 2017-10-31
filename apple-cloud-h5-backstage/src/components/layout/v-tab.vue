@@ -38,6 +38,7 @@
 
 <script type="text/ecmascript-6">
   import {mapMutations, mapGetters} from 'vuex'
+  import { APP_TABVIEWLIST_KEY } from 'common/js/appconst'
 
   const INDEX_NAME = '首页'
   const INDEX_PATH = '/system/index'
@@ -58,7 +59,20 @@
         'tabViewList'
       ])
     },
+    created() {
+      this.handleSession()
+    },
     methods: {
+      handleSession() {
+        if (this.tabViewList && this.tabViewList.length === 0) {
+          if (window.sessionStorage) {
+            var sessionTabViews = sessionStorage.getItem(APP_TABVIEWLIST_KEY)
+            if (sessionTabViews) {
+              this._setTabViewList(JSON.parse(sessionTabViews))
+            }
+          }
+        }
+      },
       handlePrev() {
         // tabdiv 总宽
         let clientWidth = document.querySelector('.tabdiv').clientWidth
@@ -96,11 +110,11 @@
         } else if (command === 'closeOther') {
           this.$message('click on item ' + command)
           var result = this.tabViewList.filter((item) => item.name === this.$route.name)
-          this.setTabViewList(result)
+          this._setTabViewList(result)
         // 关闭全部
         } else {
           this.$message('click on item ' + command)
-          this.setTabViewList([])
+          this._setTabViewList([])
           this.$router.push(INDEX_PATH)
         }
       },
@@ -111,7 +125,8 @@
       handleCloseTab($event) {
         const routerName = $event.target.parentNode.childNodes[0].innerText
         var result = this.tabViewList.filter((item) => item.name !== routerName)
-        this.setTabViewList(result)
+        this._setTabViewList(result)
+
         if (this.isActive(routerName)) {
           const latestView = result.slice(-1)[0]
           if (latestView) {
@@ -137,13 +152,19 @@
           let result = []
           if (flag) {
             result = this.tabViewList.concat(visterRout)
-            this.setTabViewList(result)
+            this._setTabViewList(result)
           }
         }
       },
       // 是否是当前激活的 注意是$route  不是$router
       isActive(name) {
         return name === this.$route.name
+      },
+      _setTabViewList(result) {
+        if (window.sessionStorage) {
+          sessionStorage.setItem(APP_TABVIEWLIST_KEY, JSON.stringify(result))
+        }
+        this.setTabViewList(result)
       },
       ...mapMutations({
         setTabViewList: 'SET_TAB_VIEW_LIST'
@@ -203,6 +224,7 @@
         .nav_ul
           float left
           height 38px
+          transition margin-left 0.3s
           .tab-item
             float left
             position relative
