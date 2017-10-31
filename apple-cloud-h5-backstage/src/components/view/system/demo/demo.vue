@@ -180,7 +180,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {RES_OK, RES_EMPTY} from 'api/config'
+  import {RES_OK, RES_EMPTY} from 'api/fetch'
   import axios from 'axios'
   import waves from 'directive/waves.js'// 水波纹指令
 
@@ -268,7 +268,7 @@
       getList() {
         this.loading = true
        // setTimeout(() => {
-        axios.post('http://localhost:9051/demo/pagination', {
+        axios.post('http://10.16.70.72:9051/demo/pagination', {
           name: this.searchForm.name,
           age: this.searchForm.age,
           status: this.searchForm.status,
@@ -383,7 +383,7 @@
         }
       },
       create() {
-        axios.post('http://localhost:9051/demo', this.ruleForm)
+        axios.post('http://10.16.70.72:9051/demo', this.ruleForm)
         .then((res) => {
           res = res.data
           if (res.status === RES_OK) {
@@ -410,7 +410,7 @@
         })
       },
       update() {
-        axios.put('http://localhost:9051/demo', this.ruleForm)
+        axios.put('http://10.16.70.72:9051/demo', this.ruleForm)
         .then((res) => {
           res = res.data
           if (res.status === RES_OK) {
@@ -436,7 +436,7 @@
         })
       },
       delete(id) {
-        axios.delete(`http://localhost:9051/demo/${id}`)
+        axios.delete(`http://10.16.70.72:9051/demo/${id}`)
         .then((res) => {
           res = res.data
           if (res.status === RES_OK) {
@@ -461,7 +461,7 @@
         })
       },
       deleteIds(id) {
-        axios.delete(`http://localhost:9051/demo/ids/${id}`)
+        axios.delete(`http://10.16.70.72:9051/demo/ids/${id}`)
         .then((res) => {
           res = res.data
           if (res.status === RES_OK) {
