@@ -44,7 +44,7 @@ api.interceptors.request.use(config => {
 api.interceptors.response.use(
   response => {
     response = response.data
-    if (response.status === apiconfig.RES_OK || response.status === apiconfig.RES_VALID_ERROR) {
+    if (response.status === apiconfig.RES_OK) {
       // 根据自身需求弹出是否成功
       return response
     } else if (response.status === apiconfig.RES_FAIL || response.status === apiconfig.RES_UNAUTHORIZED) {
@@ -53,6 +53,9 @@ api.interceptors.response.use(
         type: 'error',
         duration
       })
+    // 保存或更新方法里的,需要catch
+    } else if (response.status === apiconfig.RES_VALID_ERROR) {
+
     } else if (response.status === apiconfig.RES_EMPTY) {
 
     }

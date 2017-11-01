@@ -21,8 +21,8 @@ public class TestController {
   @GetMapping("{id}")
   public Result<Teacher> getById(@PathVariable("id") Long id) {
     User user = new User(id,"张三",18,"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80");
-    return Result.FAIL("success").setData(user);
-    //return Result.OK("success").setData(user);
+    //return Result.FAIL("success").setData(user);
+    return Result.OK("success").setData(user);
   }
 
   @GetMapping("list")

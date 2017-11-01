@@ -84,7 +84,7 @@
           </el-form-item>
           <el-form-item label="账户余额" prop="account">
             <el-input prefix-icon="el-icon-service" style="width: 200px"
-                      v-model.number="ruleForm.account"></el-input>
+                      v-model="ruleForm.account"></el-input>
           </el-form-item>
           <el-form-item label="备注" prop="memo">
             <el-input type="textarea" v-model="ruleForm.memo"></el-input>
@@ -249,8 +249,7 @@
             {type: 'array', required: true, message: '请至少选择一个', trigger: 'change'}
           ],
           account: [
-            {required: true, message: '请输入账户余额'},
-            {type: 'number', message: '余额必须为数字'}
+            {required: true, message: '请输入账户余额'}
           ],
           memo: [
             {required: true, message: '请填写备注', trigger: 'blur'}
@@ -377,7 +376,11 @@
             type: 'success',
             duration: 2000
           })
-        }).catch(error => console.error(error))
+        }).catch(error => {
+          if (error.status === 2) {
+            this.$message.error(error.message)
+          }
+        })
       },
       update() {
         axios.put('/demo', this.ruleForm)
@@ -390,7 +393,11 @@
             type: 'success',
             duration: 2000
           })
-        }).catch(error => console.error(error))
+        }).catch(error => {
+          if (error.status === 2) {
+            this.$message.error(error.message)
+          }
+        })
       },
       delete(id) {
         axios.delete(`/demo/${id}`)

@@ -14,7 +14,7 @@
     "axios": "0.16.2",
     "babel-runtime": "^6.0.0",
     "better-scroll": "^0.1.15",
-    "element-ui": "^2.0.0",
+    "element-ui": "^2.0.2",
     "fastclick": "^1.0.6",
     "jsonp": "0.2.1",
     "screenfull": "^3.3.1",

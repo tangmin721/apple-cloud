@@ -19,7 +19,6 @@
     created() {
       axios.get('/test/2222').then(res => {
         this.user = res.data
-        this.$message.success('操作成功')
       }).catch(error => error)
     },
     components: {
