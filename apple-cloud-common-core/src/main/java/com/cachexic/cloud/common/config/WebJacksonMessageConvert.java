@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.google.common.collect.Lists;
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,6 +36,8 @@ public class WebJacksonMessageConvert {
     SimpleModule simpleModule = new SimpleModule();
     simpleModule.addSerializer(Long.class, ToStringSerializer.instance);
     simpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
+    //转换BigDecimal为字符串
+    simpleModule.addSerializer(BigDecimal.class,ToStringSerializer.instance);
     objectMapper.registerModule(simpleModule);
 
     //配置json的返回策略

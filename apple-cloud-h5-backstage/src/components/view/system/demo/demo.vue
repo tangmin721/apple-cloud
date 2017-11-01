@@ -180,8 +180,7 @@
 </template>
 
 <script type="text/ecmascript-6">
-  import {RES_OK, RES_EMPTY} from 'api/fetch'
-  import axios from 'axios'
+  import axios from 'api/axios'
   import waves from 'directive/waves.js'// 水波纹指令
 
   export default {
@@ -267,8 +266,7 @@
     methods: {
       getList() {
         this.loading = true
-       // setTimeout(() => {
-        axios.post('http://10.16.70.72:9051/demo/pagination', {
+        axios.post('/demo/pagination', {
           name: this.searchForm.name,
           age: this.searchForm.age,
           status: this.searchForm.status,
@@ -278,27 +276,13 @@
           orderSort: this.query.orderSort
         })
         .then((res) => {
-          res = res.data
-          if (res.status === RES_OK) {
-            this.list = res.data.list
-            this.total = Number(res.data.total)
-          } else if (res.status === RES_EMPTY) {
-            this.list = []
-          } else {
-            this.$message.error({
-              message: `api调用异常：${res.message}`,
-              showClose: true
-            })
-          }
+          this.list = res.data.list
+          this.total = Number(res.data.total)
           this.loading = false
-        }).catch((error) => {
+        }).catch(() => {
+          this.list = []
           this.loading = false
-          this.$message.error({
-            message: `api调用异常：${error}`,
-            showClose: true
-          })
         })
-       // }, 3000)
       },
       handleSizeChange(pageSize) {
         this.query.pageSize = pageSize
@@ -383,107 +367,54 @@
         }
       },
       create() {
-        axios.post('http://10.16.70.72:9051/demo', this.ruleForm)
-        .then((res) => {
-          res = res.data
-          if (res.status === RES_OK) {
-            console.log(this.list)
-            this.getList()
-            this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '创建成功',
-              type: 'success',
-              duration: 2000
-            })
-          } else {
-            this.$message.error({
-              message: `api调用异常：${res.message}`,
-              showClose: true
-            })
-          }
-        }).catch((error) => {
-          this.$message.error({
-            message: `api调用异常：${error}`,
-            showClose: true
+        axios.post('/demo', this.ruleForm)
+        .then(() => {
+          this.getList()
+          this.dialogFormVisible = false
+          this.$notify({
+            title: '成功',
+            message: '创建成功',
+            type: 'success',
+            duration: 2000
           })
-        })
+        }).catch(error => console.error(error))
       },
       update() {
-        axios.put('http://10.16.70.72:9051/demo', this.ruleForm)
-        .then((res) => {
-          res = res.data
-          if (res.status === RES_OK) {
-            this.getList()
-            this.dialogFormVisible = false
-            this.$notify({
-              title: '成功',
-              message: '更新成功',
-              type: 'success',
-              duration: 2000
-            })
-          } else {
-            this.$message.error({
-              message: `api调用异常：${res.message}`,
-              showClose: true
-            })
-          }
-        }).catch((error) => {
-          this.$message.error({
-            message: `api调用异常：${error}`,
-            showClose: true
+        axios.put('/demo', this.ruleForm)
+        .then(() => {
+          this.getList()
+          this.dialogFormVisible = false
+          this.$notify({
+            title: '成功',
+            message: '更新成功',
+            type: 'success',
+            duration: 2000
           })
-        })
+        }).catch(error => console.error(error))
       },
       delete(id) {
-        axios.delete(`http://10.16.70.72:9051/demo/${id}`)
-        .then((res) => {
-          res = res.data
-          if (res.status === RES_OK) {
-            this.getList()
-            this.$notify({
-              title: '成功',
-              message: '删除成功',
-              type: 'success',
-              duration: 2000
-            })
-          } else {
-            this.$message.error({
-              message: `api调用异常：${res.message}`,
-              showClose: true
-            })
-          }
-        }).catch((error) => {
-          this.$message.error({
-            message: `api调用异常：${error}`,
-            showClose: true
+        axios.delete(`/demo/${id}`)
+        .then(() => {
+          this.getList()
+          this.$notify({
+            title: '成功',
+            message: '删除成功',
+            type: 'success',
+            duration: 2000
           })
-        })
+        }).catch(error => console.error(error))
       },
       deleteIds(id) {
-        axios.delete(`http://10.16.70.72:9051/demo/ids/${id}`)
-        .then((res) => {
-          res = res.data
-          if (res.status === RES_OK) {
-            this.getList()
-            this.$notify({
-              title: '成功',
-              message: '删除成功',
-              type: 'success',
-              duration: 2000
-            })
-          } else {
-            this.$message.error({
-              message: `api调用异常：${res.message}`,
-              showClose: true
-            })
-          }
-        }).catch((error) => {
-          this.$message.error({
-            message: `api调用异常：${error}`,
-            showClose: true
+        axios.delete(`/demo/ids/${id}`)
+        .then(() => {
+          this.getList()
+          this.$notify({
+            title: '成功',
+            message: '删除成功',
+            type: 'success',
+            duration: 2000
           })
-        })
+        }).catch(error => console.error(error))
       },
       resetRuleForm() {
         this.ruleForm = {

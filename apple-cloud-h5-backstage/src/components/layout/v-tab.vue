@@ -11,7 +11,7 @@
     <div class="width-wrap">
       <div class="ul-wrap">
         <ul class="nav_ul" ref="navUl" :style="{ marginLeft: navUlMarginLeft + 'px'}">
-          <router-link tag="li" v-for="item in tabViewList" :to="item.path" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
+          <router-link tag="li" v-for="item in tabViewList" :key="item.name" :to="item.path" class="tab-item" @contextmenu.native.prevent="handleRight($event)">
             <span class="tab-link">{{ item.name }}</span>
             <i class="el-icon-circle-close-outline" @click.stop="handleCloseTab($event)"></i>
           </router-link>
