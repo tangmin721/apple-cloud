@@ -77,4 +77,13 @@ public interface DemoFeign{
    */
   @DeleteMapping("ids/{ids}")
   Result deleteByIds(@PathVariable("ids") String ids);
+
+
+  /**
+   * ajax校验name是否存在
+   * @param entity
+   * @return
+   */
+  @PostMapping("isNameNotExist")
+  Result isNameNotExist(@RequestBody Demo entity);
 }

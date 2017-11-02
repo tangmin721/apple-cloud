@@ -78,4 +78,10 @@ public class DemoWebController{
   public Result deleteByIds(@PathVariable("ids") String ids){
     return demoFeign.deleteByIds(ids);
   }
+
+  @ApiOperation(value = "isNameNotExist:ajax校验name是否存在",notes = "true为不存在,false为存在")
+  @PostMapping("isNameNotExist")
+  public Result<Boolean> isNameNotExist(@RequestBody Demo entity) {
+    return demoFeign.isNameNotExist(entity);
+  }
 }

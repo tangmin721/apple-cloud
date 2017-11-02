@@ -109,11 +109,10 @@
         @sort-change="sortChange"
         @selection-change="handleSelectionChange"
         :max-height="maxHeight"
-        :height="maxHeight"
         style="width:100%;"
       >
-        <el-table-column type="selection" width="14px"/>
-        <el-table-column width="20px" align="center" type="expand">
+        <el-table-column type="selection" width="14" fixed/>
+        <el-table-column width="20" align="center" type="expand" fixed>
           <template slot-scope="scope">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="id" sortable="custom" >
@@ -134,9 +133,8 @@
             </el-form>
           </template>
         </el-table-column>
-        <el-table-column type="index" width="50"/>
-        <el-table-column prop="createTime" sortable="custom" label="创建时间" width="160px"/>
-        <el-table-column prop="name" sortable="custom" label="姓名"/>
+        <el-table-column type="index" width="40px" fixed/>
+        <el-table-column prop="name" sortable="custom" label="姓名" width="100px" fixed/>
         <el-table-column prop="birthday" sortable="custom" label="生日" min-width="120px">
           <template slot-scope="scope">
             <i class="el-icon-time" style="color:red"></i>
@@ -152,6 +150,7 @@
         </el-table-column>
         <el-table-column prop="classMater" sortable="custom" label="是否班主任"/>
         <el-table-column prop="status" label="状态"/>
+        <el-table-column prop="createTime" sortable="custom" label="创建时间" width="160px"/>
         <el-table-column label="操作" fixed="right" width="120px">
           <template slot-scope="scope">
             <el-button-group>
@@ -188,6 +187,21 @@
       waves
     },
     data() {
+      // 自定义ajax校验
+      var checkAjaxName = (rule, value, callback) => {
+        if (!value) {
+          return callback(new Error('姓名不能为空'))
+        }
+        setTimeout(() => {
+          axios.post('/demo/isNameNotExist', this.ruleForm).then(res => {
+            if (!res.data) {
+              return callback(new Error('姓名不可用,数据库已存在记录'))
+            }
+          }).catch(error => {
+            return callback(new Error(error.message))
+          })
+        }, 4000)
+      }
       return {
         loading: true,
         list: [],
@@ -237,7 +251,8 @@
         rules: {
           name: [
             {required: true, message: '请输入姓名', trigger: 'blur'},
-            {min: 2, max: 32, message: '长度在 2 到 32 个字符', trigger: 'blur'}
+            {min: 2, max: 32, message: '长度在 2 到 32 个字符', trigger: 'blur'},
+            { validator: checkAjaxName, trigger: 'blur' }
           ],
           birthday: [
             {required: true, message: '请选择日期', trigger: 'change'}

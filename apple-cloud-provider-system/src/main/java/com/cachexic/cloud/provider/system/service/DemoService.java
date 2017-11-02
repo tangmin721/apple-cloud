@@ -11,4 +11,10 @@ import com.cachexic.cloud.feign.system.entity.query.DemoQuery;
  */
 public interface DemoService extends BaseService<Demo, DemoQuery>{
 
+  /**
+   * 校验是否存在
+   * @param
+   * @return
+   */
+  Boolean isNameNotExist(Demo entity);
 }

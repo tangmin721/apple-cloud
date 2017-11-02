@@ -60,6 +60,11 @@ public class DemoFeignFallback implements FallbackFactory<DemoFeign> {
       public Result deleteByIds(String ids) {
         return Result.FALLBACK(cause);
       }
+
+      @Override
+      public Result isNameNotExist(Demo entity) {
+        return Result.FALLBACK(cause);
+      }
     };
   }
 }

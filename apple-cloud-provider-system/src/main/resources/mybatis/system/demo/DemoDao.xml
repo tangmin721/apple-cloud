@@ -216,4 +216,13 @@
     </select>
 
     <!--///////////////////////////////自定义/////////////////////////-->
+    <!--校验Name是否存在-->
+    <select id="selectCheckNameExit" resultType="long">
+        select count(1) from
+        <include refid="table"/>
+        <where>
+            <if test="name != null and  name !=''"> and name=#{name}</if>
+            <if test="id != null and  id !=''"> and id!=#{id}</if>
+        </where>
+    </select>
 </mapper>

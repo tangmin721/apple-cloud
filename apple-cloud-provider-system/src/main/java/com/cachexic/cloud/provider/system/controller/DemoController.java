@@ -81,4 +81,10 @@ public class DemoController implements DemoFeign {
     return Result.OK("删除成功");
   }
 
+  @ApiOperation(value = "isNameNotExist:ajax校验name是否存在",notes = "true为不存在,false为存在")
+  @Override
+  public Result<Boolean> isNameNotExist(@RequestBody Demo entity) {
+    return Result.OK().setData(demoService.isNameNotExist(entity));
+  }
+
 }

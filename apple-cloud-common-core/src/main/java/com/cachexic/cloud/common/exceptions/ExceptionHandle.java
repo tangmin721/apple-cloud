@@ -56,6 +56,8 @@ public class ExceptionHandle {
       return getFailResult(e, BizExceptionEnum.REQUEST_PATH_BING_ERROR, logStr);
     } else if (e instanceof org.springframework.web.HttpRequestMethodNotSupportedException) {
       return getFailResult(e, BizExceptionEnum.REQUEST_METHOD_ERROR, logStr);
+    } else if (e instanceof org.springframework.web.method.annotation.MethodArgumentTypeMismatchException) {
+      return getFailResult(e, BizExceptionEnum.PARAMETER_ERROR, logStr);
     } else if (e instanceof org.springframework.http.converter.HttpMessageNotReadableException) {
       return getFailResult(e, BizExceptionEnum.PARAMETER_ERROR, logStr);
       //valid异常

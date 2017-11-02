@@ -70,6 +70,8 @@ CREATE TABLE IF NOT EXISTS `t_demo_0` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci COMMENT='DEMO';
 
+ALTER TABLE `t_demo_0` ADD INDEX(`name`) COMMENT 'for select by name';
+
 -- DROP TABLE IF EXISTS `t_demo_1`;
 
 CREATE TABLE IF NOT EXISTS `t_demo_1` (
@@ -93,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `t_demo_1` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci COMMENT='DEMO';
 
-
+ALTER TABLE `t_demo_1` ADD INDEX(`name`) COMMENT 'for select by name';
 
 -- -----------------------------------单表分割线--------------------------------------------------
 -- DROP TABLE IF EXISTS `t_teacher`;
