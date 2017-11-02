@@ -1,9 +1,8 @@
 import axios from 'axios'
-import env from './env'
+import ENV from './env'
 import * as apiconfig from './apiconfig'
 import { Message } from 'element-ui'
 
-const ENV = env.local
 const duration = 3 * 1000
 
 var api = axios.create({
@@ -14,9 +13,9 @@ var api = axios.create({
 
 // request请求配置
 api.interceptors.request.use(config => {
-  if (ENV !== env.prod) {
+  /* if (ENV !== env.prod) {
     console.log('不是生产环境' + apiconfig.TOKEN_KEY)
-  }
+  } */
   if (sessionStorage) {
     const token = sessionStorage.getItem(apiconfig.TOKEN_KEY)
     if (token) {

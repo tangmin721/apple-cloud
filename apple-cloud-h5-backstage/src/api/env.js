@@ -4,4 +4,6 @@ const env = {
   prod: 'http://localhost'
 }
 
-export default env
+const ENV = env.local
+
+export default ENV
