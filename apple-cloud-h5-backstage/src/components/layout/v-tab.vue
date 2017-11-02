@@ -80,7 +80,6 @@
         let tabViewsWidth = clientWidth - fixedLeftWidth - fixedRightWidth
 
         this.navUlMarginLeft = this.navUlMarginLeft + tabViewsWidth
-        console.log('handleNext', this.navUlMarginLeft)
         if (this.navUlMarginLeft > fixedLeftWidth) {
           this.navUlMarginLeft = fixedLeftWidth
         }
@@ -108,12 +107,10 @@
 
         // 关闭其他
         } else if (command === 'closeOther') {
-          this.$message('click on item ' + command)
           var result = this.tabViewList.filter((item) => item.name === this.$route.name)
           this._setTabViewList(result)
         // 关闭全部
         } else {
-          this.$message('click on item ' + command)
           this._setTabViewList([])
           this.$router.push(INDEX_PATH)
         }
