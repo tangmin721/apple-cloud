@@ -111,8 +111,8 @@
         :max-height="maxHeight"
         style="width:100%;"
       >
-        <el-table-column type="selection" width="14" fixed/>
-        <el-table-column width="20" align="center" type="expand" fixed>
+        <el-table-column type="selection" width="14px" fixed/>
+        <el-table-column width="20px" align="center" type="expand" fixed>
           <template slot-scope="scope">
             <el-form label-position="left" inline class="demo-table-expand">
               <el-form-item label="id" sortable="custom" >
