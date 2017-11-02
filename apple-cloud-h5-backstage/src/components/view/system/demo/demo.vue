@@ -91,7 +91,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button icon="el-icon-success" type="primary" @click="submitForm('ruleForm')">确 定</el-button>
+          <el-button icon="el-icon-success" type="primary" @click="submitForm('ruleForm')" :loading="btnLoading">确 定</el-button>
           <el-button icon="el-icon-refresh" @click="resetForm('ruleForm')">重 置</el-button>
           <el-button icon="el-icon-circle-close" @click="dialogFormVisible = false">取 消</el-button>
         </div>
@@ -190,19 +190,21 @@
       // 自定义ajax校验
       var checkAjaxName = (rule, value, callback) => {
         if (!value) {
-          return callback(new Error('姓名不能为空'))
+          return callback(new Error('请输入姓名'))
         }
-        setTimeout(() => {
-          axios.post('/demo/isNameNotExist', this.ruleForm).then(res => {
-            if (!res.data) {
-              return callback(new Error('姓名不可用,数据库已存在记录'))
-            }
-          }).catch(error => {
-            return callback(new Error(error.message))
-          })
-        }, 4000)
+        if (value.trim().length < 2 || value.trim().length > 33) {
+          return callback(new Error('长度在 2 到 32 个字符'))
+        }
+        axios.post('/demo/isNameNotExist', this.ruleForm).then(res => {
+          if (!res.data) {
+            return callback(new Error('姓名不可用,数据库已存在记录'))
+          }
+        }).catch(error => {
+          return callback(new Error(error.message))
+        })
       }
       return {
+        btnLoading: false,
         loading: true,
         list: [],
         currentPage: 1,
@@ -250,8 +252,6 @@
         maxHeight: '560',
         rules: {
           name: [
-            {required: true, message: '请输入姓名', trigger: 'blur'},
-            {min: 2, max: 32, message: '长度在 2 到 32 个字符', trigger: 'blur'},
             { validator: checkAjaxName, trigger: 'blur' }
           ],
           birthday: [
@@ -391,10 +391,12 @@
             type: 'success',
             duration: 2000
           })
+          this.btnLoading = false
         }).catch(error => {
           if (error.status === 2) {
             this.$message.error(error.message)
           }
+          this.btnLoading = false
         })
       },
       update() {
@@ -408,10 +410,12 @@
             type: 'success',
             duration: 2000
           })
+          this.btnLoading = false
         }).catch(error => {
           if (error.status === 2) {
             this.$message.error(error.message)
           }
+          this.btnLoading = false
         })
       },
       delete(id) {
@@ -486,6 +490,7 @@
         this.ruleForm.type = this.ruleForm.types.join(',')
       },
       submitForm(formName) {
+        this.btnLoading = true
         this.$refs[formName].validate((valid) => {
           if (valid) {
             if (this.ruleForm.id) {
@@ -494,6 +499,7 @@
               this.create()
             }
           } else {
+            this.btnLoading = false
             return false
           }
         })

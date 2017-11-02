@@ -35,6 +35,11 @@ public class DemoServiceImpl extends BaseServiceImpl<Demo, DemoQuery> implements
 
   @Override
   public Long insert(Demo entity) {
+    try {
+      Thread.sleep(2000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
     BizPreconditions.checkArgument(this.isNameNotExist(entity),"该姓名数据库里已存在");
     return super.insert(entity);
   }
