@@ -139,7 +139,7 @@
         <el-table-column type="selection" width="14px" fixed/>
         <el-table-column width="20px" align="center" type="expand" fixed>
           <template slot-scope="scope">
-            <el-form label-position="left" inline class="demo-table-expand">
+            <el-form label-position="left" inline class="module-table-expand">
               <el-form-item label="id" sortable="custom">
                 <span>{{ scope.row.id }}</span>
               </el-form-item>
@@ -550,7 +550,7 @@
       },
       // 计算table的高度
       countTableHeight() {
-        var winHeight = document.querySelector('html').clientHeight - 192
+        var winHeight = document.querySelector('html').clientHeight - 172
         this.maxHeight = winHeight
         window.onload = () => {
           this.formMoreBtnResize()
@@ -578,5 +578,5 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  @import './demo.styl'
+  @import '~common/stylus/module'
 </style>

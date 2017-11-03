@@ -5,6 +5,7 @@
       text-color="#d0d0d0"
       style="border:none"
       active-text-color="#ff6600"
+      unique-opened="true"
       default-active="1-4-1"
       class="{el-menu--collapse:hideLeftBar}"
       @open="handleOpen"
