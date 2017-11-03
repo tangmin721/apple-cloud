@@ -6,14 +6,14 @@ package com.cachexic.cloud.generator.tmplate;
  * @author tangmin
  * @date 2016年2月26日
  */
-public class FeignClientWithFallBackFactoryGenerator extends TemplateCodeGenerator {
+public class VueGenerator extends TemplateCodeGenerator {
 
   @Override
   public String getTemplateFile() {
     /**
      * 模板文件
      */
-    return "/template/feignClientWithFallbackFactory.ftl";
+    return "/template/vue.ftl";
   }
 
 }

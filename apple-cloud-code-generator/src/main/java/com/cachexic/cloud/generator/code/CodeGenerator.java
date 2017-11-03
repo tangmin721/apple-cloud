@@ -11,7 +11,8 @@ import com.cachexic.cloud.generator.tmplate.ControllerGenerator;
 import com.cachexic.cloud.generator.tmplate.DaoGenerator;
 import com.cachexic.cloud.generator.tmplate.FeignClientFallbackFactoryGenerator;
 import com.cachexic.cloud.generator.tmplate.FeignClientGenerator;
-import com.cachexic.cloud.generator.tmplate.FeignClientWithFallBackFactoryGenerator;
+import com.cachexic.cloud.generator.tmplate.ReadmeGenerator;
+import com.cachexic.cloud.generator.tmplate.VueGenerator;
 import com.cachexic.cloud.generator.tmplate.MybatisXmlGenerator;
 import com.cachexic.cloud.generator.tmplate.MybatisXmlJoinGenerator;
 import com.cachexic.cloud.generator.tmplate.MysqlDDLGenerator;
@@ -204,9 +205,10 @@ public class CodeGenerator {
     ServiceImplGenerator serviceImpl = new ServiceImplGenerator();
     ControllerGenerator controller = new ControllerGenerator();
     ConsumerControllerGenerator consumerController = new ConsumerControllerGenerator();
-    FeignClientWithFallBackFactoryGenerator withFallbackFactory = new FeignClientWithFallBackFactoryGenerator();
+    VueGenerator vue = new VueGenerator();
     FeignClientFallbackFactoryGenerator fallbackFactory = new FeignClientFallbackFactoryGenerator();
     FeignClientGenerator feignClien = new FeignClientGenerator();
+    ReadmeGenerator readme = new ReadmeGenerator();
 
     EntityInfo entity = new EntityInfo(clazz, tableName);
     writeFile(dir, tableName + ".sql",
@@ -227,12 +229,14 @@ public class CodeGenerator {
         controller.generateCode(entity, genConfig));
     writeFile(dir, entity.getClassName() + "WebController.java",
         consumerController.generateCode(entity, genConfig));
-//        writeFile(dir, entity.getClassName() + "FeignClientWithFallbackFactory.java",
-//                withFallbackFactory.generateCode(entity, genConfig));
+    writeFile(dir, entity.getClassName() + ".vue",
+        vue.generateCode(entity, genConfig));
     writeFile(dir, entity.getClassName() + "FeignFallback.java",
         fallbackFactory.generateCode(entity, genConfig));
     writeFile(dir, entity.getClassName() + "Feign.java",
         feignClien.generateCode(entity, genConfig));
+    writeFile(dir, entity.getClassName() + "Readme.txt",
+        readme.generateCode(entity, genConfig));
 
     Runtime.getRuntime().exec("cmd /c start " + path);
     System.out.println("生成代码成功!!!耗时:" + (System.nanoTime() - startTime) / (1000 * 1000) + "ms.");
