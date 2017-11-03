@@ -11,8 +11,20 @@
         </div>
         <div class="search-form">
           <el-form :inline="true" :model="searchForm" class="demo-form-inline" align="left">
+            <el-input placeholder="请输入内容" v-model="searchForm.name" style="width: 200px">
+              <template slot="prepend">姓名</template>
+            </el-input>
+            <el-input placeholder="请输入内容" v-model="searchForm.name" style="width: 200px">
+              <template slot="prepend">姓名</template>
+            </el-input>
+            <el-input placeholder="请输入内容" v-model="searchForm.name" style="width: 200px">
+              <template slot="prepend">姓名</template>
+            </el-input>
+            <el-input placeholder="请输入内容" v-model="searchForm.name" style="width: 200px">
+              <template slot="prepend">姓名</template>
+            </el-input>
             <el-form-item label="姓名">
-              <el-input v-model.trim="searchForm.name" placeholder="姓名" :required="true" style="width: 100px"></el-input>
+              <el-input v-model.trim="searchForm.name" placeholder="姓名" style="width: 100px"></el-input>
             </el-form-item>
             <el-form-item label="年龄">
               <el-input v-model.number="searchForm.age" placeholder="年龄" required="number" style="width: 100px"></el-input>
@@ -26,13 +38,13 @@
                 <el-option label="冻结" value="frozen"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item>
-              <el-button-group>
-                <el-button v-waves type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
-                <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
-              </el-button-group>
-            </el-form-item>
           </el-form>
+        </div>
+        <div>
+          <el-button-group>
+            <el-button v-waves type="primary" icon="el-icon-search" @click="handleSearch">搜索</el-button>
+            <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
+          </el-button-group>
         </div>
       </div>
 
@@ -556,7 +568,8 @@
     background-color: #E9EEF3;
     color: #333;
     text-align: center;
-    line-height: 60px;
+    height 40px
+    line-height: 40px;
 
   .el-main
     background-color: #E9EEF3;
