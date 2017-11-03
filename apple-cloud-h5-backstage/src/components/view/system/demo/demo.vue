@@ -20,14 +20,29 @@
               align="left"
               ref="searchForm"
               v-show="!isShowMoreForm">
+              <el-select v-model="searchForm.status" placeholder="状态" clearable style="width: 120px">
+                <el-option label="无效" value="invalid"></el-option>
+                <el-option label="正常" value="normal"></el-option>
+                <el-option label="删除" value="deleted"></el-option>
+                <el-option label="禁用" value="disabled"></el-option>
+                <el-option label="冻结" value="frozen"></el-option>
+              </el-select>
               <el-input v-for="item in 10" placeholder="请输入内容" v-model="searchForm.name" style="width: 200px;margin:0 5px">
                 <template slot="prepend">姓名</template>
               </el-input>
+
             </el-form>
             <transition name="slide-up">
               <div class="form-more-box"
                 v-show="isShowMoreForm">
                 <i class="el-icon-circle-close-outline" @click="handleMoreForm"></i>
+                <el-select v-model="searchForm.status" placeholder="状态" clearable style="width: 120px">
+                  <el-option label="无效" value="invalid"></el-option>
+                  <el-option label="正常" value="normal"></el-option>
+                  <el-option label="删除" value="deleted"></el-option>
+                  <el-option label="禁用" value="disabled"></el-option>
+                  <el-option label="冻结" value="frozen"></el-option>
+                </el-select>
                 <el-input v-for="item in 10" placeholder="请输入内容" v-model="searchForm.name"
                           style="width: 200px;margin:0 5px">
                   <template slot="prepend">姓名</template>
@@ -43,7 +58,7 @@
           <div>
             <el-button-group v-show="!isShowMoreForm">
               <el-button v-waves type="primary" icon="el-icon-search" @click="handleSearch">搜索 </el-button>
-              <el-tooltip content="更多" placement="top">
+              <el-tooltip content="更多搜索条件" placement="top">
                 <el-button type="primary" icon="el-icon-d-arrow-right" @click="handleMoreForm" v-show="isShowMoreBtn"></el-button>
               </el-tooltip>
               <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch"> 清空 </el-button>
