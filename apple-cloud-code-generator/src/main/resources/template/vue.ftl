@@ -207,7 +207,7 @@
         if (value.trim().length < 2 || value.trim().length > 33) {
           return callback(new Error('长度在 2 到 32 个字符'))
         }
-        axios.post('/demo/isNameNotExist', this.ruleForm).then(res => {
+        axios.post('/${CONFIG.requestMapPath}/isNameNotExist', this.ruleForm).then(res => {
           if (!res.data) {
             return callback(new Error('姓名不可用,数据库已存在记录'))
           }
@@ -292,7 +292,7 @@
     methods: {
       getList() {
         this.loading = true
-        axios.post('/demo/pagination', {
+        axios.post('/${CONFIG.requestMapPath}/pagination', {
           name: this.searchForm.name,
           age: this.searchForm.age,
           status: this.searchForm.status,
@@ -393,7 +393,7 @@
         }
       },
       create() {
-        axios.post('/demo', this.ruleForm)
+        axios.post('/${CONFIG.requestMapPath}', this.ruleForm)
         .then(() => {
           this.getList()
           this.dialogFormVisible = false
@@ -412,7 +412,7 @@
         })
       },
       update() {
-        axios.put('/demo', this.ruleForm)
+        axios.put('/${CONFIG.requestMapPath}', this.ruleForm)
         .then(() => {
           this.getList()
           this.dialogFormVisible = false
@@ -431,7 +431,7 @@
         })
       },
       delete(id) {
-        axios.delete(`/demo/${r"${"}${"id"}${r"}"}`)
+        axios.delete(`/${CONFIG.requestMapPath}/${r"${"}${"id"}${r"}"}`)
         .then(() => {
           this.getList()
           this.$notify({
@@ -443,7 +443,7 @@
         }).catch(error => console.error(error))
       },
       deleteIds(id) {
-        axios.delete(`/demo/ids/${r"${"}${"id"}${r"}"}`)
+        axios.delete(`/${CONFIG.requestMapPath}/ids/${r"${"}${"id"}${r"}"}`)
         .then(() => {
           this.getList()
           this.$notify({

@@ -23,7 +23,7 @@
         <el-submenu index="1-2">
           <template slot="title">
             <i class="el-icon-location"></i>
-            <span slot="title">二级菜单</span>
+            <span slot="title"  class="firstMenu">二级菜单</span>
           </template>
           <el-menu-item v-waves index="/system/demo"><i class="icon-music"></i><span slot="title">demo模块</span></el-menu-item>
         </el-submenu>
@@ -53,6 +53,21 @@
         'hideLeftBar'
       ])
     },
+    created() {
+      window.onload = () => {
+        let liDoms = document.querySelectorAll('.firstMenu')
+        for (let i = 0; i < liDoms.length; i++) {
+          let liDom = liDoms[i].parentNode
+          liDom.style.backgroundColor = '#222'
+          liDom.onmouseenter = () => {
+            liDom.style.backgroundColor = '#111'
+          }
+          liDom.onmouseleave = () => {
+            liDom.style.backgroundColor = '#222'
+          }
+        }
+      }
+    },
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath)
@@ -73,4 +88,11 @@
     min-width 180px
   .el-submenu__title
     padding-left 5px
+  .v-menu >>> .el-menu .el-menu-item
+    background #222!important
+  .v-menu >>> .el-menu .el-submenu__title
+    height 40px
+    line-height 40px
+   .v-menu
+     // margin-left -10px
 </style>

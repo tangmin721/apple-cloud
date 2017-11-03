@@ -1,0 +1,92 @@
+ $header-height=40px
+  .header-box
+    height $header-height
+    line-height: $header-height;
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+    min-width 800px
+    // overflow hidden
+ .header-wrap
+    display flex
+    .btn-group
+      width 300px
+    .search-form
+      flex 1
+      height $header-height
+      line-height $header-height
+      .demo-form-inline
+        position relative
+        .form-more-btn
+          font-style 14px
+          height $header-height
+          position absolute
+          top 0
+          left 300px
+      .form-more-box
+        position absolute
+        top 0
+        width 800px
+        background-color #fff
+        box-shadow 3px 3px 15px #ccc
+        z-index 101
+        left 50%
+        margin-left -420px
+        border-radius 5px
+        padding 20px
+        // transition all 1s
+        // padding-top 20px
+        .el-icon-circle-close-outline
+          font-size 20px
+          color #ccc
+          position absolute
+          top 5px
+          right 5px
+        .el-icon-circle-close-outline:hover
+          color red
+    .search-form >>> .el-form
+      .el-form-item.el-form-item--mini
+        height 44px
+        padding 16px 0 0 0
+        margin 0
+        .el-form-item__label
+          height 28px
+          vertical-align top
+
+  .el-main
+    background-color: #E9EEF3;
+    color: #333;
+    padding 5px
+
+  .el-footer
+    background-color: #EDF2FC;
+    color: #333;
+    line-height: 30px;
+    height 30px
+
+  .el-pagination
+    padding 1px 0
+    line-height: 30px;
+    margin 0 auto
+    padding 0
+    text-align: center;
+
+  .demo-table-expand
+    font-size: 0;
+  .demo-table-expand >>> label
+    width: 90px;
+    color: #99a9bf;
+  .demo-table-expand >>> .el-form-item
+    margin-right: 0;
+    margin-bottom: 0;
+    width: 33.3%;
+
+  .my-dialog >>> .el-dialog
+    .el-dialog__header
+      border-bottom 1px solid #DFE4ED
+      padding-bottom 0
+      .el-dialog__title
+        font-weight 600
+    .el-dialog__footer
+      border-top 1px solid #DFE4ED
+      padding 0 10px
