@@ -136,7 +136,7 @@
         :max-height="maxHeight"
         style="width:100%;"
       >
-        <el-table-column type="selection" width="14px" fixed/>
+        <el-table-column type="selection" width="14px" style="padding: 0 5px" fixed/>
         <el-table-column width="20px" align="center" type="expand" fixed>
           <template slot-scope="scope">
             <el-form label-position="left" inline class="module-table-expand">
@@ -550,7 +550,7 @@
       },
       // 计算table的高度
       countTableHeight() {
-        var winHeight = document.querySelector('html').clientHeight - 172
+        var winHeight = document.querySelector('html').clientHeight - 162
         this.maxHeight = winHeight
         window.onload = () => {
           this.formMoreBtnResize()
