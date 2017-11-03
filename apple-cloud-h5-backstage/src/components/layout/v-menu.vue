@@ -5,7 +5,7 @@
       text-color="#d0d0d0"
       style="border:none"
       active-text-color="#ff6600"
-      unique-opened="true"
+      :unique-opened="true"
       default-active="1-4-1"
       class="{el-menu--collapse:hideLeftBar}"
       @open="handleOpen"
@@ -94,6 +94,4 @@
   .v-menu >>> .el-menu .el-submenu__title
     height 40px
     line-height 40px
-   .v-menu
-     // margin-left -10px
 </style>

@@ -18,6 +18,8 @@ $header-height=40px
     line-height $header-height
     .demo-form-inline
       position relative
+      max-height 100px
+      overflow hidden
       .form-more-btn
         font-style 14px
         height $header-height
@@ -34,20 +36,24 @@ $header-height=40px
       left 50%
       margin-left -420px
       border-radius 5px
-      padding 20px
+      padding 10px
       .el-icon-circle-close-outline
         font-size 20px
         color #ccc
         position absolute
         top 5px
         right 5px
+        transition all .3s
       .el-icon-circle-close-outline:hover
         color red
+        transform rotateZ(180deg)
+        transition all .3s
     .search-form >>> .el-form
       .el-form-item.el-form-item--mini
        height 44px
        padding 16px 0 0 0
        margin 0
+       background #ff930e
        .el-form-item__label
          height 28px
          vertical-align top
@@ -58,7 +64,7 @@ $header-height=40px
   padding 0 0 0 10px
 
 .el-footer
-  background-color: #EDF2FC;
+  background-color: #E9EEF3;
   color: #333;
   line-height: 30px;
   height 30px

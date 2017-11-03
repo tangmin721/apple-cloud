@@ -15,19 +15,12 @@
           </div>
           <div class="search-form">
             <el-form
-              :inline="true"
               :model="searchForm"
               class="demo-form-inline"
               align="left"
               ref="searchForm"
               v-show="!isShowMoreForm">
-              <el-input placeholder="请输入内容" v-model="searchForm.name" style="width: 200px">
-                <template slot="prepend">姓名</template>
-              </el-input>
-              <el-input placeholder="请输入内容" v-model="searchForm.name" style="width: 200px">
-                <template slot="prepend">姓名</template>
-              </el-input>
-              <el-input placeholder="请输入内容" v-model="searchForm.name" style="width: 200px">
+              <el-input v-for="item in 10" placeholder="请输入内容" v-model="searchForm.name" style="width: 200px;margin:0 5px">
                 <template slot="prepend">姓名</template>
               </el-input>
             </el-form>
@@ -42,14 +35,17 @@
                 <el-button-group v-show="isShowMoreForm">
                   <el-button v-waves type="primary" icon="el-icon-search" @click="handleSearch">搜索 </el-button>
                   <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
+                  <el-button type="danger" plain icon="el-icon-circle-close-outline" @click="isShowMoreForm=!isShowMoreForm">关闭</el-button>
                 </el-button-group>
               </div>
             </transition>
           </div>
           <div>
-            <el-button type="primary" icon="el-icon-circle-plus" @click="handleMoreForm" v-show="isShowMoreBtn">更多>> </el-button>
             <el-button-group v-show="!isShowMoreForm">
               <el-button v-waves type="primary" icon="el-icon-search" @click="handleSearch">搜索 </el-button>
+              <el-tooltip content="更多" placement="top">
+                <el-button type="primary" icon="el-icon-d-arrow-right" @click="handleMoreForm" v-show="isShowMoreBtn"></el-button>
+              </el-tooltip>
               <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch"> 清空 </el-button>
             </el-button-group>
           </div>
@@ -114,9 +110,10 @@
             <el-button icon="el-icon-success" type="primary" @click="submitForm('ruleForm')"
                        :loading="btnLoading">确 定
             </el-button>
-            <el-button icon="el-icon-refresh" @click="resetForm('ruleForm')">重 置</el-button>
-            <el-button icon="el-icon-circle-close" @click="dialogFormVisible = false">取 消
-            </el-button>
+            <el-button-group>
+              <el-button icon="el-icon-refresh" @click="resetForm('ruleForm')">重 置</el-button>
+              <el-button icon="el-icon-circle-close" @click="dialogFormVisible = false">取 消</el-button>
+            </el-button-group>
           </div>
         </el-dialog>
       </el-header>
@@ -179,8 +176,8 @@
         <el-table-column label="操作" fixed="right" width="120px">
           <template slot-scope="scope">
             <el-button-group>
-              <el-button @click="handleUpdate(scope.row)" type="success" icon="el-icon-edit"/>
-              <el-button type="danger" icon="el-icon-delete" @click="handleDelete(scope.row.id)"/>
+              <el-button @click="handleUpdate(scope.row)" plain icon="el-icon-edit"></el-button>
+              <el-button @click="handleDelete(scope.row.id)" plain icon="el-icon-delete"></el-button>
             </el-button-group>
           </template>
         </el-table-column>
