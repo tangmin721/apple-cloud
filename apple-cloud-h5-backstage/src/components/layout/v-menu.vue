@@ -17,16 +17,16 @@
           <i class="el-icon-location"></i>
           <span slot="title">系统管理</span>
         </template>
-        <el-menu-item v-waves index="/system/index"><i class="el-icon-location"></i><span slot="title">系统首页</span></el-menu-item>
-        <el-menu-item v-waves index="/system/userPage"><i class="el-icon-location"></i><span slot="title">用户管理</span></el-menu-item>
-        <el-menu-item v-waves index="/system/userForm"><i class="el-icon-location"></i><span slot="title">用户表单</span></el-menu-item>
-        <el-menu-item v-waves index="/system/userOther"><i class="el-icon-location"></i><span slot="title">other</span></el-menu-item>
+        <el-menu-item class="elMenuItemForHover" v-waves index="/system/index"><i class="el-icon-location"></i><span slot="title">系统首页</span></el-menu-item>
+        <el-menu-item class="elMenuItemForHover" v-waves index="/system/userPage"><i class="el-icon-location"></i><span slot="title">用户管理</span></el-menu-item>
+        <el-menu-item class="elMenuItemForHover" v-waves index="/system/userForm"><i class="el-icon-location"></i><span slot="title">用户表单</span></el-menu-item>
+        <el-menu-item class="elMenuItemForHover" v-waves index="/system/userOther"><i class="el-icon-location"></i><span slot="title">other</span></el-menu-item>
         <el-submenu index="1-2">
           <template slot="title">
             <i class="el-icon-location"></i>
             <span slot="title"  class="firstMenu">二级菜单</span>
           </template>
-          <el-menu-item v-waves index="/system/demo"><i class="icon-music"></i><span slot="title">demo模块</span></el-menu-item>
+          <el-menu-item class="elMenuItemForHover" v-waves index="/system/demo"><i class="el-icon-sold-out"></i><span slot="title">demo模块</span></el-menu-item>
         </el-submenu>
       </el-submenu>
       <el-submenu index="2">
@@ -34,8 +34,8 @@
           <i class="el-icon-info"></i>
           <span slot="title">错误页</span>
         </template>
-        <el-menu-item v-waves index="/system/401"><i class="el-icon-error"></i><span slot="title">401</span></el-menu-item>
-        <el-menu-item v-waves index="/system/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
+        <el-menu-item class="elMenuItemForHover" v-waves index="/system/401"><i class="el-icon-error"></i><span slot="title">401</span></el-menu-item>
+        <el-menu-item class="elMenuItemForHover" v-waves index="/system/404"><i class="el-icon-warning"></i><span slot="title">404</span></el-menu-item>
       </el-submenu>
     </el-menu>
   </div>
@@ -55,7 +55,7 @@
       ])
     },
     created() {
-      window.onload = () => {
+      this.$nextTick(() => {
         let liDoms = document.querySelectorAll('.firstMenu')
         for (let i = 0; i < liDoms.length; i++) {
           let liDom = liDoms[i].parentNode
@@ -67,7 +67,7 @@
             liDom.style.backgroundColor = '#222'
           }
         }
-      }
+      })
     },
     methods: {
       handleOpen(key, keyPath) {
@@ -91,7 +91,12 @@
     padding-left 5px
   .v-menu >>> .el-menu .el-menu-item
     background #222!important
+    height 40px
+    line-height 40px
   .v-menu >>> .el-menu .el-submenu__title
     height 40px
     line-height 40px
+  .elMenuItemForHover:hover
+    color #ff6600!important
+    border-right 5px solid #ff6600
 </style>

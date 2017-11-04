@@ -564,9 +564,9 @@
       countTableHeight() {
         var winHeight = document.querySelector('html').clientHeight - 162
         this.maxHeight = winHeight
-        window.onload = () => {
+        this.$nextTick(() => {
           this.formMoreBtnResize()
-        }
+        })
       },
       sortChange(column) {
         console.log(column)
@@ -584,6 +584,13 @@
       },
       handleMoreForm() {
         this.isShowMoreForm = !this.isShowMoreForm
+      }
+    },
+    watch: {
+      isShowMoreForm() {
+        this.$nextTick(() => {
+          this.formMoreBtnResize()
+        })
       }
     }
   }
