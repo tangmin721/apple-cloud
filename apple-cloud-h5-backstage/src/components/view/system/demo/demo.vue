@@ -20,13 +20,14 @@
               align="left"
               ref="searchForm"
               v-show="!isShowMoreForm">
-              <demo-search-form :searchForm="searchForm"></demo-search-form>
+              <search-form
+                :searchForm="searchForm"/>
             </el-form>
             <transition name="slide-up">
               <div class="form-more-box"
                 v-show="isShowMoreForm">
                 <i class="el-icon-circle-close-outline" @click="handleMoreForm"></i>
-                <demo-search-form :searchForm="searchForm"></demo-search-form>
+                <search-form :searchForm="searchForm"/>
                 <el-button-group v-show="isShowMoreForm">
                   <el-button v-waves type="primary" icon="el-icon-search" @click="getList">搜索 </el-button>
                   <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
@@ -46,13 +47,13 @@
           </div>
         </div>
 
-        <demo-form
+        <rule-form
           :dialogStatus="dialogStatus"
           :dialogFormVisible="dialogFormVisible"
           :ruleForm="ruleForm"
           @closeDialogForm="closeDialogForm"
           @toggleGetList="getList"
-        ></demo-form>
+        />
       </el-header>
     </div>
 
@@ -141,13 +142,13 @@
   import axios from 'api/axios'
   import waves from 'directive/waves.js'// 水波纹指令
   import { NOTIFY_DURATION, MESSAGE_DURATION } from 'common/js/appconst'
-  import DemoForm from './demoForm'
-  import DemoSearchForm from './demoSearchForm'
+  import RuleForm from './ruleForm'
+  import SearchForm from './searchForm'
 
   export default {
     components: {
-      DemoForm,
-      DemoSearchForm
+      RuleForm,
+      SearchForm
     },
     directives: {
       waves
@@ -180,15 +181,7 @@
     methods: {
       getList() {
         this.loading = true
-        axios.post('/demo/pagination', {
-          name: this.searchForm.name,
-          age: this.searchForm.age,
-          status: this.searchForm.status,
-          currentPage: this.query.currentPage,
-          pageSize: this.query.pageSize,
-          orderField: this.query.orderField,
-          orderSort: this.query.orderSort
-        })
+        axios.post('/demo/pagination', Object.assign({}, this.searchForm, this.query))
         .then((res) => {
           this.list = res.data.list
           this.total = Number(res.data.total)
