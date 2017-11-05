@@ -20,35 +20,15 @@
               align="left"
               ref="searchForm"
               v-show="!isShowMoreForm">
-              <el-select v-model="searchForm.status" placeholder="状态" clearable style="width: 120px">
-                <el-option label="无效" value="invalid"></el-option>
-                <el-option label="正常" value="normal"></el-option>
-                <el-option label="删除" value="deleted"></el-option>
-                <el-option label="禁用" value="disabled"></el-option>
-                <el-option label="冻结" value="frozen"></el-option>
-              </el-select>
-              <el-input v-for="item in 10" placeholder="请输入内容" v-model="searchForm.name" style="width: 200px;margin:0 5px">
-                <template slot="prepend">姓名</template>
-              </el-input>
-
+              <demo-search-form :searchForm="searchForm"></demo-search-form>
             </el-form>
             <transition name="slide-up">
               <div class="form-more-box"
                 v-show="isShowMoreForm">
                 <i class="el-icon-circle-close-outline" @click="handleMoreForm"></i>
-                <el-select v-model="searchForm.status" placeholder="状态" clearable style="width: 120px">
-                  <el-option label="无效" value="invalid"></el-option>
-                  <el-option label="正常" value="normal"></el-option>
-                  <el-option label="删除" value="deleted"></el-option>
-                  <el-option label="禁用" value="disabled"></el-option>
-                  <el-option label="冻结" value="frozen"></el-option>
-                </el-select>
-                <el-input v-for="item in 10" placeholder="请输入内容" v-model="searchForm.name"
-                          style="width: 200px;margin:0 5px">
-                  <template slot="prepend">姓名</template>
-                </el-input>
+                <demo-search-form :searchForm="searchForm"></demo-search-form>
                 <el-button-group v-show="isShowMoreForm">
-                  <el-button v-waves type="primary" icon="el-icon-search" @click="handleSearch">搜索 </el-button>
+                  <el-button v-waves type="primary" icon="el-icon-search" @click="getList">搜索 </el-button>
                   <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
                   <el-button type="danger" plain icon="el-icon-circle-close-outline" @click="isShowMoreForm=!isShowMoreForm">关闭</el-button>
                 </el-button-group>
@@ -57,7 +37,7 @@
           </div>
           <div>
             <el-button-group v-show="!isShowMoreForm">
-              <el-button v-waves type="primary" icon="el-icon-search" @click="handleSearch">搜索 </el-button>
+              <el-button v-waves type="primary" icon="el-icon-search" @click="getList">搜索 </el-button>
               <el-tooltip content="更多搜索条件" placement="top">
                 <el-button type="primary" icon="el-icon-d-arrow-right" @click="handleMoreForm" v-show="isShowMoreBtn"></el-button>
               </el-tooltip>
@@ -71,6 +51,7 @@
           :dialogFormVisible="dialogFormVisible"
           :ruleForm="ruleForm"
           @closeDialogForm="closeDialogForm"
+          @toggleGetList="getList"
         ></demo-form>
       </el-header>
     </div>
@@ -159,11 +140,14 @@
 <script type="text/ecmascript-6">
   import axios from 'api/axios'
   import waves from 'directive/waves.js'// 水波纹指令
+  import { NOTIFY_DURATION, MESSAGE_DURATION } from 'common/js/appconst'
   import DemoForm from './demoForm'
+  import DemoSearchForm from './demoSearchForm'
 
   export default {
     components: {
-      DemoForm
+      DemoForm,
+      DemoSearchForm
     },
     directives: {
       waves
@@ -173,47 +157,17 @@
         btnLoading: false,
         loading: true,
         list: [],
-        currentPage: 1,
-        pageSize: 10,
-        pageCount: 1,
         total: 0,
         query: {
           currentPage: 1,
-          pageSize: 30,
-          orderField: '',
-          orderSort: ''
+          pageSize: 30
         },
         dialogFormVisible: false,
-        searchForm: {
-          id: '',
-          name: '',
-          age: '',
-          birthday: '',
-          classMater: 'yes',
-          type: '',
-          types: [],
-          status: '',
-          supper: false,
-          account: 0
-        },
-        ruleForm: {
-          id: '',
-          name: '',
-          age: 18,
-          birthday: '',
-          classMater: 'yes',
-          type: '',
-          types: [],
-          status: '',
-          supper: false,
-          account: 0
-        },
-
+        searchForm: {},
+        ruleForm: {},
         selectedRowIds: '',
         dialogStatus: 'update',
-        formLabelWidth: '80px',
         maxHeight: '560',
-
         isShowMoreForm: false,
         isShowMoreBtn: false
       }
@@ -252,14 +206,33 @@
         this.query.currentPage = currentPage
         this.getList()
       },
+      sortChange(column) {
+        if (column && column.order === 'descending') {
+          this.query.orderField = column.prop
+          this.query.orderSort = 'desc'
+        } else if (column && column.order === 'ascending') {
+          this.query.orderField = column.prop
+          this.query.orderSort = 'asc'
+        } else {
+          this.query.orderField = ''
+          this.query.orderSort = ''
+        }
+        this.getList()
+      },
+      // 对数组类型的需要初始化定义为[]
+      initForm() {
+        this.ruleForm = {
+          types: [],
+          status: 'normal'
+        }
+      },
       handleCreate() {
-        this.resetRuleForm()
+        this.initForm()
         this.dialogStatus = 'create'
         this.dialogFormVisible = true
-        console.log(this.dialogFormVisible)
       },
       handleUpdate(row) {
-        this.resetRuleForm()
+        this.initForm()
         Object.assign(this.ruleForm, row)
         if (this.ruleForm.type) {
           this.ruleForm.types = this.ruleForm.type.split(',')
@@ -273,18 +246,18 @@
             this.handleUpdate(this.multipleSelection[0])
           } else if (this.multipleSelection.length === 0) {
             this.$message.warning({
-              duration: 1000,
+              duration: MESSAGE_DURATION,
               message: '请勾选需要编辑的记录'
             })
           } else {
             this.$message.warning({
-              duration: 1000,
+              duration: MESSAGE_DURATION,
               message: '只能同时编辑一行'
             })
           }
         } else {
           this.$message.warning({
-            duration: 1000,
+            duration: MESSAGE_DURATION,
             message: '请勾选需要编辑的记录'
           })
         }
@@ -298,7 +271,7 @@
           this.delete(id)
         }).catch(() => {
           this.$message.info({
-            duration: 1000,
+            duration: MESSAGE_DURATION,
             message: '已取消删除'
           })
         })
@@ -306,7 +279,6 @@
       handleBatchDelete() {
         if (this.multipleSelection && this.multipleSelection.length > 0) {
           const ids = this.multipleSelection.map((row) => row.id)
-          console.log('ids', ids)
           this.selectedRowIds = ids.join(',')
           this.$confirm('此操作将删除记录, 是否继续?', '提示', {
             confirmButtonText: '确定',
@@ -316,54 +288,16 @@
             this.deleteIds(this.selectedRowIds)
           }).catch(() => {
             this.$message.info({
-              duration: 1000,
+              duration: MESSAGE_DURATION,
               message: '已取消删除'
             })
           })
         } else {
           this.$message.warning({
-            duration: 1000,
+            duration: MESSAGE_DURATION,
             message: '请勾选需要删除的记录'
           })
         }
-      },
-      create() {
-        axios.post('/demo', this.ruleForm)
-        .then(() => {
-          this.btnLoading = false
-          this.getList()
-          this.dialogFormVisible = false
-          this.$notify({
-            title: '成功',
-            message: '创建成功',
-            type: 'success',
-            duration: 2000
-          })
-        }).catch(error => {
-          this.btnLoading = false
-          if (error.status === 2) {
-            this.$message.error(error.message)
-          }
-        })
-      },
-      update() {
-        axios.put('/demo', this.ruleForm)
-        .then(() => {
-          this.btnLoading = false
-          this.getList()
-          this.dialogFormVisible = false
-          this.$notify({
-            title: '成功',
-            message: '更新成功',
-            type: 'success',
-            duration: 2000
-          })
-        }).catch(error => {
-          this.btnLoading = false
-          if (error.status === 2) {
-            this.$message.error(error.message)
-          }
-        })
       },
       closeDialogForm() {
         this.dialogFormVisible = false
@@ -376,7 +310,7 @@
             title: '成功',
             message: '删除成功',
             type: 'success',
-            duration: 2000
+            duration: NOTIFY_DURATION
           })
         }).catch(error => console.error(error))
       },
@@ -388,24 +322,9 @@
             title: '成功',
             message: '删除成功',
             type: 'success',
-            duration: 2000
+            duration: NOTIFY_DURATION
           })
         }).catch(error => console.error(error))
-      },
-      resetRuleForm() {
-        this.ruleForm = {
-          id: '',
-          name: '',
-          age: 18,
-          birthday: '',
-          classMater: 'yes',
-          type: '',
-          types: [],
-          status: 'normal',
-          supper: false,
-          account: 0,
-          memo: ''
-        }
       },
       toggleSelection(rows) {
         if (rows) {
@@ -416,30 +335,13 @@
           this.$refs.multipleTable.clearSelection()
         }
       },
-      handleSearch() {
-        this.getList()
-      },
       handleClearSearch() {
-        this.searchForm = {
-          id: '',
-          name: '',
-          age: '',
-          birthday: '',
-          classMater: 'yes',
-          type: '',
-          types: [],
-          status: '',
-          supper: false,
-          account: 0
-        }
+        this.searchForm = {}
+        this.getList()
       },
       handleSelectionChange(val) {
         this.multipleSelection = val
       },
-      handleTypeChange() {
-        this.ruleForm.type = this.ruleForm.types.join(',')
-      },
-
       windowResize() {
         window.onresize = () => {
           this.countTableHeight()
@@ -460,20 +362,6 @@
         this.$nextTick(() => {
           this.formMoreBtnResize()
         })
-      },
-      sortChange(column) {
-        console.log(column)
-        if (column && column.order === 'descending') {
-          this.query.orderField = column.prop
-          this.query.orderSort = 'desc'
-        } else if (column && column.order === 'ascending') {
-          this.query.orderField = column.prop
-          this.query.orderSort = 'asc'
-        } else {
-          this.query.orderField = ''
-          this.query.orderSort = ''
-        }
-        this.getList()
       },
       handleMoreForm() {
         this.isShowMoreForm = !this.isShowMoreForm
