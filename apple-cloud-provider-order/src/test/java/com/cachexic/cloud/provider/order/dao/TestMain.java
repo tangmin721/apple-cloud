@@ -1,5 +1,7 @@
 package com.cachexic.cloud.provider.order.dao;
 
+import com.cachexic.cloud.common.enums.YesOrNoEnum;
+import javax.xml.crypto.Data;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
@@ -11,6 +13,13 @@ public class TestMain {
   public static void main(String[] args) {
     System.out.println(DateFormatUtils.format(1507599060000L,"yyyy-MM-dd HH:mm:ss"));
     System.out.println(RandomStringUtils.randomAlphabetic(6,10));
+    System.out.println(long.class.getSimpleName());
+    System.out.println(Long.class.getSimpleName());
+    System.out.println(Data.class.getSimpleName());
+    System.out.println(Boolean.class.getSimpleName());
+    System.out.println(boolean.class.getSimpleName());
+    System.out.println(Integer.class.getSimpleName());
+    System.out.println(YesOrNoEnum.class.getSimpleName());
   }
 
 }

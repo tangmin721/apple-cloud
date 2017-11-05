@@ -12,6 +12,7 @@ const FourZeroOne = () => import('components/error/401')
 const FourZeroFour = () => import('components/error/404')
 
 const Demo = () => import('components/view/system/demo/demo')
+const Teacher = () => import('components/view/system/teacher/teacher')
 
 const UserForm = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userForm')
 const UserPage = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userPage')
@@ -32,6 +33,7 @@ export default new Router({
       children: [
         {name: '首页', path: 'index', component: Dashboard},
         {name: 'demo模块', path: 'demo', component: Demo},
+        {name: '教师代码生成器', path: 'teacher', component: Teacher},
         {name: '用户page', path: 'userPage', component: UserPage},
         {name: '用户form', path: 'userForm', component: UserForm},
         {name: '用户Other', path: 'userOther', component: UserOther},

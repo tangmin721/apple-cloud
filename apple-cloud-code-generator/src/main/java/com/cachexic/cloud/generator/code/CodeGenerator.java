@@ -12,6 +12,7 @@ import com.cachexic.cloud.generator.tmplate.DaoGenerator;
 import com.cachexic.cloud.generator.tmplate.FeignClientFallbackFactoryGenerator;
 import com.cachexic.cloud.generator.tmplate.FeignClientGenerator;
 import com.cachexic.cloud.generator.tmplate.ReadmeGenerator;
+import com.cachexic.cloud.generator.tmplate.VueFormGenerator;
 import com.cachexic.cloud.generator.tmplate.VueGenerator;
 import com.cachexic.cloud.generator.tmplate.MybatisXmlGenerator;
 import com.cachexic.cloud.generator.tmplate.MybatisXmlJoinGenerator;
@@ -19,6 +20,7 @@ import com.cachexic.cloud.generator.tmplate.MysqlDDLGenerator;
 import com.cachexic.cloud.generator.tmplate.QueryGenerator;
 import com.cachexic.cloud.generator.tmplate.ServiceGenerator;
 import com.cachexic.cloud.generator.tmplate.ServiceImplGenerator;
+import com.cachexic.cloud.generator.tmplate.VueSearchGenerator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
@@ -184,6 +186,11 @@ public class CodeGenerator {
     if (!dir.exists()) {
       dir.mkdirs();
     }
+
+    File dirPage = new File(path+"\\vue");
+    if (!dirPage.exists()) {
+      dirPage.mkdirs();
+    }
     GenConfig genConfig = new GenConfig();
 
     //加载配置
@@ -205,9 +212,11 @@ public class CodeGenerator {
     ServiceImplGenerator serviceImpl = new ServiceImplGenerator();
     ControllerGenerator controller = new ControllerGenerator();
     ConsumerControllerGenerator consumerController = new ConsumerControllerGenerator();
-    VueGenerator vue = new VueGenerator();
-    FeignClientFallbackFactoryGenerator fallbackFactory = new FeignClientFallbackFactoryGenerator();
     FeignClientGenerator feignClien = new FeignClientGenerator();
+    FeignClientFallbackFactoryGenerator fallbackFactory = new FeignClientFallbackFactoryGenerator();
+    VueGenerator vue = new VueGenerator();
+    VueFormGenerator vueForm = new VueFormGenerator();
+    VueSearchGenerator vueSearch = new VueSearchGenerator();
     ReadmeGenerator readme = new ReadmeGenerator();
 
     EntityInfo entity = new EntityInfo(clazz, tableName);
@@ -229,12 +238,16 @@ public class CodeGenerator {
         controller.generateCode(entity, genConfig));
     writeFile(dir, entity.getClassName() + "WebController.java",
         consumerController.generateCode(entity, genConfig));
-    writeFile(dir, entity.getClassName() + ".vue",
-        vue.generateCode(entity, genConfig));
-    writeFile(dir, entity.getClassName() + "FeignFallback.java",
-        fallbackFactory.generateCode(entity, genConfig));
     writeFile(dir, entity.getClassName() + "Feign.java",
         feignClien.generateCode(entity, genConfig));
+    writeFile(dir, entity.getClassName() + "FeignFallback.java",
+        fallbackFactory.generateCode(entity, genConfig));
+    writeFile(dirPage, entity.getFirstLowName() + ".vue",
+        vue.generateCode(entity, genConfig));
+    writeFile(dirPage, "ruleForm.vue",
+        vueForm.generateCode(entity, genConfig));
+    writeFile(dirPage, "searchForm.vue",
+        vueSearch.generateCode(entity, genConfig));
     writeFile(dir, entity.getClassName() + "Readme.txt",
         readme.generateCode(entity, genConfig));
 

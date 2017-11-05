@@ -15,17 +15,17 @@
           </div>
           <div class="search-form">
             <el-form
-              :model="searchForm"
-              class="module-form-inline"
-              align="left"
-              ref="searchForm"
-              v-show="!isShowMoreForm">
+                :model="searchForm"
+                class="module-form-inline"
+                align="left"
+                ref="searchForm"
+                v-show="!isShowMoreForm">
               <search-form
-                :searchForm="searchForm"/>
+                  :searchForm="searchForm"/>
             </el-form>
             <transition name="slide-up">
               <div class="form-more-box"
-                v-show="isShowMoreForm">
+                   v-show="isShowMoreForm">
                 <i class="el-icon-circle-close-outline" @click="handleMoreForm"></i>
                 <search-form :searchForm="searchForm"/>
                 <el-button-group v-show="isShowMoreForm">
@@ -48,28 +48,28 @@
         </div>
 
         <rule-form
-          :dialogStatus="dialogStatus"
-          :dialogFormVisible="dialogFormVisible"
-          :ruleForm="ruleForm"
-          @closeDialogForm="closeDialogForm"
-          @toggleGetList="getList"
+            :dialogStatus="dialogStatus"
+            :dialogFormVisible="dialogFormVisible"
+            :ruleForm="ruleForm"
+            @closeDialogForm="closeDialogForm"
+            @toggleGetList="getList"
         />
       </el-header>
     </div>
 
     <el-main>
       <el-table
-        ref="multipleTable"
-        :data="list"
-        v-loading="loading"
-        element-loading-text="拼命加载中"
-        empty-text="暂无数据"
-        highlight-current-row
-        stripe
-        @sort-change="sortChange"
-        @selection-change="handleSelectionChange"
-        :max-height="maxHeight"
-        style="width:100%;"
+          ref="multipleTable"
+          :data="list"
+          v-loading="loading"
+          element-loading-text="拼命加载中"
+          empty-text="暂无数据"
+          highlight-current-row
+          stripe
+          @sort-change="sortChange"
+          @selection-change="handleSelectionChange"
+          :max-height="maxHeight"
+          style="width:100%;"
       >
         <el-table-column type="selection" width="14px" style="padding: 0 5px" fixed/>
         <el-table-column width="20px" align="center" type="expand" fixed>
@@ -103,36 +103,33 @@
                 <el-tag v-if="scope.row.status==='normal'" type="success">{{ scope.row.status }}</el-tag>
                 <el-tag v-if="scope.row.status!=='normal'" type="danger">{{ scope.row.status }}</el-tag>
               </el-form-item>
-              <el-form-item label="活动性质">
-                <span>{{ scope.row.type }}</span>
-              </el-form-item>
-              <el-form-item label="账户余额">
-                <span>{{ scope.row.account }}</span>
-              </el-form-item>
-              <el-form-item label="备注">
-                <span>{{ scope.row.memo }}</span>
-              </el-form-item>
             </el-form>
           </template>
         </el-table-column>
         <el-table-column type="index" width="40px" fixed/>
-        <el-table-column prop="name" sortable="custom" label="姓名" width="100px" fixed/>
-        <el-table-column prop="birthday" sortable="custom" label="生日" min-width="120px">
+        <el-table-column prop="name" sortable="custom" label="姓名" width="80px"/>
+        <el-table-column prop="username" sortable="custom" label="username描述@TODO'" width="80px"/>
+        <el-table-column prop="idCard" sortable="custom" label="身份证" width="80px"/>
+        <el-table-column prop="birthday" sortable="custom" label="出生日期" min-width="120px">
           <template slot-scope="scope">
             <i class="el-icon-time" style="color:red"></i>
             <span style="margin-left: 2px">{{ scope.row.birthday }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="age" sortable="custom" label="年龄" width="80px"/>
-        <el-table-column prop="supper" sortable="custom" label="特级教师">
+        <el-table-column prop="birthdayTime" sortable="custom" label="出生时间" min-width="120px">
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.supper" type="success">是</el-tag>
-            <el-tag v-if="!scope.row.supper" type="danger">否</el-tag>
+            <i class="el-icon-time" style="color:red"></i>
+            <span style="margin-left: 2px">{{ scope.row.birthdayTime }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="classMater" sortable="custom" label="是否班主任"/>
-        <el-table-column prop="status" label="状态"/>
-        <el-table-column prop="createTime" sortable="custom" label="创建时间" width="160px"/>
+        <el-table-column prop="score" sortable="custom" label="分数" width="80px"/>
+        <el-table-column prop="book" sortable="custom" label="出版的书籍数量" width="80px"/>
+        <el-table-column prop="num" sortable="custom" label="数量" width="80px"/>
+        <el-table-column prop="age" sortable="custom" label="年龄" width="80px"/>
+        <el-table-column prop="nameTransient" sortable="custom" label="不映射数据库,insert方法没有" width="80px"/>
+        <el-table-column prop="classMater" sortable="custom" label="是否班主任" width="80px"/>
+        <el-table-column prop="account" sortable="custom" label="账户金额" width="80px"/>
+        <el-table-column prop="supper" sortable="custom" label="是否是特级教师" width="80px"/>
         <el-table-column label="操作" fixed="right" width="120px">
           <template slot-scope="scope">
             <el-button-group>
@@ -145,14 +142,14 @@
     </el-main>
     <el-footer style="height: 32px;">
       <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="query.currentPage"
-        :page-sizes="[10, 20, 30, 40, 50, 100]"
-        :page-size="query.pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total"
-        style="padding-top: 2px"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="query.currentPage"
+          :page-sizes="[10, 20, 30, 40, 50, 100]"
+          :page-size="query.pageSize"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
+          style="padding-top: 2px"
       >
       </el-pagination>
     </el-footer>
@@ -203,7 +200,7 @@
     methods: {
       getList() {
         this.loading = true
-        axios.post('/demo/pagination', Object.assign({}, this.searchForm, this.query))
+        axios.post('/teacher/pagination', Object.assign({}, this.searchForm, this.query))
         .then((res) => {
           this.list = res.data.list
           this.total = Number(res.data.total)
@@ -239,14 +236,17 @@
         this.ruleForm = {
           id: '',
           name: '',
-          age: '',
+          username: '',
+          idCard: '',
           birthday: '',
-          supper: false,
-          classMater: 'no',
-          types: [],
-          status: 'normal',
-          amount: '',
-          memo: ''
+          birthdayTime: '',
+          score: '',
+          book: '',
+          num: '',
+          age: '',
+          classMater: '',
+          account: '',
+          supper: false
         }
       },
       handleCreate() {
@@ -326,7 +326,7 @@
         this.dialogFormVisible = false
       },
       delete(id) {
-        axios.delete(`/demo/${id}`)
+        axios.delete(`/teacher/${id}`)
         .then(() => {
           this.getList()
           this.$notify({
@@ -337,8 +337,8 @@
           })
         }).catch(error => console.error(error))
       },
-      deleteIds(id) {
-        axios.delete(`/demo/ids/${id}`)
+      deleteIds(ids) {
+        axios.delete(`/teacher/ids/${ids}`)
         .then(() => {
           this.getList()
           this.$notify({

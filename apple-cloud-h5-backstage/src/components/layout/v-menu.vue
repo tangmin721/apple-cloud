@@ -27,6 +27,7 @@
             <span slot="title"  class="firstMenu">二级菜单</span>
           </template>
           <el-menu-item class="elMenuItemForHover" v-waves index="/system/demo"><i class="el-icon-sold-out"></i><span slot="title">demo模块</span></el-menu-item>
+          <el-menu-item class="elMenuItemForHover" v-waves index="/system/teacher"><i class="el-icon-news"></i><span slot="title">教师代码生成</span></el-menu-item>
         </el-submenu>
       </el-submenu>
       <el-submenu index="2">
