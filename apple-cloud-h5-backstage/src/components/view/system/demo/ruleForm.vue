@@ -9,7 +9,7 @@
              :before-close="closeDialogForm"
              :visible="dialogFormVisible">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" align="left"
-             class="demo-ruleForm" center>
+             class="demo-ruleForm" center v-if="dialogFormVisible">
       <el-form-item label="姓名" prop="name">
         <el-input prefix-icon="el-icon-service" style="width: 200px"
                   v-model.trim="ruleForm.name"></el-input>

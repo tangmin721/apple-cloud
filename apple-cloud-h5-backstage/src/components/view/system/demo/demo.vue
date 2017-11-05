@@ -215,8 +215,16 @@
       // 对数组类型的需要初始化定义为[]
       initForm() {
         this.ruleForm = {
+          id: '',
+          name: '',
+          age: '',
+          birthday: '',
+          supper: false,
+          classMater: 'no',
           types: [],
-          status: 'normal'
+          status: 'normal',
+          amount: '',
+          memo: ''
         }
       },
       handleCreate() {
