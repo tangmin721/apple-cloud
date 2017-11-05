@@ -342,7 +342,8 @@
         }
       },
       formMoreBtnResize() {
-        if (this.$refs.searchForm.$el.clientHeight > 40) {
+        console.log(this.$refs.searchForm.$el.clientHeight)
+        if (this.$refs.searchForm.$el.clientHeight > 41) {
           this.isShowMoreBtn = true
         } else {
           this.isShowMoreBtn = false
