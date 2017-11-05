@@ -16,7 +16,7 @@
           <div class="search-form">
             <el-form
               :model="searchForm"
-              class="demo-form-inline"
+              class="module-form-inline"
               align="left"
               ref="searchForm"
               v-show="!isShowMoreForm">
@@ -350,7 +350,6 @@
         }
       },
       formMoreBtnResize() {
-        console.log(this.$refs.searchForm.$el.clientHeight)
         if (this.$refs.searchForm.$el.clientHeight > 41) {
           this.isShowMoreBtn = true
         } else {
