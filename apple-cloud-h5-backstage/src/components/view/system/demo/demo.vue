@@ -367,11 +367,13 @@
       },
       windowResize() {
         window.onresize = () => {
+          console.log('aaaa')
           this.countTableHeight()
           this.formMoreBtnResize()
         }
       },
       formMoreBtnResize() {
+        console.log('this.$refs.searchForm.$el.clientHeight', this.$refs.searchForm.$el.clientHeight)
         if (this.$refs.searchForm.$el.clientHeight > 41) {
           this.isShowMoreBtn = true
         } else {

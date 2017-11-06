@@ -69,6 +69,7 @@
           @sort-change="sortChange"
           @selection-change="handleSelectionChange"
           :max-height="maxHeight"
+          :height="maxHeight"
           style="width:100%;"
       >
         <el-table-column type="selection" width="14px" style="padding: 0 5px" fixed/>
