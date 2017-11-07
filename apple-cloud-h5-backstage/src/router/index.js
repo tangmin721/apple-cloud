@@ -15,9 +15,9 @@ const Demo = () => import('components/view/system/demo/Demo')
 const Teacher = () => import('components/view/system/teacher/Teacher')
 const DemoAndTeacher = () => import('components/view/system/demoAndTeacher/DemoAndTeacher')
 
-const UserForm = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userForm')
-const UserPage = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userPage')
-const UserOther = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userOther')
+const User = () => import('components/view/system/user/User')
+
+// const UserPage = () => import(/* webpackChunkName: "system-user" */ 'components/view/system/user/userPage')
 
 export default new Router({
   routes: [
@@ -33,12 +33,10 @@ export default new Router({
       redirect: '/system/index',
       children: [
         {name: '首页', path: 'index', component: Dashboard},
+        {name: '用户管理', path: 'user', component: User},
         {name: 'demo模块', path: 'demo', component: Demo},
-        {name: '教师代码生成器', path: 'teacher', component: Teacher},
-        {name: 'DemoAndTeacher', path: 'demoAndTeacher', component: DemoAndTeacher},
-        {name: '用户page', path: 'userPage', component: UserPage},
-        {name: '用户form', path: 'userForm', component: UserForm},
-        {name: '用户Other', path: 'userOther', component: UserOther},
+        {name: '教师代码生成', path: 'teacher', component: Teacher},
+        {name: '多模块聚合', path: 'demoAndTeacher', component: DemoAndTeacher},
         {name: '401错误页', path: '401', component: FourZeroOne},
         {name: '404错误页', path: '404', component: FourZeroFour}
       ]

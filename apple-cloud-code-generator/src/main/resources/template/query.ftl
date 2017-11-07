@@ -10,22 +10,23 @@ import com.cachexic.cloud.common.base.entity.query.<#if CONFIG.extendBaseEntity=
 public class ${entity.className}Query extends <#if CONFIG.extendBaseEntity=="false">Pojo</#if>BaseQuery{
   private static final long serialVersionUID = 1L;
 
-<#list entity.myfieldListNotTransient as e><#if e.fieldTypeClassName=="class java.util.Date">  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-  @ApiModelProperty(value = "${e.columnComment}", example = "2018-08-08 09:09:09")</#if>  <#if e.fieldTypeClassName!="class java.util.Date">@ApiModelProperty("${e.columnComment}")</#if>
-  private ${e.simpleTypeName} ${e.fieldName};<#if e.fieldTypeClassName=="class java.lang.String">
-  private Boolean ${e.fieldName}Like = false;</#if>
+<#list entity.myfieldListNotTransient as e><#if e.simpleTypeName=="Date">  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+  @ApiModelProperty(value = "${e.columnComment}", example = "2018-08-08 09:09:09")</#if>  <#if e.simpleTypeName!="Date">@ApiModelProperty("${e.columnComment}")</#if><#if e.simpleTypeName=="Boolean" || e.simpleTypeName=="boolean" || e.simpleTypeName=="Date">
+  private ${e.simpleTypeName} ${e.fieldName};<#else>
+  private String ${e.fieldName};<#if e.simpleTypeName=="String">
+  private Boolean ${e.fieldName}Like = false;</#if></#if>
 
 </#list>
-<#list entity.myfieldListNotTransient as e>  public ${e.simpleTypeName} get${e.supFiledName}() {
+<#list entity.myfieldListNotTransient as e>  public <#if e.simpleTypeName=="Boolean" || e.simpleTypeName=="boolean" || e.simpleTypeName=="Date">${e.simpleTypeName}<#else>String</#if> get${e.supFiledName}() {
     return ${e.fieldName};
   }
 
-  public ${entity.className}Query set${e.supFiledName}(${e.simpleTypeName} ${e.fieldName}) {
+  public ${entity.className}Query set${e.supFiledName}(<#if e.simpleTypeName=="Boolean" || e.simpleTypeName=="boolean" || e.simpleTypeName=="Date">${e.simpleTypeName}<#else>String</#if> ${e.fieldName}) {
     this.${e.fieldName} = ${e.fieldName};
     return this;
   }
 
-<#if e.fieldTypeClassName=="class java.lang.String">  public Boolean get${e.supFiledName}Like() {
+<#if e.simpleTypeName=="String">  public Boolean get${e.supFiledName}Like() {
     return ${e.fieldName}Like;
   }
 

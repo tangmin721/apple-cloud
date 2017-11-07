@@ -188,6 +188,7 @@ public class EntityInfo {
     if (field.getType().isAssignableFrom(String.class)) {//字符串
       int length = 255;//默认长度
       mysqlStament.append("varchar(");
+      entityField.setColumnType("varchar");
 
       if (field.isAnnotationPresent(Size.class)) {
         length = field.getAnnotation(Size.class).max();
@@ -212,6 +213,7 @@ public class EntityInfo {
     } else if (field.getType().isAssignableFrom(Long.class) || field.getType().getSimpleName()
         .equals("long")) {
       mysqlStament.append("bigint").append(" ");
+      entityField.setColumnType("bigint");
       if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class)
           || field.isAnnotationPresent(NotEmpty.class)) {
         mysqlStament.append("NOT NULL ");
@@ -222,6 +224,7 @@ public class EntityInfo {
     } else if (field.getType().isAssignableFrom(Integer.class) || field.getType().getSimpleName()
         .equals("int")) {
       mysqlStament.append("int").append(" ");
+      entityField.setColumnType("int");
       if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class)
           || field.isAnnotationPresent(NotEmpty.class)) {
         mysqlStament.append("NOT NULL ");
@@ -231,6 +234,7 @@ public class EntityInfo {
       }
     } else if (field.getType().isAssignableFrom(BigDecimal.class)) {
       mysqlStament.append("decimal(20,2) NOT NULL DEFAULT '0.00'").append(" ");
+      entityField.setColumnType("decimal");
     } else if (field.getType().isAssignableFrom(Date.class)) {
       String datatype = "datetime";
       if (field.isAnnotationPresent(DateTimeFormat.class)) {
@@ -243,12 +247,14 @@ public class EntityInfo {
         }
       }
       mysqlStament.append(datatype);
+      entityField.setColumnType(datatype);
       if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class)
           || field.isAnnotationPresent(NotEmpty.class)) {
         mysqlStament.append(" NOT NULL");
       }
     } else if (field.getType().isEnum()) {
       mysqlStament.append("enum(");
+      entityField.setColumnType("enum");
       Class<Enum> enumClass = (Class<Enum>) field.getType();
       Enum[] constants = enumClass.getEnumConstants();
       String tmp = "";
@@ -264,6 +270,7 @@ public class EntityInfo {
     } else if (field.getType().isAssignableFrom(Boolean.class) || field.getType().getSimpleName()
         .equals("boolean")) {
       mysqlStament.append("bit(1)").append(" ");
+      entityField.setColumnType("boolean");
       if (field.isAnnotationPresent(NotNull.class) || field.isAnnotationPresent(NotBlank.class)
           || field.isAnnotationPresent(NotEmpty.class)) {
         mysqlStament.append("NOT NULL ");
@@ -284,7 +291,7 @@ public class EntityInfo {
     } else {
       mysqlStament.append(field.getName()).append("描述@TODO'");
       //设置字段描述
-      entityField.setColumnComment(field.getName() + "描述@TODO'");
+      entityField.setColumnComment(field.getName() + "描述@TODO");
     }
 
     entityField.setMysqlFieldStr(mysqlStament.toString());

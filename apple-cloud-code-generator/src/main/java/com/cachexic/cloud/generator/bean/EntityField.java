@@ -41,6 +41,11 @@ public class EntityField {
   private String mysqlFieldStr;
 
   /**
+   * 字段数据库类型
+   */
+  private String columnType;
+
+  /**
    * 字段描述
    */
   private String columnComment;
@@ -100,6 +105,14 @@ public class EntityField {
 
   public void setColumnComment(String columnComment) {
     this.columnComment = columnComment;
+  }
+
+  public String getColumnType() {
+    return columnType;
+  }
+
+  public void setColumnType(String columnType) {
+    this.columnType = columnType;
   }
 
   @Override

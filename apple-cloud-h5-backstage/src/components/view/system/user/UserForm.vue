@@ -10,91 +10,40 @@
              :visible="dialogFormVisible">
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="160px" align="left"
              class="module-ruleForm" center v-if="dialogFormVisible">
-      <el-form-item label="姓名" prop="name">
-        <el-input
-            prefix-icon="el-icon-service"
-            style="width: 200px"
-            v-model.trim="ruleForm.name"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="username描述@TODO" prop="username">
+      <el-form-item label="用户名" prop="username">
         <el-input
             prefix-icon="el-icon-service"
             style="width: 200px"
             v-model.trim="ruleForm.username"
         ></el-input>
       </el-form-item>
-      <el-form-item label="身份证" prop="idCard">
+      <el-form-item label="密码" prop="password">
         <el-input
             prefix-icon="el-icon-service"
             style="width: 200px"
-            v-model.trim="ruleForm.idCard"
+            v-model.trim="ruleForm.password"
         ></el-input>
       </el-form-item>
-      <el-form-item label="出生日期" prop="birthday">
-        <el-date-picker
-            v-model="ruleForm.birthday"
-            type="date"
-            placeholder="选择日期"
-            format="yyyy-MM-dd"
-            value-format="yyyy-MM-dd"
-            style="width: 200px">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="出生时间" prop="birthdayTime">
-        <el-date-picker
-            v-model="ruleForm.birthdayTime"
-            type="datetime"
-            placeholder="选择日期时间"
-            format="yyyy-MM-dd HH:mm:ss"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            style="width: 200px">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item label="分数" prop="score">
+      <el-form-item label="手机" prop="mobile">
         <el-input
             prefix-icon="el-icon-service"
             style="width: 200px"
-            v-model.trim="ruleForm.score"
+            v-model.trim="ruleForm.mobile"
         ></el-input>
       </el-form-item>
-      <el-form-item label="出版的书籍数量" prop="book">
+      <el-form-item label="Email" prop="email">
         <el-input
             prefix-icon="el-icon-service"
             style="width: 200px"
-            v-model.trim="ruleForm.book"
+            v-model.trim="ruleForm.email"
         ></el-input>
       </el-form-item>
-      <el-form-item label="数量" prop="num">
+      <el-form-item label="头像" prop="avatar">
         <el-input
             prefix-icon="el-icon-service"
             style="width: 200px"
-            v-model.trim="ruleForm.num"
+            v-model.trim="ruleForm.avatar"
         ></el-input>
-      </el-form-item>
-      <el-form-item label="年龄" prop="age">
-        <el-input-number
-            v-model="ruleForm.age"
-            :min="1"
-            :max="100000"
-            style="width: 100px"></el-input-number>
-      </el-form-item>
-      <el-form-item label="是否班主任" prop="classMater">
-        <el-input
-            prefix-icon="el-icon-service"
-            style="width: 200px"
-            v-model.trim="ruleForm.classMater"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="账户金额" prop="account">
-        <el-input
-            prefix-icon="el-icon-service"
-            style="width: 200px"
-            v-model.trim="ruleForm.account"
-        ></el-input>
-      </el-form-item>
-      <el-form-item label="是否是特级教师" prop="supper">
-        <el-switch on-text="" off-text="" v-model="ruleForm.supper"></el-switch>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -124,35 +73,20 @@
           create: '创建'
         },
         rules: {
-          name: [
-            {required: true, message: '请填写姓名', trigger: 'blur'}
-          ],
           username: [
-            {required: true, message: '请填写username描述@TODO', trigger: 'blur'}
+            {required: true, message: '请填写用户名', trigger: 'blur'}
           ],
-          idCard: [
-            {required: true, message: '请填写身份证', trigger: 'blur'}
+          password: [
+            {required: true, message: '请填写密码', trigger: 'blur'}
           ],
-          birthday: [
-            {required: true, message: '请填写出生日期', trigger: 'blur'}
+          mobile: [
+            {required: true, message: '请填写手机', trigger: 'blur'}
           ],
-          birthdayTime: [
-            {required: true, message: '请填写出生时间', trigger: 'blur'}
+          email: [
+            {required: true, message: '请填写Email', trigger: 'blur'}
           ],
-          score: [
-            {required: true, message: '请填写分数', trigger: 'blur'}
-          ],
-          book: [
-            {required: true, message: '请填写出版的书籍数量', trigger: 'blur'}
-          ],
-          num: [
-            {required: true, message: '请填写数量', trigger: 'blur'}
-          ],
-          classMater: [
-            {required: true, message: '请填写是否班主任', trigger: 'blur'}
-          ],
-          account: [
-            {required: true, message: '请填写账户金额', trigger: 'blur'}
+          avatar: [
+            {required: true, message: '请填写头像', trigger: 'blur'}
           ]
         }
       }
@@ -174,7 +108,7 @@
         })
       },
       create() {
-        axios.post('/teacher', this.ruleForm)
+        axios.post('/user', this.ruleForm)
         .then(() => {
           this.btnLoading = false
           this.$notify({
@@ -193,7 +127,7 @@
         })
       },
       update() {
-        axios.put('/teacher', this.ruleForm)
+        axios.put('/user', this.ruleForm)
         .then(() => {
           this.btnLoading = false
           this.$notify({

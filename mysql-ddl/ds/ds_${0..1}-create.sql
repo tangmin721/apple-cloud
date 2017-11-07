@@ -126,3 +126,28 @@ CREATE TABLE IF NOT EXISTS `t_teacher` (
 
 ALTER TABLE `t_teacher` ADD INDEX(`id_card`) COMMENT 'for select by id_card';
 ALTER TABLE `t_teacher` ADD INDEX(`name`) COMMENT 'for select by name';
+
+
+CREATE TABLE IF NOT EXISTS `all_user` (
+  `id` bigint AUTO_INCREMENT,
+  `version` int DEFAULT 0 COMMENT '乐观锁版本号',
+  `username` varchar(20) NOT NULL DEFAULT '' COMMENT '用户名',
+  `password` varchar(255) NOT NULL DEFAULT '' COMMENT '密码',
+  `mobile` varchar(11) DEFAULT '' COMMENT '手机',
+  `email` varchar(100) DEFAULT '' COMMENT 'Email',
+  `avatar` varchar(255) DEFAULT '' COMMENT '头像',
+  `create_time` datetime COMMENT '创建时间',
+  `create_user_id` bigint COMMENT '创建人id',
+  `create_user_name` varchar(32) DEFAULT '' COMMENT '创建人name',
+  `update_time` datetime COMMENT '最后修改时间',
+  `update_user_id` bigint COMMENT '修改人id',
+  `update_user_name` varchar(32) DEFAULT '' COMMENT '修改人name',
+  `status` enum ('invalid','normal','deleted','disabled','frozen') DEFAULT 'invalid' COMMENT '状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci COMMENT='用户';
+
+ALTER TABLE `all_user` ADD INDEX(`username`) COMMENT 'for select by username';
+ALTER TABLE `all_user` ADD INDEX(`mobile`) COMMENT 'for select by mobile';
+ALTER TABLE `all_user` ADD INDEX(`email`) COMMENT 'for select by email';
+
+

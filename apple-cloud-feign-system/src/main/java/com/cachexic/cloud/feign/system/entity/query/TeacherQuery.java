@@ -1,16 +1,14 @@
 package com.cachexic.cloud.feign.system.entity.query;
 
 import com.cachexic.cloud.common.base.entity.query.BaseQuery;
-import com.cachexic.cloud.common.enums.YesOrNoEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @Description: 教师管理
+ * @Description: 用户管理
  * @author tangmin
- * @date 2017-11-05 19:47:05
+ * @date 2017-11-07 15:07:51
  */
 public class TeacherQuery extends BaseQuery{
   private static final long serialVersionUID = 1L;
@@ -36,22 +34,22 @@ public class TeacherQuery extends BaseQuery{
   private Date birthdayTime;
 
   @ApiModelProperty("分数")
-  private Long score;
+  private String score;
 
   @ApiModelProperty("出版的书籍数量")
-  private Long book;
+  private String book;
 
   @ApiModelProperty("数量")
-  private Integer num;
+  private String num;
 
   @ApiModelProperty("年龄")
-  private Integer age;
+  private String age;
 
   @ApiModelProperty("是否班主任")
-  private YesOrNoEnum classMater;
+  private String classMater;
 
   @ApiModelProperty("账户金额")
-  private BigDecimal account;
+  private String account;
 
   @ApiModelProperty("是否是特级教师")
   private Boolean supper;
@@ -125,56 +123,56 @@ public class TeacherQuery extends BaseQuery{
     return this;
   }
 
-  public Long getScore() {
+  public String getScore() {
     return score;
   }
 
-  public TeacherQuery setScore(Long score) {
+  public TeacherQuery setScore(String score) {
     this.score = score;
     return this;
   }
 
-  public Long getBook() {
+  public String getBook() {
     return book;
   }
 
-  public TeacherQuery setBook(Long book) {
+  public TeacherQuery setBook(String book) {
     this.book = book;
     return this;
   }
 
-  public Integer getNum() {
+  public String getNum() {
     return num;
   }
 
-  public TeacherQuery setNum(Integer num) {
+  public TeacherQuery setNum(String num) {
     this.num = num;
     return this;
   }
 
-  public Integer getAge() {
+  public String getAge() {
     return age;
   }
 
-  public TeacherQuery setAge(Integer age) {
+  public TeacherQuery setAge(String age) {
     this.age = age;
     return this;
   }
 
-  public YesOrNoEnum getClassMater() {
+  public String getClassMater() {
     return classMater;
   }
 
-  public TeacherQuery setClassMater(YesOrNoEnum classMater) {
+  public TeacherQuery setClassMater(String classMater) {
     this.classMater = classMater;
     return this;
   }
 
-  public BigDecimal getAccount() {
+  public String getAccount() {
     return account;
   }
 
-  public TeacherQuery setAccount(BigDecimal account) {
+  public TeacherQuery setAccount(String account) {
     this.account = account;
     return this;
   }

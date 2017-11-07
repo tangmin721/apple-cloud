@@ -13,10 +13,14 @@
 <#list entity.myfieldListNotTransient as e><#if e.simpleTypeName=="Date">
       <el-form-item label="${e.columnComment}" prop="${e.fieldName}">
         <el-date-picker
-            type="date" placeholder="选择日期"
             v-model="ruleForm.${e.fieldName}"
+            <#if e.columnType=="date">type="date"
+            placeholder="选择日期"
             format="yyyy-MM-dd"
-            value-format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd"<#elseif e.columnType=="datetime">type="datetime"
+            placeholder="选择日期时间"
+            format="yyyy-MM-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"</#if>
             style="width: 200px">
         </el-date-picker>
       </el-form-item>
@@ -72,7 +76,7 @@
         rules: {<#list entity.myfieldListNotTransient as e><#if e.simpleTypeName!="Boolean" && e.simpleTypeName!="Integer">
           ${e.fieldName}: [
             {required: true, message: '请填写${e.columnComment}', trigger: 'blur'}
-          ]<#if e_has_next>,</#if></#if></#list>
+          ],</#if></#list>
         }
       }
     },

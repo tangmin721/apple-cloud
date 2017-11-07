@@ -20,17 +20,17 @@
                 align="left"
                 ref="searchForm"
                 v-show="!isShowMoreForm">
-              <${entity.midLineName}-search
+              <user-search
                   :searchForm="searchForm">
-              </${entity.midLineName}-search>
+              </user-search>
             </el-form>
             <transition name="slide-up">
               <div class="form-more-box"
                    v-show="isShowMoreForm">
                 <i class="el-icon-circle-close-outline" @click="handleMoreForm"></i>
-                <${entity.midLineName}-search
+                <user-search
                 :searchForm="searchForm">
-                </${entity.midLineName}-search>
+                </user-search>
                 <el-button-group v-show="isShowMoreForm">
                   <el-button v-waves type="primary" icon="el-icon-search" @click="getList">搜索 </el-button>
                   <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
@@ -50,13 +50,13 @@
           </div>
         </div>
 
-        <${entity.midLineName}-form
+        <user-form
             :dialogStatus="dialogStatus"
             :dialogFormVisible="dialogFormVisible"
             :ruleForm="ruleForm"
             @closeDialogForm="closeDialogForm"
             @toggleGetList="getList"
-        ></${entity.midLineName}-form>
+        ></user-form>
       </el-header>
     </div>
 
@@ -85,7 +85,7 @@
               <el-form-item label="版本号" width="200px">
                 <span>{{ scope.row.version }}</span>
               </el-form-item>
-<#if CONFIG.extendBaseEntity=="true">              <el-form-item label="创建人id">
+              <el-form-item label="创建人id">
                 <span>{{ scope.row.createUserId }}</span>
               </el-form-item>
               <el-form-item label="创建人">
@@ -106,23 +106,17 @@
               <el-form-item label="状态">
                 <el-tag v-if="scope.row.status==='normal'" type="success">{{ scope.row.status }}</el-tag>
                 <el-tag v-if="scope.row.status!=='normal'" type="danger">{{ scope.row.status }}</el-tag>
-              </el-form-item></#if>
+              </el-form-item>
             </el-form>
           </template>
         </el-table-column>
         <el-table-column type="index" width="40px" fixed/>
-<#list entity.myfieldListNotTransient as e>
-  <#if e.simpleTypeName=="Date">
-        <el-table-column prop="${e.fieldName}" sortable="custom" label="${e.columnComment}" <#if e.columnType=="date">width="90px"<#else >width="135px"</#if>>
-          <template slot-scope="scope">
-            <span>{{ scope.row.${e.fieldName} }}</span>
-          </template>
-        </el-table-column>
-  </#if>
-  <#if e.simpleTypeName!="Date">
-        <el-table-column prop="${e.fieldName}" sortable="custom" label="${e.columnComment}"/>
-  </#if>
-</#list>        <el-table-column label="操作" fixed="right" width="120px">
+        <el-table-column prop="username" sortable="custom" label="用户名"/>
+        <el-table-column prop="password" sortable="custom" label="密码"/>
+        <el-table-column prop="mobile" sortable="custom" label="手机"/>
+        <el-table-column prop="email" sortable="custom" label="Email"/>
+        <el-table-column prop="avatar" sortable="custom" label="头像"/>
+        <el-table-column label="操作" fixed="right" width="120px">
           <template slot-scope="scope">
             <el-button-group>
               <el-button @click="handleUpdate(scope.row)" plain icon="el-icon-edit"></el-button>
@@ -153,13 +147,13 @@
   import axios from 'api/axios'
   import waves from 'directive/waves.js'// 水波纹指令
   import { NOTIFY_DURATION, MESSAGE_DURATION } from 'common/js/appconst'
-  import ${entity.className}Form from './${entity.className}Form'
-  import ${entity.className}Search from './${entity.className}Search'
+  import UserForm from './UserForm'
+  import UserSearch from './UserSearch'
 
   export default {
     components: {
-      ${entity.className}Form,
-      ${entity.className}Search
+      UserForm,
+      UserSearch
     },
     directives: {
       waves
@@ -192,7 +186,7 @@
     methods: {
       getList() {
         this.loading = true
-        axios.post('/${CONFIG.requestMapPath}/pagination', Object.assign({}, this.searchForm, this.query))
+        axios.post('/user/pagination', Object.assign({}, this.searchForm, this.query))
         .then((res) => {
           this.list = res.data.list
           this.total = Number(res.data.total)
@@ -227,15 +221,11 @@
       initForm() {
         this.ruleForm = {
           id: '',
-      <#list entity.myfieldListNotTransient as e>
-        <#if e.simpleTypeName=="Boolean">
-          ${e.fieldName}: false<#if e_has_next>,</#if>
-        <#elseif e.simpleTypeName=="String">
-          ${e.fieldName}: ''<#if e_has_next>,</#if>
-        <#else>
-          ${e.fieldName}: ''<#if e_has_next>,</#if>
-        </#if>
-      </#list>
+          username: '',
+          password: '',
+          mobile: '',
+          email: '',
+          avatar: ''
         }
       },
       handleCreate() {
@@ -315,7 +305,7 @@
         this.dialogFormVisible = false
       },
       delete(id) {
-        axios.delete(`/${CONFIG.requestMapPath}/${r"${"}${"id"}${r"}"}`)
+        axios.delete(`/user/${id}`)
         .then(() => {
           this.getList()
           this.$notify({
@@ -327,7 +317,7 @@
         }).catch(error => console.error(error))
       },
       deleteIds(ids) {
-        axios.delete(`/${CONFIG.requestMapPath}/ids/${r"${"}${"ids"}${r"}"}`)
+        axios.delete(`/user/ids/${ids}`)
         .then(() => {
           this.getList()
           this.$notify({

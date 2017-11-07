@@ -112,18 +112,16 @@
         </el-table-column>
         <el-table-column type="index" width="40px" fixed/>
         <el-table-column prop="name" sortable="custom" label="姓名"/>
-        <el-table-column prop="username" sortable="custom" label="username"/>
-        <el-table-column prop="idCard" sortable="custom" label="身份证" min-width="120px"/>
-        <el-table-column prop="birthday" sortable="custom" label="出生日期" width="120px">
+        <el-table-column prop="username" sortable="custom" label="username描述@TODO'"/>
+        <el-table-column prop="idCard" sortable="custom" label="身份证"/>
+        <el-table-column prop="birthday" sortable="custom" label="出生日期" width="90px">
           <template slot-scope="scope">
-            <i class="el-icon-time" style="color:red"></i>
-            <span style="margin-left: 2px">{{ scope.row.birthday }}</span>
+            <span>{{ scope.row.birthday }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="birthdayTime" sortable="custom" label="出生时间" width="180px">
+        <el-table-column prop="birthdayTime" sortable="custom" label="出生时间" width="135px">
           <template slot-scope="scope">
-            <i class="el-icon-time" style="color:red"></i>
-            <span style="margin-left: 2px">{{ scope.row.birthdayTime }}</span>
+            <span>{{ scope.row.birthdayTime }}</span>
           </template>
         </el-table-column>
         <el-table-column prop="score" sortable="custom" label="分数"/>

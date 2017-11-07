@@ -246,7 +246,7 @@ public class CodeGenerator {
         vue.generateCode(entity, genConfig));
     writeFile(dirPage, entity.getClassName() + "Form.vue",
         vueForm.generateCode(entity, genConfig));
-    writeFile(dirPage, entity.getClassName() + "search.vue",
+    writeFile(dirPage, entity.getClassName() + "Search.vue",
         vueSearch.generateCode(entity, genConfig));
     writeFile(dir, entity.getClassName() + "Readme.txt",
         readme.generateCode(entity, genConfig));
