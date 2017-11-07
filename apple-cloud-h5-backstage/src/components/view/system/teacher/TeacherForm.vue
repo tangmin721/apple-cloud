@@ -11,59 +11,92 @@
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="160px" align="left"
              class="module-ruleForm" center v-if="dialogFormVisible">
       <el-form-item label="姓名" prop="name">
-        <el-input prefix-icon="el-icon-service" style="width: 200px"
-                  v-model.trim="ruleForm.name"/>
+        <el-input
+            prefix-icon="el-icon-service"
+            style="width: 200px"
+            v-model.trim="ruleForm.name"
+        ></el-input>
       </el-form-item>
       <el-form-item label="username描述@TODO'" prop="username">
-        <el-input prefix-icon="el-icon-service" style="width: 200px"
-                  v-model.trim="ruleForm.username"/>
+        <el-input
+            prefix-icon="el-icon-service"
+            style="width: 200px"
+            v-model.trim="ruleForm.username"
+        ></el-input>
       </el-form-item>
       <el-form-item label="身份证" prop="idCard">
-        <el-input prefix-icon="el-icon-service" style="width: 200px"
-                  v-model.trim="ruleForm.idCard"/>
+        <el-input
+            prefix-icon="el-icon-service"
+            style="width: 200px"
+            v-model.trim="ruleForm.idCard"
+        ></el-input>
       </el-form-item>
       <el-form-item label="出生日期" prop="birthday">
-        <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.birthday"
-                        format="yyyy-MM-dd" value-format="yyyy-MM-dd"
-                        style="width: 200px"/>
+        <el-date-picker
+            type="date" placeholder="选择日期"
+            v-model="ruleForm.birthday"
+            format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd"
+            style="width: 200px">
+        </el-date-picker>
       </el-form-item>
       <el-form-item label="出生时间" prop="birthdayTime">
-        <el-date-picker type="date" placeholder="选择日期" v-model="ruleForm.birthdayTime"
-                        format="yyyy-MM-dd" value-format="yyyy-MM-dd"
-                        style="width: 200px"/>
+        <el-date-picker
+            type="date" placeholder="选择日期"
+            v-model="ruleForm.birthdayTime"
+            format="yyyy-MM-dd HH:mm:ss"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            style="width: 200px">
+        </el-date-picker>
       </el-form-item>
       <el-form-item label="分数" prop="score">
-        <el-input prefix-icon="el-icon-service" style="width: 200px"
-                  v-model.trim="ruleForm.score"/>
+        <el-input
+            prefix-icon="el-icon-service"
+            style="width: 200px"
+            v-model.trim="ruleForm.score"
+        ></el-input>
       </el-form-item>
       <el-form-item label="出版的书籍数量" prop="book">
-        <el-input prefix-icon="el-icon-service" style="width: 200px"
-                  v-model.trim="ruleForm.book"/>
+        <el-input
+            prefix-icon="el-icon-service"
+            style="width: 200px"
+            v-model.trim="ruleForm.book"
+        ></el-input>
       </el-form-item>
       <el-form-item label="数量" prop="num">
-        <el-input prefix-icon="el-icon-service" style="width: 200px"
-                  v-model.trim="ruleForm.num"/>
+        <el-input
+            prefix-icon="el-icon-service"
+            style="width: 200px"
+            v-model.trim="ruleForm.num"
+        ></el-input>
       </el-form-item>
       <el-form-item label="年龄" prop="age">
-        <el-input-number v-model="ruleForm.age" :min="1" :max="100000"
-                         style="width: 100px"></el-input-number>
+        <el-input-number
+            v-model="ruleForm.age"
+            :min="1"
+            :max="100000"
+            style="width: 100px"></el-input-number>
       </el-form-item>
       <el-form-item label="是否班主任" prop="classMater">
-        <el-input prefix-icon="el-icon-service" style="width: 200px"
-                  v-model.trim="ruleForm.classMater"/>
+        <el-input
+            prefix-icon="el-icon-service"
+            style="width: 200px"
+            v-model.trim="ruleForm.classMater"
+        ></el-input>
       </el-form-item>
       <el-form-item label="账户金额" prop="account">
-        <el-input prefix-icon="el-icon-service" style="width: 200px"
-                  v-model.trim="ruleForm.account"/>
+        <el-input
+            prefix-icon="el-icon-service"
+            style="width: 200px"
+            v-model.trim="ruleForm.account"
+        ></el-input>
       </el-form-item>
       <el-form-item label="是否是特级教师" prop="supper">
         <el-switch on-text="" off-text="" v-model="ruleForm.supper"></el-switch>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
-      <el-button icon="el-icon-success" type="primary" @click="submitForm('ruleForm')"
-                 :loading="btnLoading">确 定
-      </el-button>
+      <el-button icon="el-icon-success" type="primary" @click="submitForm('ruleForm')" :loading="btnLoading">确 定</el-button>
       <el-button-group>
         <el-button icon="el-icon-refresh" @click="resetForm('ruleForm')">重 置</el-button>
         <el-button icon="el-icon-circle-close" @click="closeDialogForm">取 消</el-button>

@@ -3,8 +3,8 @@
       <el-input placeholder="请输入姓名" v-model="searchForm.name" style="width: 200px;margin:0 5px">
       <template slot="prepend">姓名</template>
     </el-input>
-    <el-input placeholder="请输入username描述@TODO'" v-model="searchForm.username" style="width: 200px;margin:0 5px">
-      <template slot="prepend">username描述@TODO'</template>
+    <el-input placeholder="请输入username" v-model="searchForm.username" style="width: 200px;margin:0 5px">
+      <template slot="prepend">username</template>
     </el-input>
     <el-input placeholder="请输入身份证" v-model="searchForm.idCard" style="width: 200px;margin:0 5px">
       <template slot="prepend">身份证</template>

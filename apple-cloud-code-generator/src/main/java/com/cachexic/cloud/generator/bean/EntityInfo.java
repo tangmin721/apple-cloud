@@ -79,6 +79,11 @@ public class EntityInfo {
    */
   String underLineName;
 
+  /**
+   * 驼峰转中划线
+   */
+  String midLineName;
+
   public EntityInfo(Class<?> clazz, String tableName) {
     parse(clazz);
     this.tableName = tableName;
@@ -95,8 +100,12 @@ public class EntityInfo {
     this.fullClassName = fname;
     this.fullQueryClassName =
         fname.substring(0, fname.length() - simpleName.length()) + "query." + simpleName + "Query";
-    this.firstLowName = StringUtils.uncapitalize(simpleName);//首字母小写
-    this.underLineName = AppStringUtils.camelToUnderline(this.firstLowName);//驼峰转下划线
+    //首字母小写
+    this.firstLowName = StringUtils.uncapitalize(simpleName);
+    //驼峰转下划线
+    this.underLineName = AppStringUtils.camelToUnderline(this.firstLowName);
+    //驼峰转中划线
+    this.midLineName = AppStringUtils.camelToMidline(this.firstLowName);
 
     List<Field> fieldList = new ArrayList<>();
     Class<?> superClazz = clazz.getSuperclass();
@@ -358,6 +367,14 @@ public class EntityInfo {
 
   public void setMyfieldListNotTransient(List<EntityField> myfieldListNotTransient) {
     this.myfieldListNotTransient = myfieldListNotTransient;
+  }
+
+  public String getMidLineName() {
+    return midLineName;
+  }
+
+  public void setMidLineName(String midLineName) {
+    this.midLineName = midLineName;
   }
 
   @Override

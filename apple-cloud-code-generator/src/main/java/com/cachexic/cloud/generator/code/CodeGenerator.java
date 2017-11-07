@@ -242,11 +242,11 @@ public class CodeGenerator {
         feignClien.generateCode(entity, genConfig));
     writeFile(dir, entity.getClassName() + "FeignFallback.java",
         fallbackFactory.generateCode(entity, genConfig));
-    writeFile(dirPage, entity.getFirstLowName() + ".vue",
+    writeFile(dirPage, entity.getClassName() + ".vue",
         vue.generateCode(entity, genConfig));
-    writeFile(dirPage, "ruleForm.vue",
+    writeFile(dirPage, entity.getClassName() + "Form.vue",
         vueForm.generateCode(entity, genConfig));
-    writeFile(dirPage, "searchForm.vue",
+    writeFile(dirPage, entity.getClassName() + "search.vue",
         vueSearch.generateCode(entity, genConfig));
     writeFile(dir, entity.getClassName() + "Readme.txt",
         readme.generateCode(entity, genConfig));

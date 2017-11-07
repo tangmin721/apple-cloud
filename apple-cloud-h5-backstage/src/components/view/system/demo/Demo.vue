@@ -20,14 +20,13 @@
               align="left"
               ref="searchForm"
               v-show="!isShowMoreForm">
-              <search-form
-                :searchForm="searchForm"/>
+              <demo-search :searchForm="searchForm"></demo-search>
             </el-form>
             <transition name="slide-up">
               <div class="form-more-box"
                 v-show="isShowMoreForm">
                 <i class="el-icon-circle-close-outline" @click="handleMoreForm"></i>
-                <search-form :searchForm="searchForm"/>
+                <demo-search :searchForm="searchForm"></demo-search>
                 <el-button-group v-show="isShowMoreForm">
                   <el-button v-waves type="primary" icon="el-icon-search" @click="getList">搜索 </el-button>
                   <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
@@ -47,13 +46,13 @@
           </div>
         </div>
 
-        <rule-form
+        <demo-form
           :dialogStatus="dialogStatus"
           :dialogFormVisible="dialogFormVisible"
           :ruleForm="ruleForm"
           @closeDialogForm="closeDialogForm"
           @toggleGetList="getList"
-        />
+        ></demo-form>
       </el-header>
     </div>
 
@@ -69,6 +68,7 @@
         @sort-change="sortChange"
         @selection-change="handleSelectionChange"
         :max-height="maxHeight"
+        :height="maxHeight"
         style="width:100%;"
       >
         <el-table-column type="selection" width="14px" style="padding: 0 5px" fixed/>
@@ -164,13 +164,13 @@
   import axios from 'api/axios'
   import waves from 'directive/waves.js'// 水波纹指令
   import { NOTIFY_DURATION, MESSAGE_DURATION } from 'common/js/appconst'
-  import RuleForm from './ruleForm'
-  import SearchForm from './searchForm'
+  import DemoForm from './DemoForm'
+  import DemoSearch from './DemoSearch'
 
   export default {
     components: {
-      RuleForm,
-      SearchForm
+      DemoForm,
+      DemoSearch
     },
     directives: {
       waves

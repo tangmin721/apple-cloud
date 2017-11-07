@@ -20,14 +20,17 @@
                 align="left"
                 ref="searchForm"
                 v-show="!isShowMoreForm">
-              <search-form
-                  :searchForm="searchForm"/>
+              <${entity.midLineName}-search
+                  :searchForm="searchForm">
+              </${entity.midLineName}-search>
             </el-form>
             <transition name="slide-up">
               <div class="form-more-box"
                    v-show="isShowMoreForm">
                 <i class="el-icon-circle-close-outline" @click="handleMoreForm"></i>
-                <search-form :searchForm="searchForm"/>
+                <${entity.midLineName}-search
+                :searchForm="searchForm">
+                </${entity.midLineName}-search>
                 <el-button-group v-show="isShowMoreForm">
                   <el-button v-waves type="primary" icon="el-icon-search" @click="getList">搜索 </el-button>
                   <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
@@ -47,13 +50,13 @@
           </div>
         </div>
 
-        <rule-form
+        <${entity.midLineName}-form
             :dialogStatus="dialogStatus"
             :dialogFormVisible="dialogFormVisible"
             :ruleForm="ruleForm"
             @closeDialogForm="closeDialogForm"
             @toggleGetList="getList"
-        />
+        ></${entity.midLineName}-form>
       </el-header>
     </div>
 
@@ -110,7 +113,7 @@
         <el-table-column type="index" width="40px" fixed/>
 <#list entity.myfieldListNotTransient as e>
   <#if e.simpleTypeName=="Date">
-        <el-table-column prop="${e.fieldName}" sortable="custom" label="${e.columnComment}" min-width="120px">
+        <el-table-column prop="${e.fieldName}" sortable="custom" label="${e.columnComment}" width="120px">
           <template slot-scope="scope">
             <i class="el-icon-time" style="color:red"></i>
             <span style="margin-left: 2px">{{ scope.row.${e.fieldName} }}</span>
@@ -118,7 +121,7 @@
         </el-table-column>
   </#if>
   <#if e.simpleTypeName!="Date">
-        <el-table-column prop="${e.fieldName}" sortable="custom" label="${e.columnComment}" width="80px"/>
+        <el-table-column prop="${e.fieldName}" sortable="custom" label="${e.columnComment}"/>
   </#if>
 </#list>        <el-table-column label="操作" fixed="right" width="120px">
           <template slot-scope="scope">
@@ -151,13 +154,13 @@
   import axios from 'api/axios'
   import waves from 'directive/waves.js'// 水波纹指令
   import { NOTIFY_DURATION, MESSAGE_DURATION } from 'common/js/appconst'
-  import RuleForm from './ruleForm'
-  import SearchForm from './searchForm'
+  import ${entity.className}Form from './${entity.className}Form'
+  import ${entity.className}Search from './${entity.className}Search'
 
   export default {
     components: {
-      RuleForm,
-      SearchForm
+      ${entity.className}Form,
+      ${entity.className}Search
     },
     directives: {
       waves

@@ -21,6 +21,7 @@
         <el-menu-item class="elMenuItemForHover" v-waves index="/system/userPage"><i class="el-icon-location"></i><span slot="title">用户管理</span></el-menu-item>
         <el-menu-item class="elMenuItemForHover" v-waves index="/system/userForm"><i class="el-icon-location"></i><span slot="title">用户表单</span></el-menu-item>
         <el-menu-item class="elMenuItemForHover" v-waves index="/system/userOther"><i class="el-icon-location"></i><span slot="title">other</span></el-menu-item>
+        <el-menu-item class="elMenuItemForHover" v-waves index="/system/demoAndTeacher"><i class="el-icon-location"></i><span slot="title">DemoAndTeacher</span></el-menu-item>
         <el-submenu index="1-2">
           <template slot="title">
             <i class="el-icon-location"></i>

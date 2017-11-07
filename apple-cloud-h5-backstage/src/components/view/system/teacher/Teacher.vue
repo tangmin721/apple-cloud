@@ -20,14 +20,17 @@
                 align="left"
                 ref="searchForm"
                 v-show="!isShowMoreForm">
-              <search-form
-                  :searchForm="searchForm"/>
+              <teacher-search
+                  :searchForm="searchForm">
+              </teacher-search>
             </el-form>
             <transition name="slide-up">
               <div class="form-more-box"
                    v-show="isShowMoreForm">
                 <i class="el-icon-circle-close-outline" @click="handleMoreForm"></i>
-                <search-form :searchForm="searchForm"/>
+                <teacher-search
+                :searchForm="searchForm">
+                </teacher-search>
                 <el-button-group v-show="isShowMoreForm">
                   <el-button v-waves type="primary" icon="el-icon-search" @click="getList">搜索 </el-button>
                   <el-button v-waves type="warning" icon="el-icon-delete" @click="handleClearSearch">清空</el-button>
@@ -47,13 +50,13 @@
           </div>
         </div>
 
-        <rule-form
+        <teacher-form
             :dialogStatus="dialogStatus"
             :dialogFormVisible="dialogFormVisible"
             :ruleForm="ruleForm"
             @closeDialogForm="closeDialogForm"
             @toggleGetList="getList"
-        />
+        ></teacher-form>
       </el-header>
     </div>
 
@@ -108,29 +111,28 @@
           </template>
         </el-table-column>
         <el-table-column type="index" width="40px" fixed/>
-        <el-table-column prop="name" sortable="custom" label="姓名" width="80px"/>
-        <el-table-column prop="username" sortable="custom" label="username描述@TODO'" width="80px"/>
-        <el-table-column prop="idCard" sortable="custom" label="身份证" width="80px"/>
-        <el-table-column prop="birthday" sortable="custom" label="出生日期" min-width="120px">
+        <el-table-column prop="name" sortable="custom" label="姓名"/>
+        <el-table-column prop="username" sortable="custom" label="username"/>
+        <el-table-column prop="idCard" sortable="custom" label="身份证" min-width="120px"/>
+        <el-table-column prop="birthday" sortable="custom" label="出生日期" width="120px">
           <template slot-scope="scope">
             <i class="el-icon-time" style="color:red"></i>
             <span style="margin-left: 2px">{{ scope.row.birthday }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="birthdayTime" sortable="custom" label="出生时间" min-width="120px">
+        <el-table-column prop="birthdayTime" sortable="custom" label="出生时间" width="180px">
           <template slot-scope="scope">
             <i class="el-icon-time" style="color:red"></i>
             <span style="margin-left: 2px">{{ scope.row.birthdayTime }}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="score" sortable="custom" label="分数" width="80px"/>
-        <el-table-column prop="book" sortable="custom" label="出版的书籍数量" width="80px"/>
-        <el-table-column prop="num" sortable="custom" label="数量" width="80px"/>
-        <el-table-column prop="age" sortable="custom" label="年龄" width="80px"/>
-        <el-table-column prop="nameTransient" sortable="custom" label="不映射数据库,insert方法没有" width="80px"/>
-        <el-table-column prop="classMater" sortable="custom" label="是否班主任" width="80px"/>
-        <el-table-column prop="account" sortable="custom" label="账户金额" width="80px"/>
-        <el-table-column prop="supper" sortable="custom" label="是否是特级教师" width="80px"/>
+        <el-table-column prop="score" sortable="custom" label="分数"/>
+        <el-table-column prop="book" sortable="custom" label="出版的书籍数量"/>
+        <el-table-column prop="num" sortable="custom" label="数量"/>
+        <el-table-column prop="age" sortable="custom" label="年龄"/>
+        <el-table-column prop="classMater" sortable="custom" label="是否班主任"/>
+        <el-table-column prop="account" sortable="custom" label="账户金额"/>
+        <el-table-column prop="supper" sortable="custom" label="是否是特级教师"/>
         <el-table-column label="操作" fixed="right" width="120px">
           <template slot-scope="scope">
             <el-button-group>
@@ -162,13 +164,13 @@
   import axios from 'api/axios'
   import waves from 'directive/waves.js'// 水波纹指令
   import { NOTIFY_DURATION, MESSAGE_DURATION } from 'common/js/appconst'
-  import RuleForm from './ruleForm'
-  import SearchForm from './searchForm'
+  import TeacherForm from './TeacherForm'
+  import TeacherSearch from './TeacherSearch'
 
   export default {
     components: {
-      RuleForm,
-      SearchForm
+      TeacherForm,
+      TeacherSearch
     },
     directives: {
       waves

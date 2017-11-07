@@ -13,7 +13,10 @@ public class AppStringUtils {
 
   public static final char UNDERLINE = '_';
 
-  public static String camelToUnderline(String param) {
+  public static final char MIDLINE = '_';
+
+
+  public static String camelToline(String param,char line) {
     if (param == null || "".equals(param.trim())) {
       return "";
     }
@@ -22,13 +25,21 @@ public class AppStringUtils {
     for (int i = 0; i < len; i++) {
       char c = param.charAt(i);
       if (Character.isUpperCase(c)) {
-        sb.append(UNDERLINE);
+        sb.append(line);
         sb.append(Character.toLowerCase(c));
       } else {
         sb.append(c);
       }
     }
     return sb.toString();
+  }
+
+  public static String camelToUnderline(String param) {
+    return camelToline(param,UNDERLINE);
+  }
+
+  public static String camelToMidline(String param) {
+    return camelToline(param,MIDLINE);
   }
 
   public static String underlineToCamel(String param) {
