@@ -48,6 +48,17 @@
       <groupId>com.github.tomakehurst</groupId>
       <artifactId>wiremock</artifactId>
     </dependency>
+
+    <!--security-->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>apple-cloud-security-app</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

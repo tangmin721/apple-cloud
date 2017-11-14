@@ -38,3 +38,5 @@ spring:
         randomGroup: ${random.uuid} #随机消费组，如果不想要随机，只需要在@KafkaListener上写死group就可以了
 
 
+aliyun.oss.AccessKeyId: LTAItB1P4wtW0XWc
+aliyun.oss.AccessKeySecret: itHJ9Hz99TKFqc5XxYRilsaBfE3QEz

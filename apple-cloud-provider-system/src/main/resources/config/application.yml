@@ -1,3 +1,5 @@
+# app.id: provider-system
+
 spring:
   application:
     name: provider-system
@@ -13,6 +15,8 @@ server:
   session: # session 过期时间 tomcat session timeout 至少1分钟60s
     timeout: 600
 
+aliyun.oss.AccessKeyId: LTAItB1P4wtW0XWc
+aliyun.oss.AccessKeySecret: itHJ9Hz99TKFqc5XxYRilsaBfE3QEz
 
 # security.basic.enabled: false
 

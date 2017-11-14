@@ -23,6 +23,11 @@
       <artifactId>apple-cloud-feign-system</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
+    <dependency>
+      <groupId>com.ctrip.framework.apollo</groupId>
+      <artifactId>apollo-client</artifactId>
+      <version>0.9.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
   <build>

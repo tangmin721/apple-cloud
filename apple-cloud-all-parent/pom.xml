@@ -52,6 +52,7 @@
     <hibernate-validator.version>5.2.5.Final</hibernate-validator.version>
 
     <rocketmq.version>4.1.0-incubating</rocketmq.version>
+    <aliyun-sdk-oss.version>2.8.1</aliyun-sdk-oss.version>
 
     <jjwt.version>0.7.0</jjwt.version>
 
@@ -131,6 +132,12 @@
         <groupId>io.jsonwebtoken</groupId>
         <artifactId>jjwt</artifactId>
         <version>${jjwt.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.aliyun.oss</groupId>
+        <artifactId>aliyun-sdk-oss</artifactId>
+        <version>${aliyun-sdk-oss.version}</version>
       </dependency>
 
       <!--swagger文档生成-->

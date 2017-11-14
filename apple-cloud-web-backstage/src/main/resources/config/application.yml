@@ -1,8 +1,16 @@
 spring:
   application:
     name: web-backstage
+  session:
+    store-type: none  # redis
 
 swagger:
   api:
     title: 后台管理系统文档
     description: 后台API
+
+#OAuth2认证服务器的tokenStore的类型，可选值为redis和jwt，值为jwt时发出的token为jwt
+apple.security.oauth2.tokenStore: jwt  # jwt 或 redis
+#使用jwt时为token签名的秘钥
+apple.security.oauth2.jwtSigningKey: applefsafaffdsafdsakkjjk
+#刷新refresh_token可以设置得比token长，这样，在用户发现token过期的时候，调用refresh_token方法。
